@@ -1,19 +1,21 @@
 //
-//  ViewController.swift
+//  CreateChoicesVC.swift
 //  quiz
 //
-//  Created by Omer on 5.11.2023.
+//  Created by Omer on 7.11.2023.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class CreateChoicesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
+    
 
+   
 
 }
-

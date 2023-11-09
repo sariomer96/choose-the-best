@@ -9,21 +9,52 @@
 /* Begin PBXBuildFile section */
 		17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DD92AF8075A00CB513A /* AppDelegate.swift */; };
 		17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */; };
-		17B12DDE2AF8075A00CB513A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDD2AF8075A00CB513A /* ViewController.swift */; };
+		17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDD2AF8075A00CB513A /* HomeVC.swift */; };
 		17B12DE12AF8075A00CB513A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B12DDF2AF8075A00CB513A /* Main.storyboard */; };
 		17B12DE32AF8075C00CB513A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B12DE22AF8075C00CB513A /* Assets.xcassets */; };
 		17B12DE62AF8075C00CB513A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B12DE42AF8075C00CB513A /* LaunchScreen.storyboard */; };
+		17B12DEE2AFA98D900CB513A /* CreateQuizVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DED2AFA98D900CB513A /* CreateQuizVC.swift */; };
+		17B12DF02AFAA98200CB513A /* CreateChoicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DEF2AFAA98200CB513A /* CreateChoicesVC.swift */; };
+		17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */; };
+		17B12DF42AFB7BC100CB513A /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF32AFB7BC100CB513A /* StartVC.swift */; };
+		17B12DF62AFCD88600CB513A /* QuizListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF52AFCD88600CB513A /* QuizListVC.swift */; };
+		17B12DF82AFCD8AE00CB513A /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF72AFCD8AE00CB513A /* GameVC.swift */; };
+		17B12DFA2AFCD8E000CB513A /* GameStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF92AFCD8E000CB513A /* GameStartVC.swift */; };
+		17B12E002AFCD99A00CB513A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DFF2AFCD99A00CB513A /* HomeViewModel.swift */; };
+		17B12E022AFCD9C300CB513A /* QuizListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E012AFCD9C300CB513A /* QuizListViewModel.swift */; };
+		17B12E042AFCD9F800CB513A /* CreateQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E032AFCD9F800CB513A /* CreateQuizViewModel.swift */; };
+		17B12E062AFCDA1100CB513A /* CreateChoicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E052AFCDA1100CB513A /* CreateChoicesViewModel.swift */; };
+		17B12E082AFCDA2F00CB513A /* CreatePublishingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E072AFCDA2F00CB513A /* CreatePublishingViewModel.swift */; };
+		17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E092AFCDA5800CB513A /* GameStartViewModel.swift */; };
+		17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */; };
+		17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E0D2AFCDBEA00CB513A /* WebService.swift */; };
+		17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E102AFCDCAC00CB513A /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17B12DD62AF8075A00CB513A /* quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B12DD92AF8075A00CB513A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		17B12DDD2AF8075A00CB513A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		17B12DDD2AF8075A00CB513A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		17B12DE02AF8075A00CB513A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17B12DE22AF8075C00CB513A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17B12DE52AF8075C00CB513A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17B12DE72AF8075C00CB513A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17B12DED2AFA98D900CB513A /* CreateQuizVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateQuizVC.swift; sourceTree = "<group>"; };
+		17B12DEF2AFAA98200CB513A /* CreateChoicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChoicesVC.swift; sourceTree = "<group>"; };
+		17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublishingVC.swift; sourceTree = "<group>"; };
+		17B12DF32AFB7BC100CB513A /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
+		17B12DF52AFCD88600CB513A /* QuizListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListVC.swift; sourceTree = "<group>"; };
+		17B12DF72AFCD8AE00CB513A /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
+		17B12DF92AFCD8E000CB513A /* GameStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartVC.swift; sourceTree = "<group>"; };
+		17B12DFF2AFCD99A00CB513A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		17B12E012AFCD9C300CB513A /* QuizListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListViewModel.swift; sourceTree = "<group>"; };
+		17B12E032AFCD9F800CB513A /* CreateQuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateQuizViewModel.swift; sourceTree = "<group>"; };
+		17B12E052AFCDA1100CB513A /* CreateChoicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChoicesViewModel.swift; sourceTree = "<group>"; };
+		17B12E072AFCDA2F00CB513A /* CreatePublishingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublishingViewModel.swift; sourceTree = "<group>"; };
+		17B12E092AFCDA5800CB513A /* GameStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartViewModel.swift; sourceTree = "<group>"; };
+		17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		17B12E0D2AFCDBEA00CB513A /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +88,62 @@
 		17B12DD82AF8075A00CB513A /* quiz */ = {
 			isa = PBXGroup;
 			children = (
+				17B12DFE2AFCD94000CB513A /* Model */,
+				17B12DFD2AFCD93200CB513A /* Service */,
+				17B12DFC2AFCD92700CB513A /* ViewModel */,
+				17B12DFB2AFCD91B00CB513A /* View */,
 				17B12DD92AF8075A00CB513A /* AppDelegate.swift */,
 				17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */,
-				17B12DDD2AF8075A00CB513A /* ViewController.swift */,
 				17B12DDF2AF8075A00CB513A /* Main.storyboard */,
 				17B12DE22AF8075C00CB513A /* Assets.xcassets */,
 				17B12DE42AF8075C00CB513A /* LaunchScreen.storyboard */,
 				17B12DE72AF8075C00CB513A /* Info.plist */,
 			);
 			path = quiz;
+			sourceTree = "<group>";
+		};
+		17B12DFB2AFCD91B00CB513A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				17B12DEF2AFAA98200CB513A /* CreateChoicesVC.swift */,
+				17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */,
+				17B12DDD2AF8075A00CB513A /* HomeVC.swift */,
+				17B12DF72AFCD8AE00CB513A /* GameVC.swift */,
+				17B12DF92AFCD8E000CB513A /* GameStartVC.swift */,
+				17B12DED2AFA98D900CB513A /* CreateQuizVC.swift */,
+				17B12DF52AFCD88600CB513A /* QuizListVC.swift */,
+				17B12DF32AFB7BC100CB513A /* StartVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		17B12DFC2AFCD92700CB513A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				17B12DFF2AFCD99A00CB513A /* HomeViewModel.swift */,
+				17B12E032AFCD9F800CB513A /* CreateQuizViewModel.swift */,
+				17B12E072AFCDA2F00CB513A /* CreatePublishingViewModel.swift */,
+				17B12E052AFCDA1100CB513A /* CreateChoicesViewModel.swift */,
+				17B12E012AFCD9C300CB513A /* QuizListViewModel.swift */,
+				17B12E092AFCDA5800CB513A /* GameStartViewModel.swift */,
+				17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		17B12DFD2AFCD93200CB513A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				17B12E0D2AFCDBEA00CB513A /* WebService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		17B12DFE2AFCD94000CB513A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +162,9 @@
 			dependencies = (
 			);
 			name = quiz;
+			packageProductDependencies = (
+				17B12E102AFCDCAC00CB513A /* Alamofire */,
+			);
 			productName = quiz;
 			productReference = 17B12DD62AF8075A00CB513A /* quiz.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +193,9 @@
 				Base,
 			);
 			mainGroup = 17B12DCD2AF8075A00CB513A;
+			packageReferences = (
+				17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 17B12DD72AF8075A00CB513A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +223,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17B12DDE2AF8075A00CB513A /* ViewController.swift in Sources */,
+				17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */,
+				17B12DEE2AFA98D900CB513A /* CreateQuizVC.swift in Sources */,
+				17B12E002AFCD99A00CB513A /* HomeViewModel.swift in Sources */,
+				17B12DF62AFCD88600CB513A /* QuizListVC.swift in Sources */,
+				17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */,
+				17B12DF02AFAA98200CB513A /* CreateChoicesVC.swift in Sources */,
+				17B12E042AFCD9F800CB513A /* CreateQuizViewModel.swift in Sources */,
+				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
+				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
+				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
+				17B12DF42AFB7BC100CB513A /* StartVC.swift in Sources */,
 				17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */,
+				17B12DFA2AFCD8E000CB513A /* GameStartVC.swift in Sources */,
+				17B12DF82AFCD8AE00CB513A /* GameVC.swift in Sources */,
+				17B12E082AFCDA2F00CB513A /* CreatePublishingViewModel.swift in Sources */,
 				17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */,
+				17B12E022AFCD9C300CB513A /* QuizListViewModel.swift in Sources */,
+				17B12E062AFCDA1100CB513A /* CreateChoicesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +458,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		17B12E102AFCDCAC00CB513A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 17B12DCE2AF8075A00CB513A /* Project object */;
 }
