@@ -29,6 +29,10 @@
 		17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */; };
 		17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E0D2AFCDBEA00CB513A /* WebService.swift */; };
 		17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E102AFCDCAC00CB513A /* Alamofire */; };
+		17B12E132AFECEF800CB513A /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E122AFECEF800CB513A /* test.swift */; };
+		17B12E152B00292000CB513A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E142B00292000CB513A /* Category.swift */; };
+		17B12E182B00CC0100CB513A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E172B00CC0100CB513A /* RxSwift */; };
+		17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E192B00EF5800CB513A /* CategoryViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +59,9 @@
 		17B12E092AFCDA5800CB513A /* GameStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartViewModel.swift; sourceTree = "<group>"; };
 		17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		17B12E0D2AFCDBEA00CB513A /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		17B12E122AFECEF800CB513A /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		17B12E142B00292000CB513A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		17B12E192B00EF5800CB513A /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B12E182B00CC0100CB513A /* RxSwift in Frameworks */,
 				17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +101,7 @@
 				17B12DFC2AFCD92700CB513A /* ViewModel */,
 				17B12DFB2AFCD91B00CB513A /* View */,
 				17B12DD92AF8075A00CB513A /* AppDelegate.swift */,
+				17B12E192B00EF5800CB513A /* CategoryViewCell.swift */,
 				17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */,
 				17B12DDF2AF8075A00CB513A /* Main.storyboard */,
 				17B12DE22AF8075C00CB513A /* Assets.xcassets */,
@@ -142,6 +151,8 @@
 		17B12DFE2AFCD94000CB513A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				17B12E122AFECEF800CB513A /* test.swift */,
+				17B12E142B00292000CB513A /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +175,7 @@
 			name = quiz;
 			packageProductDependencies = (
 				17B12E102AFCDCAC00CB513A /* Alamofire */,
+				17B12E172B00CC0100CB513A /* RxSwift */,
 			);
 			productName = quiz;
 			productReference = 17B12DD62AF8075A00CB513A /* quiz.app */;
@@ -195,6 +207,7 @@
 			mainGroup = 17B12DCD2AF8075A00CB513A;
 			packageReferences = (
 				17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				17B12E162B00CC0100CB513A /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 17B12DD72AF8075A00CB513A /* Products */;
 			projectDirPath = "";
@@ -230,10 +243,13 @@
 				17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */,
 				17B12DF02AFAA98200CB513A /* CreateChoicesVC.swift in Sources */,
 				17B12E042AFCD9F800CB513A /* CreateQuizViewModel.swift in Sources */,
+				17B12E132AFECEF800CB513A /* test.swift in Sources */,
 				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
+				17B12E152B00292000CB513A /* Category.swift in Sources */,
 				17B12DF42AFB7BC100CB513A /* StartVC.swift in Sources */,
+				17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */,
 				17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */,
 				17B12DFA2AFCD8E000CB513A /* GameStartVC.swift in Sources */,
 				17B12DF82AFCD8AE00CB513A /* GameVC.swift in Sources */,
@@ -468,6 +484,14 @@
 				kind = branch;
 			};
 		};
+		17B12E162B00CC0100CB513A /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -475,6 +499,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		17B12E172B00CC0100CB513A /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17B12E162B00CC0100CB513A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
