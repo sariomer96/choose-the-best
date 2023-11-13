@@ -47,6 +47,29 @@ class WebService {
         
     }
     }
+    var quizList = BehaviorSubject<[Result]>(value: [Result]())
+    func getQuizListFromCategory(categoryId:Int) {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+              AF.request("http://127.0.0.1:8000/quizes?category__id=\(categoryId)",method: .get).response { response in
+        if let data = response.data{
+            do{
+                
+                var cevap = try decoder.decode(ApiResponse.self, from: data)
+                
+                if let list = cevap.results {
+                    self.quizList.onNext(list)
+                }
+                print(cevap.results)
+                 
+            }catch{
+                print("\(error.localizedDescription) III")
+            }
+        }
+        
+     }
+    }
     func getQuizElements() {
         
             let decoder = JSONDecoder()

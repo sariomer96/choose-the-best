@@ -6,7 +6,23 @@
 //
 
 import Foundation
+import RxSwift
 
-class QuizListViewModel {
+protocol QuizListProtocol {
+    func getQuizList(categoryId:Int)
+}
+class QuizListViewModel : QuizListProtocol {
+    
+    var quizList = BehaviorSubject<[Result]>(value: [Result]())
+    
+    init() {
+        self.quizList = WebService.shared.quizList
+    }
+    
+    func getQuizList(categoryId:Int) {
+        WebService.shared.getQuizListFromCategory(categoryId: categoryId)
+    }
+    
+    
     
 }

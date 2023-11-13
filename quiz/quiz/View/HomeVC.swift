@@ -56,6 +56,20 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row].pk)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toQuizList" {
+        
+            
+            let vc = segue.destination as! QuizListVC
+            
+            vc.quizId = sender as! Int
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
        
