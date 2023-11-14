@@ -46,15 +46,15 @@ class QuizListVC: UIViewController {
 
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return quizList.count
+        return quizList.count*10
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
         
-        cell.nameLabel.text = quizList[indexPath.row].title
-        let url = quizList[indexPath.row].image
+        cell.nameLabel.text = quizList[0].title
+        let url = quizList[0].image
         cell.imageView!.kf.setImage(with: URL(string: url)) { result in
             
             DispatchQueue.main.async {

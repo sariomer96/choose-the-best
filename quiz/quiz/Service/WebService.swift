@@ -13,9 +13,7 @@ class WebService {
     
     static let shared = WebService()
    
-     func getTopRated() {
-    
-    }
+     
     
     func getRecentlyUploads () {
         
@@ -70,24 +68,31 @@ class WebService {
         
      }
     }
-    func getQuizElements() {
-        
+    var topQuizList = BehaviorSubject<[Result]>(value: [Result]())
+    
+    func getTopRateQuiz() {
+
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
- 
+
         AF.request("http://127.0.0.1:8000/quizes",method: .get).response { response in
             if let data = response.data{
                 do{
-                    
+
                     var cevap = try decoder.decode(ApiResponse.self, from: data)
-                    
-                    print(cevap.results)
-                     
+
+                    if let list = cevap.results {
+                        self.topQuizList.onNext(list)
+                        print("wrok")
+                    }
+                  
+                 
+
                 }catch{
                     print("\(error.localizedDescription) III")
                 }
             }
-            
+
         }
     }
     func postQuiz() {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		172ED89B2B02470B00CD02F4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 172ED89A2B02470B00CD02F4 /* Kingfisher */; };
+		174B03512B0373DF00A7076C /* TopRatedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B03502B0373DF00A7076C /* TopRatedViewCell.swift */; };
 		17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DD92AF8075A00CB513A /* AppDelegate.swift */; };
 		17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */; };
 		17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDD2AF8075A00CB513A /* HomeVC.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		174B03502B0373DF00A7076C /* TopRatedViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedViewCell.swift; sourceTree = "<group>"; };
 		17B12DD62AF8075A00CB513A /* quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B12DD92AF8075A00CB513A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				17B12DFB2AFCD91B00CB513A /* View */,
 				17B12DD92AF8075A00CB513A /* AppDelegate.swift */,
 				17B12E192B00EF5800CB513A /* CategoryViewCell.swift */,
+				174B03502B0373DF00A7076C /* TopRatedViewCell.swift */,
 				17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */,
 				17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */,
 				17B12DDF2AF8075A00CB513A /* Main.storyboard */,
@@ -254,6 +257,7 @@
 				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
+				174B03512B0373DF00A7076C /* TopRatedViewCell.swift in Sources */,
 				17B12E152B00292000CB513A /* Category.swift in Sources */,
 				17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */,
 				17B12DF42AFB7BC100CB513A /* StartVC.swift in Sources */,

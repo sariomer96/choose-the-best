@@ -6,19 +6,41 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HomeVC: UIViewController {
-
+    @IBOutlet weak var topRateTableView: UITableView!
+    
+    @IBOutlet weak var lastUpdateTableView: UITableView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
    
     let viewModel = HomeViewModel()
     var categoryList = [CategoryClass]()
+    var topQuizList = [Result]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
+        topRateTableView.delegate = self
+        topRateTableView.dataSource = self
+        lastUpdateTableView.delegate = self
+        lastUpdateTableView.dataSource = self
+        
         viewModel.getCategories()
+        viewModel.getTopRateQuiz()
+        
+        _ = viewModel.topQuizList.subscribe(onNext: {  list in
+            self.topQuizList = list
+           
+            
+            DispatchQueue.main.async {
+                self.topRateTableView.reloadData()
+            }
+           
+ 
+        })
+        
         _ = viewModel.categoryList.subscribe(onNext: {  list in
             self.categoryList = list
            
@@ -26,10 +48,10 @@ class HomeVC: UIViewController {
             DispatchQueue.main.async {
                 self.categoryCollectionView.reloadData()
             }
-            self.categoryCollectionView.reloadData()
+           
  
         })
-     //   WebService.shared.getQuizElements()
+ 
        
     }
 
@@ -46,6 +68,8 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
         
 //        cell.layer.cornerRadius = 10
@@ -72,8 +96,6 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-       
-        
         let screenWidth = UIScreen.main.bounds.width
         // 32 constraints + inter space
         let width: CGFloat = (screenWidth - 16)/2
@@ -88,7 +110,24 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
+        
+}
+
+extension HomeVC:UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return topQuizList.count*5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
+       
+        
+             cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
+             let url = topQuizList[0].image
+             cell.topImageView.kf.setImage(with: URL(string: url))
+         
+        return cell
+    }
     
     
 }
-
