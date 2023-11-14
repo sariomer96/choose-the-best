@@ -36,6 +36,7 @@ class HomeVC: UIViewController {
             
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
+                self.lastUpdateTableView.reloadData()
             }
            
  
@@ -84,6 +85,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         
         performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row].pk)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toQuizList" {
         
@@ -114,19 +116,43 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
 }
 
 extension HomeVC:UITableViewDelegate,UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return topQuizList.count*5
+        if tableView == topRateTableView {
+            return topQuizList.count*5
+        }else{
+            return topQuizList.count*10
+        }
+   
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
-       
         
-             cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
-             let url = topQuizList[0].image
-             cell.topImageView.kf.setImage(with: URL(string: url))
-         
-        return cell
+        if tableView == topRateTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
+           
+            
+                 cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
+                 let url = topQuizList[0].image
+                 cell.topImageView.kf.setImage(with: URL(string: url))
+             
+            return cell
+        }
+        
+        if tableView == lastUpdateTableView {
+            print("AAAAAA")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
+           
+            
+                 cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
+                 let url = topQuizList[0].image
+            cell.updateImageView.kf.setImage(with: URL(string: url))
+             
+            return cell
+        }
+        
+        return UITableViewCell()
+    
     }
     
     
