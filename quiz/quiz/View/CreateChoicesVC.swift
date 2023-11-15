@@ -15,7 +15,13 @@ class CreateChoicesVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func imageChoiceClick(_ sender: Any) {
+        performSegue(withIdentifier: "toImage", sender: nil)
+    }
+    
    
 
+    @IBAction func videoChoiceClick(_ sender: Any) {
+        performSegue(withIdentifier: "toVideo", sender: nil)
+    }
 }

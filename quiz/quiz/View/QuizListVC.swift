@@ -10,7 +10,9 @@ import Kingfisher
 
 class QuizListVC: UIViewController {
 
+    @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var nameCategory:String?
     let viewModel = QuizListViewModel()
     var quizList = [Result]()
     
@@ -36,9 +38,12 @@ class QuizListVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        categoryName.text = ""
+    }
     override func viewDidAppear(_ animated: Bool) {
         viewModel.getQuizList(categoryId: quizId!)
+        categoryName.text = nameCategory
     }
     
 
@@ -46,7 +51,7 @@ class QuizListVC: UIViewController {
 
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return quizList.count*10
+        return quizList.count*5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
