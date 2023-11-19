@@ -15,12 +15,14 @@ struct ApiResponse: Codable {
 }
 
 struct Result: Codable {
+   
     let title: String
     let image: String
     let attachments: [Attachment]
     let category: Category
     let created_at: String?
     let updated_at: String?
+ 
 }
 
 struct Attachment: Codable {
@@ -32,7 +34,7 @@ struct Attachment: Codable {
 }
 
 struct Category: Codable {
-    let pk: Int
+    let id: Int
     let name: String
     let created_at: String?
     let updated_at: String?

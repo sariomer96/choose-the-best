@@ -11,13 +11,24 @@ import UIKit
 protocol AlertProtocol:AnyObject {
     func alert(view:UIViewController)
 }
+ 
+protocol UiViewDelegate:AnyObject {
+    func getUiViewController(view:UIViewController)
+}
 
-final class CreateQuizViewModel:AlertProtocol {
+class CreateQuizViewModel:NSObject,AlertProtocol {
+     
     
+  
     weak var delegate:AlertProtocol?
+    weak var uiView:UIViewController?
+    weak var recogDelegate:UiViewDelegate?
+    var coverImage:UIImageView?
     
-    init() {
+    override init() {
+        super.init()
         delegate = self
+        recogDelegate = self
     }
     
     
@@ -35,13 +46,55 @@ final class CreateQuizViewModel:AlertProtocol {
     
     func alert(view:UIViewController) {
         
-   
+         
         let alert = UIAlertController(title: "Field is empty", message: "You should fill the title.", preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default)
         alert.addAction(ok)
         view.present(alert,animated: true)
-     
         
     }
+    
+    
+ 
+}
+
+
+/// IMAGE RECOGNIZER
+extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    func getUiViewController(view: UIViewController) {
+        uiView = view
+        print("setuiview \(uiView)")
+    }
+    
+    func recognizer(imageView:UIImageView,view:UIViewController) {
+        
+        
+        recogDelegate?.getUiViewController(view: view)
+        imageView.isUserInteractionEnabled = true
+        coverImage = imageView
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
+        coverImage!.addGestureRecognizer(gestureRecognizer)
+        print("recog")
+    }
+    
+    @objc func chooseImage() {
+         
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        uiView?.present(picker,animated: true,completion: nil)
+  
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        coverImage?.image = info[.originalImage] as? UIImage
+        uiView?.dismiss(animated: true)
+        
+        let image = coverImage?.image!
+        
+        WebService.shared.uploadImage(title: "Ah be ustam", image: image!, categoryID: 1, isVisible: true)
+        
+    }
+     
 }

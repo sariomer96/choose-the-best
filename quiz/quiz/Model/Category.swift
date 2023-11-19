@@ -14,7 +14,7 @@ struct CategoryResult: Codable {
     let results: [CategoryClass]?
 }
 struct CategoryClass: Codable {
-    let pk: Int
+    let id: Int
     let name: String
     let created_at: String?
     let updated_at: String?

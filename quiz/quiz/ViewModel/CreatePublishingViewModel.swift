@@ -6,7 +6,17 @@
 //
 
 import Foundation
+import RxSwift
 
 class CreatePublishingViewModel {
     
+    var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
+
+    init() {
+        self.categoryList = WebService.shared.categoryList
+    }
+    
+    func getCategory() {
+        WebService.shared.getCategories()
+    }
 }

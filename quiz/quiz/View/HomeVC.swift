@@ -16,7 +16,9 @@ class HomeVC: UIViewController {
    
     let viewModel = HomeViewModel()
     var categoryList = [CategoryClass]()
-    var topQuizList = [Result]()
+    var topQuizList = [TopRateResult]()
+    var recentlyList = [TopRateResult]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,7 @@ class HomeVC: UIViewController {
         
         viewModel.getCategories()
         viewModel.getTopRateQuiz()
+        viewModel.getRecentlyQuiz()
         
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list
@@ -40,6 +43,17 @@ class HomeVC: UIViewController {
             }
            
  
+        })
+        _ = viewModel.recentlyList.subscribe(onNext: {  list in
+            self.recentlyList = list
+
+
+            DispatchQueue.main.async {
+
+                self.lastUpdateTableView.reloadData()
+            }
+
+
         })
         
         _ = viewModel.categoryList.subscribe(onNext: {  list in
@@ -57,12 +71,14 @@ class HomeVC: UIViewController {
     }
 
 
+    @IBAction func createQuizClick(_ sender: Any) {
+        performSegue(withIdentifier: "toCreateVC", sender: nil)
+    }
 }
 
 extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-     
-        print(categoryList.count)
+      
         return categoryList.count
        
         
@@ -94,7 +110,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
             let vc = segue.destination as! QuizListVC
             
             vc.nameCategory = category.name
-            vc.quizId = category.pk
+            vc.quizId = category.id
         }
     }
     
@@ -121,10 +137,12 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == topRateTableView {
-            return topQuizList.count*5
-        }else{
-            return topQuizList.count*10
+            return topQuizList.count
+        }else {
+            return recentlyList.count
         }
+        
+      
    
     }
     
@@ -133,21 +151,21 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         if tableView == topRateTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
            
-            
-                 cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
-                 let url = topQuizList[0].image
+ 
+            cell.nameLabel.text = topQuizList[indexPath.row].title   // IT WILL CHANGE WHEN DATA REFRESH
+            let url = topQuizList[indexPath.row].image
                  cell.topImageView.kf.setImage(with: URL(string: url))
              
             return cell
         }
         
         if tableView == lastUpdateTableView {
-            print("AAAAAA")
+  
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
            
             
-                 cell.nameLabel.text = topQuizList[0].title   // IT WILL CHANGE WHEN DATA REFRESH
-                 let url = topQuizList[0].image
+            cell.nameLabel.text = recentlyList[indexPath.row].title   // IT WILL CHANGE WHEN DATA REFRESH
+            let url = recentlyList[indexPath.row].image
             cell.updateImageView.kf.setImage(with: URL(string: url))
              
             return cell
