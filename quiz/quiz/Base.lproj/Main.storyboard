@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LoV-jf-W3Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qSk-aW-xAo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -705,11 +705,17 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="circle" catalog="system" title="Unlisted (Only people with link can play)"/>
+                                <connections>
+                                    <action selector="privateClick:" destination="qSk-aW-xAo" eventType="touchUpInside" id="ogu-7a-wVr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7Y-To-VRO">
                                 <rect key="frame" x="8" y="234" width="398" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="circle" catalog="system" title="Public"/>
+                                <connections>
+                                    <action selector="publicClick:" destination="qSk-aW-xAo" eventType="touchUpInside" id="dkk-Wn-quy"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTv-P5-Jhp">
                                 <rect key="frame" x="157" y="333" width="100" height="30"/>
@@ -727,31 +733,30 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="publishCategoryCell" id="lHJ-Kl-yGG" customClass="PublishingCategoryCollectionViewCell" customModule="quiz" customModuleProvider="target">
+                                    <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="publishCategoryCell" id="lHJ-Kl-yGG" customClass="PublishingCategoryCollectionViewCell" customModule="quiz" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="955-cB-UlV">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0w-Sj-JhS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEH-a5-je0">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="CategoryName"/>
-                                                    <connections>
-                                                        <action selector="categoryNameClick:" destination="lHJ-Kl-yGG" eventType="touchUpInside" id="vdD-K8-GJH"/>
-                                                    </connections>
-                                                </button>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <color key="textColor" red="0.96470588239999999" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="K0w-Sj-JhS" firstAttribute="leading" secondItem="955-cB-UlV" secondAttribute="leading" id="6Rc-ft-Zl6"/>
-                                                <constraint firstAttribute="trailing" secondItem="K0w-Sj-JhS" secondAttribute="trailing" id="S5m-L0-MP5"/>
-                                                <constraint firstItem="K0w-Sj-JhS" firstAttribute="top" secondItem="955-cB-UlV" secondAttribute="top" id="gVh-zG-KAB"/>
-                                                <constraint firstAttribute="bottom" secondItem="K0w-Sj-JhS" secondAttribute="bottom" id="vjD-Lm-hXp"/>
+                                                <constraint firstItem="MEH-a5-je0" firstAttribute="top" secondItem="955-cB-UlV" secondAttribute="top" id="2fo-Y8-tp4"/>
+                                                <constraint firstAttribute="bottom" secondItem="MEH-a5-je0" secondAttribute="bottom" id="gb0-Kt-Kop"/>
+                                                <constraint firstAttribute="trailing" secondItem="MEH-a5-je0" secondAttribute="trailing" id="iws-TT-gyz"/>
+                                                <constraint firstItem="MEH-a5-je0" firstAttribute="leading" secondItem="955-cB-UlV" secondAttribute="leading" id="oqZ-41-iGb"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tintColor"/>
                                         <connections>
-                                            <outlet property="categoryNameButton" destination="K0w-Sj-JhS" id="L6T-cX-AdP"/>
+                                            <outlet property="categoryLabel" destination="MEH-a5-je0" id="10d-n2-QXh"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -761,6 +766,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Publish"/>
+                                <connections>
+                                    <action selector="publishClick:" destination="qSk-aW-xAo" eventType="touchUpInside" id="eIt-C3-PxE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="k4J-8I-rL5"/>
@@ -831,6 +839,9 @@
         </systemColor>
         <systemColor name="tertiarySystemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

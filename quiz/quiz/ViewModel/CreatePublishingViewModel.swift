@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import UIKit
 
 class CreatePublishingViewModel {
     
@@ -18,5 +19,10 @@ class CreatePublishingViewModel {
     
     func getCategory() {
         WebService.shared.getCategories()
+    }
+    
+    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
+        print("viewmodel worked")
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible)
     }
 }

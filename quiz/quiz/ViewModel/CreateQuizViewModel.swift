@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol AlertProtocol:AnyObject {
-    func alert(view:UIViewController)
+    func alert(view:UIViewController,title:String,message:String)
 }
  
 protocol UiViewDelegate:AnyObject {
@@ -20,23 +20,27 @@ class CreateQuizViewModel:NSObject,AlertProtocol {
      
     
   
-    weak var delegate:AlertProtocol?
+    weak var delegateAlert:AlertProtocol?
     weak var uiView:UIViewController?
     weak var recogDelegate:UiViewDelegate?
+    var isSelectedImage:Bool = false
     var coverImage:UIImageView?
     
     override init() {
         super.init()
-        delegate = self
+        delegateAlert = self
         recogDelegate = self
     }
     
-    
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool){
+        print("work viewmodel")
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible)
+    }
     func checkIsEmptyFields(title:String, view:UIViewController) -> Bool{
       
         let trimmedString = title.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmedString.isEmpty   {
-            delegate?.alert(view:view)
+           
             return true
         }else{
             return false
@@ -44,10 +48,10 @@ class CreateQuizViewModel:NSObject,AlertProtocol {
     }
     
     
-    func alert(view:UIViewController) {
+    func alert(view:UIViewController, title:String,message:String) {
         
          
-        let alert = UIAlertController(title: "Field is empty", message: "You should fill the title.", preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default)
         alert.addAction(ok)
@@ -92,8 +96,7 @@ extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UI
         uiView?.dismiss(animated: true)
         
         let image = coverImage?.image!
-        
-        WebService.shared.uploadImage(title: "Ah be ustam", image: image!, categoryID: 1, isVisible: true)
+        isSelectedImage = true
         
     }
      

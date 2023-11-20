@@ -9,9 +9,5 @@ import UIKit
 
 class PublishingCategoryCollectionViewCell: UICollectionViewCell {
     
-    
-    @IBOutlet weak var categoryNameButton: UIButton!
-    @IBAction func categoryNameClick(_ sender: Any) {
-        
-    }
-}
+    @IBOutlet weak var categoryLabel: UILabel!
+ }

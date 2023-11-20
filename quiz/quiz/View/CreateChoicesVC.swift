@@ -9,9 +9,12 @@ import UIKit
 
 class CreateChoicesVC: UIViewController {
 
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       
         // Do any additional setup after loading the view.
     }
     
@@ -19,9 +22,11 @@ class CreateChoicesVC: UIViewController {
         performSegue(withIdentifier: "toImage", sender: nil)
     }
     
-   
-
     @IBAction func videoChoiceClick(_ sender: Any) {
         performSegue(withIdentifier: "toVideo", sender: nil)
     }
+    
+ 
 }
+
+ 

@@ -133,15 +133,16 @@ class WebService {
   
  
 
-    func uploadImage(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
-        let url = "http://192.168.1.106:8000/quizes/"
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
+      
+        let url = "http://localhost:8000/quizes/"
         
         // Resmi Data tipine çevirme
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("Could not get JPEG representation of image")
             return
         }
-        
+        print("uploadingg")
         print("tileee \(title)")
         // Gönderilecek parametreleri ayarlama
         let parameters: [String: Any] = [

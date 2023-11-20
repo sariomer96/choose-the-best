@@ -9,12 +9,19 @@ import UIKit
 
 class CreatePublishingVC: UIViewController {
 
+    
+    
     var viewModel = CreatePublishingViewModel()
+    var didSelectCategory = false
     var categoryList = [CategoryClass]()
+    var isVisible = true
+    var categoryID = 1
+ 
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+      
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         viewModel.getCategory()
@@ -32,7 +39,23 @@ class CreatePublishingVC: UIViewController {
     }
     
  
-
+    @IBAction func publishClick(_ sender: Any) {
+        
+        if didSelectCategory == true {
+            viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible)
+            print("clicked create quzf")
+        }
+        print("clicked")
+      
+    }
+    
+    @IBAction func privateClick(_ sender: Any) {
+        isVisible = false
+    }
+    
+    @IBAction func publicClick(_ sender: Any) {
+        isVisible = true
+    }
     
 }
 
@@ -41,17 +64,35 @@ extension CreatePublishingVC:UICollectionViewDelegate,UICollectionViewDataSource
         return categoryList.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        categoryID = categoryList[indexPath.row].id
+        print("selected categoryyy")
+        didSelectCategory = true
+         
+    }
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        }
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.contentView.backgroundColor = nil
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "publishCategoryCell", for: indexPath) as! PublishingCategoryCollectionViewCell
         
-        cell.categoryNameButton.setTitle(categoryList[indexPath.row].name, for: .normal)
-        
+        cell.categoryLabel.text = categoryList[indexPath.row].name
+      
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        print("workkf")
+         
         let screenWidth = UIScreen.main.bounds.width
         // 32 constraints + inter space
         let width: CGFloat = (screenWidth - 16)/2
