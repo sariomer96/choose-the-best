@@ -12,6 +12,7 @@ class QuizListVC: UIViewController {
 
     @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     var nameCategory:String?
     let viewModel = QuizListViewModel()
     var quizList = [Result]()
@@ -24,6 +25,7 @@ class QuizListVC: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
         _ = viewModel.quizList.subscribe(onNext: {  list in
             self.quizList = list
@@ -46,7 +48,12 @@ class QuizListVC: UIViewController {
         categoryName.text = nameCategory
     }
     
+}
 
+extension QuizListVC : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        <#code#>
+    }
 }
 
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {

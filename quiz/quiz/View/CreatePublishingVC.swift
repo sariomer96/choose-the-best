@@ -43,9 +43,9 @@ class CreatePublishingVC: UIViewController {
         
         if didSelectCategory == true {
             viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible)
-            print("clicked create quzf")
+        
         }
-        print("clicked")
+        
       
     }
     
@@ -66,7 +66,7 @@ extension CreatePublishingVC:UICollectionViewDelegate,UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         categoryID = categoryList[indexPath.row].id
-        print("selected categoryyy")
+       
         didSelectCategory = true
          
     }

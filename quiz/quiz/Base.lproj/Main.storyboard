@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="J2l-nL-tMK">
-                                <rect key="frame" x="8" y="156" width="398" height="698"/>
+                                <rect key="frame" x="8" y="220" width="398" height="634"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuizListTableViewCell" id="Kz3-7Y-289" customClass="QuizListTableViewCell" customModule="quiz" customModuleProvider="target">
@@ -64,12 +64,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ed8-qS-nSa">
+                                <rect key="frame" x="0.0" y="157" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="xXq-0J-IhG" id="vuL-Tn-OFG"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bwn-5E-F6j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="J2l-nL-tMK" firstAttribute="top" secondItem="bwn-5E-F6j" secondAttribute="top" constant="64" id="P26-3y-pb5"/>
+                            <constraint firstItem="bwn-5E-F6j" firstAttribute="trailing" secondItem="ed8-qS-nSa" secondAttribute="trailing" id="1lU-Ma-xmb"/>
+                            <constraint firstItem="J2l-nL-tMK" firstAttribute="top" secondItem="bwn-5E-F6j" secondAttribute="top" constant="128" id="P26-3y-pb5"/>
+                            <constraint firstItem="ed8-qS-nSa" firstAttribute="leading" secondItem="bwn-5E-F6j" secondAttribute="leading" id="Zib-yV-G68"/>
                             <constraint firstItem="J2l-nL-tMK" firstAttribute="leading" secondItem="bwn-5E-F6j" secondAttribute="leading" constant="8" id="fle-6i-Q7g"/>
+                            <constraint firstItem="ed8-qS-nSa" firstAttribute="top" secondItem="bwn-5E-F6j" secondAttribute="top" constant="65" id="ozO-Uw-E0o"/>
                             <constraint firstItem="bwn-5E-F6j" firstAttribute="bottom" secondItem="J2l-nL-tMK" secondAttribute="bottom" constant="8" id="pjp-TQ-xdQ"/>
                             <constraint firstItem="bwn-5E-F6j" firstAttribute="trailing" secondItem="J2l-nL-tMK" secondAttribute="trailing" constant="8" id="tcn-vY-Tqf"/>
                         </constraints>
@@ -77,6 +87,7 @@
                     <navigationItem key="navigationItem" id="HpJ-J6-W8N"/>
                     <connections>
                         <outlet property="categoryName" destination="4U4-4e-axW" id="3f9-Br-lHX"/>
+                        <outlet property="searchBar" destination="ed8-qS-nSa" id="5Fz-P2-d8V"/>
                         <outlet property="tableView" destination="J2l-nL-tMK" id="GY7-ZS-WqO"/>
                         <segue destination="UZf-IL-CKm" kind="show" id="Yh9-qc-CG8"/>
                     </connections>
@@ -822,7 +833,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="NPL-5m-d2X"/>
         <segue reference="mtG-tv-81n"/>
-        <segue reference="MW7-CZ-VQ5"/>
+        <segue reference="Yh9-qc-CG8"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>

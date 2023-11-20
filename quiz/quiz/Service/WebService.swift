@@ -132,6 +132,9 @@ class WebService {
     }
   
  
+    func searchQuiz(searchText:String){
+        
+    }
 
     func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
       

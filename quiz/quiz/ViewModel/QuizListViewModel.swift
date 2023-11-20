@@ -23,6 +23,10 @@ class QuizListViewModel : QuizListProtocol {
         WebService.shared.getQuizListFromCategory(categoryId: categoryId)
     }
     
+    func search(searchText:String) {
+        WebService.shared.searchQuiz(searchText: searchText)
+    }
+    
     
     
 }
