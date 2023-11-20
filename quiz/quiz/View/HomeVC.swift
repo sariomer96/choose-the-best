@@ -16,6 +16,7 @@ class HomeVC: UIViewController {
    
     let viewModel = HomeViewModel()
     var categoryList = [CategoryClass]()
+ 
     var topQuizList = [TopRateResult]()
     var recentlyList = [TopRateResult]()
     
@@ -178,6 +179,8 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
            
  
             cell.nameLabel.text = topQuizList[indexPath.row].title
+            cell.categoryNameLabel.text = topQuizList[indexPath.row].category?.name
+                
             let url = topQuizList[indexPath.row].image
                  cell.topImageView.kf.setImage(with: URL(string: url))
             
@@ -191,7 +194,9 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
            
             
-            cell.nameLabel.text = recentlyList[indexPath.row].title   // IT WILL CHANGE WHEN DATA REFRESH
+            cell.nameLabel.text = recentlyList[indexPath.row].title
+            cell.categoryNameLabel.text = recentlyList[indexPath.row].category?.name
+                
             let url = recentlyList[indexPath.row].image
             cell.updateImageView.kf.setImage(with: URL(string: url))
              

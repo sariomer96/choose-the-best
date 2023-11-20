@@ -10,6 +10,7 @@ import UIKit
 class TopRatedViewCell: UITableViewCell {
 
     @IBOutlet weak var topImageView: UIImageView!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
  
     override func awakeFromNib() {

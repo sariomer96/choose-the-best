@@ -11,6 +11,7 @@ class LastUpdateTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var updateImageView: UIImageView!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
