@@ -11,10 +11,10 @@ struct ApiResponse: Codable {
     let count: Int?
     let next: String?
     let previous: String?
-    let results: [Result]?
+    let results: [QuizResponse]?
 }
 
-struct Result: Codable {
+struct QuizResponse: Codable {
    
     let title: String
     let image: String

@@ -76,7 +76,7 @@ class WebService {
         
     }
 }
-    var quizList = BehaviorSubject<[Result]>(value: [Result]())
+    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     func getQuizListFromCategory(categoryId:Int) {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

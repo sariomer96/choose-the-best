@@ -13,7 +13,7 @@ protocol QuizListProtocol {
 }
 class QuizListViewModel : QuizListProtocol {
     
-    var quizList = BehaviorSubject<[Result]>(value: [Result]())
+    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     
     init() {
         self.quizList = WebService.shared.quizList
