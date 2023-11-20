@@ -52,7 +52,7 @@ class QuizListVC: UIViewController {
 
 extension QuizListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        <#code#>
+        
     }
 }
 

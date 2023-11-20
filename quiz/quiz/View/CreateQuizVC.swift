@@ -25,21 +25,32 @@ class CreateQuizVC: UIViewController {
      
     
     @IBAction func nextButtonClick(_ sender: Any) {
-      
-       let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)
-        
-        
-        if isEmpty == false, viewModel.isSelectedImage == true{
-            CreateQuizFields.shared.quizHeaderImage = coverImageView.image!
-            CreateQuizFields.shared.quizTitle = quizTitleLabel.text!
-            
-             performSegue(withIdentifier: "toChoices", sender: nil)
-               
-        }else {
-            viewModel.delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
-        }
+   
         
        
+    }
+     
+    func setQuizFields(identifier:String) {
+        
+         let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)
+          
+          
+          if isEmpty == false, viewModel.isSelectedImage == true{
+              CreateQuizFields.shared.quizHeaderImage = coverImageView.image!
+              CreateQuizFields.shared.quizTitle = quizTitleLabel.text!
+              
+               performSegue(withIdentifier: identifier, sender: nil)
+                 
+          }else {
+              viewModel.delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
+          }
+    }
+    @IBAction func imageQuizclicked(_ sender: Any) {
+        setQuizFields(identifier: "toImage")
+      
+    }
+    @IBAction func videoQuizClick(_ sender: Any) {
+        setQuizFields(identifier: "toVideo")
     }
     
 }
