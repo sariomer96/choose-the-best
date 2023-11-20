@@ -344,9 +344,12 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fla-cL-cgb">
-                                <rect key="frame" x="8" y="770" width="398" height="35"/>
+                                <rect key="frame" x="8" y="819" width="398" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="START"/>
+                                <connections>
+                                    <action selector="startClick:" destination="UZf-IL-CKm" eventType="touchUpInside" id="f7j-pW-87d"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tur Sayisi List Box ( 1 on 1 vs.)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaQ-5W-dKQ">
                                 <rect key="frame" x="59" y="432" width="293" height="28"/>
@@ -368,13 +371,12 @@
                     <connections>
                         <outlet property="quizHeaderImageView" destination="quZ-iv-k9F" id="FZG-mF-ona"/>
                         <outlet property="quizTitleLabel" destination="zU2-uH-XeN" id="5Bs-z2-lWh"/>
-                        <segue destination="SaW-Jj-nZl" kind="show" id="mtG-tv-81n"/>
-                        <segue destination="SaW-Jj-nZl" kind="show" id="L6F-dk-OQB"/>
+                        <segue destination="SaW-Jj-nZl" kind="show" identifier="toGameVC" id="L6F-dk-OQB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="naU-v0-Hdx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="197"/>
+            <point key="canvasLocation" x="504" y="334"/>
         </scene>
         <!--GameVC-->
         <scene sceneID="Ov4-MF-pwO">
@@ -825,8 +827,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="8Fv-Qm-caX"/>
-        <segue reference="mtG-tv-81n"/>
-        <segue reference="MW7-CZ-VQ5"/>
+        <segue reference="sDV-GC-aka"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>

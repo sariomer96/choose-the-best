@@ -29,5 +29,8 @@ class GameStartVC: UIViewController {
         let url = quizImage!
         quizHeaderImageView.kf.setImage(with: URL(string: url))
     }
-
+    @IBAction func startClick(_ sender: Any) {
+        performSegue(withIdentifier: "toGameVC", sender: nil)
+    }
+    
 }

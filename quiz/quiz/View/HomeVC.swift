@@ -112,6 +112,18 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
             vc.nameCategory = category.name
             vc.quizId = category.id
         }
+        
+        if segue.identifier == "toGameStartVC" {
+            let quiz = sender as! TopRateResult
+            
+            let vc = segue.destination as! GameStartVC
+            
+           
+            vc.quizTitle = quiz.title
+            vc.quizImage = quiz.image
+  
+           
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -145,16 +157,31 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
       
    
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if tableView == topRateTableView {
+            
+            let quiz =  topQuizList[indexPath.row]
+            performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+        }else {
+            
+            let quiz =  recentlyList[indexPath.row]
+            performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+        }
+    }
     
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == topRateTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
            
  
-            cell.nameLabel.text = topQuizList[indexPath.row].title   // IT WILL CHANGE WHEN DATA REFRESH
+            cell.nameLabel.text = topQuizList[indexPath.row].title
             let url = topQuizList[indexPath.row].image
                  cell.topImageView.kf.setImage(with: URL(string: url))
+            
+            
              
             return cell
         }
