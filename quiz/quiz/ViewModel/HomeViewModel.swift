@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel {
+struct HomeViewModel {
     
     var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
     var topQuizList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())

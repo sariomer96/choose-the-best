@@ -10,6 +10,7 @@ import Kingfisher
 
 class QuizListVC: UIViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -26,27 +27,38 @@ class QuizListVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+       
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+        viewModel.getQuizList(categoryId: quizId!)
         
+         self.activityIndicator.isHidden = false
+         self.activityIndicator.startAnimating()
+    
         _ = viewModel.quizList.subscribe(onNext: {  list in
             self.quizList = list
-           
-             
+
+          
             DispatchQueue.main.async {
+               
                 self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
             self.tableView.reloadData()
- 
+
         })
         
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+       
         categoryName.text = ""
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.getQuizList(categoryId: quizId!)
         categoryName.text = nameCategory
+   
+      
     }
+    
     
 }
 

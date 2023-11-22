@@ -11,7 +11,7 @@ import RxSwift
 protocol QuizListProtocol {
     func getQuizList(categoryId:Int)
 }
-class QuizListViewModel : QuizListProtocol {
+struct QuizListViewModel : QuizListProtocol {
     
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     

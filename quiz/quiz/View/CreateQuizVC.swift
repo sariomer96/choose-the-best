@@ -9,25 +9,15 @@ import UIKit
 
 class CreateQuizVC: UIViewController {
     
-     
-  
-
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UITextField!
-    @IBOutlet weak var nextButton: UIButton!
     var viewModel = CreateQuizViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
       
         viewModel.recognizer(imageView: coverImageView, view: self)
-    }
-     
-    
-    @IBAction func nextButtonClick(_ sender: Any) {
-   
-        
-       
     }
      
     func setQuizFields(identifier:String) {
@@ -42,9 +32,11 @@ class CreateQuizVC: UIViewController {
                performSegue(withIdentifier: identifier, sender: nil)
                  
           }else {
-              viewModel.delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
+              AlertManager().delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
+             // viewModel.delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
           }
     }
+    
     @IBAction func imageQuizclicked(_ sender: Any) {
         setQuizFields(identifier: "toImage")
       

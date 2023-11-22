@@ -7,6 +7,6 @@
 
 import Foundation
 
-class QuizDetailViewModel {
+struct QuizDetailViewModel {
     
 }

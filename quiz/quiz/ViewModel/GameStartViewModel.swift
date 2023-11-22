@@ -7,6 +7,6 @@
 
 import Foundation
 
-class GameStartViewModel {
+struct GameStartViewModel {
     
 }

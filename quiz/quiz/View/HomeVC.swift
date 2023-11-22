@@ -12,6 +12,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var topRateTableView: UITableView!
     
     @IBOutlet weak var lastUpdateTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
    
     let viewModel = HomeViewModel()
@@ -34,16 +35,19 @@ class HomeVC: UIViewController {
         viewModel.getTopRateQuiz()
         viewModel.getRecentlyQuiz()
         
+        activityIndicator.startAnimating()
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list
-           
+
             
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
                 self.lastUpdateTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             }
-           
- 
+
+
         })
         _ = viewModel.recentlyList.subscribe(onNext: {  list in
             self.recentlyList = list

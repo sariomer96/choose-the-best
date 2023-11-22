@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import UIKit
 
-class CreatePublishingViewModel {
+struct CreatePublishingViewModel {
     
     var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
 

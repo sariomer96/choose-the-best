@@ -16,19 +16,17 @@ protocol UiViewDelegate:AnyObject {
     func getUiViewController(view:UIViewController)
 }
 
-class CreateQuizViewModel:NSObject,AlertProtocol {
-     
-    
-  
-    weak var delegateAlert:AlertProtocol?
-    weak var uiView:UIViewController?
-    weak var recogDelegate:UiViewDelegate?
+class CreateQuizViewModel:NSObject {
+      
+   //  var delegateAlert:AlertProtocol?
+    var uiView:UIViewController?
+    var recogDelegate:UiViewDelegate?
     var isSelectedImage:Bool = false
     var coverImage:UIImageView?
     
     override init() {
         super.init()
-        delegateAlert = self
+      //  delegateAlert = self
         recogDelegate = self
     }
     
@@ -48,17 +46,17 @@ class CreateQuizViewModel:NSObject,AlertProtocol {
     }
     
     
-    func alert(view:UIViewController, title:String,message:String) {
-        
-         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let ok = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(ok)
-        view.present(alert,animated: true)
-        
-    }
-    
+//    func alert(view:UIViewController, title:String,message:String) {
+//
+//
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//
+//        let ok = UIAlertAction(title: "OK", style: .default)
+//        alert.addAction(ok)
+//        view.present(alert,animated: true)
+//
+//    }
+//
     
  
 }
