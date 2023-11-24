@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol QuizListProtocol {
-    func getQuizList(categoryId:Int)
+    func getQuizList(categoryId:Int,completion: @escaping (String?) -> Void)
 }
 struct QuizListViewModel : QuizListProtocol {
     
@@ -19,12 +19,12 @@ struct QuizListViewModel : QuizListProtocol {
         self.quizList = WebService.shared.quizList
     }
     
-    func getQuizList(categoryId:Int) {
-        WebService.shared.getQuizListFromCategory(categoryId: categoryId)
+    func getQuizList(categoryId:Int, completion: @escaping (String?) -> Void) {
+        WebService.shared.getQuizListFromCategory(categoryId: categoryId,completion: completion)
     }
     
-    func search(searchText:String) {
-        WebService.shared.searchQuiz(searchText: searchText)
+    func search(searchText:String,completion: @escaping (String) -> Void) {
+        WebService.shared.searchQuiz(searchText: searchText, completion: completion)
     }
     
     

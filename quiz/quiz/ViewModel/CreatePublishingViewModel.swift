@@ -17,12 +17,12 @@ struct CreatePublishingViewModel {
         self.categoryList = WebService.shared.categoryList
     }
     
-    func getCategory() {
-        WebService.shared.getCategories()
+    func getCategory(completion: @escaping (String?) -> Void) {
+        WebService.shared.getCategories(completion: completion)
     }
     
-    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
+    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, completion: @escaping (String?,Bool) -> Void) {
         print("viewmodel worked")
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible)
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, completion: completion)
     }
 }

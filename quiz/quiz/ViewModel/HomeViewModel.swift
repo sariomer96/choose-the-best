@@ -19,15 +19,15 @@ struct HomeViewModel {
         self.topQuizList = WebService.shared.topQuizList
         self.recentlyList = WebService.shared.recentlyList
     }
-    func getCategories() {
+    func getCategories(completion: @escaping (String?) -> Void) {
       
-        WebService.shared.getCategories()
+        WebService.shared.getCategories(completion: completion)
     }
     
-    func getTopRateQuiz(){
-        WebService.shared.getTopRateQuiz()
+    func getTopRateQuiz(completion: @escaping (String?) -> Void){
+        WebService.shared.getTopRateQuiz(completion: completion)
     }
-    func getRecentlyQuiz(){
-        WebService.shared.getRecentlyUploads()
+    func getRecentlyQuiz(completion: @escaping (String?) -> Void){
+        WebService.shared.getRecentlyUploads(completion: completion)
     }
 }

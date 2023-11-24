@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 
 class HomeVC: UIViewController {
     @IBOutlet weak var topRateTableView: UITableView!
@@ -20,7 +21,7 @@ class HomeVC: UIViewController {
  
     var topQuizList = [TopRateResult]()
     var recentlyList = [TopRateResult]()
-    
+    let bag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,11 +32,20 @@ class HomeVC: UIViewController {
         lastUpdateTableView.delegate = self
         lastUpdateTableView.dataSource = self
         
-        viewModel.getCategories()
-        viewModel.getTopRateQuiz()
-        viewModel.getRecentlyQuiz()
-        
-        activityIndicator.startAnimating()
+        viewModel.getCategories {error in
+            
+            if let error = error {
+               
+                AlertManager.shared.alert(view: self, title: "ERROR", message: String(error.description))
+            }
+        }
+        viewModel.getTopRateQuiz { error in
+            
+        }
+        viewModel.getRecentlyQuiz { error in
+            
+        }
+   
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list
 
@@ -43,12 +53,12 @@ class HomeVC: UIViewController {
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
                 self.lastUpdateTableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+          
             }
 
 
-        })
+        }).disposed(by: bag)
+        
         _ = viewModel.recentlyList.subscribe(onNext: {  list in
             self.recentlyList = list
 
@@ -59,22 +69,31 @@ class HomeVC: UIViewController {
             }
 
 
-        })
+        }).disposed(by: bag)
         
-        _ = viewModel.categoryList.subscribe(onNext: {  list in
+        _ = viewModel.categoryList.do(onNext: {  list in
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.isHidden = false
+            print("start")
+
+        }).subscribe(onNext: {  list in
             self.categoryList = list
            
-            
             DispatchQueue.main.async {
                 self.categoryCollectionView.reloadData()
+             
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                print("stiop")
+                
             }
            
  
-        })
+        }).disposed(by: bag)
  
        
     }
-
+     
 
     @IBAction func createQuizClick(_ sender: Any) {
         performSegue(withIdentifier: "toCreateVC", sender: nil)

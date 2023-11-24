@@ -28,25 +28,29 @@ class QuizListVC: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
        
-        self.activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
-        viewModel.getQuizList(categoryId: quizId!)
+        viewModel.getQuizList(categoryId: quizId!) { error in
+            
+        }
         
-         self.activityIndicator.isHidden = false
-         self.activityIndicator.startAnimating()
-    
-        _ = viewModel.quizList.subscribe(onNext: {  list in
-            self.quizList = list
+        
+        
+        _ = viewModel.quizList.do(onNext: {  list in
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.isHidden = false
+            print("start")
 
+        }) .subscribe(onNext: { list in
+            self.quizList = list
+                 
           
             DispatchQueue.main.async {
                
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
+                print("stop")
             }
             self.tableView.reloadData()
-
         })
         
         // Do any additional setup after loading the view.
@@ -57,6 +61,11 @@ class QuizListVC: UIViewController {
         categoryName.text = nameCategory
    
       
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        
+//         self.activityIndicator.isHidden = false
+//         self.activityIndicator.startAnimating()
     }
     
     

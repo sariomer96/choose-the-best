@@ -10,144 +10,137 @@ import Alamofire
 import RxSwift
 import UIKit
 
+// MARK: ENUMS  --------------
+enum ErrorType: Error{
+    case networkError
+    case parseError
+}
+extension ErrorType {
+    public var description: String {
+           switch self {
+           case .networkError:
+               return "Network error."
+           case .parseError:
+               return "Response failed."
+           }
+       }
+}
+enum FormDataError:Error {
+    case uploadError
+}
+
+extension FormDataError {
+    public var description: String {
+           switch self {
+           case .uploadError:
+               return "Upload failed."
+      
+   
+           }
+       }
+}
+enum UploadSuccess : String {
+    case success = " Upload succesful"
+}
+// MARK: ENUMS END -------------------
+
+
 class WebService {
     
     static let shared = WebService()
-   
-     
-    
-    var recentlyList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
-    func getRecentlyUploads () {
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+    let topURL = "http://127.0.0.1:8000/quizes/top-rated"
+    let recentlyURL = "http://127.0.0.1:8000/quizes/?ordering=-created_at"
+    let categoryURL = "http://127.0.0.1:8000/categories"
+    let quizListFromCategoryURL = "http://127.0.0.1:8000/quizes?category__id="
 
-    
-           AF.request("http://127.0.0.1:8000/quizes/?ordering=-created_at",method: .get).response { response in
-        if let data = response.data{
-            do{
-
-                let cevap = try decoder.decode(TopRate.self, from: data)
-
-                if cevap.results != nil {
-
-                    let list = cevap.results
-                    print("\(list[0].title) AAaaaaaa")
-                    self.recentlyList.onNext(list)
-
-                }
-
-             
-
-            }catch{
-                print("\(error.localizedDescription) III")
-            }
-        }
-
-    }
-        
-}
-    
-    func getSelectedQuizList() {
-        
-    }
-    
-
-    var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
-    func getCategories() {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-
-    AF.request("http://127.0.0.1:8000/categories",method: .get).response { response in
-        if let data = response.data{
-            do{
-                
-                var cevap = try decoder.decode(CategoryResult.self, from: data)
-                
-                if let list = cevap.results {
-               
-                    self.categoryList.onNext(list)
-                }
-                 
-            }catch{
-                print("\(error.localizedDescription) III")
-            }
-        }
-        
-    }
-}
-    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
-    func getQuizListFromCategory(categoryId:Int) {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-
-              AF.request("http://127.0.0.1:8000/quizes?category__id=\(categoryId)",method: .get).response { response in
-        if let data = response.data{
-            do{
-                
-                var cevap = try decoder.decode(ApiResponse.self, from: data)
-                
-                if let list = cevap.results {
-                    self.quizList.onNext(list)
-                }
-                print(cevap.results)
-                 
-            }catch{
-                print("\(error.localizedDescription) III")
-            }
-        }
-        
-     }
-    }
-    var topQuizList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
-    
-    func getTopRateQuiz() {
-
+    func AFGetRequest<T: Decodable>(url: String, modelResponseType: T.Type, completion: @escaping (String?) -> Void) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
 
-        
-               AF.request("http://127.0.0.1:8000/quizes/top-rated",method: .get).response { response in
-            if let data = response.data{
-                do{
-
-                    let cevap = try decoder.decode(TopRate.self, from: data)
-
-                    if cevap.results != nil {
-
-                        let list = cevap.results
-                        print("\(list[0].title) AAaaaaaa")
-                        self.topQuizList.onNext(list)
-
+            AF.request(url, method: .get).response { response in
+                switch response.result {
+                case .success(let data):
+                    do {
+                        let result = try decoder.decode(modelResponseType, from: data!)
+                    
+                         let apiRes = result as? ApiResponse
+                        
+                        if let list = apiRes?.results {
+                            self.quizList.onNext(list)
+                        }
+                        
+                        let topRate = result as? TopRate
+                        
+                        if let topRate = topRate?.results {
+                             
+                            if url == self.topURL {
+                                self.topQuizList.onNext(topRate)
+                            }else{
+                                self.recentlyList.onNext(topRate)
+                            }
+                        }
+                        
+                        let category = result as? CategoryResult
+                        
+                        if let category = category?.results {
+                            self.categoryList.onNext(category)
+                        }
+                        
+                    } catch {
+                        print("\(error.localizedDescription) III")
+                        completion(ErrorType.parseError.description)
                     }
-
-                 
-
-                }catch{
+                case .failure(let error):
                     print("\(error.localizedDescription) III")
+                    completion(ErrorType.networkError.description)
                 }
             }
+        }
+    var recentlyList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
+    
+    func getRecentlyUploads (completion: @escaping (String?) -> Void) {
+        
+        AFGetRequest(url: recentlyURL, modelResponseType: TopRate.self) { error in
+            
+        }
+   }
+    var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
+    
+    func getCategories(completion: @escaping (String?) -> Void)  {
+        
+        AFGetRequest(url: categoryURL, modelResponseType: CategoryResult.self) { error in
+            
+        }
+}
+    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    
+    func getQuizListFromCategory(categoryId:Int, completion: @escaping (String?) -> Void) {
+        AFGetRequest(url: "\(quizListFromCategoryURL)\(categoryId)", modelResponseType: ApiResponse.self) { error in
+            
+        }
 
+    }
+    var topQuizList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
+    
+    func getTopRateQuiz(completion: @escaping (String?) -> Void) {
+        AFGetRequest(url:topURL , modelResponseType: TopRate.self) { error in
+        
         }
     }
-  
- 
-    func searchQuiz(searchText:String){
+    
+    func searchQuiz(searchText:String,completion: @escaping (String) -> Void){
         
     }
 
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool) {
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,completion: @escaping (String?,Bool) -> Void) {
       
         let url = "http://localhost:8000/quizes/"
         
-        // Resmi Data tipine çevirme
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("Could not get JPEG representation of image")
             return
         }
-        print("uploadingg")
-        print("tileee \(title)")
-        // Gönderilecek parametreleri ayarlama
+      
         let parameters: [String: Any] = [
             "title": title,
             "image": imageData,
@@ -163,11 +156,11 @@ class WebService {
             for (key, value) in parameters {
                 if let data = value as? Data {
                     multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
-                    print("multidata \(data)")
+                    
                 } else if let value = value as? Int {
                     let intData = Data(String(value).utf8)
                     multipartFormData.append(intData, withName: key)
-                    print("int \(intData)")
+               
                 }else if let value = value as? String {
                     let stringData = Data(value.utf8)
                     multipartFormData.append(stringData, withName: key)
@@ -179,22 +172,16 @@ class WebService {
             }
         }, to: url,method: .post, headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
         .response { response in
-            // İstek tamamlandığında yapılacak işlemler
-            
-            if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
-                   print("Server Response: \(responseString)")
-               }
             switch response.result {
             case .success(let data):
                 print("Upload successful: \(data)")
-                // Başarılı işlem sonrası yapılacak işlemler
+               
+                completion(UploadSuccess.success.rawValue, true)
             case .failure(let error):
                 print("Error uploading image: \(error)")
-                // Hata durumunda yapılacak işlemler
+                completion(FormDataError.uploadError.description,false)
             }
         }
     }
-
-   
 }
 
