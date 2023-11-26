@@ -16,12 +16,12 @@ class GameStartVC: UIViewController {
     @IBOutlet weak var quizHeaderImageView: UIImageView!
 
     var quizTitle:String?
-     var quizImage:String?
+    var quizImage:String?
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
            setPopUpButton()
-       
-        // Do any additional setup after loading the view.
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         quizTitleLabel.text = ""

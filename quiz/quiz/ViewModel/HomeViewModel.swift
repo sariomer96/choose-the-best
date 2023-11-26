@@ -10,9 +10,9 @@ import RxSwift
 
 struct HomeViewModel {
     
-    var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
-    var topQuizList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
-    var recentlyList = BehaviorSubject<[TopRateResult]>(value: [TopRateResult]())
+    var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+    var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var recentlyList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     
     init() {
         self.categoryList = WebService.shared.categoryList

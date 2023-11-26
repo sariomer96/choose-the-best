@@ -88,7 +88,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         
         cell.nameLabel.text = quizList[indexPath.row].title
         let url = quizList[indexPath.row].image
-        cell.imageView!.kf.setImage(with: URL(string: url)) { result in
+        cell.imageView!.kf.setImage(with: URL(string: url!)) { result in
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()

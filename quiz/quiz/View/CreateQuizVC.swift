@@ -12,12 +12,38 @@ class CreateQuizVC: UIViewController {
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UITextField!
     var viewModel = CreateQuizViewModel()
+    var attachment: [Attachment]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
+       
         viewModel.recognizer(imageView: coverImageView, view: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+        guard let sourcesURL = Bundle.main.url(forResource: "dummyData", withExtension: "json") else{
+            fatalError("couldnt find")
+            return
+        }
+     
+        guard let data = try? Data(contentsOf: sourcesURL) else {
+            fatalError("couldnt convert")
+
+        }
+
+        let decoder = JSONDecoder()
+
+        do{
+            let model = try? decoder.decode(QuizResponse.self, from: data)
+ 
+            attachment = model?.attachments
+          
+
+        }catch{
+            print("\(error.localizedDescription) BBBBBBB")
+        }
     }
      
     func setQuizFields(identifier:String) {

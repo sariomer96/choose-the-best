@@ -13,7 +13,7 @@ class CreateQuizFields {
     static let shared = CreateQuizFields()
     
     var quizTitle:String?
-    weak var quizHeaderImage:UIImage?
-    // var attachments[]
+    var quizHeaderImage:UIImage?
+    var attachments : [Attachment]?
      
  }

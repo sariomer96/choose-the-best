@@ -13,7 +13,7 @@ class CreatePublishingVC: UIViewController {
     
     var viewModel = CreatePublishingViewModel()
     var didSelectCategory = false
-    var categoryList = [CategoryClass]()
+    var categoryList = [Category]()
     var isVisible = true
     var categoryID = 1
  
@@ -76,7 +76,7 @@ extension CreatePublishingVC:UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        categoryID = categoryList[indexPath.row].id
+        categoryID = categoryList[indexPath.row].id!
        
         didSelectCategory = true
          

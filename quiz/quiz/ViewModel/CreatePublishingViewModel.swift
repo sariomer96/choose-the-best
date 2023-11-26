@@ -11,7 +11,7 @@ import UIKit
 
 struct CreatePublishingViewModel {
     
-    var categoryList = BehaviorSubject<[CategoryClass]>(value: [CategoryClass]())
+    var categoryList = BehaviorSubject<[Category]>(value: [Category]())
 
     init() {
         self.categoryList = WebService.shared.categoryList
@@ -22,7 +22,7 @@ struct CreatePublishingViewModel {
     }
     
     func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, completion: @escaping (String?,Bool) -> Void) {
-        print("viewmodel worked")
+        
         WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, completion: completion)
     }
 }

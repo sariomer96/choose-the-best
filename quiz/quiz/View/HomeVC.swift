@@ -17,10 +17,10 @@ class HomeVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
    
     let viewModel = HomeViewModel()
-    var categoryList = [CategoryClass]()
+    var categoryList = [Category]()
  
-    var topQuizList = [TopRateResult]()
-    var recentlyList = [TopRateResult]()
+    var topQuizList = [QuizResponse]()
+    var recentlyList = [QuizResponse]()
     let bag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ class HomeVC: UIViewController {
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list
 
-            
+              
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
                 self.lastUpdateTableView.reloadData()
@@ -129,7 +129,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toQuizList" {
           
-            let category = sender as! CategoryClass
+            let category = sender as! Category
             
             let vc = segue.destination as! QuizListVC
             
@@ -138,7 +138,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         }
         
         if segue.identifier == "toGameStartVC" {
-            let quiz = sender as! TopRateResult
+            let quiz = sender as! QuizResponse
             
             let vc = segue.destination as! GameStartVC
             
@@ -205,7 +205,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             cell.categoryNameLabel.text = topQuizList[indexPath.row].category?.name
                 
             let url = topQuizList[indexPath.row].image
-                 cell.topImageView.kf.setImage(with: URL(string: url))
+            cell.topImageView.kf.setImage(with: URL(string: url!))
             
             
              
@@ -221,7 +221,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             cell.categoryNameLabel.text = recentlyList[indexPath.row].category?.name
                 
             let url = recentlyList[indexPath.row].image
-            cell.updateImageView.kf.setImage(with: URL(string: url))
+            cell.updateImageView.kf.setImage(with: URL(string: url!))
              
             return cell
         }
