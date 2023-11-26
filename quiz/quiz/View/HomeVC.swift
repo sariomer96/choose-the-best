@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 import RxSwift
+import Alamofire
 
 class HomeVC: UIViewController {
     @IBOutlet weak var topRateTableView: UITableView!
@@ -90,11 +91,70 @@ class HomeVC: UIViewController {
            
  
         }).disposed(by: bag)
- 
-       
-    }
+            
+           
+            let image = UIImage(named: "1")
+            
      
-
+            
+            createAttachment(title: "newAttach", url: "", image: image!, score: 5) { result, isSuccess in
+                
+                print(result?.description)
+            }
+    }
+     let test = "http://127.0.0.1:8000/attachments"
+    func createAttachment(title: String, url: String,image: UIImage, score : Int,completion: @escaping (String?,Bool) -> Void) {
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Could not get JPEG representation of image")
+            return
+        }
+        let parameters: [String: Any] = [
+            "title": title,
+            "image": imageData,
+            "url": "",
+            "score": score
+        ]
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            for (key, value) in parameters {
+                if let data = value as? Data {
+                    multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
+                    
+                } else if let value = value as? Int {
+                    let intData = Data(String(value).utf8)
+                    multipartFormData.append(intData, withName: key)
+                    
+                }else if let value = value as? String {
+                    let stringData = Data(value.utf8)
+                    multipartFormData.append(stringData, withName: key)
+                }
+                
+            }
+        }, to: test,method: .post, headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
+        .response { response in
+     
+            switch response.result {
+                
+            case .success(let value):
+                if let responseData = value, let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options: []),
+                          let jsonDict = jsonObject as? [String: Any],
+                          let idString = jsonDict["id"] as? String,
+                   let id = Int(idString)
+                {
+                    print("IIDD \(id)")
+                }else{
+                    print("PARSE ERROR")
+                }
+                       
+          case .failure(let error):
+                  print("Error uploading image: \(error)")
+                      completion(nil, false)
+          }
+            
+            
+        }
+    }
     @IBAction func createQuizClick(_ sender: Any) {
         performSegue(withIdentifier: "toCreateVC", sender: nil)
     }

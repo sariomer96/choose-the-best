@@ -12,13 +12,14 @@ import UIKit
 struct CreatePublishingViewModel {
     
     var categoryList = BehaviorSubject<[Category]>(value: [Category]())
-
+    let webService = WebService.shared
     init() {
         self.categoryList = WebService.shared.categoryList
     }
     
     func getCategory(completion: @escaping (String?) -> Void) {
-        WebService.shared.getCategories(completion: completion)
+        
+          webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
     }
     
     func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, completion: @escaping (String?,Bool) -> Void) {

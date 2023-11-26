@@ -1,10 +1,3 @@
-//
-//  WebService.swift
-//  quiz
-//
-//  Created by Omer on 9.11.2023.
-//
-
 import Foundation
 import Alamofire
 import RxSwift
@@ -113,24 +106,10 @@ enum GetRequestTypes {
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     
-    func getQuizListFromCategory(categoryId:Int, completion: @escaping (String?) -> Void) {
-        AFGetRequest(requestType: GetRequestTypes.quizList, url: "\(quizListFromCategoryURL)\(categoryId)", modelResponseType: ApiResponse.self,completion: completion)
-    }
-    func getRecentlyUploads (completion: @escaping (String?) -> Void) {
-        AFGetRequest(requestType: GetRequestTypes.recently, url: recentlyURL, modelResponseType: ApiResponse.self,completion: completion)
-    }
-    
-    func getTopRateQuiz(completion: @escaping (String?) -> Void) {
-        AFGetRequest(requestType: GetRequestTypes.topRate, url:topURL , modelResponseType: ApiResponse.self,completion: completion)
-    }
-    func searchQuiz(searchText:String,completion: @escaping (String) -> Void){
+     func searchQuiz(searchText:String,completion: @escaping (String) -> Void){
         
     }
-    
-    func getCategories(completion: @escaping (String?) -> Void)
-    {
-        AFGetRequest(requestType: GetRequestTypes.category, url: categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
-    }
+   
      func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,completion: @escaping (String?,Bool) -> Void) {
          
          guard let imageData = image.jpegData(compressionQuality: 0.5) else {
