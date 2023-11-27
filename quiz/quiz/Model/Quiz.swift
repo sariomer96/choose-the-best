@@ -29,7 +29,7 @@ struct QuizResponse: Codable {
 }
 
 struct Attachment: Codable {
-    let id:Int
+    let id:Int?
     let title: String?
     let url: String?
     let image : String?

@@ -10,6 +10,7 @@ import Kingfisher
 import RxSwift
 import Alamofire
 
+
 class HomeVC: UIViewController {
     @IBOutlet weak var topRateTableView: UITableView!
     
@@ -23,6 +24,13 @@ class HomeVC: UIViewController {
     var topQuizList = [QuizResponse]()
     var recentlyList = [QuizResponse]()
     let bag = DisposeBag()
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+
+             
+          
+        }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +44,7 @@ class HomeVC: UIViewController {
         viewModel.getCategories {error in
             
             if let error = error {
-               
+                
                 AlertManager.shared.alert(view: self, title: "ERROR", message: String(error.description))
             }
         }
@@ -46,114 +54,59 @@ class HomeVC: UIViewController {
         viewModel.getRecentlyQuiz { error in
             
         }
-   
+        
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list
-
-              
+            
+            
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
                 self.lastUpdateTableView.reloadData()
-          
+                
             }
-
-
+            
+            
         }).disposed(by: bag)
         
         _ = viewModel.recentlyList.subscribe(onNext: {  list in
             self.recentlyList = list
-
-
+            
+            
             DispatchQueue.main.async {
-
+                
                 self.lastUpdateTableView.reloadData()
             }
-
-
+            
+            
         }).disposed(by: bag)
         
         _ = viewModel.categoryList.do(onNext: {  list in
             self.activityIndicator.startAnimating()
             self.activityIndicator.isHidden = false
-            print("start")
-
+            
+            
         }).subscribe(onNext: {  list in
             self.categoryList = list
-           
+            
             DispatchQueue.main.async {
                 self.categoryCollectionView.reloadData()
-             
+                
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
-                print("stiop")
+                
                 
             }
-           
- 
+            
+            
         }).disposed(by: bag)
             
-           
-            let image = UIImage(named: "1")
-            
-     
-            
-            createAttachment(title: "newAttach", url: "", image: image!, score: 5) { result, isSuccess in
-                
-                print(result?.description)
-            }
-    }
-     let test = "http://127.0.0.1:8000/attachments"
-    func createAttachment(title: String, url: String,image: UIImage, score : Int,completion: @escaping (String?,Bool) -> Void) {
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("Could not get JPEG representation of image")
-            return
-        }
-        let parameters: [String: Any] = [
-            "title": title,
-            "image": imageData,
-            "url": "",
-            "score": score
-        ]
-        
-        AF.upload(multipartFormData: { multipartFormData in
-            for (key, value) in parameters {
-                if let data = value as? Data {
-                    multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
-                    
-                } else if let value = value as? Int {
-                    let intData = Data(String(value).utf8)
-                    multipartFormData.append(intData, withName: key)
-                    
-                }else if let value = value as? String {
-                    let stringData = Data(value.utf8)
-                    multipartFormData.append(stringData, withName: key)
-                }
+            let img = UIImage(named: "1")
+            WebService.shared.createAttachment(title: "picker", videoUrl: "", image: img!, score: 5) { error, isSuccess in
                 
             }
-        }, to: test,method: .post, headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-        .response { response in
-     
-            switch response.result {
-                
-            case .success(let value):
-                if let responseData = value, let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options: []),
-                          let jsonDict = jsonObject as? [String: Any],
-                          let idString = jsonDict["id"] as? String,
-                   let id = Int(idString)
-                {
-                    print("IIDD \(id)")
-                }else{
-                    print("PARSE ERROR")
-                }
-                       
-          case .failure(let error):
-                  print("Error uploading image: \(error)")
-                      completion(nil, false)
-          }
             
-            
-        }
+    
+   
     }
     @IBAction func createQuizClick(_ sender: Any) {
         performSegue(withIdentifier: "toCreateVC", sender: nil)
@@ -172,20 +125,17 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
-        
-//        cell.layer.cornerRadius = 10
-//        cell.layer.masksToBounds = true
-//        cell.layer.borderWidth = 2.0
-        
+
         cell.categoryLabel.text = categoryList[indexPath.row].name
+      
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toQuizList" {
           
@@ -210,22 +160,22 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let screenWidth = UIScreen.main.bounds.width
-        // 32 constraints + inter space
-        let width: CGFloat = (screenWidth - 16)/2
-        
-        
-        let height: CGFloat = 64
-        
-        
-        return .init(width: width, height: height)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let screenWidth = UIScreen.main.bounds.width
+//        // 32 constraints + inter space
+//        let width: CGFloat = (screenWidth - 16)/2
+//
+//
+//        let height: CGFloat = 64
+//
+//
+//        return .init(width: width, height: height)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    }
         
 }
 

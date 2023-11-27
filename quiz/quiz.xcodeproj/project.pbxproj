@@ -20,6 +20,9 @@
 		176732612B05298F0000ED79 /* ImageChoicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176732602B05298F0000ED79 /* ImageChoicesViewModel.swift */; };
 		176732632B0529DF0000ED79 /* VideoChoicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176732622B0529DF0000ED79 /* VideoChoicesViewModel.swift */; };
 		179B779C2B122C7800FB317A /* dummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 179B779B2B122C7800FB317A /* dummyData.json */; };
+		179B779E2B15127100FB317A /* GameStartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B779D2B15127100FB317A /* GameStartTableViewCell.swift */; };
+		179B77A02B152BB400FB317A /* GameStartTourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B779F2B152BB400FB317A /* GameStartTourVC.swift */; };
+		179B77A22B15323200FB317A /* ImagePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */; };
 		17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DD92AF8075A00CB513A /* AppDelegate.swift */; };
 		17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */; };
 		17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDD2AF8075A00CB513A /* HomeVC.swift */; };
@@ -60,6 +63,9 @@
 		176732602B05298F0000ED79 /* ImageChoicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChoicesViewModel.swift; sourceTree = "<group>"; };
 		176732622B0529DF0000ED79 /* VideoChoicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoChoicesViewModel.swift; sourceTree = "<group>"; };
 		179B779B2B122C7800FB317A /* dummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyData.json; sourceTree = "<group>"; };
+		179B779D2B15127100FB317A /* GameStartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartTableViewCell.swift; sourceTree = "<group>"; };
+		179B779F2B152BB400FB317A /* GameStartTourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartTourVC.swift; sourceTree = "<group>"; };
+		179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerTableViewCell.swift; sourceTree = "<group>"; };
 		17B12DD62AF8075A00CB513A /* quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B12DD92AF8075A00CB513A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,10 +111,12 @@
 			isa = PBXGroup;
 			children = (
 				17B12E192B00EF5800CB513A /* CategoryViewCell.swift */,
+				179B779D2B15127100FB317A /* GameStartTableViewCell.swift */,
 				1701C5442B08B5E400230762 /* PublishingCategoryCollectionViewCell.swift */,
 				174B03532B0381AF00A7076C /* LastUpdateTableViewCell.swift */,
 				174B03502B0373DF00A7076C /* TopRatedViewCell.swift */,
 				17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */,
+				179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				17B12DF32AFB7BC100CB513A /* StartVC.swift */,
 				1767325E2B0529780000ED79 /* VideoChoicesVC.swift */,
 				1767325C2B0529600000ED79 /* ImageChoicesVC.swift */,
+				179B779F2B152BB400FB317A /* GameStartTourVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -284,12 +293,14 @@
 			files = (
 				1719F1C22B0CD31E0087A86E /* AlertManager.swift in Sources */,
 				17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */,
+				179B779E2B15127100FB317A /* GameStartTableViewCell.swift in Sources */,
 				17B12DEE2AFA98D900CB513A /* CreateQuizVC.swift in Sources */,
 				1701C5492B0BA2E100230762 /* QuizDetailVC.swift in Sources */,
 				174B03542B0381AF00A7076C /* LastUpdateTableViewCell.swift in Sources */,
 				176732632B0529DF0000ED79 /* VideoChoicesViewModel.swift in Sources */,
 				17B12E002AFCD99A00CB513A /* HomeViewModel.swift in Sources */,
 				1701C54B2B0BA2EF00230762 /* QuizDetailViewModel.swift in Sources */,
+				179B77A22B15323200FB317A /* ImagePickerTableViewCell.swift in Sources */,
 				17B12DF62AFCD88600CB513A /* QuizListVC.swift in Sources */,
 				1701C5472B0B7F5100230762 /* CreateQuizFields.swift in Sources */,
 				1767325D2B0529600000ED79 /* ImageChoicesVC.swift in Sources */,
@@ -311,6 +322,7 @@
 				17B12DF82AFCD8AE00CB513A /* GameVC.swift in Sources */,
 				17B12E082AFCDA2F00CB513A /* CreatePublishingViewModel.swift in Sources */,
 				17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */,
+				179B77A02B152BB400FB317A /* GameStartTourVC.swift in Sources */,
 				17B12E022AFCD9C300CB513A /* QuizListViewModel.swift in Sources */,
 				1701C5452B08B5E400230762 /* PublishingCategoryCollectionViewCell.swift in Sources */,
 			);
