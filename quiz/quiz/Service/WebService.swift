@@ -107,7 +107,7 @@ class WebService {
     var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
-    
+    var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
     func searchQuiz(searchText:String,completion: @escaping (String) -> Void){
         
     }
@@ -148,7 +148,7 @@ class WebService {
             case .success(let value):
                 
                 self.attachmentIdList.append(Int(value.id!))
-                print(self.attachmentIdList)
+                self.attachIdList.onNext(self.attachmentIdList)
                 completion(UploadSuccess.success.rawValue,true)
             case .failure(let error):
                 print("Error uploading image: \(error)")
@@ -160,17 +160,18 @@ class WebService {
         
     }
     
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,completion: @escaping (String?,Bool) -> Void) {
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int],completion: @escaping (String?,Bool) -> Void) {
         
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("Could not get JPEG representation of image")
             return
         }
         let parameters: [String: Any] = [
-            "title": title,
+            "title":title,
+            "attachment_ids":attachment_ids,
             "image": imageData,
-            "category_id": categoryID,
-            "is_visible": isVisible
+            "category_id":categoryID,
+            "is_visible":isVisible
         ]
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -178,7 +179,14 @@ class WebService {
                 if let data = value as? Data {
                     multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
                     
-                } else if let value = value as? Int {
+                }else  if let intArray = value as? [Int] {
+                  for intValue in intArray {
+                    let intData = Data(String(intValue).utf8)
+                      print(intData)
+                    multipartFormData.append(intData, withName: key )
+                   }
+                }
+                else if let value = value as? Int {
                     let intData = Data(String(value).utf8)
                     multipartFormData.append(intData, withName: key)
                     

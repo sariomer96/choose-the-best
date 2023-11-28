@@ -23,27 +23,27 @@ class CreateQuizVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
 
-        guard let sourcesURL = Bundle.main.url(forResource: "dummyData", withExtension: "json") else{
-            fatalError("couldnt find")
-            return
-        }
+//        guard let sourcesURL = Bundle.main.url(forResource: "dummyData", withExtension: "json") else{
+//            fatalError("couldnt find")
+//            return
+//        }
      
-        guard let data = try? Data(contentsOf: sourcesURL) else {
-            fatalError("couldnt convert")
-
-        }
-
-        let decoder = JSONDecoder()
-
-        do{
-            let model = try? decoder.decode(QuizResponse.self, from: data)
- 
-            attachment = model?.attachments
-          
-
-        }catch{
-            print("\(error.localizedDescription) BBBBBBB")
-        }
+//        guard let data = try? Data(contentsOf: sourcesURL) else {
+//            fatalError("couldnt convert")
+//
+//        }
+//
+//        let decoder = JSONDecoder()
+//
+//        do{
+//            let model = try? decoder.decode(QuizResponse.self, from: data)
+// 
+//            attachment = model?.attachments
+//          
+//
+//        }catch{
+//            print("\(error.localizedDescription) BBBBBBB")
+//        }
     }
      
     func setQuizFields(identifier:String) {

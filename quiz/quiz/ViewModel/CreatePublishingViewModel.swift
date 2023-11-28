@@ -22,8 +22,8 @@ struct CreatePublishingViewModel {
           webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
     }
     
-    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, completion: @escaping (String?,Bool) -> Void) {
+    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int], completion: @escaping (String?,Bool) -> Void) {
         
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, completion: completion)
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, attachment_ids: attachment_ids, completion: completion)
     }
 }

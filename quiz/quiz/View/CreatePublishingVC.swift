@@ -16,7 +16,7 @@ class CreatePublishingVC: UIViewController {
     var categoryList = [Category]()
     var isVisible = true
     var categoryID = 1
- 
+    var attachmentIds = [Int]()
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class CreatePublishingVC: UIViewController {
     @IBAction func publishClick(_ sender: Any) {
         
         if didSelectCategory == true {
-            viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible) { error, isSuccess in
+            viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible, attachment_ids: attachmentIds) { error, isSuccess in
                 
                 if isSuccess == true {
                     AlertManager.shared.alert(view: self, title: "Success!", message: UploadSuccess.success.rawValue)
