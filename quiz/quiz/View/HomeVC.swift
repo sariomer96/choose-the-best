@@ -41,11 +41,11 @@ class HomeVC: UIViewController {
         lastUpdateTableView.delegate = self
         lastUpdateTableView.dataSource = self
         
-        viewModel.getCategories {error in
+        viewModel.getCategories {result in
             
-            if let error = error {
+            if let result = result {
                 
-                AlertManager.shared.alert(view: self, title: "ERROR", message: String(error.description))
+                AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
             }
         }
         viewModel.getTopRateQuiz { error in
@@ -212,10 +212,10 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
            
  
             cell.nameLabel.text = topQuizList[indexPath.row].title
-            cell.categoryNameLabel.text = topQuizList[indexPath.row].category?.name
+            cell.categoryNameLabel.text = topQuizList[indexPath.row].category.name
                 
             let url = topQuizList[indexPath.row].image
-            cell.topImageView.kf.setImage(with: URL(string: url!))
+            cell.topImageView.kf.setImage(with: URL(string: url))
             
             
              
@@ -228,10 +228,10 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
            
             
             cell.nameLabel.text = recentlyList[indexPath.row].title
-            cell.categoryNameLabel.text = recentlyList[indexPath.row].category?.name
+            cell.categoryNameLabel.text = recentlyList[indexPath.row].category.name
                 
             let url = recentlyList[indexPath.row].image
-            cell.updateImageView.kf.setImage(with: URL(string: url!))
+            cell.updateImageView.kf.setImage(with: URL(string: url))
              
             return cell
         }

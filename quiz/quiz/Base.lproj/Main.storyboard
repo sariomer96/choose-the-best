@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yg9-lF-IT4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LoV-jf-W3Q">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -363,29 +363,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QUIZ TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU2-uH-XeN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUIZ TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU2-uH-XeN">
                                 <rect key="frame" x="143.5" y="167" width="127" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="quZ-iv-k9F">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="quZ-iv-k9F">
                                 <rect key="frame" x="87" y="211" width="240" height="178"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="uho-WT-G4R"/>
+                                    <constraint firstAttribute="height" constant="178" id="z59-Dc-2ZA"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PEg-8K-DAq">
-                                <rect key="frame" x="112" y="431" width="158" height="34.5"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <menu key="menu" id="HG1-qF-t3s">
-                                    <children>
-                                        <command title="Item 1" id="hpB-gM-LxB"/>
-                                        <command title="Item 2" id="Ae2-bj-FZZ"/>
-                                    </children>
-                                </menu>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fla-cL-cgb">
                                 <rect key="frame" x="-4" y="397" width="398" height="35"/>
                                 <state key="normal" title="Button"/>
@@ -440,6 +430,10 @@
                                                 <constraint firstItem="NrT-wy-FYE" firstAttribute="leading" secondItem="8Ao-1c-NKO" secondAttribute="leading" constant="16" id="srS-fj-uMH"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="attachImageView" destination="7DO-NY-5rF" id="oA1-xD-EP1"/>
+                                            <outlet property="attachName" destination="NrT-wy-FYE" id="y4w-6V-Yo5"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -451,17 +445,18 @@
                             <constraint firstItem="rJ3-bQ-2WA" firstAttribute="trailing" secondItem="Fla-cL-cgb" secondAttribute="trailing" constant="20" id="7zN-p8-J9u"/>
                             <constraint firstItem="rJ3-bQ-2WA" firstAttribute="bottom" secondItem="GeK-tQ-t6x" secondAttribute="bottom" id="9zA-OC-fhK"/>
                             <constraint firstItem="Fla-cL-cgb" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" constant="-4" id="HgA-HI-1up"/>
-                            <constraint firstItem="PEg-8K-DAq" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" constant="112" id="PR7-7x-Y6q"/>
-                            <constraint firstItem="rJ3-bQ-2WA" firstAttribute="trailing" secondItem="PEg-8K-DAq" secondAttribute="trailing" constant="144" id="Qbw-7F-PSC"/>
+                            <constraint firstItem="GeK-tQ-t6x" firstAttribute="top" secondItem="Fla-cL-cgb" secondAttribute="bottom" constant="49.5" id="I8h-LI-cCK"/>
+                            <constraint firstItem="GeK-tQ-t6x" firstAttribute="centerX" secondItem="zU2-uH-XeN" secondAttribute="centerX" id="JFi-eE-mbG"/>
                             <constraint firstItem="rJ3-bQ-2WA" firstAttribute="bottom" secondItem="Fla-cL-cgb" secondAttribute="bottom" constant="430" id="YPH-8k-VTx"/>
-                            <constraint firstItem="GeK-tQ-t6x" firstAttribute="top" secondItem="PEg-8K-DAq" secondAttribute="bottom" constant="16" id="gue-4v-Lzj"/>
-                            <constraint firstItem="Fla-cL-cgb" firstAttribute="top" secondItem="PEg-8K-DAq" secondAttribute="bottom" constant="-68.5" id="iMi-du-KEp"/>
+                            <constraint firstItem="Fla-cL-cgb" firstAttribute="top" secondItem="quZ-iv-k9F" secondAttribute="bottom" constant="8" id="dCW-XN-XBl"/>
+                            <constraint firstItem="quZ-iv-k9F" firstAttribute="top" secondItem="zU2-uH-XeN" secondAttribute="bottom" constant="14" id="dbh-da-83l"/>
+                            <constraint firstItem="quZ-iv-k9F" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" constant="87" id="it1-P9-xja"/>
                             <constraint firstItem="GeK-tQ-t6x" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" id="j8K-IP-nri"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Vwb-5t-ezu"/>
                     <connections>
-                        <outlet property="dropdownButton" destination="PEg-8K-DAq" id="opX-JE-OoH"/>
+                        <outlet property="attachTableView" destination="GeK-tQ-t6x" id="CC5-1T-ldy"/>
                         <outlet property="quizHeaderImageView" destination="quZ-iv-k9F" id="FZG-mF-ona"/>
                         <outlet property="quizTitleLabel" destination="zU2-uH-XeN" id="5Bs-z2-lWh"/>
                         <segue destination="SaW-Jj-nZl" kind="show" identifier="toGameVC" id="L6F-dk-OQB"/>
@@ -1044,7 +1039,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="NPL-5m-d2X"/>
-        <segue reference="MW7-CZ-VQ5"/>
+        <segue reference="sDV-GC-aka"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>

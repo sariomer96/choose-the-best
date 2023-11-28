@@ -64,6 +64,7 @@ class WebService {
             switch response.result {
             case .success(let data):
                 do {
+                    completion("SUCCESS")
                     let result = try decoder.decode(modelResponseType, from: data!)
                     
                     let apiRes = result as? ApiResponse
@@ -88,9 +89,7 @@ class WebService {
                         if let quizList = apiRes?.results {
                             self.quizList.onNext(quizList)
                         }
-                        if let list = apiRes?.results {
-                            self.quizList.onNext(list)
-                        }
+                        
                         
                     }
                 } catch {
@@ -166,10 +165,12 @@ class WebService {
             print("Could not get JPEG representation of image")
             return
         }
+        let img = UIImage(named: "1")
+        let mg = img?.jpegData(compressionQuality: 0.2)
         let parameters: [String: Any] = [
             "title":title,
             "attachment_ids":attachment_ids,
-            "image": imageData,
+            "image": mg,
             "category_id":categoryID,
             "is_visible":isVisible
         ]
@@ -203,7 +204,7 @@ class WebService {
         .uploadProgress(closure: { progress in
             print(progress.description)
         })
-        .responseDecodable(of: QuizResponse.self) { response in
+        .response { response in
             switch response.result {
             case .success(_):
                 completion(UploadSuccess.success.rawValue, true)

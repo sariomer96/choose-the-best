@@ -9,6 +9,9 @@ import UIKit
 
 class GameStartTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var attachName: UILabel!
+    @IBOutlet weak var attachImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

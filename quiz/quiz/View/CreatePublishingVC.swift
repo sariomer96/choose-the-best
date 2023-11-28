@@ -25,7 +25,7 @@ class CreatePublishingVC: UIViewController {
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         viewModel.getCategory { error in
-            
+            print(CreateQuizFields.shared.quizHeaderImage)
             
         }
         _ = viewModel.categoryList.subscribe(onNext: {  list in
@@ -45,6 +45,7 @@ class CreatePublishingVC: UIViewController {
     @IBAction func publishClick(_ sender: Any) {
         
         if didSelectCategory == true {
+
             viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible, attachment_ids: attachmentIds) { error, isSuccess in
                 
                 if isSuccess == true {
