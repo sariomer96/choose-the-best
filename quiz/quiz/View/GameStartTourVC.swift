@@ -15,7 +15,7 @@ class GameStartTourVC: UIViewController {
     @IBOutlet weak var quizTitleLabel: UILabel!
     var quiz:QuizResponse?
     let viewModel = GameStartTourViewModel()
-    var playableCount = 0
+    var playableCount = 2
    
   
     override func viewDidLoad() {
