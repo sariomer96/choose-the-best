@@ -28,7 +28,8 @@ struct QuizResponse: Codable {
     let average_rate: Double?
 }
 
-struct Attachment: Codable {
+class Attachment: Codable{
+    
     let id:Int?
     let title: String?
     let url: String?
@@ -36,6 +37,13 @@ struct Attachment: Codable {
     let score: Int?
     let created_at: String?
     let updated_at: String?
+}
+extension Attachment: Equatable {
+    static func == (lhs: Attachment, rhs: Attachment) -> Bool {
+        return true
+    }
+    
+   
 }
 
 struct Category: Codable {

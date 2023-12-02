@@ -15,7 +15,7 @@ class GameStartTourVC: UIViewController {
     @IBOutlet weak var quizTitleLabel: UILabel!
     var quiz:QuizResponse?
     let viewModel = GameStartTourViewModel()
-    
+    var playableCount = 0
    
   
     override func viewDidLoad() {
@@ -40,7 +40,10 @@ class GameStartTourVC: UIViewController {
         
         
        // fillDropDownActions()
-        let action = viewModel.getDropDownActions(attachmentCount: (quiz?.attachments.count)!)
+        let  action = viewModel.getDropDownActions(attachmentCount: (quiz?.attachments.count)!) {
+            count in
+            self.playableCount = count
+        }
         
         if  action != nil {
             
@@ -58,6 +61,7 @@ class GameStartTourVC: UIViewController {
         let quiz = sender as? QuizResponse
         if let vc = vc , let quiz = quiz{
             vc.quiz = quiz
+            vc.playableCount = playableCount
         }
     }
     

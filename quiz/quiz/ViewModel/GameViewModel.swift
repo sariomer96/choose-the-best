@@ -8,5 +8,12 @@
 import Foundation
 
 struct GameViewModel {
+    // match quiz
+    
+    
+    func matchQuiz(quiz:QuizResponse) {
+        
+        
+    }
     
 }
