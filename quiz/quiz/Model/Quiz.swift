@@ -17,7 +17,7 @@ struct ApiResponse: Codable {
 struct QuizResponse: Codable {
    
     let title: String?
-    let image: String
+    let image: String?
     let attachments: [Attachment]
     let category: Category
     let created_at: String?

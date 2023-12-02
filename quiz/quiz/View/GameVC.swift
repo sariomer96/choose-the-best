@@ -9,6 +9,7 @@ import UIKit
 
 class GameVC: UIViewController {
 
+    var quiz:QuizResponse?
     override func viewDidLoad() {
         super.viewDidLoad()
 

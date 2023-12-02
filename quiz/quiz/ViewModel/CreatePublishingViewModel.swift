@@ -22,8 +22,21 @@ struct CreatePublishingViewModel {
           webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
     }
     
-    func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int], completion: @escaping (String?,Bool) -> Void) {
+    func publishQuiz(uiview:UIViewController, title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int]){
         
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, attachment_ids: attachment_ids, completion: completion)
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, attachment_ids: attachment_ids) {error,isSuccess, quiz  in
+           
+            if isSuccess == true {
+                AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
+                      
+                     uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+                }
+                
+                
+            }
+            if let error = error {
+                AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error)
+            }
+        }
     }
 }

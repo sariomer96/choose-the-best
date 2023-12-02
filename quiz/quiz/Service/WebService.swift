@@ -159,18 +159,17 @@ class WebService {
         
     }
     
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int],completion: @escaping (String?,Bool) -> Void) {
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
         
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
             print("Could not get JPEG representation of image")
             return
         }
-        let img = UIImage(named: "1")
-        let mg = img?.jpegData(compressionQuality: 0.2)
+        print("-----\(imageData.description)-----")
         let parameters: [String: Any] = [
             "title":title,
             "attachment_ids":attachment_ids,
-            "image": mg,
+            "image": imageData,
             "category_id":categoryID,
             "is_visible":isVisible
         ]
@@ -183,7 +182,7 @@ class WebService {
                 }else  if let intArray = value as? [Int] {
                   for intValue in intArray {
                     let intData = Data(String(intValue).utf8)
-                      print(intData)
+                 
                     multipartFormData.append(intData, withName: key )
                    }
                 }
@@ -204,15 +203,21 @@ class WebService {
         .uploadProgress(closure: { progress in
             print(progress.description)
         })
-        .response { response in
+        .responseDecodable(of : QuizResponse.self) { response in
+       
             switch response.result {
-            case .success(_):
-                completion(UploadSuccess.success.rawValue, true)
+            case .success(let quiz):
+                
+                
+                print("QUIZ \(quiz.attachments)")
+                                     
+                completion(UploadSuccess.success.rawValue, true,quiz)
             case .failure(let error):
                 print("Error uploading image: \(error)")
-                completion(FormDataError.uploadError.description,false)
+                completion(FormDataError.uploadError.description,false, nil)
             }
         }
+        
     }
     
 }

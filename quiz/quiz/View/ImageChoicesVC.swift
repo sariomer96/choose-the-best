@@ -13,22 +13,23 @@ class ImageChoicesVC: UIViewController {
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerButton: UIButton!
-    var imageArray = [UIImage]()
+   // var imageArray = [UIImage]()
     var attachNameLabelList = [String]()
     var attachIdList = [Int]()
     let bag = DisposeBag()
-    let viewModel = ImageChoicesViewModel()
+    var viewModel:ImageChoicesViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
+        viewModel = ImageChoicesViewModel(tableView: tableView)
         
-        _ = viewModel.attachIdList.subscribe(onNext: {  list in
+        _ = viewModel!.attachIdList.subscribe(onNext: {  list in
             self.attachIdList = list
             
-            print(self.attachIdList)
+            
         }).disposed(by: bag)
         
     }
@@ -69,46 +70,15 @@ extension ImageChoicesVC:PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         dismiss(animated: true)
-        var num = 1
-        for result in results {
-            result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
-                if let image = object as? UIImage {
-                    
-                    self.imageArray.append(image)
-                   
-                        
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                        
-                        DispatchQueue.main.async {
-                            print("work \(num)")
-                          
-                            self.viewModel.addAttachment(title: String(num), videoUrl: "", image: self.imageArray[num-1], score: 5) {error, isSuccess in
+         
+        viewModel!.addAttachmentDidpick(results: results)
 
-                            
-                                if isSuccess == false {
-                                    print("UPLOAD FAIL")
-                                    return
-                                }
-                            print(isSuccess)
-                                num += 1
-                        }
-                
-                            
-                        }
-                        
-                  
-                    
-                }
-            }
-        }
     }
 }
 
 extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageArray.count
+        return viewModel!.imageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,11 +86,10 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImagePickerTableViewCell") as! ImagePickerTableViewCell
         
        let index =  indexPath.row
-      
        
         cell.attachNameLabel.text = String(index+1)
         attachNameLabelList.append(cell.attachNameLabel.text!)
-        cell.attachImageView.image = imageArray[indexPath.row]
+        cell.attachImageView.image = viewModel!.imageArray[indexPath.row]
         
         cell.view = editView
         return cell

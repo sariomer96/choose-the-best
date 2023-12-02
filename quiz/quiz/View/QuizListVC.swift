@@ -90,7 +90,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         
         cell.nameLabel.text = quizList[indexPath.row].title
         let url = quizList[indexPath.row].image
-        cell.imageView!.kf.setImage(with: URL(string: url)) { result in
+        cell.imageView!.kf.setImage(with: URL(string: url!)) { result in
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -103,7 +103,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let quiz =  quizList[indexPath.row]
-        
+        print("quiizz \(quiz.title)")
         performSegue(withIdentifier: "toGameStartVC", sender: quiz)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -112,11 +112,8 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
             
             let vc = segue.destination as! GameStartVC
             
-           
-            vc.quizTitle = quiz.title
-            vc.quizImage = quiz.image
-            vc.attachList = quiz.attachments
-  
+            vc.quiz = quiz
+
            
         }
     }

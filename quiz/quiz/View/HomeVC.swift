@@ -99,14 +99,7 @@ class HomeVC: UIViewController {
             
             
         }).disposed(by: bag)
-            
-            let img = UIImage(named: "1")
-            WebService.shared.createAttachment(title: "picker", videoUrl: "", image: img!, score: 5) { error, isSuccess in
-                
-            }
-            
-    
-   
+             
     }
     @IBAction func createQuizClick(_ sender: Any) {
         performSegue(withIdentifier: "toCreateVC", sender: nil)
@@ -153,8 +146,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
             let vc = segue.destination as! GameStartVC
             
            
-            vc.quizTitle = quiz.title
-            vc.quizImage = quiz.image
+            vc.quiz = quiz
   
            
         }
@@ -215,7 +207,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             cell.categoryNameLabel.text = topQuizList[indexPath.row].category.name
                 
             let url = topQuizList[indexPath.row].image
-            cell.topImageView.kf.setImage(with: URL(string: url))
+            cell.topImageView.kf.setImage(with: URL(string: url!))
             
             
              
@@ -231,7 +223,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             cell.categoryNameLabel.text = recentlyList[indexPath.row].category.name
                 
             let url = recentlyList[indexPath.row].image
-            cell.updateImageView.kf.setImage(with: URL(string: url))
+            cell.updateImageView.kf.setImage(with: URL(string: url!))
              
             return cell
         }

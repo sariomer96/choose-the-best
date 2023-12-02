@@ -31,7 +31,7 @@ class CreateQuizViewModel:NSObject {
     }
     
     func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
-                    attachment_ids:[Int],completion: @escaping (String?, Bool) -> Void){
+                    attachment_ids:[Int],completion: @escaping (String?, Bool,QuizResponse?) -> Void){
         print("work viewmodel")
         WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, attachment_ids: attachment_ids, completion: completion)
     }
@@ -93,8 +93,7 @@ extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UI
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         coverImage?.image = info[.originalImage] as? UIImage
         uiView?.dismiss(animated: true)
-        
-        let image = coverImage?.image!
+       
         isSelectedImage = true
         
     }

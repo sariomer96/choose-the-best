@@ -25,10 +25,21 @@ struct AlertManager:AlertPr {
          
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "OK", style: .default)
+        let ok = UIAlertAction(title: "OK", style: .default) { _ in
+             
+        }
         alert.addAction(ok)
         view.present(alert,animated: true)
         
+    }
+    func alert(view:UIViewController, title:String,message:String, completion: @escaping (Bool) -> Void ){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default) {_ in
+            completion(true)
+        }
+        alert.addAction(ok)
+        view.present(alert,animated: true)
     }
     
 }

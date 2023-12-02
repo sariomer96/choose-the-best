@@ -25,7 +25,7 @@ class CreatePublishingVC: UIViewController {
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         viewModel.getCategory { error in
-            print(CreateQuizFields.shared.quizHeaderImage)
+           
             
         }
         _ = viewModel.categoryList.subscribe(onNext: {  list in
@@ -38,24 +38,25 @@ class CreatePublishingVC: UIViewController {
            
  
         })
-        // Do any additional setup after loading the view.
+ 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toGameStartVC" {
+            let vc = segue.destination as? GameStartVC
+            let quiz = sender as? QuizResponse
+ 
+            vc!.quiz = quiz
+        }
+    }
  
     @IBAction func publishClick(_ sender: Any) {
         
         if didSelectCategory == true {
 
-            viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image: CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible, attachment_ids: attachmentIds) { error, isSuccess in
-                
-                if isSuccess == true {
-                    AlertManager.shared.alert(view: self, title: "Success!", message: UploadSuccess.success.rawValue)
-                }
-                if let error = error {
-                    AlertManager.shared.alert(view: self, title: "Upload Failed!", message: error)
-                }
-            }
-        
+         
+                print(attachmentIds)
+            viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible, attachment_ids: attachmentIds)
         }
         
       
