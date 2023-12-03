@@ -39,7 +39,7 @@ class GameStartVC: UIViewController {
         DispatchQueue.main.async {
             
           //  quizHeaderImageView.kf.setImage(with: URL(string: url))
-            print(self.quiz?.attachments)
+            //print(self.quiz?.attachments)
         }
     }
     @IBAction func startClick(_ sender: Any) {

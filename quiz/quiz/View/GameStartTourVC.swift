@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 
 class GameStartTourVC: UIViewController {
 
@@ -55,13 +56,14 @@ class GameStartTourVC: UIViewController {
         }
     }
     
-  
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as? GameVC
         let quiz = sender as? QuizResponse
         if let vc = vc , let quiz = quiz{
             vc.quiz = quiz
             vc.playableCount = playableCount
+            
         }
     }
     
