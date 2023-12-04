@@ -16,8 +16,8 @@ class GameStartTourVC: UIViewController {
     @IBOutlet weak var quizTitleLabel: UILabel!
     var quiz:QuizResponse?
     let viewModel = GameStartTourViewModel()
-    var playableCount = 2
-   
+    var defaulPlayableCount = 2
+   var maxPlayableCount = 2
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,16 +43,18 @@ class GameStartTourVC: UIViewController {
        // fillDropDownActions()
         let  action = viewModel.getDropDownActions(attachmentCount: (quiz?.attachments.count)!) {
             count in
-            self.playableCount = count
+            self.maxPlayableCount = count
+           
         }
         
         if  action != nil {
             
+             
              dropdownButton.menu = UIMenu(children : action
               )
      
-             dropdownButton.showsMenuAsPrimaryAction = true
-             dropdownButton.changesSelectionAsPrimaryAction = true
+                  dropdownButton.showsMenuAsPrimaryAction = true
+                  dropdownButton.changesSelectionAsPrimaryAction = true
         }
     }
     
@@ -62,7 +64,7 @@ class GameStartTourVC: UIViewController {
         let quiz = sender as? QuizResponse
         if let vc = vc , let quiz = quiz{
             vc.quiz = quiz
-            vc.playableCount = playableCount
+            vc.playableCount = maxPlayableCount
             
         }
     }

@@ -56,29 +56,34 @@ class GameVC: UIViewController {
     }
     
     @objc func imageClickedLeft() {    /// TIKLADIKCA RESIMLER DEGISIYOR AMA ATTACH COUNTA GORE AYARLA
-//        if startIndex >= matchedAttachs.count / 2  {
-//            print("tur bitti")
-//            getNextTour()
-//            return
-//        }
+        ///
+        startIndex += 1
+  
+     //   print("startIndex : \(startIndex)  \(a)   ---   matched \(matchedAttachs.count)")
+        if startIndex  >= matchedAttachs.count {
+            print("tur bitti")
+      //      getNextTour()
+            return
+        }
         winAttachs.append(matchedAttachs[startIndex][0])
      
-        startIndex += 1
+       
       
         setImages(index: startIndex)
         
         setTitle(index: startIndex)
     }
     @objc func imageClickedRight() {
-//        if startIndex >= matchedAttachs.count / 2  {
-//            print("tur bitti")
-//            getNextTour()
-//            return
-//        }
+        startIndex += 1
+           if startIndex  >= matchedAttachs.count {
+               print("tur bitti")
+         //      getNextTour()
+               return
+           }
         
         winAttachs.append(matchedAttachs[startIndex][1])
 
-        startIndex += 1
+      
         
         setImages(index: startIndex)
         setTitle(index: startIndex)

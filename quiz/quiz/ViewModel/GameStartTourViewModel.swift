@@ -32,9 +32,10 @@ class GameStartTourViewModel {
         case round128
     }
     func getDropDownActions(attachmentCount:Int,completion: @escaping (Int) -> Void) -> [UIAction] {
+      
         let optionClosure = { [self] (action : UIAction) in
                  
-            
+            print(action.title)
             switch action.title{
             case Round.final.rawValue:
                 completion(self.rounds[0])
@@ -50,14 +51,14 @@ class GameStartTourViewModel {
                 completion(self.rounds[5])
             case Round.round128.rawValue:
                 completion(self.rounds[6])
-          
-      
+
+
             default:
                 completion(self.rounds[0])
+                print("def")
             }
            
         }
-        
      
         let round =  getClosestRound(count: (attachmentCount), rounds: rounds, completion: completion)
        
@@ -73,6 +74,7 @@ class GameStartTourViewModel {
             action.append(UIAction(title: roundsKey[i], state : .on , handler: optionClosure))
 
         }
+        
         return action
     }
  
@@ -82,7 +84,7 @@ class GameStartTourViewModel {
         guard let closest = rounds.filter({ $0 <= count }).max() else {
             return nil
         }
-           completion(closest)
+          // completion(closest)
         return closest
     }
 }

@@ -19,9 +19,9 @@ struct GameViewModel {
         tempAttachList.shuffle()
       
      
+              print("playableCount : \(playableCount)")
               
-              
-        for i in stride(from: 0, to: tempAttachList.count/2, by: 1) {
+        for i in stride(from: 0, to: playableCount/2, by: 1) {
             
             var match = [Attachment]()
             for j in stride(from:i, to: i+2 , by: 1){
