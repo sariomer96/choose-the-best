@@ -14,18 +14,20 @@ struct GameViewModel {
     var matchedList = [[Attachment]]()
     mutating func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
         
+        print("match worked")
+        matchedList.removeAll()
         var tempAttachList = attachment
         
+      
         tempAttachList.shuffle()
       
-     
-              print("playableCount : \(playableCount)")
               
         for i in stride(from: 0, to: playableCount/2, by: 1) {
             
             var match = [Attachment]()
             for j in stride(from:i, to: i+2 , by: 1){
-              print("\(j) \(tempAttachList[0].title)")
+ 
+             
                 match.append(tempAttachList[0])
                 tempAttachList.remove(at: 0)
             }

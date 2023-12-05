@@ -11,9 +11,12 @@ import Kingfisher
 class GameVC: UIViewController {
 
     
+    @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
     @IBOutlet weak var leftImageView: UIImageView!
     
+    @IBOutlet weak var roundLabel: UILabel!
+    var roundIndex = 1
     @IBOutlet weak var leftTitleLabel: UILabel!
     
     @IBOutlet weak var rightTitleLabel: UILabel!
@@ -27,20 +30,33 @@ class GameVC: UIViewController {
         super.viewDidLoad()
         imageTap()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        roundLabel.text = ""
+    }
         override func viewDidAppear(_ animated: Bool) {
-           startQuiz()
-            
+           
+        
+            rightImageView.alpha = 0.0
+            leftImageView.alpha = 0.0
+            startQuiz()
     }
     func startQuiz() {
         matchedAttachs = viewModel.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
         
+        setRound(roundIndex: 1, tourCount: matchedAttachs.count)
         
-        for i in matchedAttachs {
-          print("\(i[0].title) \(i[1].title) ")
-        }
-     //   print(matchedAttachs.count)
+//        for i in matchedAttachs {
+//          print("\(i[0].title) \(i[1].title) ")
+//        }
+  
+      
+     
          setImages(index: startIndex)
          setTitle(index: startIndex)
+    }
+    
+    func setRound(roundIndex:Int, tourCount:Int) {
+        roundLabel.text = "\(roundIndex) / \(tourCount)"
     }
     
     func imageTap() {
@@ -55,45 +71,83 @@ class GameVC: UIViewController {
        rightImageView.isUserInteractionEnabled = true
     }
     
-    @objc func imageClickedLeft() {    /// TIKLADIKCA RESIMLER DEGISIYOR AMA ATTACH COUNTA GORE AYARLA
+    @objc func imageClickedLeft() {
         ///
+     
+   
+        self.fadeInOrOut(alpha:0.0)
+
+        print("ekle \(startIndex)")
+        winAttachs.append(matchedAttachs[startIndex][0])
+      
+       
         startIndex += 1
-  
-     //   print("startIndex : \(startIndex)  \(a)   ---   matched \(matchedAttachs.count)")
-        if startIndex  >= matchedAttachs.count {
+        roundIndex += 1
+      
+        if startIndex < matchedAttachs.count {
+            
+             
+            setImages(index: startIndex)
+            
+            setTitle(index: startIndex)
+        }
+        
+        print("startind \(startIndex)   \(matchedAttachs.count)")
+        if winAttachs.count  == matchedAttachs.count  {
             print("tur bitti")
-      //      getNextTour()
+            getNextTour()
             return
         }
-        winAttachs.append(matchedAttachs[startIndex][0])
-     
-       
-      
-        setImages(index: startIndex)
-        
-        setTitle(index: startIndex)
+        print("winatt \(winAttachs.count)")
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
     @objc func imageClickedRight() {
-        startIndex += 1
-           if startIndex  >= matchedAttachs.count {
-               print("tur bitti")
-         //      getNextTour()
-               return
-           }
-        
-        winAttachs.append(matchedAttachs[startIndex][1])
-
       
+        self.fadeInOrOut(alpha:0.0)
+        print("ekle \(startIndex)")
+        winAttachs.append(matchedAttachs[startIndex][1])
+      
+       
+        startIndex += 1
+        roundIndex += 1
+       
+        if startIndex < matchedAttachs.count {
+            
+             
+            setImages(index: startIndex)
+            
+            setTitle(index: startIndex)
+        }
         
-        setImages(index: startIndex)
-        setTitle(index: startIndex)
+        print("startind \(startIndex)   \(matchedAttachs.count)")
+        if winAttachs.count  == matchedAttachs.count  {
+            print("tur bitti")
+            getNextTour()
+            return
+        }
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
+        print("winatt \(winAttachs.count)")
     }
     func setImages(index:Int) {
         
-   
-          print(index)
-        leftImageView.kf.setImage(with: URL(string: matchedAttachs[index][0].image!))
-        rightImageView.kf.setImage(with: URL(string: matchedAttachs[index][1].image!))
+        print("index \(index)   \(matchedAttachs.count)")
+        leftImageView.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) {
+            res in
+            self.fadeInOrOut(alpha:1.0)
+        }
+        rightImageView.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) {
+            _ in
+            self.fadeInOrOut(alpha:1.0)
+        }
+    }
+    
+    func fadeInOrOut(alpha:Double) {
+        UIView.animate(withDuration: 1.1, animations: {
+               
+         
+                self.leftImageView.alpha = alpha
+                self.rightImageView.alpha = alpha
+            })
     }
     
     func setTitle(index:Int) {
@@ -102,11 +156,23 @@ class GameVC: UIViewController {
         rightTitleLabel.text = matchedAttachs[index][1].title!
     }
     func getNextTour() {
+        if winAttachs.count == 1 {
+            let upper = winAttachs[0].title?.uppercased()
+            winLabel.textColor = .systemRed
+            winLabel.text = "\(upper!) WIN!!"
+            print("GAME WON")
+            return
+        }
         startIndex = 0
         playableCount = playableCount/2
         matchedAttachs = viewModel.matchQuiz(attachment: winAttachs, playableCount: playableCount)
+        roundIndex = 1
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
+        print("new matchedAttach  \(matchedAttachs)")
+        
         setImages(index: startIndex)
         setTitle(index: startIndex)
+        winAttachs.removeAll()
         
     }
 }
