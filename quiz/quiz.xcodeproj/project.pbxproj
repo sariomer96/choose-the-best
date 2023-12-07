@@ -22,6 +22,7 @@
 		179B77A02B152BB400FB317A /* GameStartTourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B779F2B152BB400FB317A /* GameStartTourVC.swift */; };
 		179B77A22B15323200FB317A /* ImagePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */; };
 		179B77A42B1B166500FB317A /* GameStartTourViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B77A32B1B166500FB317A /* GameStartTourViewModel.swift */; };
+		179B77A62B2080E200FB317A /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B77A52B2080E200FB317A /* ProgressBar.swift */; };
 		17B12DDA2AF8075A00CB513A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DD92AF8075A00CB513A /* AppDelegate.swift */; };
 		17B12DDC2AF8075A00CB513A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */; };
 		17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DDD2AF8075A00CB513A /* HomeVC.swift */; };
@@ -64,6 +65,7 @@
 		179B779F2B152BB400FB317A /* GameStartTourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartTourVC.swift; sourceTree = "<group>"; };
 		179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerTableViewCell.swift; sourceTree = "<group>"; };
 		179B77A32B1B166500FB317A /* GameStartTourViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartTourViewModel.swift; sourceTree = "<group>"; };
+		179B77A52B2080E200FB317A /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		17B12DD62AF8075A00CB513A /* quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B12DD92AF8075A00CB513A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				17B12DE42AF8075C00CB513A /* LaunchScreen.storyboard */,
 				17B12DE72AF8075C00CB513A /* Info.plist */,
 				1719F1C12B0CD31E0087A86E /* AlertManager.swift */,
+				179B77A52B2080E200FB317A /* ProgressBar.swift */,
 			);
 			path = quiz;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				1767325F2B0529780000ED79 /* VideoChoicesVC.swift in Sources */,
 				17B12E132AFECEF800CB513A /* Quiz.swift in Sources */,
 				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
+				179B77A62B2080E200FB317A /* ProgressBar.swift in Sources */,
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
 				174B03512B0373DF00A7076C /* TopRatedViewCell.swift in Sources */,
