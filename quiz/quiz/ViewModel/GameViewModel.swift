@@ -144,8 +144,9 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
-    func winState(winImageView:UIImageView) {
+    func winState(winImageView:UIImageView ) -> Bool {
         if winAttachs.count == 1 {
+            print("WIIINN")
             let upper = winAttachs[0].title?.uppercased()
             winLabel.textColor = .systemRed
             winLabel.text = "\(upper!) WIN!!"
@@ -155,8 +156,9 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
             leftImageView.isUserInteractionEnabled = false
            
             imageMoveToCenter(winImageView: winImageView)
-            return
+             return true
         }
+        return false
     }
     func imageMoveToCenter(winImageView:UIImageView) {
         winImageView.alpha = 1
@@ -170,11 +172,17 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         ])
     }
     func getNextTour(winImageView:UIImageView) {
+         
+       var finish =   winState(winImageView: winImageView)
+         
+        if finish == true{
+            return
+        }
         
-        winState(winImageView: winImageView)
         playableCount = playableCount/2
-        matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
         resetIndexes()
+        matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
+   
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
         setImages(index: startIndex)
         setTitle(index: startIndex)
