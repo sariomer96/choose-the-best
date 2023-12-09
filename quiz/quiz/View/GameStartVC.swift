@@ -17,7 +17,7 @@ class GameStartVC: UIViewController {
 
     var quizTitle:String?
     var quizImage:String?
-    var attachList :[Attachment]?
+   // var attachList :[Attachment]?
     var quiz:QuizResponse?
     override func viewDidLoad() {
         super.viewDidLoad()

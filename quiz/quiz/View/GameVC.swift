@@ -53,6 +53,20 @@ class GameVC: UIViewController {
         viewModel!.setImages(index: startIndex)
         viewModel!.setTitle(index: startIndex)
     }
+  
     
-
+    @IBAction func quizDetailClick(_ sender: Any) {
+        performSegue(withIdentifier: "toQuizDetail", sender: quiz)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let vc = segue.destination as? GameStartVC
+        
+        let quiz = sender as? QuizResponse
+        
+        if let vc = vc {
+            vc.quiz = quiz
+        }
+    }
 }

@@ -176,6 +176,7 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
        var finish =   winState(winImageView: winImageView)
          
         if finish == true{
+            disableLabels()
             return
         }
         
@@ -221,6 +222,13 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         UIView.animate(withDuration: 1.1, animations: {
                   imageView.alpha = alpha
             })
+    }
+    
+    func disableLabels() {
+        leftTitleLabel.isHidden = true
+        rightTitleLabel.isHidden = true
+        roundLabel.isHidden = true
+        
     }
     
 }

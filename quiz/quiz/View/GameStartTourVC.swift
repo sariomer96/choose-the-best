@@ -63,8 +63,11 @@ class GameStartTourVC: UIViewController {
         let vc = segue.destination as? GameVC
         let quiz = sender as? QuizResponse
         if let vc = vc , let quiz = quiz{
-            vc.quiz = quiz
-            vc.playableCount = maxPlayableCount
+            if segue.identifier == "toGame"{
+                
+                vc.quiz = quiz
+                vc.playableCount = maxPlayableCount
+            }
             
         }
     }
