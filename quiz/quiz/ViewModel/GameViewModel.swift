@@ -71,8 +71,53 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     var roundIndex = 1
     var randomChooseAttachList = [Attachment]()
     var matchedList = [[Attachment]]()
+    var action = [UIAction]()
+    var rates = [0,1,2,3,4,5]
+//    let rateKey = [
+//        "final",
+//        "semi",
+//        "quarter",
+//        "round16",
+//        "round32",
+//        "round64",
+//        "round128"
+//    ]
     
-    
+    func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
+      
+        let optionClosure = { [self] (action : UIAction) in
+                 
+            print(action.title)
+            switch action.title{
+            case String(rates[0]):
+                completion(self.rates[0])
+            case String(rates[1]):
+                completion(self.rates[1])
+            case String(rates[2]):
+                completion(self.rates[2])
+            case String(rates[3]):
+                completion(self.rates[3])
+            case String(rates[4]):
+                completion(self.rates[4])
+            case String(rates[5]):
+                completion(self.rates[5])
+        
+            default:
+                completion(self.rates[3])
+              
+            }
+           
+        }
+      
+        
+  
+        for i in rates {
+            action.append(UIAction(title: String(i), state : .on , handler: optionClosure))
+        }
+
+        
+        return action
+    }
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
         
         print("match worked")

@@ -23,8 +23,6 @@ struct QuizResponse: Codable {
     let created_at: String?
     let is_visible : Bool?
     let is_image : Bool?
-    
-    
     let average_rate: Double?
 }
 

@@ -10,6 +10,7 @@ import Kingfisher
 
 class GameVC: UIViewController {
 
+    @IBOutlet weak var quizRateDropDownButton: UIButton!
     
     
     @IBOutlet weak var winLabel: UILabel!
@@ -31,6 +32,7 @@ class GameVC: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+
  
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +45,20 @@ class GameVC: UIViewController {
         viewModel!.view = view
 
         startQuiz()
+        showRateDropDown()
+    }
+    func showRateDropDown() {
+        let  action = viewModel?.getDropDownActions(completion: { result in
+            
+        })
+         print("action \(action)")
+        if  action != nil {
+             print("setactt")
+            quizRateDropDownButton.menu = UIMenu(children : action!)
+     
+            quizRateDropDownButton.showsMenuAsPrimaryAction = true
+            quizRateDropDownButton.changesSelectionAsPrimaryAction = true
+        }
     }
     func startQuiz() {
         viewModel!.matchedAttachs = viewModel!.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
