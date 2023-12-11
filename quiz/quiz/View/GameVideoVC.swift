@@ -37,6 +37,8 @@ class GameVideoVC: UIViewController {
         viewModel.activity = activityIndicator
         viewModel.winAttachs = winAttachs
         viewModel.playableCount = playableCount
+        viewModel.topAttachTitle = topAttachmentTitle
+        viewModel.bottomAttachTitle = bottomAttachmentTitle
         
         startQuiz()
     }
@@ -62,25 +64,29 @@ class GameVideoVC: UIViewController {
         
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
         viewModel.setVideo(videoView: bottomVideoView, matchIndex: 0, rowIndex: 1)
+        
+        topAttachmentTitle.text = viewModel.matchedAttachs[0][0].title
+        bottomAttachmentTitle.text = viewModel.matchedAttachs[0][1].title
     }
     @IBAction func bottomChooseClick(_ sender: Any) {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 1) {
-            title,imageStr in
-            let url = imageStr
-            print(title)
-            self.popUpAttachImage.kf.setImage(with: URL(string: url))
-            self.popUpAttachTitle.text = title
+            attachment in
+            let url = attachment.image
+           
+            
+            self.popUpAttachImage.kf.setImage(with: URL(string: url!))
+            self.popUpAttachTitle.text = attachment.title
             self.viewModel.showPopUp(popUpView: self.popUpView)
         }
     }
     
     @IBAction func topChooseClick(_ sender: Any) {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 0) {
-            title,imageStr in
+            attachment in
             
-            let url = imageStr
+            let url = attachment.image!
             self.popUpAttachImage.kf.setImage(with: URL(string: url))
-            self.popUpAttachTitle.text = title
+            self.popUpAttachTitle.text = attachment.title
             self.viewModel.showPopUp(popUpView: self.popUpView)
         }
     }

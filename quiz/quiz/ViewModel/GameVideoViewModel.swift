@@ -16,6 +16,8 @@ class GameVideoViewModel {
     var playableCount =  0
     var isFinishQuiz = false
     @IBOutlet weak var activity:UIActivityIndicatorView?
+    @IBOutlet weak var topAttachTitle:UILabel?
+    @IBOutlet weak var bottomAttachTitle:UILabel?
     var startIndex = 0
     var roundIndex = 1
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
@@ -39,9 +41,11 @@ class GameVideoViewModel {
         }
         return matchedList
     }
-    func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (String,String) -> Void) {
+    func setAttachmentTitle(title:String,titleLabel:UILabel) {
+        titleLabel.text = title
+    }
+    func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (Attachment) -> Void) {
         
-      
         winAttachs.append(matchedAttachs[startIndex][rowIndex])
  
         //print("WIN \(a)")
@@ -51,6 +55,9 @@ class GameVideoViewModel {
         if startIndex < matchedAttachs.count {
             setVideo(videoView: bottomVideoView, matchIndex: startIndex, rowIndex: 1)
             setVideo(videoView: topVideoView, matchIndex: startIndex, rowIndex: 0)
+            
+            setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
+            setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         }
         if winAttachs.count  == matchedAttachs.count  {
             print("tur bitti")
@@ -108,20 +115,23 @@ class GameVideoViewModel {
         }
         
     }
-    func getNextTour(bottomPlayer:YTPlayerView,topPlayer:YTPlayerView,completion: @escaping  (String,String) -> Void) {
+    func getNextTour(bottomPlayer:YTPlayerView,topPlayer:YTPlayerView,completion: @escaping  (Attachment) -> Void) {
          
        var finish =   winState()
 
         if finish == true{
            // disableLabels()
    
-            completion(winAttachs[0].title!,winAttachs[0].image!)
+            completion(winAttachs[0])
             return
         }
         
         playableCount = playableCount/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
+        
+        setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
+        setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         setVideo(videoView: bottomPlayer, matchIndex: startIndex, rowIndex: 1)
         setVideo(videoView: topPlayer, matchIndex: startIndex, rowIndex: 0)
         winAttachs.removeAll()
