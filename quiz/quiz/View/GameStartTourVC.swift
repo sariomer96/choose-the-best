@@ -35,7 +35,15 @@ class GameStartTourVC: UIViewController {
     }
     
     @IBAction func startClick(_ sender: Any) {
-        performSegue(withIdentifier: "toGame", sender: quiz)
+        
+        if quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
+            performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
+        }else {
+            performSegue(withIdentifier: "toGame", sender: quiz)
+        }
+      
+ 
+       
     }
     func showDropDown(){
         

@@ -109,15 +109,38 @@ class WebService {
     var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
     func searchQuiz(searchText:String,completion: @escaping (String) -> Void){
         
+        let url = "http://127.0.0.1:8000/categories/search?=fed"
+        AF.request(url, method: .get).response { response in
+            switch response.result {
+            case .success(let data):
+                print(data)
+                
+            case .failure(let fail):
+                print(fail)
+                
+            }
+        }
     }
     
     
-    func createAttachment(title: String, videoUrl: String,image: UIImage, score : Int,completion: @escaping (String?,Bool) -> Void) {
+    func createAttachment(title: String, videoUrl: String,image: UIImage?, score : Int,completion: @escaping (String?,Bool) -> Void) {
         
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("Could not get JPEG representation of image")
-            return
+        var imageData = image?.jpegData(compressionQuality: 0.5)
+        if image != nil {
+            
+            
+            guard let data = imageData else {
+                print("Could not get JPEG representation of image")
+                return
+            }
+             
+//            guard  var imageData = image?.jpegData(compressionQuality: 0.5) else {
+//                print("Could not get JPEG representation of image")
+//                return
+//            }
+        
         }
+         
         let parameters: [String: Any] = [
             "title":title,
             "url":videoUrl,
@@ -159,7 +182,7 @@ class WebService {
         
     }
     
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
         
         guard let imageData = image.jpegData(compressionQuality: 0.1) else {
             print("Could not get JPEG representation of image")
@@ -171,7 +194,9 @@ class WebService {
             "attachment_ids":attachment_ids,
             "image": imageData,
             "category_id":categoryID,
-            "is_visible":isVisible
+            "is_visible":isVisible,
+            "is_image":is_image
+            
         ]
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -209,7 +234,7 @@ class WebService {
             case .success(let quiz):
                 
                 
-                print("QUIZ \(quiz.attachments)")
+               // print("QUIZ \(quiz.is_image)")
                                      
                 completion(UploadSuccess.success.rawValue, true,quiz)
             case .failure(let error):

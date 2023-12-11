@@ -6,33 +6,103 @@
 //
 
 import UIKit
+import Kingfisher
 import YouTubeiOSPlayerHelper
-
+import RxSwift
 class VideoChoicesVC: UIViewController {
 
-    @IBOutlet var playerView: YTPlayerView!
+    @IBOutlet weak var attachTableView: UITableView!
+//    @IBOutlet weak var testImage: UIImageView!
+//    @IBOutlet var playerView: YTPlayerView!
+    @IBOutlet weak var videoTitleLabel: UITextField!
+    @IBOutlet weak var youtubeURLTitle: UITextField!
+    var titleArray = [String]()
+    var thumbNailArray = [UIImage]()
+    var viewModel = VideoChoicesViewModel()
+    var attachIdList = [Int]()
+    var bag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
+        attachTableView.delegate = self
+        attachTableView.dataSource = self
+        _ = viewModel.thumbNailArrayRX.subscribe(onNext: {  list in
+            self.thumbNailArray = list
+            
+            
+            DispatchQueue.main.async {
+                self.attachTableView.reloadData()
+            }
+            
+            
+        }).disposed(by: bag)
         
-        let url = "https://www.youtube.com/watch?v=i5CtdgBUkeQ&ab_channel=SagopaKajmer"
+        _ = viewModel.attachIdList.subscribe(onNext: {  list in
+            self.attachIdList = list
+            
+            
+        }).disposed(by: bag)
         
-        let t = url.split(separator: "v=")
-         
-        let last = t[1]
-        let id = last.split(separator: "&")
-        print(last)
-        print(id[0])
-        let l = String(id[0])
-        playerView.load(withVideoId: l)
-        
-        
+        _ = viewModel.titleArrayRX.subscribe(onNext: {  list in
+            self.titleArray = list
+            
+            
+            DispatchQueue.main.async {
+                self.attachTableView.reloadData()
+            }
+            
+            
+        }).disposed(by: bag)
+    
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func AddVideoClick(_ sender: Any) {
+        let url = youtubeURLTitle.text!
+        let title = videoTitleLabel.text!
+        
+        self.viewModel.loadYoutubeLinkFields(url: url, title: title) { result,image in
+            if result == true {
+                self.youtubeURLTitle.text = ""
+                self.videoTitleLabel.text = ""
+                self.viewModel.addAttachment(title: title, videoUrl: url, image: image, score: 5) { res, success in
+                     
+                }
+            }
+        }
+       
+        
+    }
     @IBAction func nextClick(_ sender: Any) {
-        performSegue(withIdentifier: "toPublish", sender: nil)
+        performSegue(withIdentifier: "toPublish", sender: attachIdList)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPublish" {
+            let vc = segue.destination as? CreatePublishingVC
+            
+            let idList = sender as? [Int]
+            vc?.attachmentIds = idList!
+            vc?.is_image = false
+        }
+    }
      
+
+}
+
+extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return thumbNailArray.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as! VideoChoicesTableViewCell
+        
+        cell.videoTitleLabel.text = titleArray[indexPath.row]
+        cell.videoThumbnailImage.image = thumbNailArray[indexPath.row]
+        
+        return cell
+    }
+
 
 }

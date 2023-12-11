@@ -12,6 +12,7 @@ class CreatePublishingVC: UIViewController {
     
     
     var viewModel = CreatePublishingViewModel()
+    var is_image:Bool = true
     var didSelectCategory = false
     var categoryList = [Category]()
     var isVisible = true
@@ -54,9 +55,7 @@ class CreatePublishingVC: UIViewController {
         
         if didSelectCategory == true {
 
-         
-                print(attachmentIds)
-            viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible, attachment_ids: attachmentIds)
+            viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: self.categoryID, isVisible: self.isVisible,is_image: is_image, attachment_ids: attachmentIds)
         }
         
       

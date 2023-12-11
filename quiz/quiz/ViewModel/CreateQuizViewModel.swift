@@ -30,10 +30,10 @@ class CreateQuizViewModel:NSObject {
         recogDelegate = self
     }
     
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
+    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool,
                     attachment_ids:[Int],completion: @escaping (String?, Bool,QuizResponse?) -> Void){
         print("work viewmodel")
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible, attachment_ids: attachment_ids, completion: completion)
+        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible,is_image: is_image, attachment_ids: attachment_ids, completion: completion)
     }
     func checkIsEmptyFields(title:String, view:UIViewController) -> Bool{
       
