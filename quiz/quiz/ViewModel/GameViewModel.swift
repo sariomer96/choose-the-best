@@ -108,9 +108,6 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
             }
            
         }
-      
-        
-  
         for i in rates {
             action.append(UIAction(title: String(i), state : .on , handler: optionClosure))
         }

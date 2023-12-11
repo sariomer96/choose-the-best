@@ -713,12 +713,13 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUl-mc-pfs" customClass="YTPlayerView">
                                 <rect key="frame" x="0.0" y="146" width="414" height="234"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keq-QD-xJ2" customClass="YTPlayerView">
                                 <rect key="frame" x="0.0" y="466" width="414" height="234"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fTP-Cb-AQs">
+                                <rect key="frame" x="188.5" y="350" width="37" height="37"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/16" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPy-Bt-dnC">
                                 <rect key="frame" x="184.5" y="96" width="45.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -737,6 +738,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="topChooseClick:" destination="jWn-pW-CiM" eventType="touchUpInside" id="Uc3-EH-IxO"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHd-Eh-1QB">
                                 <rect key="frame" x="169.5" y="744.5" width="75" height="28"/>
@@ -744,6 +748,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="bottomChooseClick:" destination="jWn-pW-CiM" eventType="touchUpInside" id="aGn-KC-M3G"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="attachment title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-D8-Dgv">
                                 <rect key="frame" x="20" y="708" width="382" height="20.5"/>
@@ -760,6 +767,7 @@
                             <constraint firstItem="MGC-FJ-eeq" firstAttribute="trailing" secondItem="sle-yQ-Zsp" secondAttribute="trailing" constant="16" id="8ld-to-5Vr"/>
                             <constraint firstItem="sle-yQ-Zsp" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" constant="16" id="AGU-KC-qTh"/>
                             <constraint firstItem="pHd-Eh-1QB" firstAttribute="top" secondItem="ZUi-D8-Dgv" secondAttribute="bottom" constant="16" id="AkZ-dl-Kek"/>
+                            <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="Anv-eh-2Zy"/>
                             <constraint firstItem="sle-yQ-Zsp" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="8" id="B59-dE-R0Y"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" id="Bem-C9-GVv"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="86" id="EUz-Ot-gZu"/>
@@ -774,11 +782,17 @@
                             <constraint firstItem="GPy-Bt-dnC" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="hsg-gB-eKL"/>
                             <constraint firstItem="GPy-Bt-dnC" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="48" id="iO9-Y6-N01"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="98" id="nza-Zc-TfQ"/>
+                            <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerY" secondItem="GQF-fx-hVc" secondAttribute="centerY" constant="-50.5" id="oQJ-7L-C05"/>
                             <constraint firstItem="KXf-L8-NFB" firstAttribute="top" secondItem="sle-yQ-Zsp" secondAttribute="bottom" constant="16" id="qlc-BH-X6c"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GGf-ay-1Ar"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="fTP-Cb-AQs" id="Yku-bL-foB"/>
+                        <outlet property="bottomAttachmentTitle" destination="ZUi-D8-Dgv" id="7JE-3D-3OS"/>
+                        <outlet property="bottomVideoView" destination="keq-QD-xJ2" id="qgp-yd-9y8"/>
+                        <outlet property="topAttachmentTitle" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
+                        <outlet property="topVideoView" destination="lUl-mc-pfs" id="5IB-hi-BLm"/>
                         <segue destination="UZf-IL-CKm" kind="presentation" modalPresentationStyle="fullScreen" id="UkO-eJ-peO"/>
                     </connections>
                 </viewController>
@@ -1269,6 +1283,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="buQ-xT-6XE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nN7-TK-03D">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.07667349373546728" green="0.18191250887784094" blue="0.18020935234936727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
@@ -1302,7 +1317,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="NPL-5m-d2X"/>
-        <segue reference="eJr-Fd-oU2"/>
+        <segue reference="UkO-eJ-peO"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>

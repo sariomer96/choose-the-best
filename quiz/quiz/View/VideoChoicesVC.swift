@@ -60,7 +60,7 @@ class VideoChoicesVC: UIViewController {
         let url = youtubeURLTitle.text!
         let title = videoTitleLabel.text!
         
-        self.viewModel.loadYoutubeLinkFields(url: url, title: title) { result,image in
+        self.viewModel.loadYoutubeThumbnail(url: url, title: title) { result,image in
             if result == true {
                 self.youtubeURLTitle.text = ""
                 self.videoTitleLabel.text = ""

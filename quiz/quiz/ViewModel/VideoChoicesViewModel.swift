@@ -26,7 +26,7 @@ class VideoChoicesViewModel {
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image, score: score, completion: completion)
     }
     
-    func loadYoutubeLinkFields(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
+    func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
       
                 let t = url.split(separator: "v=")

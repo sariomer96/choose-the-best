@@ -37,6 +37,7 @@ class GameStartTourVC: UIViewController {
     @IBAction func startClick(_ sender: Any) {
         
         if quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
+            print("it works")
             performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
         }else {
             performSegue(withIdentifier: "toGame", sender: quiz)
@@ -75,8 +76,19 @@ class GameStartTourVC: UIViewController {
                 
                 vc.quiz = quiz
                 vc.playableCount = maxPlayableCount
+                return
             }
             
+        }
+        
+        let videoVC = segue.destination as? GameVideoVC
+        
+        if let videoVC = videoVC , let quiz = quiz {
+            if segue.identifier == "toGameVideoVC"{
+                
+                videoVC.quiz = quiz
+                videoVC.playableCount = maxPlayableCount
+            }
         }
     }
     
