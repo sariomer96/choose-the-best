@@ -758,10 +758,47 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pY0-z9-gDN">
+                                <rect key="frame" x="64" y="200" width="286" height="320"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5BT-fV-Ar6">
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="164"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="164" id="6js-H5-LRG"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5j-dB-lNk">
+                                        <rect key="frame" x="83.5" y="242" width="119" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="PLAY AGAIN"/>
+                                        <connections>
+                                            <action selector="popUpPlayAgainClick:" destination="jWn-pW-CiM" eventType="touchUpInside" id="anX-Pf-tVE"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attachment Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBH-cL-1A8">
+                                        <rect key="frame" x="74" y="167" width="138" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="leading" secondItem="pY0-z9-gDN" secondAttribute="leading" id="FS1-Gz-PYr"/>
+                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="top" secondItem="pY0-z9-gDN" secondAttribute="top" id="NTF-5f-Ibz"/>
+                                    <constraint firstItem="l5j-dB-lNk" firstAttribute="top" secondItem="5BT-fV-Ar6" secondAttribute="bottom" constant="78" id="OHm-UG-NzK"/>
+                                    <constraint firstAttribute="trailing" secondItem="5BT-fV-Ar6" secondAttribute="trailing" id="STv-gl-1TA"/>
+                                    <constraint firstItem="DBH-cL-1A8" firstAttribute="centerX" secondItem="pY0-z9-gDN" secondAttribute="centerX" id="a2A-HD-wLv"/>
+                                    <constraint firstItem="DBH-cL-1A8" firstAttribute="top" secondItem="5BT-fV-Ar6" secondAttribute="bottom" constant="3" id="seg-Jk-GAG"/>
+                                    <constraint firstAttribute="height" constant="320" id="vnb-yf-Jss"/>
+                                    <constraint firstItem="l5j-dB-lNk" firstAttribute="centerX" secondItem="pY0-z9-gDN" secondAttribute="centerX" id="yHQ-RO-qtZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MGC-FJ-eeq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="pY0-z9-gDN" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" constant="64" id="001-fd-WJD"/>
                             <constraint firstItem="MGC-FJ-eeq" firstAttribute="trailing" secondItem="ZUi-D8-Dgv" secondAttribute="trailing" constant="12" id="2c7-zf-sAz"/>
                             <constraint firstItem="ZUi-D8-Dgv" firstAttribute="top" secondItem="keq-QD-xJ2" secondAttribute="bottom" constant="8" symbolic="YES" id="3km-g2-ZKf"/>
                             <constraint firstItem="MGC-FJ-eeq" firstAttribute="trailing" secondItem="sle-yQ-Zsp" secondAttribute="trailing" constant="16" id="8ld-to-5Vr"/>
@@ -770,6 +807,7 @@
                             <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="Anv-eh-2Zy"/>
                             <constraint firstItem="sle-yQ-Zsp" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="8" id="B59-dE-R0Y"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" id="Bem-C9-GVv"/>
+                            <constraint firstItem="MGC-FJ-eeq" firstAttribute="trailing" secondItem="pY0-z9-gDN" secondAttribute="trailing" constant="64" id="D4d-Rp-leD"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="86" id="EUz-Ot-gZu"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="trailing" secondItem="MGC-FJ-eeq" secondAttribute="trailing" id="LXM-Zn-y3Z"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" id="NVO-QG-O3b"/>
@@ -781,6 +819,7 @@
                             <constraint firstItem="MGC-FJ-eeq" firstAttribute="trailing" secondItem="keq-QD-xJ2" secondAttribute="trailing" id="goz-MO-ZFE"/>
                             <constraint firstItem="GPy-Bt-dnC" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="hsg-gB-eKL"/>
                             <constraint firstItem="GPy-Bt-dnC" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="48" id="iO9-Y6-N01"/>
+                            <constraint firstItem="pY0-z9-gDN" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="152" id="lwS-3x-4wG"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="98" id="nza-Zc-TfQ"/>
                             <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerY" secondItem="GQF-fx-hVc" secondAttribute="centerY" constant="-50.5" id="oQJ-7L-C05"/>
                             <constraint firstItem="KXf-L8-NFB" firstAttribute="top" secondItem="sle-yQ-Zsp" secondAttribute="bottom" constant="16" id="qlc-BH-X6c"/>
@@ -791,14 +830,17 @@
                         <outlet property="activityIndicator" destination="fTP-Cb-AQs" id="Yku-bL-foB"/>
                         <outlet property="bottomAttachmentTitle" destination="ZUi-D8-Dgv" id="7JE-3D-3OS"/>
                         <outlet property="bottomVideoView" destination="keq-QD-xJ2" id="qgp-yd-9y8"/>
+                        <outlet property="popUpAttachImage" destination="5BT-fV-Ar6" id="8Xb-Oy-2Lr"/>
+                        <outlet property="popUpAttachTitle" destination="DBH-cL-1A8" id="3f2-Q3-By8"/>
+                        <outlet property="popUpView" destination="pY0-z9-gDN" id="qzd-jQ-xib"/>
                         <outlet property="topAttachmentTitle" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
                         <outlet property="topVideoView" destination="lUl-mc-pfs" id="5IB-hi-BLm"/>
-                        <segue destination="UZf-IL-CKm" kind="presentation" modalPresentationStyle="fullScreen" id="UkO-eJ-peO"/>
+                        <segue destination="UZf-IL-CKm" kind="presentation" identifier="toDetail" modalPresentationStyle="fullScreen" id="UkO-eJ-peO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZs-WD-7cd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="1424"/>
+            <point key="canvasLocation" x="2686.9565217391305" y="1423.6607142857142"/>
         </scene>
         <!--Create QuizVC-->
         <scene sceneID="xjS-p7-fgr">

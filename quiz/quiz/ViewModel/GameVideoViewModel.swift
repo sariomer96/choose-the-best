@@ -39,19 +39,22 @@ class GameVideoViewModel {
         }
         return matchedList
     }
-    func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int) {
-        winAttachs.append(matchedAttachs[startIndex][0])
+    func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (String,String) -> Void) {
+        
       
+        winAttachs.append(matchedAttachs[startIndex][rowIndex])
+ 
+        //print("WIN \(a)")
         startIndex += 1
         roundIndex += 1
        
         if startIndex < matchedAttachs.count {
-             setVideo(videoView: bottomVideoView, matchIndex: startIndex, rowIndex: 0)
-            setVideo(videoView: topVideoView, matchIndex: startIndex, rowIndex: 1)
+            setVideo(videoView: bottomVideoView, matchIndex: startIndex, rowIndex: 1)
+            setVideo(videoView: topVideoView, matchIndex: startIndex, rowIndex: 0)
         }
         if winAttachs.count  == matchedAttachs.count  {
             print("tur bitti")
-            getNextTour(bottomPlayer: bottomVideoView, topPlayer: topVideoView)
+            getNextTour(bottomPlayer: bottomVideoView, topPlayer: topVideoView, completion: completion)
             return
         }
     }
@@ -105,30 +108,36 @@ class GameVideoViewModel {
         }
         
     }
-    func getNextTour(bottomPlayer:YTPlayerView,topPlayer:YTPlayerView) {
+    func getNextTour(bottomPlayer:YTPlayerView,topPlayer:YTPlayerView,completion: @escaping  (String,String) -> Void) {
          
-     //  var finish =   winState(winImageView: winImageView)
-         
-//        if finish == true{
-//            disableLabels()
-//            return
-//        }
+       var finish =   winState()
+
+        if finish == true{
+           // disableLabels()
+   
+            completion(winAttachs[0].title!,winAttachs[0].image!)
+            return
+        }
         
         playableCount = playableCount/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
-        setVideo(videoView: bottomPlayer, matchIndex: startIndex, rowIndex: 0)
-        setVideo(videoView: topPlayer, matchIndex: startIndex, rowIndex: 1)
+        setVideo(videoView: bottomPlayer, matchIndex: startIndex, rowIndex: 1)
+        setVideo(videoView: topPlayer, matchIndex: startIndex, rowIndex: 0)
         winAttachs.removeAll()
         
     }
-    func winState(winImageView:UIImageView ) -> Bool {
+    func showPopUp(popUpView:UIView) {
+        popUpView.isHidden = false
+    }
+   
+    func winState( ) -> Bool {
         if winAttachs.count == 1 {
             print("WIIINN")
-            let upper = winAttachs[0].title?.uppercased()
-//            winLabel.textColor = .systemRed
-//            winLabel.text = "\(upper!) WIN!!"
-       
+//            let upper = winAttachs[0].title?.uppercased()
+////            winLabel.textColor = .systemRed
+////            winLabel.text = "\(upper!) WIN!!"
+//
             isFinishQuiz = true
 //            rightImageView.isUserInteractionEnabled = false
 //            leftImageView.isUserInteractionEnabled = false

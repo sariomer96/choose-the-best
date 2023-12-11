@@ -85,4 +85,6 @@ class GameVC: UIViewController {
             vc.quiz = quiz
         }
     }
+    
+
 }
