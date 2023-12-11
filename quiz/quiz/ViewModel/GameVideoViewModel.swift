@@ -81,13 +81,18 @@ class GameVideoViewModel {
     }
     func getYoutubeVideoID(url:String) -> String {
         
-        
-      let splitUrl = url.split(separator: "v=")
+        let baseURL = url.replacingOccurrences(of: " ", with: "")
+      let splitUrl = baseURL.split(separator: "v=")
 
       let idSplit = splitUrl[1]
       let id = idSplit.split(separator: "&")
-  
-      let videoID = String(id[0])
+      var videoID = ""
+        if id == nil {
+            videoID = String(idSplit)
+        }else {
+            videoID = String(id[0])
+        }
+   
         return videoID
         
     }

@@ -58,13 +58,14 @@ class VideoChoicesVC: UIViewController {
     
     @IBAction func AddVideoClick(_ sender: Any) {
         let url = youtubeURLTitle.text!
+        let baseURL = url.replacingOccurrences(of: " ", with: "")
         let title = videoTitleLabel.text!
         
-        self.viewModel.loadYoutubeThumbnail(url: url, title: title) { result,image in
+        self.viewModel.loadYoutubeThumbnail(url: baseURL, title: title) { result,image in
             if result == true {
                 self.youtubeURLTitle.text = ""
                 self.videoTitleLabel.text = ""
-                self.viewModel.addAttachment(title: title, videoUrl: url, image: image, score: 5) { res, success in
+                self.viewModel.addAttachment(title: title, videoUrl: baseURL, image: image, score: 5) { res, success in
                      
                 }
             }
