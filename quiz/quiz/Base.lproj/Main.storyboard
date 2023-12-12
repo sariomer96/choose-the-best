@@ -762,13 +762,13 @@
                                 <rect key="frame" x="64" y="200" width="286" height="320"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5BT-fV-Ar6">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="164"/>
+                                        <rect key="frame" x="24" y="24" width="238" height="164"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="164" id="6js-H5-LRG"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5j-dB-lNk">
-                                        <rect key="frame" x="83.5" y="242" width="119" height="35"/>
+                                        <rect key="frame" x="83.5" y="266" width="119" height="35"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="PLAY AGAIN"/>
                                         <connections>
@@ -776,18 +776,18 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attachment Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBH-cL-1A8">
-                                        <rect key="frame" x="74" y="167" width="138" height="21"/>
+                                        <rect key="frame" x="74" y="191" width="138" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <color key="backgroundColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="leading" secondItem="pY0-z9-gDN" secondAttribute="leading" id="FS1-Gz-PYr"/>
-                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="top" secondItem="pY0-z9-gDN" secondAttribute="top" id="NTF-5f-Ibz"/>
+                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="leading" secondItem="pY0-z9-gDN" secondAttribute="leading" constant="24" id="FS1-Gz-PYr"/>
+                                    <constraint firstItem="5BT-fV-Ar6" firstAttribute="top" secondItem="pY0-z9-gDN" secondAttribute="top" constant="24" id="NTF-5f-Ibz"/>
                                     <constraint firstItem="l5j-dB-lNk" firstAttribute="top" secondItem="5BT-fV-Ar6" secondAttribute="bottom" constant="78" id="OHm-UG-NzK"/>
-                                    <constraint firstAttribute="trailing" secondItem="5BT-fV-Ar6" secondAttribute="trailing" id="STv-gl-1TA"/>
+                                    <constraint firstAttribute="trailing" secondItem="5BT-fV-Ar6" secondAttribute="trailing" constant="24" id="STv-gl-1TA"/>
                                     <constraint firstItem="DBH-cL-1A8" firstAttribute="centerX" secondItem="pY0-z9-gDN" secondAttribute="centerX" id="a2A-HD-wLv"/>
                                     <constraint firstItem="DBH-cL-1A8" firstAttribute="top" secondItem="5BT-fV-Ar6" secondAttribute="bottom" constant="3" id="seg-Jk-GAG"/>
                                     <constraint firstAttribute="height" constant="320" id="vnb-yf-Jss"/>
@@ -833,6 +833,7 @@
                         <outlet property="popUpAttachImage" destination="5BT-fV-Ar6" id="8Xb-Oy-2Lr"/>
                         <outlet property="popUpAttachTitle" destination="DBH-cL-1A8" id="3f2-Q3-By8"/>
                         <outlet property="popUpView" destination="pY0-z9-gDN" id="qzd-jQ-xib"/>
+                        <outlet property="roundLabel" destination="GPy-Bt-dnC" id="4Mb-iT-p3B"/>
                         <outlet property="topAttachmentTitle" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
                         <outlet property="topVideoView" destination="lUl-mc-pfs" id="5IB-hi-BLm"/>
                         <segue destination="UZf-IL-CKm" kind="presentation" identifier="toDetail" modalPresentationStyle="fullScreen" id="UkO-eJ-peO"/>

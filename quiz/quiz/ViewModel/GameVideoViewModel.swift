@@ -18,6 +18,7 @@ class GameVideoViewModel {
     @IBOutlet weak var activity:UIActivityIndicatorView?
     @IBOutlet weak var topAttachTitle:UILabel?
     @IBOutlet weak var bottomAttachTitle:UILabel?
+    @IBOutlet weak var roundLabel:UILabel?
     var startIndex = 0
     var roundIndex = 1
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
@@ -64,6 +65,7 @@ class GameVideoViewModel {
             getNextTour(bottomPlayer: bottomVideoView, topPlayer: topVideoView, completion: completion)
             return
         }
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count,roundLabel: roundLabel!)
     }
  
     func loadIndicator(activityInd:UIActivityIndicatorView,isPlaying:Bool) {
@@ -76,7 +78,9 @@ class GameVideoViewModel {
         }
        
     }
-    
+    func setRound(roundIndex:Int,tourCount:Int,roundLabel:UILabel) {
+        roundLabel.text = "\(roundIndex) / \(tourCount)"
+    }
     func setVideo(videoView:YTPlayerView,matchIndex:Int,rowIndex:Int) {
         
         loadIndicator(activityInd: activity!,isPlaying: true)
@@ -134,6 +138,7 @@ class GameVideoViewModel {
         setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         setVideo(videoView: bottomPlayer, matchIndex: startIndex, rowIndex: 1)
         setVideo(videoView: topPlayer, matchIndex: startIndex, rowIndex: 0)
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count,roundLabel: roundLabel!)
         winAttachs.removeAll()
         
     }
@@ -144,15 +149,9 @@ class GameVideoViewModel {
     func winState( ) -> Bool {
         if winAttachs.count == 1 {
             print("WIIINN")
-//            let upper = winAttachs[0].title?.uppercased()
-////            winLabel.textColor = .systemRed
-////            winLabel.text = "\(upper!) WIN!!"
-//
+ 
             isFinishQuiz = true
-//            rightImageView.isUserInteractionEnabled = false
-//            leftImageView.isUserInteractionEnabled = false
-           
-           
+ 
              return true
         }
         return false

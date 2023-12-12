@@ -63,7 +63,7 @@ class GameVC: UIViewController {
     func startQuiz() {
         viewModel!.matchedAttachs = viewModel!.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
         
-        viewModel!.setRound(roundIndex: 1, tourCount: matchedAttachs.count)
+        viewModel!.setRound(roundIndex: 1, tourCount: viewModel!.matchedAttachs.count)
         
 
         viewModel!.setImages(index: startIndex)

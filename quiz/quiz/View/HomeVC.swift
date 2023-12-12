@@ -46,7 +46,7 @@ class HomeVC: UIViewController {
             
             if let result = result {
                 
-                AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
+               // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
             }
         }
         viewModel.getTopRateQuiz { error in

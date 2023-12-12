@@ -11,6 +11,7 @@ import Kingfisher
 
 class GameVideoVC: UIViewController {
 
+    @IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var bottomAttachmentTitle: UILabel!
     @IBOutlet weak var topAttachmentTitle: UILabel!
     @IBOutlet weak var popUpAttachTitle: UILabel!
@@ -29,7 +30,7 @@ class GameVideoVC: UIViewController {
     @IBOutlet weak var bottomVideoView: YTPlayerView!
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        popUpView.layer.cornerRadius = 20
         //print(quiz!)
         // Do any additional setup after loading the view.
     }
@@ -39,7 +40,7 @@ class GameVideoVC: UIViewController {
         viewModel.playableCount = playableCount
         viewModel.topAttachTitle = topAttachmentTitle
         viewModel.bottomAttachTitle = bottomAttachmentTitle
-        
+        viewModel.roundLabel = roundLabel
         startQuiz()
     }
     
@@ -59,8 +60,8 @@ class GameVideoVC: UIViewController {
     func startQuiz() {
         viewModel.matchedAttachs = viewModel.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
         
-      
-       // viewModel!.setRound(roundIndex: 1, tourCount: matchedAttachs.count)
+     
+        viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count, roundLabel: roundLabel)
         
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
         viewModel.setVideo(videoView: bottomVideoView, matchIndex: 0, rowIndex: 1)
