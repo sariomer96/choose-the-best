@@ -44,8 +44,9 @@ class GameVC: UIViewController {
         viewModel!.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
         viewModel!.view = view
 
-        startQuiz()
-        showRateDropDown()
+        
+         startQuiz()
+         showRateDropDown()
     }
     func showRateDropDown() {
         let  action = viewModel?.getDropDownActions(completion: { result in
@@ -62,7 +63,7 @@ class GameVC: UIViewController {
     }
     func startQuiz() {
         viewModel!.matchedAttachs = viewModel!.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
-        
+        print("AAAA  :\(viewModel?.matchedAttachs.count)")
         viewModel!.setRound(roundIndex: 1, tourCount: viewModel!.matchedAttachs.count)
         
 
@@ -72,7 +73,14 @@ class GameVC: UIViewController {
   
     
     @IBAction func quizDetailClick(_ sender: Any) {
-        performSegue(withIdentifier: "toQuizDetail", sender: quiz)
+        
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+        
+        
+        vc.quiz = quiz
+        self.navigationController!.pushViewController(vc, animated: true)
+      //  performSegue(withIdentifier: "toQuizDetail", sender: quiz)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

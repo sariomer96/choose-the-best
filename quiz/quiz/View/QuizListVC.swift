@@ -30,7 +30,7 @@ class QuizListVC: UIViewController {
         searchBar.delegate = self
        
         viewModel.getQuizList(categoryId: quizId!) { error in
-            
+        
            print(error)
             
         }
@@ -52,8 +52,9 @@ class QuizListVC: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 print("stop")
+                self.loadImages()
             }
-            self.loadImages()
+            
             self.tableView.reloadData()
         })
         
@@ -129,7 +130,14 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let quiz =  quizList[indexPath.row]
         print("quiizz \(quiz.title)")
-        performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "GameStartVC")
+        self.definesPresentationContext = true
+        print(newVC)
+        newVC?.modalPresentationStyle = .overCurrentContext
+        let vc = newVC as? GameStartVC
+        vc?.quiz = quiz
+        self.present(newVC!, animated: true, completion: nil)
+       // performSegue(withIdentifier: "GameStartVC", sender: quiz)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toGameStartVC" {

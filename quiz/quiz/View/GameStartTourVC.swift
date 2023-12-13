@@ -38,9 +38,29 @@ class GameStartTourVC: UIViewController {
         
         if quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
             print("it works")
-            performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
+            
+            
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVideoVC") as? GameVideoVC
+            
+            if let vc = vc {
+                 
+                vc.quiz = quiz
+                vc.playableCount = maxPlayableCount
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
+          //  performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
         }else {
-            performSegue(withIdentifier: "toGame", sender: quiz)
+            
+            
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVC") as? GameVC
+            
+            if let vc = vc {
+                
+                vc.quiz = quiz
+                vc.playableCount = maxPlayableCount
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
+           // performSegue(withIdentifier: "toGame", sender: quiz)
         }
       
  

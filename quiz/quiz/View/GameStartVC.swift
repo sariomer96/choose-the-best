@@ -23,7 +23,7 @@ class GameStartVC: UIViewController {
         super.viewDidLoad()
         attachTableView.delegate = self
         attachTableView.dataSource = self
-           setPopUpButton()
+            
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +43,14 @@ class GameStartVC: UIViewController {
         }
     }
     @IBAction func startClick(_ sender: Any) {
-        performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
+        
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartTourVC") as! GameStartTourVC
+        
+        
+        vc.quiz = quiz
+        self.navigationController!.pushViewController(vc, animated: true)
+      //  performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -55,27 +62,7 @@ class GameStartVC: UIViewController {
             vc.quiz = quiz
         }
     }
-    
-    func setPopUpButton () {
-        
-       
-//        let optionClosure = { (action : UIAction) in
-//            print(action.title)}
-//
-//        dropdownButton.menu = UIMenu(children : [
-//            UIAction(title:"2", state : .on , handler: optionClosure),
-//            UIAction(title:"4", state : .on , handler: optionClosure),
-//            UIAction(title:"8", state : .on , handler: optionClosure),
-//            UIAction(title:"16", state : .on , handler: optionClosure),
-//            UIAction(title:"32", state : .on , handler: optionClosure),
-//            UIAction(title:"64", state : .on , handler: optionClosure),
-//            UIAction(title:"128", state : .on , handler: optionClosure),
-//
-//        ])
-//
-//        dropdownButton.showsMenuAsPrimaryAction = true
-//        dropdownButton.changesSelectionAsPrimaryAction = true
-    }
+  
     
 }
 

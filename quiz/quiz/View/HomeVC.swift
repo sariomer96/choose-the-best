@@ -103,7 +103,12 @@ class HomeVC: UIViewController {
              
     }
     @IBAction func createQuizClick(_ sender: Any) {
-        performSegue(withIdentifier: "toCreateVC", sender: nil)
+        
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreateQuizVC") as! CreateQuizVC
+        
+        self.navigationController!.pushViewController(vc, animated: true)
+       // performSegue(withIdentifier: "toCreateVC", sender: nil)
     }
 }
 
@@ -127,7 +132,23 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "QuizListVC")
+//        self.definesPresentationContext = true
+//        print(newVC)
+//        newVC?.modalPresentationStyle = .overCurrentContext
+//        let vc = newVC as? QuizListVC
+//        vc?.nameCategory = categoryList[indexPath.row].name
+//        vc?.quizId = categoryList[indexPath.row].id
+//        
+//        
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "QuizListVC") as! QuizListVC
+        vc.nameCategory = categoryList[indexPath.row].name
+        vc.quizId = categoryList[indexPath.row].id
+        self.navigationController!.pushViewController(vc, animated: true)
+        
+     //   self.present(newVC!, animated: true, completion: nil)
+      //  performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -186,15 +207,30 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        var quiz:QuizResponse?
         if tableView == topRateTableView {
-            
-            let quiz =  topQuizList[indexPath.row]
-            performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+             
+             quiz =  topQuizList[indexPath.row]
+          //  performSegue(withIdentifier: "toGameStartVC", sender: quiz)
         }else {
             
-            let quiz =  recentlyList[indexPath.row]
-            performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+             quiz =  recentlyList[indexPath.row]
+           // performSegue(withIdentifier: "toGameStartVC", sender: quiz)
         }
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+        vc.quiz = quiz
+        self.navigationController!.pushViewController(vc, animated: true)
+        
+        
+        
+//        
+//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "GameStartVC")
+//        self.definesPresentationContext = true
+//        print(newVC)
+//        newVC?.modalPresentationStyle = .overCurrentContext
+//        let vc = newVC as? GameStartVC
+//        vc?.quiz = quiz
+//        self.present(newVC!, animated: true, completion: nil)
     }
     
 

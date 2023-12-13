@@ -28,11 +28,13 @@ struct CreatePublishingViewModel {
            
             if isSuccess == true {
                 AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-                      
-                     uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+              
+                    let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+                    vc.quiz = quiz
+                    
+                    uiview.navigationController!.pushViewController(vc, animated: true)
+                     //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
                 }
-                
-                
             }
             if let error = error {
                 AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error)

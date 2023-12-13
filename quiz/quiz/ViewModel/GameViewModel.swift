@@ -117,7 +117,7 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     }
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
         
-        print("match worked")
+        print("match worked \(playableCount)  \(attachment)")
         matchedList.removeAll()
         var tempAttachList = attachment
         
@@ -151,6 +151,7 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     }
     func setImages(index:Int) {
         
+        print("COUNTL  :  \(matchedList.count)")
         leftImageView.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
             res in
             fadeInOrOut(alpha: 1.0, imageView: leftImageView)

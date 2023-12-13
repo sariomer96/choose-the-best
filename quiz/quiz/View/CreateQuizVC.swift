@@ -22,7 +22,7 @@ class CreateQuizVC: UIViewController {
     }
    
      
-    func setQuizFields(identifier:String) {
+    func setQuizFields(quiztype:QuizType) {
         
          let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)
           
@@ -31,7 +31,17 @@ class CreateQuizVC: UIViewController {
               CreateQuizFields.shared.quizHeaderImage = coverImageView.image!
               CreateQuizFields.shared.quizTitle = quizTitleLabel.text!
               
-               performSegue(withIdentifier: identifier, sender: nil)
+              
+              if quiztype == QuizType.image {
+                  
+                  let vc = self.storyboard!.instantiateViewController(withIdentifier: "ImageChoicesVC") as! ImageChoicesVC
+                 self.navigationController!.pushViewController(vc, animated: true)
+              }else {
+                  
+                  let vc = self.storyboard!.instantiateViewController(withIdentifier: "VideoChoicesVC") as! VideoChoicesVC
+                 self.navigationController!.pushViewController(vc, animated: true)
+              }
+             //  performSegue(withIdentifier: identifier, sender: nil)
                  
           }else {
               AlertManager().delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
@@ -39,12 +49,16 @@ class CreateQuizVC: UIViewController {
           }
     }
     
+    enum QuizType {
+        case image
+        case video
+    }
     @IBAction func imageQuizclicked(_ sender: Any) {
-        setQuizFields(identifier: "toImage")
+        setQuizFields(quiztype: QuizType.image)
       
     }
     @IBAction func videoQuizClick(_ sender: Any) {
-        setQuizFields(identifier: "toVideo")
+        setQuizFields(quiztype: QuizType.video)
     }
     
 }

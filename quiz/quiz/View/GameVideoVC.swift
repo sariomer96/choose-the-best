@@ -45,7 +45,15 @@ class GameVideoVC: UIViewController {
     }
     
     @IBAction func popUpPlayAgainClick(_ sender: Any) {
-        performSegue(withIdentifier: "toDetail", sender: quiz)
+         
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as? GameStartVC
+        
+        if let vc = vc {
+             
+            vc.quiz = quiz
+            self.navigationController!.pushViewController(vc, animated: true)
+        }
+       // performSegue(withIdentifier: "toDetail", sender: quiz)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as? GameStartVC

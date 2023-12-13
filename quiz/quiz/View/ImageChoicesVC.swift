@@ -37,21 +37,21 @@ class ImageChoicesVC: UIViewController {
     @IBAction func nextClick(_ sender: Any) {
          
         if viewModel!.imageArray.count > 1 {
-            performSegue(withIdentifier: "toPublish", sender: attachIdList)
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
+            
+            if let vc = vc {
+                
+                vc.attachmentIds = attachIdList
+                vc.is_image = true
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
+          //  performSegue(withIdentifier: "toPublish", sender: attachIdList)
         }else {
             AlertManager.shared.alert(view: self, title: "Fail", message: "need 2 attachments")
         }
        
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toPublish" {
-            let vc = segue.destination as? CreatePublishingVC
-            
-            let idList = sender as? [Int]
-            vc?.attachmentIds = idList!
-        }
-    }
+   
     
     @IBAction func pickerClick(_ sender: Any) {
         var config = PHPickerConfiguration()

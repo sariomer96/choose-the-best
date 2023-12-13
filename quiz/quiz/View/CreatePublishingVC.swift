@@ -42,14 +42,14 @@ class CreatePublishingVC: UIViewController {
  
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toGameStartVC" {
-            let vc = segue.destination as? GameStartVC
-            let quiz = sender as? QuizResponse
- 
-            vc!.quiz = quiz
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toGameStartVC" {
+//            let vc = segue.destination as? GameStartVC
+//            let quiz = sender as? QuizResponse
+// 
+//            vc!.quiz = quiz
+//        }
+//    }
  
     @IBAction func publishClick(_ sender: Any) {
         

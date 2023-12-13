@@ -80,22 +80,23 @@ class VideoChoicesVC: UIViewController {
     }
     @IBAction func nextClick(_ sender: Any) {
         if thumbNailArray.count > 1 {
-            performSegue(withIdentifier: "toPublish", sender: attachIdList)
+            
+            
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
+            
+            if let vc = vc {
+                
+                vc.attachmentIds = attachIdList
+                vc.is_image = false
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
+           // performSegue(withIdentifier: "toPublish", sender: attachIdList)
         }else {
             AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
         }
      
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toPublish" {
-            let vc = segue.destination as? CreatePublishingVC
-            
-            let idList = sender as? [Int]
-            vc?.attachmentIds = idList!
-            vc?.is_image = false
-        }
-    }
+  
      
 
 }
