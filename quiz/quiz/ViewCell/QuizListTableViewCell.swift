@@ -9,7 +9,9 @@ import UIKit
 
 class QuizListTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var quizImageView: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var quizImageView: UIImageView!
+    //    @IBOutlet weak var quizImageView: UIImageView!
+//    
+//    @IBOutlet weak var nameLabel: UILabel!
 }

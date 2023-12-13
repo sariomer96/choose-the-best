@@ -36,8 +36,12 @@ class ImageChoicesVC: UIViewController {
     
     @IBAction func nextClick(_ sender: Any) {
          
-        
-        performSegue(withIdentifier: "toPublish", sender: attachIdList)
+        if viewModel!.imageArray.count > 1 {
+            performSegue(withIdentifier: "toPublish", sender: attachIdList)
+        }else {
+            AlertManager.shared.alert(view: self, title: "Fail", message: "need 2 attachments")
+        }
+       
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

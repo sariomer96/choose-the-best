@@ -31,7 +31,7 @@ class GameVideoViewModel {
         for i in stride(from: 0, to: playableCount/2, by: 1) {
             
             var match = [Attachment]()
-            for j in stride(from:i, to: i+2 , by: 1){
+            for _ in stride(from:i, to: i+2 , by: 1){
                 
                 
                 match.append(tempAttachList[0])
@@ -46,10 +46,8 @@ class GameVideoViewModel {
         titleLabel.text = title
     }
     func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (Attachment) -> Void) {
-        
         winAttachs.append(matchedAttachs[startIndex][rowIndex])
- 
-        //print("WIN \(a)")
+
         startIndex += 1
         roundIndex += 1
        
@@ -96,13 +94,12 @@ class GameVideoViewModel {
     func getYoutubeVideoID(url:String) -> String {
         
         let baseURL = url.replacingOccurrences(of: " ", with: "")
-      let splitUrl = baseURL.split(separator: "v=")
-
-      let idSplit = splitUrl[1]
-      let id = idSplit.split(separator: "&")
+        let splitUrl = baseURL.split(separator: "v=")
+ 
+      let id = splitUrl[1].split(separator: "&")
       var videoID = ""
         if id == nil {
-            videoID = String(idSplit)
+            videoID = String(splitUrl[1])
         }else {
             videoID = String(id[0])
         }

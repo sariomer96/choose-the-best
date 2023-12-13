@@ -61,6 +61,11 @@ class VideoChoicesVC: UIViewController {
         let baseURL = url.replacingOccurrences(of: " ", with: "")
         let title = videoTitleLabel.text!
         
+        if baseURL.isEmpty == true || title.isEmpty == true {
+            AlertManager.shared.alert(view: self, title: "Empty Fields", message: "Please fill the fields")
+            return
+        }
+       print("atladi")
         self.viewModel.loadYoutubeThumbnail(url: baseURL, title: title) { result,image in
             if result == true {
                 self.youtubeURLTitle.text = ""
@@ -74,7 +79,12 @@ class VideoChoicesVC: UIViewController {
         
     }
     @IBAction func nextClick(_ sender: Any) {
-        performSegue(withIdentifier: "toPublish", sender: attachIdList)
+        if thumbNailArray.count > 1 {
+            performSegue(withIdentifier: "toPublish", sender: attachIdList)
+        }else {
+            AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
+        }
+     
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

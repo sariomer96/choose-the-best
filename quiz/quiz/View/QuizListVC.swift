@@ -17,6 +17,7 @@ class QuizListVC: UIViewController {
     var nameCategory:String?
     let viewModel = QuizListViewModel()
     var quizList = [QuizResponse]()
+    var imageList = [UIImage]()
     
     var quizId:Int?
     override func viewDidLoad() {
@@ -52,6 +53,7 @@ class QuizListVC: UIViewController {
                 self.activityIndicator.isHidden = true
                 print("stop")
             }
+            self.loadImages()
             self.tableView.reloadData()
         })
         
@@ -83,22 +85,43 @@ extension QuizListVC : UISearchBarDelegate {
 
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return quizList.count
+        return imageList.count
     }
 
+    
+    func loadImages() {
+        imageList.removeAll()
+        for (index,obj) in quizList.enumerated() {
+            DispatchQueue.main.async { [self] in
+           
+          
+                let imgUrl = self.quizList[index].image
+                let img = UIImageView()
+                img.kf.setImage(with: URL(string:imgUrl!)) {
+                    result in
+                    self.imageList.append(img.image!)
+                    self.tableView.reloadData()
+                    print("quizlist: \(quizList.count) ------ imagelist: \(imageList.count)")
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
         
         cell.nameLabel.text = quizList[indexPath.row].title
-        let url = quizList[indexPath.row].image
-        cell.imageView!.kf.setImage(with: URL(string: url!)) { result in
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-            
+        cell.quizImageView.image = imageList[indexPath.row]
+//        let url = quizList[indexPath.row].image
+//        cell.imageView!.kf.setImage(with: URL(string: url!)) { result in
+//            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+//            
         
         return cell
         
