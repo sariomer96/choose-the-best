@@ -25,12 +25,7 @@ class HomeVC: UIViewController {
     var recentlyList = [QuizResponse]()
     let bag = DisposeBag()
     
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-
-             
-          
-        }
+    
       
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +111,6 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
         return categoryList.count
-       
         
     }
     
@@ -131,48 +125,16 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "QuizListVC")
-//        self.definesPresentationContext = true
-//        print(newVC)
-//        newVC?.modalPresentationStyle = .overCurrentContext
-//        let vc = newVC as? QuizListVC
-//        vc?.nameCategory = categoryList[indexPath.row].name
-//        vc?.quizId = categoryList[indexPath.row].id
-//        
-//        
-        
+ 
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "QuizListVC") as! QuizListVC
         vc.nameCategory = categoryList[indexPath.row].name
         vc.quizId = categoryList[indexPath.row].id
         self.navigationController!.pushViewController(vc, animated: true)
         
-     //   self.present(newVC!, animated: true, completion: nil)
-      //  performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
+       //  performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toQuizList" {
-          
-            let category = sender as! Category
-            
-            let vc = segue.destination as! QuizListVC
-            
-            vc.nameCategory = category.name
-            vc.quizId = category.id
-        }
-        
-        if segue.identifier == "toGameStartVC" {
-            let quiz = sender as! QuizResponse
-            
-            let vc = segue.destination as! GameStartVC
-            
-           
-            vc.quiz = quiz
-  
-           
-        }
-    }
+   
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //
@@ -201,9 +163,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         }else {
             return recentlyList.count
         }
-        
-      
-   
+         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -220,17 +180,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
         vc.quiz = quiz
         self.navigationController!.pushViewController(vc, animated: true)
-        
-        
-        
-//        
-//        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "GameStartVC")
-//        self.definesPresentationContext = true
-//        print(newVC)
-//        newVC?.modalPresentationStyle = .overCurrentContext
-//        let vc = newVC as? GameStartVC
-//        vc?.quiz = quiz
-//        self.present(newVC!, animated: true, completion: nil)
+         
     }
     
 
@@ -245,8 +195,6 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
                 
             let url = topQuizList[indexPath.row].image
             cell.topImageView.kf.setImage(with: URL(string: url!))
-            
-            
              
             return cell
         }

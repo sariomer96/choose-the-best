@@ -93,11 +93,11 @@ class WebService {
                         
                     }
                 } catch {
-                    print("\(error.localizedDescription) III")
+                  
                     completion(ErrorType.parseError.description)
                 }
             case .failure(let error):
-                print("\(error.localizedDescription) III")
+               
                 completion(ErrorType.networkError.description)
             }
         }
@@ -133,11 +133,6 @@ class WebService {
                 print("Could not get JPEG representation of image")
                 return
             }
-             
-//            guard  var imageData = image?.jpegData(compressionQuality: 0.5) else {
-//                print("Could not get JPEG representation of image")
-//                return
-//            }
         
         }
          
@@ -232,9 +227,7 @@ class WebService {
        
             switch response.result {
             case .success(let quiz):
-                
-                
-               // print("QUIZ \(quiz.is_image)")
+                 
                                      
                 completion(UploadSuccess.success.rawValue, true,quiz)
             case .failure(let error):

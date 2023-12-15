@@ -67,8 +67,7 @@ class GameVideoVC: UIViewController {
   
     func startQuiz() {
         viewModel.matchedAttachs = viewModel.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
-        
-     
+         
         viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count, roundLabel: roundLabel)
         
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
@@ -81,7 +80,6 @@ class GameVideoVC: UIViewController {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 1) {
             attachment in
             let url = attachment.image
-           
             
             self.popUpAttachImage.kf.setImage(with: URL(string: url!))
             self.popUpAttachTitle.text = attachment.title

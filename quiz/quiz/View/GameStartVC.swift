@@ -46,9 +46,9 @@ class GameStartVC: UIViewController {
         
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartTourVC") as! GameStartTourVC
-        
-        
+         print("VC \(vc)")
         vc.quiz = quiz
+          
         self.navigationController!.pushViewController(vc, animated: true)
       //  performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
     }
@@ -87,10 +87,7 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
     
         DispatchQueue.main.async { [self] in
             cell.attachImageView.kf.setImage(with: URL(string: (quiz?.attachments[indexPath.row].image!)!))
-        }
-        
-       
-            
+        } 
         return cell
         
     }

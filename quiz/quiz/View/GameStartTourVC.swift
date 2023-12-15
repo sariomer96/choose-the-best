@@ -37,9 +37,7 @@ class GameStartTourVC: UIViewController {
     @IBAction func startClick(_ sender: Any) {
         
         if quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
-            print("it works")
-            
-            
+  
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVideoVC") as? GameVideoVC
             
             if let vc = vc {
@@ -50,8 +48,6 @@ class GameStartTourVC: UIViewController {
             }
           //  performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
         }else {
-            
-            
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVC") as? GameVC
             
             if let vc = vc {
@@ -62,13 +58,9 @@ class GameStartTourVC: UIViewController {
             }
            // performSegue(withIdentifier: "toGame", sender: quiz)
         }
-      
- 
-       
     }
     func showDropDown(){
-        
-        
+         
        // fillDropDownActions()
         let  action = viewModel.getDropDownActions(attachmentCount: (quiz?.attachments.count)!) {
             count in
@@ -86,30 +78,5 @@ class GameStartTourVC: UIViewController {
                   dropdownButton.changesSelectionAsPrimaryAction = true
         }
     }
-    
- 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as? GameVC
-        let quiz = sender as? QuizResponse
-        if let vc = vc , let quiz = quiz{
-            if segue.identifier == "toGame"{
-                
-                vc.quiz = quiz
-                vc.playableCount = maxPlayableCount
-                return
-            }
-            
-        }
-        
-        let videoVC = segue.destination as? GameVideoVC
-        
-        if let videoVC = videoVC , let quiz = quiz {
-            if segue.identifier == "toGameVideoVC"{
-                
-                videoVC.quiz = quiz
-                videoVC.playableCount = maxPlayableCount
-            }
-        }
-    }
-    
+  
 }

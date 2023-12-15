@@ -22,25 +22,21 @@ class QuizListVC: UIViewController {
     var quizId:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("======\(String(describing: quizId)) ------------")
+ 
         
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
        
         viewModel.getQuizList(categoryId: quizId!) { error in
-        
-           print(error)
+         
             
         }
-        
-        
         
         _ = viewModel.quizList.do(onNext: {  list in
             self.activityIndicator.startAnimating()
             self.activityIndicator.isHidden = false
-            print("start")
+         
 
         }) .subscribe(onNext: { list in
             self.quizList = list
@@ -51,10 +47,10 @@ class QuizListVC: UIViewController {
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
-                print("stop")
-                self.loadImages()
+         
+              
             }
-            
+            self.loadImages()
             self.tableView.reloadData()
         })
         
@@ -64,16 +60,14 @@ class QuizListVC: UIViewController {
        
         categoryName.text = ""
         categoryName.text = nameCategory
-   
+       
       
     }
     override func viewDidAppear(_ animated: Bool) {
-        
-//         self.activityIndicator.isHidden = false
-//         self.activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
-    
-    
 }
 
 extension QuizListVC : UISearchBarDelegate {
@@ -88,8 +82,6 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageList.count
     }
-
-    
     func loadImages() {
         imageList.removeAll()
         for (index,obj) in quizList.enumerated() {
@@ -102,7 +94,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
                     result in
                     self.imageList.append(img.image!)
                     self.tableView.reloadData()
-                    print("quizlist: \(quizList.count) ------ imagelist: \(imageList.count)")
+               
                 }
                 
                 self.tableView.reloadData()
@@ -110,46 +102,25 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
         
         cell.nameLabel.text = quizList[indexPath.row].title
         cell.quizImageView.image = imageList[indexPath.row]
-//        let url = quizList[indexPath.row].image
-//        cell.imageView!.kf.setImage(with: URL(string: url!)) { result in
-//            
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
-//            
+ 
         
         return cell
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let quiz =  quizList[indexPath.row]
-        print("quiizz \(quiz.title)")
-        let newVC = self.storyboard?.instantiateViewController(withIdentifier: "GameStartVC")
-        self.definesPresentationContext = true
-        print(newVC)
-        newVC?.modalPresentationStyle = .overCurrentContext
-        let vc = newVC as? GameStartVC
-        vc?.quiz = quiz
-        self.present(newVC!, animated: true, completion: nil)
+        
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+         
+        vc.quiz = quiz
+          
+        self.navigationController!.pushViewController(vc, animated: true)
        // performSegue(withIdentifier: "GameStartVC", sender: quiz)
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toGameStartVC" {
-            let quiz = sender as! QuizResponse
-            
-            let vc = segue.destination as! GameStartVC
-            
-            vc.quiz = quiz
-
-           
-        }
-    }
-
-
+    } 
 }

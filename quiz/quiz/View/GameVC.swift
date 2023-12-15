@@ -31,8 +31,7 @@ class GameVC: UIViewController {
     var isFinishQuiz = false
    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        super.viewDidLoad() 
  
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -52,9 +51,9 @@ class GameVC: UIViewController {
         let  action = viewModel?.getDropDownActions(completion: { result in
             
         })
-         print("action \(action)")
+      
         if  action != nil {
-             print("setactt")
+            
             quizRateDropDownButton.menu = UIMenu(children : action!)
      
             quizRateDropDownButton.showsMenuAsPrimaryAction = true
@@ -63,15 +62,12 @@ class GameVC: UIViewController {
     }
     func startQuiz() {
         viewModel!.matchedAttachs = viewModel!.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
-        print("AAAA  :\(viewModel?.matchedAttachs.count)")
+       
         viewModel!.setRound(roundIndex: 1, tourCount: viewModel!.matchedAttachs.count)
-        
-
+         
         viewModel!.setImages(index: startIndex)
         viewModel!.setTitle(index: startIndex)
     }
-  
-    
     @IBAction func quizDetailClick(_ sender: Any) {
         
         
@@ -93,6 +89,4 @@ class GameVC: UIViewController {
             vc.quiz = quiz
         }
     }
-    
-
 }

@@ -27,8 +27,7 @@ class VideoChoicesVC: UIViewController {
         attachTableView.dataSource = self
         _ = viewModel.thumbNailArrayRX.subscribe(onNext: {  list in
             self.thumbNailArray = list
-            
-            
+             
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }
@@ -65,7 +64,7 @@ class VideoChoicesVC: UIViewController {
             AlertManager.shared.alert(view: self, title: "Empty Fields", message: "Please fill the fields")
             return
         }
-       print("atladi")
+      
         self.viewModel.loadYoutubeThumbnail(url: baseURL, title: title) { result,image in
             if result == true {
                 self.youtubeURLTitle.text = ""
@@ -75,8 +74,6 @@ class VideoChoicesVC: UIViewController {
                 }
             }
         }
-       
-        
     }
     @IBAction func nextClick(_ sender: Any) {
         if thumbNailArray.count > 1 {
@@ -96,9 +93,6 @@ class VideoChoicesVC: UIViewController {
         }
      
     }
-  
-     
-
 }
 
 extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
@@ -115,6 +109,4 @@ extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
         
         return cell
     }
-
-
 }

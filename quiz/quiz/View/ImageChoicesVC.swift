@@ -28,12 +28,10 @@ class ImageChoicesVC: UIViewController {
         
         _ = viewModel!.attachIdList.subscribe(onNext: {  list in
             self.attachIdList = list
-            
-            
+             
         }).disposed(by: bag)
         
     }
-    
     @IBAction func nextClick(_ sender: Any) {
          
         if viewModel!.imageArray.count > 1 {
@@ -51,8 +49,6 @@ class ImageChoicesVC: UIViewController {
         }
        
     }
-   
-    
     @IBAction func pickerClick(_ sender: Any) {
         var config = PHPickerConfiguration()
         
@@ -69,7 +65,6 @@ class ImageChoicesVC: UIViewController {
     }
     
 }
-
 extension ImageChoicesVC:PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
@@ -97,7 +92,5 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
         
         cell.view = editView
         return cell
-    }
-    
-    
+    } 
 }
