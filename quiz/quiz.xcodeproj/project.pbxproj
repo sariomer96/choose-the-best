@@ -148,6 +148,7 @@
 		17B12DD82AF8075A00CB513A /* quiz */ = {
 			isa = PBXGroup;
 			children = (
+				17B12DFD2AFCD93200CB513A /* Service */,
 				174B03522B03818400A7076C /* ViewCell */,
 				17B12DFE2AFCD94000CB513A /* Model */,
 				17B12DFC2AFCD92700CB513A /* ViewModel */,
@@ -211,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				17B12E122AFECEF800CB513A /* Quiz.swift */,
-				17B12DFD2AFCD93200CB513A /* Service */,
 				17B12E142B00292000CB513A /* Category.swift */,
 			);
 			path = Model;

@@ -9,10 +9,11 @@ import Foundation
 import RxSwift
 import UIKit
 
-struct CreatePublishingViewModel {
+class CreatePublishingViewModel {
     
     var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     let webService = WebService.shared
+    var action = [UIAction]()
     init() {
         self.categoryList = WebService.shared.categoryList
     }
@@ -40,5 +41,36 @@ struct CreatePublishingViewModel {
                 AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error)
             }
         }
+    }
+    
+    func getDropDownActions(categoryList:[Category],completion: @escaping (Int) -> Void) -> [UIAction] {
+        var categoryActionMap: [UIAction: Int] = [:]
+         action.removeAll()
+        let optionClosure = { [self] (action: UIAction) in
+            guard let selectedCategoryIndex = categoryActionMap[action] else {
+                return
+            }
+ 
+            completion(selectedCategoryIndex)
+            // Now you can use selectedCategoryIndex to identify which categoryList index is selected
+            print("Selected category index: \(selectedCategoryIndex)")
+        }
+        
+        for i in stride(from: 0, to: categoryList.count + 1, by: 1) {
+            if i == 0 {
+                action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))
+                categoryActionMap[action[0]] = -1
+            }else {
+                let categoryAction = UIAction(title: String(categoryList[i-1].name!), state: .on, handler: optionClosure)
+                  
+                  // Map the action to its corresponding index
+                categoryActionMap[categoryAction] = categoryList[i-1].id
+                  
+                  action.append(categoryAction)
+            }
+        }
+     
+   
+        return action
     }
 }

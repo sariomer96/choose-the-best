@@ -190,7 +190,7 @@ class WebService {
             "image": imageData,
             "category_id":categoryID,
             "is_visible":isVisible,
-            "is_image":is_image
+          //  "is_image":is_image
             
         ]
         
