@@ -10,7 +10,8 @@ import YouTubeiOSPlayerHelper
 import Kingfisher
 
 class GameVideoVC: UIViewController {
-
+    @IBOutlet weak var quizRateButton: UIButton!
+    
     @IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var bottomAttachmentTitle: UILabel!
     @IBOutlet weak var topAttachmentTitle: UILabel!
@@ -27,6 +28,10 @@ class GameVideoVC: UIViewController {
     var startIndex = 0
     var roundIndex = 1
     var playableCount = 2 
+    var rate = 0
+    var isRateSelected = false
+    var vote = false
+
     @IBOutlet weak var bottomVideoView: YTPlayerView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +47,39 @@ class GameVideoVC: UIViewController {
         viewModel.bottomAttachTitle = bottomAttachmentTitle
         viewModel.roundLabel = roundLabel
         startQuiz()
+        showRateDropDown()
+    }
+    
+    func showRateDropDown() {
+        let  action = viewModel.getDropDownActions(completion: { result in
+            if result > -1 {
+                self.isRateSelected = true
+                self.rate = result
+            }else {
+                self.isRateSelected = false
+            }
+        })
+        if  action != nil {
+            
+            quizRateButton.menu = UIMenu(children : action)
+            quizRateButton.showsMenuAsPrimaryAction = true
+            quizRateButton.changesSelectionAsPrimaryAction = true
+        }
+    }
+    @IBAction func voteClick(_ sender: Any) {
+        if isRateSelected == true {
+             print(rate)
+            vote = true
+            print("IDbn   : \(quiz?.id)")
+            
+            viewModel.rateQuiz(quizID: quiz!.id, rateScore: rate)
+            { result in
+               print(result)
+                AlertManager.shared.alert(view: self, title: "Alert", message: result)
+            }
+        }else {
+            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+        }
     }
     
     @IBAction func popUpPlayAgainClick(_ sender: Any) {
@@ -49,9 +87,10 @@ class GameVideoVC: UIViewController {
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as? GameStartVC
         
         if let vc = vc {
-             
-            vc.quiz = quiz
-            self.navigationController!.pushViewController(vc, animated: true)
+            if vote == true {
+                vc.quiz = quiz
+                self.navigationController!.pushViewController(vc, animated: true)
+            }
         }
        // performSegue(withIdentifier: "toDetail", sender: quiz)
     }

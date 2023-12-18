@@ -19,6 +19,8 @@ class GameVideoViewModel {
     @IBOutlet weak var topAttachTitle:UILabel?
     @IBOutlet weak var bottomAttachTitle:UILabel?
     @IBOutlet weak var roundLabel:UILabel?
+    var action = [UIAction]()
+    var rates = [0,1,2,3,4,5]
     var startIndex = 0
     var roundIndex = 1
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
@@ -41,6 +43,39 @@ class GameVideoViewModel {
             
         }
         return matchedList
+    }
+    func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
+      
+        let optionClosure = { [self] (action : UIAction) in
+                 
+            print(action.title)
+            switch action.title{
+            case String(rates[0]):
+                completion(self.rates[0])
+            case String(rates[1]):
+                completion(self.rates[1])
+            case String(rates[2]):
+                completion(self.rates[2])
+            case String(rates[3]):
+                completion(self.rates[3])
+            case String(rates[4]):
+                completion(self.rates[4])
+            case String(rates[5]):
+                completion(self.rates[5])
+        
+            default:
+                completion(-1)
+              
+            }
+           
+        }
+        action.append(UIAction(title: "Select..", state : .on , handler: optionClosure))
+        for i in rates {
+            action.append(UIAction(title: String(i), state : .on , handler: optionClosure))
+        }
+
+        
+        return action
     }
     func setAttachmentTitle(title:String,titleLabel:UILabel) {
         titleLabel.text = title
@@ -86,7 +121,9 @@ class GameVideoViewModel {
         let videoId = getYoutubeVideoID(url: url)
         loadVideo(videoID: videoId, videoView: videoView)
     }
- 
+    func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
+    }
     func getURL(matchIndex:Int,rowIndex:Int) -> String {
         
         return  matchedAttachs[matchIndex][rowIndex].url!
