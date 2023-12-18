@@ -29,10 +29,27 @@ class GameVC: UIViewController {
     var matchedAttachs = [[Attachment]]()
     var winAttachs = [Attachment]()
     var isFinishQuiz = false
-   
+    var rate = 0
+    var isRateSelected = false
+    var vote = false
     override func viewDidLoad() {
         super.viewDidLoad() 
  
+    }
+    @IBAction func voteClick(_ sender: Any) {
+        if isRateSelected == true {
+             print(rate)
+            vote = true
+            print("IDbn   : \(quiz?.id)")
+            
+            viewModel?.rateQuiz(quizID: quiz!.id, rateScore: rate)
+            { result in
+               print(result)
+                AlertManager.shared.alert(view: self, title: "Alert", message: result)
+            }
+        }else {
+            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         roundLabel.text = ""
@@ -50,6 +67,13 @@ class GameVC: UIViewController {
     func showRateDropDown() {
         let  action = viewModel?.getDropDownActions(completion: { result in
             
+            if result > -1 {
+                self.isRateSelected = true
+                self.rate = result
+            }else {
+                self.isRateSelected = false
+            }
+      
         })
       
         if  action != nil {
@@ -68,25 +92,20 @@ class GameVC: UIViewController {
         viewModel!.setImages(index: startIndex)
         viewModel!.setTitle(index: startIndex)
     }
-    @IBAction func quizDetailClick(_ sender: Any) {
+    @IBAction func playAgainClick(_ sender: Any) {
         
-        
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-        
-        
-        vc.quiz = quiz
-        self.navigationController!.pushViewController(vc, animated: true)
+        if vote == true {
+            
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+            
+            
+            vc.quiz = quiz
+            self.navigationController!.pushViewController(vc, animated: true)
+        }else {
+            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+        }
       //  performSegue(withIdentifier: "toQuizDetail", sender: quiz)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let vc = segue.destination as? GameStartVC
-        
-        let quiz = sender as? QuizResponse
-        
-        if let vc = vc {
-            vc.quiz = quiz
-        }
-    }
+    
 }

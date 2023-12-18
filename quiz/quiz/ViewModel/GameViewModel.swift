@@ -73,16 +73,7 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     var matchedList = [[Attachment]]()
     var action = [UIAction]()
     var rates = [0,1,2,3,4,5]
-//    let rateKey = [
-//        "final",
-//        "semi",
-//        "quarter",
-//        "round16",
-//        "round32",
-//        "round64",
-//        "round128"
-//    ]
-    
+ 
     func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
@@ -103,11 +94,12 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
                 completion(self.rates[5])
         
             default:
-                completion(self.rates[3])
+                completion(-1)
               
             }
            
         }
+        action.append(UIAction(title: "Select..", state : .on , handler: optionClosure))
         for i in rates {
             action.append(UIAction(title: String(i), state : .on , handler: optionClosure))
         }
@@ -272,6 +264,10 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         rightTitleLabel.isHidden = true
         roundLabel.isHidden = true
         
+    }
+    
+    func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
     }
     
 }
