@@ -46,7 +46,7 @@ class GameStartVC: UIViewController {
         
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartTourVC") as! GameStartTourVC
-         print("VC \(vc)")
+   
         vc.quiz = quiz
           
         self.navigationController!.pushViewController(vc, animated: true)
@@ -73,7 +73,7 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
         if let attach = quiz?.attachments.count {
             return attach
         }else{
-            print("retirn 0")
+ 
             return 0
         }
    
@@ -84,7 +84,15 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
         
          
         cell.attachName.text = quiz?.attachments[indexPath.row].title
-    
+        
+       let score = quiz?.attachments[indexPath.row].score
+       
+        let s = Double(score!)*100.0
+        
+        let lastScore = s/5
+        let progress = lastScore/100
+        cell.winRateCircleBar.progress = CGFloat(progress)
+        
         DispatchQueue.main.async { [self] in
             cell.attachImageView.kf.setImage(with: URL(string: (quiz?.attachments[indexPath.row].image!)!))
         } 

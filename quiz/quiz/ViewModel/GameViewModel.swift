@@ -158,8 +158,19 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         leftTitleLabel.text = matchedAttachs[index][0].title!
         rightTitleLabel.text = matchedAttachs[index][1].title!
     }
+    func getAttachmentID(side:Int) -> Int{
+        
+        let id =  matchedAttachs[startIndex][side].id
+         return id!
+         
+    }
     @objc func imageClickedLeft() {
         
+        let id =   getAttachmentID(side: 0)
+        setAttachmentScore(attachID: id) {
+            result in
+            print(result)
+        }
         self.fadeInOrOut(alpha: 0.0, imageView: leftImageView)
         self.fadeInOrOut(alpha: 0.0, imageView: rightImageView)
   
@@ -231,6 +242,12 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     }
     @objc func imageClickedRight() {
        
+        let id =   getAttachmentID(side: 1)
+        setAttachmentScore(attachID: id) {
+            result in
+            print(result)
+        }
+        
         self.fadeInOrOut(alpha: 0.0, imageView: leftImageView)
         self.fadeInOrOut(alpha: 0.0, imageView: rightImageView)
  
@@ -268,6 +285,9 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     
     func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
         WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
+    }
+    func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.setAttachmentScore(attachID: attachID, completion: completion)
     }
     
 }

@@ -20,8 +20,8 @@ class GameStartTableViewCell: UITableViewCell {
     
         DispatchQueue.main.async {
       
-            self.winRateCircleBar.progress = self.count
-            self.win2RateBar.progress = self.count*1.8
+           // self.winRateCircleBar.progress = self.count
+         //   self.win2RateBar.progress = self.count*1.8
         }
         // Initialization code
     }
