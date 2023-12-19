@@ -19,7 +19,7 @@ class QuizListVC: UIViewController {
     let viewModel = QuizListViewModel()
     var quizList = [QuizResponse]()
     var imageList = [UIImage]()
-    
+    private var imagesList = [String]()
     var categoryID:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,13 @@ class QuizListVC: UIViewController {
         }) .subscribe(onNext: { list in
             self.quizList = list
                  
-          
+                 
+            for i in self.quizList {
+                guard let image = i.image else { return }
+                
+                self.imagesList.append(image)
+                self.tableView.reloadData()
+            }
             DispatchQueue.main.async {
                
                 self.tableView.reloadData()
@@ -81,7 +87,7 @@ extension QuizListVC : UISearchBarDelegate {
 
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageList.count
+        return quizList.count
     }
     func loadImages() {
         imageList.removeAll()
@@ -106,9 +112,9 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
         
         cell.nameLabel.text = quizList[indexPath.row].title
-        cell.quizImageView.image = imageList[indexPath.row]
- 
+      //  cell.quizImageView.image = imageList[indexPath.row]
         
+        cell.quizImageView.kf.setImage(with: URL(string:imagesList[indexPath.row]))
         return cell
         
     }
