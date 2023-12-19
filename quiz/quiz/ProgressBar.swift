@@ -97,8 +97,10 @@ class ProgressBar:UIView {
     }
     
     private func didProgressUpdated() {
-        textLayer?.string = "%\(Int(progress*100))"
-        print(progress)
+        let result = Float(progress*100)
+        let formattedString = String(format: "%.1f", result)
+        textLayer?.string = "%\(formattedString)"
+      
         foregroundLayer?.strokeEnd = progress
     }
 }

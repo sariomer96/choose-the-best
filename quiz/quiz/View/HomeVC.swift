@@ -26,6 +26,16 @@ class HomeVC: UIViewController {
     let bag = DisposeBag()
     
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.getTopRateQuiz { error in
+            
+        }
+        viewModel.getRecentlyQuiz { error in
+            
+        }
+    }
+    
       
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +54,12 @@ class HomeVC: UIViewController {
                // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
             }
         }
-        viewModel.getTopRateQuiz { error in
-            
-        }
-        viewModel.getRecentlyQuiz { error in
-            
-        }
+//        viewModel.getTopRateQuiz { error in
+//            
+//        }
+//        viewModel.getRecentlyQuiz { error in
+//            
+//        }
         
         _ = viewModel.topQuizList.subscribe(onNext: {  list in
             self.topQuizList = list

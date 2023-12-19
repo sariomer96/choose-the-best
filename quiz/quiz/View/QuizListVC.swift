@@ -49,7 +49,6 @@ class QuizListVC: UIViewController {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
          
-              
             }
             self.loadImages()
             self.tableView.reloadData()
@@ -88,8 +87,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         imageList.removeAll()
         for (index,obj) in quizList.enumerated() {
             DispatchQueue.main.async { [self] in
-           
-          
+            
                 let imgUrl = self.quizList[index].image
                 let img = UIImageView()
                 img.kf.setImage(with: URL(string:imgUrl!)) {

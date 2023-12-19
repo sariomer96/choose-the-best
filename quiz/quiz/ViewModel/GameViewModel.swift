@@ -210,7 +210,7 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         winImageView.alpha = 1
   
         winImageView.translatesAutoresizingMaskIntoConstraints = false
-         view.addSubview(winImageView)
+         //view.addSubview(winImageView)
 
         NSLayoutConstraint.activate([
             winImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),

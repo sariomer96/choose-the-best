@@ -56,6 +56,35 @@ class WebService {
         case quizList
         
     }
+    
+    func getQuiz(quizID:Int,completion: @escaping (QuizResponse) -> Void) {
+      let url = "http://localhost:8000/quizes/\(quizID)/"
+        
+        AF.request(url, method: .get).response { response in
+            switch response.result {
+            case .success(let data):
+                
+                do {
+                    let data = try JSONDecoder().decode(QuizResponse.self, from: data!)
+                    
+                    if data != nil{
+                       // print("DTAAA \(data.results)")
+                        print("QUIZ IDD  \(data.title) ")
+                        completion(data)
+                    }
+                }catch {
+                    print(error.localizedDescription)
+                }
+                
+                
+                
+            case .failure(let fail):
+                print(fail)
+                
+            }
+        }
+        
+    }
     func AFGetRequest<T: Decodable>(requestType:GetRequestTypes , url: String, modelResponseType: T.Type, completion: @escaping (String?) -> Void) {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

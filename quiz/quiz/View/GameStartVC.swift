@@ -19,6 +19,9 @@ class GameStartVC: UIViewController {
     var quizImage:String?
    // var attachList :[Attachment]?
     var quiz:QuizResponse?
+    var totalAttachScore = 0
+    var progress:CGFloat = 0
+    var viewModel = GameStartViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         attachTableView.delegate = self
@@ -29,11 +32,28 @@ class GameStartVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         quizTitleLabel.text = ""
             // quizHeaderImageView.image = nil
+        viewModel.getQuiz(quizID:quiz!.id) { [self]
+            result in
+            self.quiz = result
+            
+            totalAttachScore = 0
+            for i in quiz!.attachments{
+                totalAttachScore += i.score!
+            }
+           
+            DispatchQueue.main.async { [self] in
+                attachTableView.reloadData()
+            }
+        }
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
-    
+     
+        print("acildi")
         quizTitleLabel.text = quiz?.title
+        
+
        // guard let url = quiz?.image else { return}
         
         DispatchQueue.main.async {
@@ -52,16 +72,7 @@ class GameStartVC: UIViewController {
         self.navigationController!.pushViewController(vc, animated: true)
       //  performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let vc = segue.destination as? GameStartTourVC
-        
-        let quiz = sender as? QuizResponse
-        
-        if let vc = vc {
-            vc.quiz = quiz
-        }
-    }
+
   
     
 }
@@ -93,17 +104,19 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
             
             
               
-             let normalizedScore = Double(score!)*100.0
-            var totalAttachScore = 0
-            for i in quiz!.attachments{
-                totalAttachScore += i.score!
+             //let normalizedScore = Double(score!)*100.0
+        
+                    if totalAttachScore > 0 {
+                let resultScore = CGFloat(score!)/CGFloat(totalAttachScore)
+                 
+                progress = CGFloat(resultScore)
+            }else{
+                progress = 0
             }
-             
-            let resultScore = normalizedScore/Double(totalAttachScore)
-
-             let progress = resultScore/Double(totalAttachScore)
-           
-            cell.winRateCircleBar.progress = CGFloat(progress)
+            
+           print("PROGRESS  \(progress) \(totalAttachScore)")
+              
+            cell.winRateCircleBar.progress = progress
             cell.attachImageView.kf.setImage(with: URL(string: (quiz?.attachments[indexPath.row].image!)!))
         } 
         return cell
