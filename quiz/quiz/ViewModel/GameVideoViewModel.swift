@@ -83,6 +83,11 @@ class GameVideoViewModel {
     func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (Attachment) -> Void) {
         winAttachs.append(matchedAttachs[startIndex][rowIndex])
 
+        let id =   getAttachmentID(side: rowIndex)
+        setAttachmentScore(attachID: id) {
+            result in
+            print(result)
+        }
         startIndex += 1
         roundIndex += 1
        
@@ -99,6 +104,18 @@ class GameVideoViewModel {
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count,roundLabel: roundLabel!)
+    }
+   
+    
+    func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.setAttachmentScore(attachID: attachID, completion: completion)
+    }
+    
+    func getAttachmentID(side:Int) -> Int{
+        
+        let id =  matchedAttachs[startIndex][side].id
+         return id!
+         
     }
  
     func loadIndicator(activityInd:UIActivityIndicatorView,isPlaying:Bool) {

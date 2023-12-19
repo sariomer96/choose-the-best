@@ -23,7 +23,7 @@ class VideoChoicesViewModel {
         self.attachIdList = WebService.shared.attachIdList
     }
     func addAttachment(title:String,videoUrl:String,image:UIImage?,score:Int,completion :@escaping (String?, Bool) -> Void) {
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image, score: score, completion: completion)
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image, completion: completion)
     }
     
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {

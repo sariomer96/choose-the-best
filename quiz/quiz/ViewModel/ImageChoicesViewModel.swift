@@ -23,7 +23,7 @@ class ImageChoicesViewModel {
     }
     
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (String?, Bool) -> Void) {
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image, score: score, completion: completion)
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image, completion: completion)
     }
     
      func addAttachmentDidpick(results: [PHPickerResult]) {

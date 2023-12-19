@@ -136,7 +136,7 @@ class WebService {
     }
     
     
-    func createAttachment(title: String, videoUrl: String,image: UIImage?, score : Int,completion: @escaping (String?,Bool) -> Void) {
+    func createAttachment(title: String, videoUrl: String,image: UIImage?,completion: @escaping (String?,Bool) -> Void) {
         
         var imageData = image?.jpegData(compressionQuality: 0.5)
         if image != nil {
@@ -153,7 +153,7 @@ class WebService {
             "title":title,
             "url":videoUrl,
             "image":imageData,
-            "score":score
+            "score":0
         ]
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -193,12 +193,12 @@ class WebService {
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        let url = "http://localhost:8000/attachments/\(attachID)/set-score"
+        let url = "http://localhost:8000/attachments/\(attachID)/set-score/"
         AF.request(url, method: .put ).response { response in
             switch response.result {
             case .success(let data):
                 do {
-                      completion("Vote Success")
+                      completion("Vote Success  \(data)")
                 }
                 catch {
                     

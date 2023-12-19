@@ -85,15 +85,25 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
          
         cell.attachName.text = quiz?.attachments[indexPath.row].title
         
-       let score = quiz?.attachments[indexPath.row].score
-       
-        let s = Double(score!)*100.0
-        
-        let lastScore = s/5
-        let progress = lastScore/100
-        cell.winRateCircleBar.progress = CGFloat(progress)
+    
+      
         
         DispatchQueue.main.async { [self] in
+            let score = quiz?.attachments[indexPath.row].score
+            
+            
+              
+             let normalizedScore = Double(score!)*100.0
+            var totalAttachScore = 0
+            for i in quiz!.attachments{
+                totalAttachScore += i.score!
+            }
+             
+            let resultScore = normalizedScore/Double(totalAttachScore)
+
+             let progress = resultScore/Double(totalAttachScore)
+           
+            cell.winRateCircleBar.progress = CGFloat(progress)
             cell.attachImageView.kf.setImage(with: URL(string: (quiz?.attachments[indexPath.row].image!)!))
         } 
         return cell
