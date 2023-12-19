@@ -120,7 +120,8 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
 
         cell.categoryLabel.text = categoryList[indexPath.row].name
-      
+         
+        
         return cell
     }
 
@@ -128,7 +129,8 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
  
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "QuizListVC") as! QuizListVC
         vc.nameCategory = categoryList[indexPath.row].name
-        vc.quizId = categoryList[indexPath.row].id
+        vc.categoryID = categoryList[indexPath.row].id
+        
         self.navigationController!.pushViewController(vc, animated: true)
         
        //  performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])

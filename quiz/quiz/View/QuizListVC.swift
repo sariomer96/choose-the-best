@@ -14,21 +14,22 @@ class QuizListVC: UIViewController {
     @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
     var nameCategory:String?
     let viewModel = QuizListViewModel()
     var quizList = [QuizResponse]()
     var imageList = [UIImage]()
     
-    var quizId:Int?
+    var categoryID:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
  
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
        
-        viewModel.getQuizList(categoryId: quizId!) { error in
+        viewModel.getQuizList(categoryId: categoryID!) { error in
          
             
         }
@@ -72,7 +73,7 @@ class QuizListVC: UIViewController {
 
 extension QuizListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(searchText: searchText, categoryName: nameCategory ?? "Test") { result in
+        viewModel.search(searchText: searchText, categoryID: categoryID!) { result in
             print("RESu : \(result)")
             print("AAAAA")
         }

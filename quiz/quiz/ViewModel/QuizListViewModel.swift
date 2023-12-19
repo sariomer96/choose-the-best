@@ -25,8 +25,8 @@ struct QuizListViewModel : QuizListProtocol {
       
     }
     
-    func search(searchText:String,categoryName:String,completion: @escaping (String) -> Void) {
-        WebService.shared.searchQuiz(searchText: searchText,categoryName: categoryName, completion: completion)
+    func search(searchText:String,categoryID:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.searchQuiz(searchText: searchText,categoryID:categoryID, completion: completion)
     }
     
     

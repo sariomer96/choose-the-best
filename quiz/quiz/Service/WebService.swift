@@ -107,10 +107,10 @@ class WebService {
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
-    func searchQuiz(searchText:String,categoryName:String,completion: @escaping (String) -> Void){
+    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping (String) -> Void){
         
-        let url = "http://localhost:8000/quizes/?search=\(categoryName)&title=\(searchText)"
-        // let url = "http://127.0.0.1:8000/categories/search?=fed"
+        let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
+        
         AF.request(url, method: .get).response { response in
             switch response.result {
             case .success(let data):
@@ -120,6 +120,7 @@ class WebService {
                     
                     if data != nil{
                         print("DTAAA \(data.results)")
+                        self.quizList.onNext(data.results!)
                     }
                 }catch {
                     print(error.localizedDescription)
