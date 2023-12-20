@@ -204,7 +204,13 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
  
             cell.nameLabel.text = topQuizList[indexPath.row].title
             cell.categoryNameLabel.text = topQuizList[indexPath.row].category.name
-                
+            let rate = topQuizList[indexPath.row].average_rate
+            if rate != nil {
+                cell.startViews.rating = Double(rate!)
+            }else{
+                cell.startViews.rating = 0.0
+            }
+            
             let url = topQuizList[indexPath.row].image
             cell.topImageView.kf.setImage(with: URL(string: url!))
              
@@ -216,6 +222,12 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
            
             
+            let rate = recentlyList[indexPath.row].average_rate
+            if rate != nil {
+                cell.startViews.rating = Double(rate!)
+            }else{
+                cell.startViews.rating = 0.0
+            }
             cell.nameLabel.text = recentlyList[indexPath.row].title
             cell.categoryNameLabel.text = recentlyList[indexPath.row].category.name
                 

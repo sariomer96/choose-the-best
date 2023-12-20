@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Cosmos
 
 class LastUpdateTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var startViews: CosmosView!
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var updateImageView: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!

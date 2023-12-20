@@ -7,8 +7,9 @@
 
 import UIKit
 import Kingfisher
-
+import Cosmos
 class QuizListVC: UIViewController {
+
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryName: UILabel!
@@ -113,7 +114,12 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         
         cell.nameLabel.text = quizList[indexPath.row].title
       //  cell.quizImageView.image = imageList[indexPath.row]
-        
+        let rate = quizList[indexPath.row].average_rate
+        if rate != nil {
+            cell.starView.rating = Double(rate!)
+        }else{
+            cell.starView.rating = 0.0
+        }
         cell.quizImageView.kf.setImage(with: URL(string:imagesList[indexPath.row]))
         return cell
         
