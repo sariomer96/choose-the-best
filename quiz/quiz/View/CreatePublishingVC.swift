@@ -28,14 +28,14 @@ class CreatePublishingVC: UIViewController {
         viewModel.getCategory { error in
             
         }
-        _ = viewModel.categoryList.subscribe(onNext: {  list in
-            self.categoryList = list
-                    
-            if list.count > 0 {
-                self.categorySelectButton.isHidden = false
-               self.showSelectCategoryButton()
-            }
-        })
+//        _ = viewModel.categoryList.subscribe(onNext: {  list in   IT WILL CHANge
+//            self.categoryList = list
+//                    
+//            if list.count > 0 {
+//                self.categorySelectButton.isHidden = false
+//               self.showSelectCategoryButton()
+//            }
+//        })
     } 
     func showSelectCategoryButton(){
          

@@ -53,64 +53,41 @@ class HomeVC: UIViewController {
         lastUpdateTableView.delegate = self
         lastUpdateTableView.dataSource = self
         
-        viewModel.getCategories {result in
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+        viewModel.getCategories { [self]
+            result in
             
             if let result = result {
+                self.categoryList = viewModel.categoryList!
+                DispatchQueue.main.async {
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    categoryCollectionView.reloadData()
+                }
                 
                // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
             }
         }
-//        viewModel.getTopRateQuiz { error in
+     
+//        _ = viewModel.categoryList.do(onNext: {  list in
+//           
 //            
-//        }
-//        viewModel.getRecentlyQuiz { error in
 //            
-//        }
-        
-//        _ = viewModel.topQuizList.subscribe(onNext: {  list in
-//            self.topQuizList = list
-//            
+//        }).subscribe(onNext: {  list in
+//            self.categoryList = list
 //            
 //            DispatchQueue.main.async {
-//                self.topRateTableView.reloadData()
-//                self.lastUpdateTableView.reloadData()
+//                self.categoryCollectionView.reloadData()
+//                
+//            
+//                
 //                
 //            }
 //            
 //            
 //        }).disposed(by: bag)
-//        
-//        _ = viewModel.recentlyList.subscribe(onNext: {  list in
-//            self.recentlyList = list
-//            
-//            
-//            DispatchQueue.main.async {
-//                
-//                self.lastUpdateTableView.reloadData()
-//            }
-//            
-//            
-//        }).disposed(by: bag)
-//        
-        _ = viewModel.categoryList.do(onNext: {  list in
-            self.activityIndicator.startAnimating()
-            self.activityIndicator.isHidden = false
-            
-            
-        }).subscribe(onNext: {  list in
-            self.categoryList = list
-            
-            DispatchQueue.main.async {
-                self.categoryCollectionView.reloadData()
-                
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-                
-                
-            }
-            
-            
-        }).disposed(by: bag)
              
     }
     @IBAction func createQuizClick(_ sender: Any) {

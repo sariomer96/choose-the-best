@@ -113,7 +113,8 @@ class WebService {
                         let category = result as? CategoryResponse
                         
                         if let category = category?.results {
-                            self.categoryList.onNext(category)
+                            self.categoryList = category
+                            completion("AAA")
                         }
                         
                     case .quizList:
@@ -134,7 +135,8 @@ class WebService {
         }
     }
     var recentlyList = [QuizResponse]()
-    var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+   // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+    var categoryList = [Category]()
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()

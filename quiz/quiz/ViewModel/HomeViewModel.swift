@@ -10,21 +10,20 @@ import RxSwift
 
 class HomeViewModel {
     
-    var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+    var categoryList : [Category]?
  //   var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var recentlyList : [QuizResponse]?
     var topQuizList:[QuizResponse]?
     let webService = WebService.shared
     
-    init() {
-        self.categoryList = WebService.shared.categoryList
-      
-      //  self.recentlyList = WebService.shared.recentlyList
-        
-    }
+    
     func getCategories(completion: @escaping (String?) -> Void) {
       
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
+        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
+            result in
+            self.categoryList = self.webService.categoryList
+            completion("AAA")
+        }
        
         //WebService.shared.getCategories(completion: completion)
     }
@@ -33,7 +32,7 @@ class HomeViewModel {
         
         webService.AFGetRequest(requestType: WebService.GetRequestTypes.topRate, url:webService.topURL , modelResponseType: ApiResponse.self) { res in
            // print(res)
-            self.topQuizList = WebService.shared.topQuizList
+            self.topQuizList = self.webService.topQuizList
             completion("trigger")
              
         }
@@ -42,7 +41,7 @@ class HomeViewModel {
     func getRecentlyQuiz(completion: @escaping (String?) -> Void){
         webService.AFGetRequest(requestType: WebService.GetRequestTypes.recently, url: webService.recentlyURL, modelResponseType: ApiResponse.self) {
             result in
-            self.recentlyList = WebService.shared.recentlyList
+            self.recentlyList = self.webService.recentlyList
             completion("trigger")
         }
        // WebService.shared.getRecentlyUploads(completion: completion)

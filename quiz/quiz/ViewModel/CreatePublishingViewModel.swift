@@ -11,7 +11,7 @@ import UIKit
 
 class CreatePublishingViewModel {
     
-    var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+    var categoryList: [Category]?
     let webService = WebService.shared
     var action = [UIAction]()
     init() {
