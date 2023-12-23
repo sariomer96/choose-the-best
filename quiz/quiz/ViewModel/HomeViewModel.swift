@@ -8,17 +8,18 @@
 import Foundation
 import RxSwift
 
-struct HomeViewModel {
+class HomeViewModel {
     
     var categoryList = BehaviorSubject<[Category]>(value: [Category]())
-    var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
-    var recentlyList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+ //   var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var recentlyList : [QuizResponse]?
+    var topQuizList:[QuizResponse]?
     let webService = WebService.shared
     
     init() {
         self.categoryList = WebService.shared.categoryList
-        self.topQuizList = WebService.shared.topQuizList
-        self.recentlyList = WebService.shared.recentlyList
+      
+      //  self.recentlyList = WebService.shared.recentlyList
         
     }
     func getCategories(completion: @escaping (String?) -> Void) {
@@ -28,13 +29,22 @@ struct HomeViewModel {
         //WebService.shared.getCategories(completion: completion)
     }
     
-    func getTopRateQuiz(completion: @escaping (String?) -> Void){
+     func getTopRateQuiz(completion: @escaping (String?) -> Void){
         
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.topRate, url:webService.topURL , modelResponseType: ApiResponse.self,completion: completion)
+        webService.AFGetRequest(requestType: WebService.GetRequestTypes.topRate, url:webService.topURL , modelResponseType: ApiResponse.self) { res in
+           // print(res)
+            self.topQuizList = WebService.shared.topQuizList
+            completion("trigger")
+             
+        }
        // WebService.shared.getTopRateQuiz(completion: completion)
     }
     func getRecentlyQuiz(completion: @escaping (String?) -> Void){
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.recently, url: webService.recentlyURL, modelResponseType: ApiResponse.self,completion: completion)
+        webService.AFGetRequest(requestType: WebService.GetRequestTypes.recently, url: webService.recentlyURL, modelResponseType: ApiResponse.self) {
+            result in
+            self.recentlyList = WebService.shared.recentlyList
+            completion("trigger")
+        }
        // WebService.shared.getRecentlyUploads(completion: completion)
     }
 }

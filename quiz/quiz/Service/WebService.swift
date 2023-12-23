@@ -101,11 +101,13 @@ class WebService {
                         
                     case .topRate:
                         if let list = apiRes?.results {
-                            self.topQuizList.onNext(list)
+                            self.topQuizList = list
+                            completion("AAA")
                         }
                     case .recently:
                         if let list = apiRes?.results {
-                            self.recentlyList.onNext(list)
+                            self.recentlyList = list
+                            completion("AAA")
                         }
                     case .category:
                         let category = result as? CategoryResponse
@@ -131,10 +133,11 @@ class WebService {
             }
         }
     }
-    var recentlyList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var recentlyList = [QuizResponse]()
     var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
-    var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var topQuizList = [QuizResponse]()
     var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
     func searchQuiz(searchText:String,categoryID:Int,completion: @escaping (String) -> Void){
         
@@ -265,6 +268,7 @@ class WebService {
             }
         }
     }
+    
 func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
     
     guard let imageData = image.jpegData(compressionQuality: 0.1) else {
@@ -315,8 +319,7 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
         
         switch response.result {
         case .success(let quiz):
-            
-            print(quiz)
+         
             do {
                 
                 guard let quiz = quiz else { return}
@@ -329,8 +332,6 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
                 print(error.localizedDescription)
             }
             
-             
-        
         case .failure(let error):
             print("Error  \(error)")
             completion(FormDataError.uploadError.description,false, nil)

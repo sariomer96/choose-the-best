@@ -28,11 +28,17 @@ class HomeVC: UIViewController {
     
     
     override func viewDidAppear(_ animated: Bool) {
-        viewModel.getTopRateQuiz { error in
-            
+        viewModel.getTopRateQuiz { error in          // it will change!!!!
+            self.topQuizList = (self.viewModel.topQuizList)!
+            DispatchQueue.main.async {
+                self.topRateTableView.reloadData()
+            }
         }
         viewModel.getRecentlyQuiz { error in
-            
+            self.recentlyList = (self.viewModel.recentlyList)!
+            DispatchQueue.main.async {
+                self.lastUpdateTableView.reloadData()
+            }
         }
     }
     
@@ -61,31 +67,31 @@ class HomeVC: UIViewController {
 //            
 //        }
         
-        _ = viewModel.topQuizList.subscribe(onNext: {  list in
-            self.topQuizList = list
-            
-            
-            DispatchQueue.main.async {
-                self.topRateTableView.reloadData()
-                self.lastUpdateTableView.reloadData()
-                
-            }
-            
-            
-        }).disposed(by: bag)
-        
-        _ = viewModel.recentlyList.subscribe(onNext: {  list in
-            self.recentlyList = list
-            
-            
-            DispatchQueue.main.async {
-                
-                self.lastUpdateTableView.reloadData()
-            }
-            
-            
-        }).disposed(by: bag)
-        
+//        _ = viewModel.topQuizList.subscribe(onNext: {  list in
+//            self.topQuizList = list
+//            
+//            
+//            DispatchQueue.main.async {
+//                self.topRateTableView.reloadData()
+//                self.lastUpdateTableView.reloadData()
+//                
+//            }
+//            
+//            
+//        }).disposed(by: bag)
+//        
+//        _ = viewModel.recentlyList.subscribe(onNext: {  list in
+//            self.recentlyList = list
+//            
+//            
+//            DispatchQueue.main.async {
+//                
+//                self.lastUpdateTableView.reloadData()
+//            }
+//            
+//            
+//        }).disposed(by: bag)
+//        
         _ = viewModel.categoryList.do(onNext: {  list in
             self.activityIndicator.startAnimating()
             self.activityIndicator.isHidden = false
