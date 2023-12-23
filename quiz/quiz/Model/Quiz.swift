@@ -42,7 +42,6 @@ extension Attachment: Equatable {
         return true
     }
     
-   
 }
 
 struct Category: Codable {

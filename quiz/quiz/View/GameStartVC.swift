@@ -53,14 +53,7 @@ class GameStartVC: UIViewController {
         print("acildi")
         quizTitleLabel.text = quiz?.title
         
-
-       // guard let url = quiz?.image else { return}
-        
-        DispatchQueue.main.async {
-            
-          //  quizHeaderImageView.kf.setImage(with: URL(string: url))
-            //print(self.quiz?.attachments)
-        }
+ 
     }
     @IBAction func startClick(_ sender: Any) {
         
@@ -69,6 +62,7 @@ class GameStartVC: UIViewController {
    
         vc.quiz = quiz
           
+        
         self.navigationController!.pushViewController(vc, animated: true)
       //  performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
     }

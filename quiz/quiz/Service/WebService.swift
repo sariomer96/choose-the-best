@@ -271,14 +271,14 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
         print("Could not get JPEG representation of image")
         return
     }
-    print("-----\(imageData.description)-----")
+   
     let parameters: [String: Any] = [
         "title":title,
         "attachment_ids":attachment_ids,
         "image": imageData,
         "category_id":categoryID,
         "is_visible":isVisible,
-        //  "is_image":is_image
+        "is_image":is_image
         
     ]
     
@@ -310,16 +310,29 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
     }, to: createQuizURL,method: .post, headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
     .uploadProgress(closure: { progress in
         print(progress.description)
-    })
-    .responseDecodable(of : QuizResponse.self) { response in
+    }).response { response in
+   // .responseDecodable(of : QuizResponse.self) { response in
         
         switch response.result {
         case .success(let quiz):
             
+            print(quiz)
+            do {
+                
+                guard let quiz = quiz else { return}
+                let qz = try JSONDecoder().decode(QuizResponse.self, from: quiz)
+                
+                 completion(UploadSuccess.success.rawValue, true,qz)
+              
+            }
+            catch{
+                print(error.localizedDescription)
+            }
             
-            completion(UploadSuccess.success.rawValue, true,quiz)
+             
+        
         case .failure(let error):
-            print("Error uploading image: \(error)")
+            print("Error  \(error)")
             completion(FormDataError.uploadError.description,false, nil)
         }
     }
