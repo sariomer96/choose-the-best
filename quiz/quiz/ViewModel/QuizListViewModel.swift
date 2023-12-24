@@ -6,22 +6,28 @@
 //
 
 import Foundation
-import RxSwift
+ 
 
 protocol QuizListProtocol {
     func getQuizList(categoryId:Int,completion: @escaping (String?) -> Void)
 }
-struct QuizListViewModel : QuizListProtocol {
+class QuizListViewModel : QuizListProtocol {
     
-    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var quizList : [QuizResponse]?
     let webService = WebService.shared
-    init() {
-        self.quizList = WebService.shared.quizList
-    }
+   
     
     func getQuizList(categoryId:Int, completion: @escaping (String?) -> Void) {
         
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: "\(webService.quizListFromCategoryURL)\(categoryId)", modelResponseType: ApiResponse.self,completion: completion)
+          print("call count")
+        webService.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: "\(webService.quizListFromCategoryURL)\(categoryId)", modelResponseType: ApiResponse.self) {
+            result in
+            print("tetik")
+            self.quizList = self.webService.quizList
+            completion("trigger")
+            
+            
+        }
       
     }
     

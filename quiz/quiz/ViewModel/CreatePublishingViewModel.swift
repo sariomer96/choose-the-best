@@ -14,13 +14,23 @@ class CreatePublishingViewModel {
     var categoryList: [Category]?
     let webService = WebService.shared
     var action = [UIAction]()
+    var is_image:Bool = true
+    var didSelectCategory = false
+ 
+    var isVisible = true
+    var categoryID = 1
+    var attachmentIds = [Int]()
     init() {
-        self.categoryList = WebService.shared.categoryList
+       // self.categoryList = WebService.shared.categoryList
     }
     
-    func getCategory(completion: @escaping (String?) -> Void) {
+    func getCategory(completion: @escaping (Bool) -> Void) {
         
-          webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self, completion: completion)
+        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
+            result in
+            self.categoryList = self.webService.categoryList
+              completion(true)
+        }
     }
     
     func publishQuiz(uiview:UIViewController, title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
@@ -43,28 +53,33 @@ class CreatePublishingViewModel {
         }
     }
     
-    func getDropDownActions(categoryList:[Category],completion: @escaping (Int) -> Void) -> [UIAction] {
+    func getDropDownActions() -> [UIAction] {
         var categoryActionMap: [UIAction: Int] = [:]
          action.removeAll()
         let optionClosure = { [self] (action: UIAction) in
             guard let selectedCategoryIndex = categoryActionMap[action] else {
                 return
             }
- 
-            completion(selectedCategoryIndex)
+             
+            if selectedCategoryIndex != -1 {
+                self.categoryID = selectedCategoryIndex
+                self.didSelectCategory = true
+        
+            }
+           //" completion(selectedCategoryIndex)
             // Now you can use selectedCategoryIndex to identify which categoryList index is selected
             print("Selected category index: \(selectedCategoryIndex)")
         }
-        
-        for i in stride(from: 0, to: categoryList.count + 1, by: 1) {
+        print("categoryList \(categoryList?.count)")
+        for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
             if i == 0 {
                 action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))
                 categoryActionMap[action[0]] = -1
             }else {
-                let categoryAction = UIAction(title: String(categoryList[i-1].name!), state: .on, handler: optionClosure)
+                let categoryAction = UIAction(title: String(categoryList?[i-1].name! ?? ""), state: .on, handler: optionClosure)
                   
                   // Map the action to its corresponding index
-                categoryActionMap[categoryAction] = categoryList[i-1].id
+                categoryActionMap[categoryAction] = categoryList?[i-1].id
                   
                   action.append(categoryAction)
             }

@@ -39,8 +39,9 @@ class ImageChoicesVC: UIViewController {
             
             if let vc = vc {
                 
-                vc.attachmentIds = attachIdList
-                vc.is_image = true
+                vc.viewModel.attachmentIds = attachIdList
+                vc.viewModel.is_image = true
+               
                 self.navigationController!.pushViewController(vc, animated: true)
             }
           //  performSegue(withIdentifier: "toPublish", sender: attachIdList)

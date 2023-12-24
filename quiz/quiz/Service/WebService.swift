@@ -93,7 +93,7 @@ class WebService {
             switch response.result {
             case .success(let data):
                 do {
-                    completion("SUCCESS")
+                  
                     let result = try decoder.decode(modelResponseType, from: data!)
                     
                     let apiRes = result as? ApiResponse
@@ -119,7 +119,8 @@ class WebService {
                         
                     case .quizList:
                         if let quizList = apiRes?.results {
-                            self.quizList.onNext(quizList)
+                            self.quizList = quizList
+                            completion("tetik1")
                         }
                         
                         
@@ -137,7 +138,7 @@ class WebService {
     var recentlyList = [QuizResponse]()
    // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     var categoryList = [Category]()
-    var quizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
+    var quizList =  [QuizResponse]()
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
     var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
@@ -154,7 +155,7 @@ class WebService {
                     
                     if data != nil{
                         print("DTAAA \(data.results)")
-                        self.quizList.onNext(data.results!)
+                        self.quizList = data.results!
                     }
                 }catch {
                     print(error.localizedDescription)

@@ -21,106 +21,79 @@ class QuizListVC: UIViewController {
     var quizList = [QuizResponse]()
     var imageList = [UIImage]()
     private var imagesList = [String]()
+    var imageViewList = [UIImageView]()
     var categoryID:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
-       
-        viewModel.getQuizList(categoryId: categoryID!) { error in
-         
-            
-        }
-        
-        _ = viewModel.quizList.do(onNext: {  list in
-            self.activityIndicator.startAnimating()
-            self.activityIndicator.isHidden = false
-         
-
-        }) .subscribe(onNext: { list in
-            self.quizList = list
-                 
-                 
-            for i in self.quizList {
-                guard let image = i.image else { return }
-                
-                self.imagesList.append(image)
-                self.tableView.reloadData()
-            }
-            DispatchQueue.main.async {
-               
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-         
-            }
-            self.loadImages()
-            self.tableView.reloadData()
-        })
-        
-        // Do any additional setup after loading the view.
-    }
+      
+   }
     override func viewWillAppear(_ animated: Bool) {
        
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
         categoryName.text = ""
         categoryName.text = nameCategory
        
       
     }
     override func viewDidAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+  
+        viewModel.getQuizList(categoryId: categoryID!) { error in
+            guard let quizList = self.viewModel.quizList else {return}
+         
+            for i in quizList {
+                guard let image = i.image else { return }
+                
+                self.imagesList.append(image)
+             //   print("imagelist: \(self.quizList.count)  \(self.imagesList.count)")
+            }
+            print("Images listesi sayısı: \(self.imagesList.count)")
+            DispatchQueue.main.async{
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+              
+                self.quizList = quizList
+                self.tableView.reloadData()
+             
+            }
         }
     }
+ 
 }
 
 extension QuizListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.search(searchText: searchText, categoryID: categoryID!) { result in
-            print("RESu : \(result)")
-            print("AAAAA")
+          
         }
     }
 }
-
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return quizList.count
+        print("quizlst :    \(quizList.count)")
+        return self.quizList.count
     }
-    func loadImages() {
-        imageList.removeAll()
-        for (index,obj) in quizList.enumerated() {
-            DispatchQueue.main.async { [self] in
-            
-                let imgUrl = self.quizList[index].image
-                let img = UIImageView()
-                img.kf.setImage(with: URL(string:imgUrl!)) {
-                    result in
-                    self.imageList.append(img.image!)
-                    self.tableView.reloadData()
-               
-                }
-                
-                self.tableView.reloadData()
-            }
-        }
-    }
+ 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
+     
         
         cell.nameLabel.text = quizList[indexPath.row].title
-      //  cell.quizImageView.image = imageList[indexPath.row]
+      
+ 
         let rate = quizList[indexPath.row].average_rate
         if rate != nil {
             cell.starView.rating = Double(rate!)
         }else{
             cell.starView.rating = 0.0
         }
-        cell.quizImageView.kf.setImage(with: URL(string:imagesList[indexPath.row]))
+        cell.quizImageView.kf.setImage(with: URL(string:imagesList[indexPath.row]),placeholder: UIImage(named: "add"))
+     
         return cell
         
     }

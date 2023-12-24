@@ -11,7 +11,6 @@ import RxSwift
 class HomeViewModel {
     
     var categoryList : [Category]?
- //   var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var recentlyList : [QuizResponse]?
     var topQuizList:[QuizResponse]?
     let webService = WebService.shared
@@ -44,6 +43,6 @@ class HomeViewModel {
             self.recentlyList = self.webService.recentlyList
             completion("trigger")
         }
-       // WebService.shared.getRecentlyUploads(completion: completion)
+
     }
 }

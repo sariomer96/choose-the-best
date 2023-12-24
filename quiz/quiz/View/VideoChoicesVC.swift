@@ -82,9 +82,9 @@ class VideoChoicesVC: UIViewController {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
             
             if let vc = vc {
-                
-                vc.attachmentIds = attachIdList
-                vc.is_image = false
+                 
+                vc.viewModel.attachmentIds = attachIdList
+                vc.viewModel.is_image = false
                 self.navigationController!.pushViewController(vc, animated: true)
             }
            // performSegue(withIdentifier: "toPublish", sender: attachIdList)

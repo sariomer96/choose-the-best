@@ -24,9 +24,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="J2l-nL-tMK">
                                 <rect key="frame" x="0.0" y="176" width="414" height="678"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="separatorColor" systemColor="tertiaryLabelColor"/>
+                                <color key="separatorColor" systemColor="tableCellBlueTextColor"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="linkColor"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuizListTableViewCell" id="BFm-HK-EAT" customClass="QuizListTableViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuizListTableViewCell" id="BFm-HK-EAT" customClass="QuizListTableViewCell" customModule="quiz" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BFm-HK-EAT" id="Sbl-69-9LC">
@@ -79,6 +81,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="I5T-nT-xMy" secondAttribute="bottom" id="hC8-MO-3aa"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.2349134625" green="1" blue="0.13718867269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="pCF-PL-8Cn" id="a4q-hN-Hzz"/>
                                             <outlet property="quizImageView" destination="I5T-nT-xMy" id="S1v-Ed-SV0"/>
@@ -1367,8 +1370,8 @@
                                     <action selector="publishClick:" destination="qSk-aW-xAo" eventType="touchUpInside" id="eIt-C3-PxE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOZ-fr-ZsO">
-                                <rect key="frame" x="122" y="246" width="150" height="50.5"/>
+                            <button contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOZ-fr-ZsO">
+                                <rect key="frame" x="115" y="366" width="150" height="50.5"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <menu key="menu" id="afC-O0-tJX">
                                     <menuOptions key="menuOptions" singleSelection="YES"/>
@@ -1383,8 +1386,8 @@
                         <viewLayoutGuide key="safeArea" id="k4J-8I-rL5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="k4J-8I-rL5" firstAttribute="trailing" secondItem="KOZ-fr-ZsO" secondAttribute="trailing" constant="142" id="5IJ-Te-r4Y"/>
-                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="top" secondItem="k4J-8I-rL5" secondAttribute="top" constant="198" id="DBH-4k-czY"/>
+                            <constraint firstItem="k4J-8I-rL5" firstAttribute="trailing" secondItem="KOZ-fr-ZsO" secondAttribute="trailing" constant="149" id="5IJ-Te-r4Y"/>
+                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="top" secondItem="k4J-8I-rL5" secondAttribute="top" constant="318" id="DBH-4k-czY"/>
                             <constraint firstItem="93o-VT-Qff" firstAttribute="top" secondItem="k4J-8I-rL5" secondAttribute="top" constant="35" id="EH2-3q-3cq"/>
                             <constraint firstItem="rTv-P5-Jhp" firstAttribute="centerX" secondItem="iVD-07-7nf" secondAttribute="centerX" id="MQS-3q-SdF"/>
                             <constraint firstItem="t7Y-To-VRO" firstAttribute="top" secondItem="s6Q-hh-ocr" secondAttribute="bottom" constant="8" symbolic="YES" id="SwE-N5-Jas"/>
@@ -1394,7 +1397,7 @@
                             <constraint firstItem="rTv-P5-Jhp" firstAttribute="top" secondItem="t7Y-To-VRO" secondAttribute="bottom" constant="64" id="hlL-wc-aBz"/>
                             <constraint firstItem="k4J-8I-rL5" firstAttribute="trailing" secondItem="s6Q-hh-ocr" secondAttribute="trailing" constant="8" id="nut-rM-Qku"/>
                             <constraint firstItem="s6Q-hh-ocr" firstAttribute="top" secondItem="93o-VT-Qff" secondAttribute="bottom" constant="34" id="o4f-ef-pyO"/>
-                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="leading" secondItem="k4J-8I-rL5" secondAttribute="leading" constant="122" id="si7-Br-DMt"/>
+                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="leading" secondItem="k4J-8I-rL5" secondAttribute="leading" constant="115" id="si7-Br-DMt"/>
                             <constraint firstItem="s6Q-hh-ocr" firstAttribute="leading" secondItem="k4J-8I-rL5" secondAttribute="leading" constant="8" id="zEd-uu-Upa"/>
                         </constraints>
                     </view>
@@ -1481,6 +1484,9 @@
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellBlueTextColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
