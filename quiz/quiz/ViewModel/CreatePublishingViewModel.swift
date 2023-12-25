@@ -46,7 +46,7 @@ class CreatePublishingViewModel {
                 AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
               
                     let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-                    vc.quiz = quiz
+                    vc.viewModel.quiz = quiz
                     
                     uiview.navigationController!.pushViewController(vc, animated: true)
                      //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)

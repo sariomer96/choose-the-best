@@ -70,8 +70,6 @@ class GameVideoVC: UIViewController {
         if isRateSelected == true {
              print(rate)
             vote = true
-            print("IDbn   : \(quiz?.id)")
-            
             viewModel.rateQuiz(quizID: quiz!.id, rateScore: rate)
             { result in
                print(result)
@@ -88,7 +86,7 @@ class GameVideoVC: UIViewController {
         
         if let vc = vc {
             if vote == true {
-                vc.quiz = quiz
+                vc.viewModel.quiz = quiz
                 self.navigationController!.pushViewController(vc, animated: true)
             }
         }
@@ -100,7 +98,7 @@ class GameVideoVC: UIViewController {
         let quiz = sender as? QuizResponse
         
         if let vc = vc {
-            vc.quiz = quiz
+            vc.viewModel.quiz = quiz
         }
     }
   

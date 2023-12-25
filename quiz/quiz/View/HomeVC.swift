@@ -119,7 +119,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
            // performSegue(withIdentifier: "toGameStartVC", sender: quiz)
         }
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-          vc.quiz = quiz
+        vc.viewModel.quiz = quiz
         self.navigationController!.pushViewController(vc, animated: true)
          
     }

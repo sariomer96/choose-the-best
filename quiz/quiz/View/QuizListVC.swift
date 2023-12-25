@@ -103,7 +103,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
          
-        vc.quiz = quiz
+        vc.viewModel.quiz = quiz
           
         self.navigationController!.pushViewController(vc, animated: true)
        // performSegue(withIdentifier: "GameStartVC", sender: quiz)
