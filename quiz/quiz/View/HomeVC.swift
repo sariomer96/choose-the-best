@@ -7,7 +7,6 @@
 
 import UIKit
 import Kingfisher
-import RxSwift
 import Alamofire
 
 
@@ -19,30 +18,20 @@ class HomeVC: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
    
     let viewModel = HomeViewModel()
-    var categoryList = [Category]()
  
-    var topQuizList = [QuizResponse]()
-    var recentlyList = [QuizResponse]()
-    let bag = DisposeBag()
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
-        viewModel.getTopRateQuiz { error in          // it will change!!!!
-            self.topQuizList = (self.viewModel.topQuizList)!
+        viewModel.getTopRateQuiz { result in
+            
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
             }
         }
         viewModel.getRecentlyQuiz { error in
-            self.recentlyList = (self.viewModel.recentlyList)!
             DispatchQueue.main.async {
                 self.lastUpdateTableView.reloadData()
             }
         }
     }
-    
-      
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,52 +47,31 @@ class HomeVC: UIViewController {
         viewModel.getCategories { [self]
             result in
             
-            if let result = result {
-                self.categoryList = viewModel.categoryList!
-                DispatchQueue.main.async {
-                    
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    categoryCollectionView.reloadData()
-                }
+        if let result = result {
+          
+            DispatchQueue.main.async {
                 
-               // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                categoryCollectionView.reloadData()
             }
+           // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
         }
-     
-//        _ = viewModel.categoryList.do(onNext: {  list in
-//           
-//            
-//            
-//        }).subscribe(onNext: {  list in
-//            self.categoryList = list
-//            
-//            DispatchQueue.main.async {
-//                self.categoryCollectionView.reloadData()
-//                
-//            
-//                
-//                
-//            }
-//            
-//            
-//        }).disposed(by: bag)
-             
+     }
+      
     }
     @IBAction func createQuizClick(_ sender: Any) {
-        
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreateQuizVC") as! CreateQuizVC
         
         self.navigationController!.pushViewController(vc, animated: true)
-       // performSegue(withIdentifier: "toCreateVC", sender: nil)
     }
 }
 
 extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
-        return categoryList.count
+        return viewModel.categoryList?.count ?? 0
         
     }
     
@@ -112,7 +80,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
 
-        cell.categoryLabel.text = categoryList[indexPath.row].name
+        cell.categoryLabel.text = viewModel.categoryList?[indexPath.row].name
          
         
         return cell
@@ -121,16 +89,89 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
  
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "QuizListVC") as! QuizListVC
-        vc.nameCategory = categoryList[indexPath.row].name
-        vc.categoryID = categoryList[indexPath.row].id
+        vc.nameCategory = viewModel.categoryList?[indexPath.row].name
+        vc.categoryID = viewModel.categoryList?[indexPath.row].id
         
         self.navigationController!.pushViewController(vc, animated: true)
-        
-       //  performSegue(withIdentifier: "toQuizList", sender: categoryList[indexPath.row])
     }
+}
 
-   
+extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == topRateTableView {
+            return viewModel.topQuizList?.count ?? 0
+        }else {
+            return viewModel.recentlyList?.count ?? 0
+        }
+         
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var quiz:QuizResponse?
+        if tableView == topRateTableView {
+             
+            quiz =  viewModel.topQuizList?[indexPath.row]
+          //  performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+        }else {
+            
+            quiz =   viewModel.recentlyList?[indexPath.row]
+           // performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+        }
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+          vc.quiz = quiz
+        self.navigationController!.pushViewController(vc, animated: true)
+         
+    }
+    
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if tableView == topRateTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
+           
+ 
+            cell.nameLabel.text = viewModel.topQuizList?[indexPath.row].title
+            cell.categoryNameLabel.text = viewModel.topQuizList?[indexPath.row].category.name
+            let rate = viewModel.topQuizList?[indexPath.row].average_rate
+            if rate != nil {
+                cell.startViews.rating = Double(rate!)
+            }else{
+                cell.startViews.rating = 0.0
+            }
+            
+            let url = viewModel.topQuizList?[indexPath.row].image
+            cell.topImageView.kf.setImage(with: URL(string: url!))
+             
+            return cell
+        }
+        
+        if tableView == lastUpdateTableView {
+  
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
+           
+            
+            let rate = viewModel.recentlyList?[indexPath.row].average_rate
+            if rate != nil {
+                cell.starView.rating = Double(rate!)
+            }else{
+                cell.starView.rating = 0.0
+            }
+            
+            cell.nameLabel.text = viewModel.recentlyList?[indexPath.row].title
+            cell.categoryNameLabel.text = viewModel.recentlyList?[indexPath.row].category.name
+                
+            let url = viewModel.recentlyList?[indexPath.row].image
+            cell.updateImageView.kf.setImage(with: URL(string: url!))
+             
+            return cell
+        }
+        
+        return UITableViewCell()
+    
+    }
+    
+   
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //
 //        let screenWidth = UIScreen.main.bounds.width
@@ -147,82 +188,4 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 //        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 //    }
-        
-}
-
-extension HomeVC:UITableViewDelegate,UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == topRateTableView {
-            return topQuizList.count
-        }else {
-            return recentlyList.count
-        }
-         
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        var quiz:QuizResponse?
-        if tableView == topRateTableView {
-             
-             quiz =  topQuizList[indexPath.row]
-          //  performSegue(withIdentifier: "toGameStartVC", sender: quiz)
-        }else {
-            
-             quiz =  recentlyList[indexPath.row]
-           // performSegue(withIdentifier: "toGameStartVC", sender: quiz)
-        }
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-        vc.quiz = quiz
-        self.navigationController!.pushViewController(vc, animated: true)
-         
-    }
-    
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if tableView == topRateTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
-           
- 
-            cell.nameLabel.text = topQuizList[indexPath.row].title
-            cell.categoryNameLabel.text = topQuizList[indexPath.row].category.name
-            let rate = topQuizList[indexPath.row].average_rate
-            if rate != nil {
-                cell.startViews.rating = Double(rate!)
-            }else{
-                cell.startViews.rating = 0.0
-            }
-            
-            let url = topQuizList[indexPath.row].image
-            cell.topImageView.kf.setImage(with: URL(string: url!))
-             
-            return cell
-        }
-        
-        if tableView == lastUpdateTableView {
-  
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LastUpdateTableViewCell", for: indexPath) as! LastUpdateTableViewCell
-           
-            
-            let rate = recentlyList[indexPath.row].average_rate
-            if rate != nil {
-                cell.startViews.rating = Double(rate!)
-            }else{
-                cell.startViews.rating = 0.0
-            }
-            cell.nameLabel.text = recentlyList[indexPath.row].title
-            cell.categoryNameLabel.text = recentlyList[indexPath.row].category.name
-                
-            let url = recentlyList[indexPath.row].image
-            cell.updateImageView.kf.setImage(with: URL(string: url!))
-             
-            return cell
-        }
-        
-        return UITableViewCell()
-    
-    }
-    
-    
 }

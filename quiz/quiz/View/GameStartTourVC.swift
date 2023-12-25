@@ -52,8 +52,12 @@ class GameStartTourVC: UIViewController {
             
             if let vc = vc {
                 
-                vc.quiz = quiz
-                vc.playableCount = maxPlayableCount
+                
+                vc.viewModel.quiz = quiz
+              
+                vc.viewModel.playableDelegate?.playableCount = maxPlayableCount
+               // print("quiz zzzz   \(vc.viewModel?.quiz)  ----- \(quiz) ---- nmax play \(vc.viewModel?.playableDelegate?.playableCount)")
+             //   vc.playableCount = maxPlayableCount
                 self.navigationController!.pushViewController(vc, animated: true)
             }
            // performSegue(withIdentifier: "toGame", sender: quiz)

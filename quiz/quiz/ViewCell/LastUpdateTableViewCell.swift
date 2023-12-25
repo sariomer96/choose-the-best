@@ -10,7 +10,7 @@ import Cosmos
 
 class LastUpdateTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var startViews: CosmosView!
+    @IBOutlet weak var starView: CosmosView!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var updateImageView: UIImageView!

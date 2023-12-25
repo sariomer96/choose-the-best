@@ -311,7 +311,7 @@
                                         <connections>
                                             <outlet property="categoryNameLabel" destination="gOy-0z-FB1" id="R8f-ij-JMM"/>
                                             <outlet property="nameLabel" destination="xbO-ou-BnO" id="IoX-Mi-Krz"/>
-                                            <outlet property="startViews" destination="dei-C8-2xS" id="cul-fn-QvQ"/>
+                                            <outlet property="starView" destination="dei-C8-2xS" id="cul-fn-QvQ"/>
                                             <outlet property="updateImageView" destination="r4S-uB-xFe" id="9gt-JD-Rv4"/>
                                         </connections>
                                     </tableViewCell>

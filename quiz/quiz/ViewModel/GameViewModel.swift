@@ -10,65 +10,62 @@ import UIKit
 
 protocol ImageViewPro {
  
-    var leftImageView:UIImageView {get set}
-    var rightImageView:UIImageView {get set}
+    var leftImageView:UIImageView? {get set}
+    var rightImageView:UIImageView? {get set}
     
 }
 
-protocol AttachListPro {
-    var matchedAttachs:[[Attachment]] { get set }
-    var winAttachs:[Attachment] {get set}
-}
-protocol AttachTitlePro {
-    var leftTitleLabel:UILabel {get set}
-    var rightTitleLabel:UILabel {get set}
-    var roundLabel:UILabel {get set}
-    var winLabel:UILabel {get set}
+
+protocol SetLabels {
+    var leftTitleLabel:UILabel? {get set}
+    var rightTitleLabel:UILabel? {get set}
+    var roundLabel:UILabel? {get set}
+    var winLabel:UILabel? {get set}
 }
 protocol PlayableCount {
-    var playableCount:Int {get set}
+    var playableCount:Int? {get set}
 }
 
-class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
+class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
+    var playableDelegate:PlayableCount?
+    var attachTitleDelegate:SetLabels?
+
+    var imageViewDelegate:ImageViewPro?
+    
+    
+    var matchedAttachs = [[Attachment]]()
+  
+    var winAttachs = [Attachment]()
+    
     
     var view:UIView = UIView()
-    var playableCount: Int
+    var playableCount: Int?
+    var winLabel: UILabel?
+    var roundLabel: UILabel?
+    var leftImageView: UIImageView?
+    var rightImageView: UIImageView?
+    var leftTitleLabel: UILabel?
+    var rightTitleLabel: UILabel?
     
-    var winLabel: UILabel
-    
-    var roundLabel: UILabel
-    
-    var winAttachs: [Attachment]
-    
-    var leftImageView: UIImageView
-    
-    var rightImageView: UIImageView
-    
-    var matchedAttachs: [[Attachment]]
-    
-    var leftTitleLabel: UILabel
-    
-    var rightTitleLabel: UILabel
     var isFinishQuiz = false
     
-    init(leftImageView: UIImageView, rightImageView: UIImageView, matchedAttachs: [[Attachment]], leftTitleLabel: UILabel, rightTitleLabel: UILabel,
-         playableCount:Int,roundLabel:UILabel,winAttachs:[Attachment],winLabel:UILabel) {
-        self.leftImageView = leftImageView
-        self.rightImageView = rightImageView
-        self.matchedAttachs = matchedAttachs
-        self.leftTitleLabel = leftTitleLabel
-        self.rightTitleLabel = rightTitleLabel
-     
-        self.winLabel = winLabel
-        self.roundLabel = roundLabel
-        self.playableCount = playableCount
-        self.winAttachs = winAttachs
+    var startIndex = 0
+    var quiz:QuizResponse?
+    var rate = 0
+    var isRateSelected = false
+    var vote = false
+    var roundIndex = 1
+    var viewController:UIViewController?
+   
+    
+    init() {
+        playableDelegate = self
+        attachTitleDelegate = self
+        imageViewDelegate = self
     }
     
-    
     // match quiz
-    var startIndex = 0
-    var roundIndex = 1
+    
     var randomChooseAttachList = [Attachment]()
     var matchedList = [[Attachment]]()
     var action = [UIAction]()
@@ -144,19 +141,19 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     func setImages(index:Int) {
         
         print("COUNTL  :  \(matchedList.count)")
-        leftImageView.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
+        leftImageView?.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
             res in
-            fadeInOrOut(alpha: 1.0, imageView: leftImageView)
+            fadeInOrOut(alpha: 1.0, imageView: leftImageView ?? UIImageView())
         }
-        rightImageView.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) { [self]
+        rightImageView?.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) { [self]
             _ in
-            fadeInOrOut(alpha: 1.0, imageView: rightImageView)
+            fadeInOrOut(alpha: 1.0, imageView: rightImageView ?? UIImageView())
         }
     }
     func setTitle(index:Int) {
         
-        leftTitleLabel.text = matchedAttachs[index][0].title!
-        rightTitleLabel.text = matchedAttachs[index][1].title!
+        leftTitleLabel?.text = matchedAttachs[index][0].title!
+        rightTitleLabel?.text = matchedAttachs[index][1].title!
     }
     func getAttachmentID(side:Int) -> Int{
         
@@ -171,9 +168,10 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
             result in
             print(result)
         }
-        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView)
-        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView)
+        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
+        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView ?? UIImageView())
   
+        
         winAttachs.append(matchedAttachs[startIndex][0])
        
         startIndex += 1
@@ -185,21 +183,21 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         }
         if winAttachs.count  == matchedAttachs.count  {
             print("tur bitti")
-            getNextTour(winImageView: leftImageView)
+            getNextTour(winImageView: leftImageView ?? UIImageView())
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
     func winState(winImageView:UIImageView ) -> Bool {
         if winAttachs.count == 1 {
-            print("WIIINN")
+           
             let upper = winAttachs[0].title?.uppercased()
-            winLabel.textColor = .systemRed
-            winLabel.text = "\(upper!) WIN!!"
+            winLabel?.textColor = .systemRed
+            winLabel?.text = "\(upper!) WIN!!"
        
             isFinishQuiz = true
-            rightImageView.isUserInteractionEnabled = false
-            leftImageView.isUserInteractionEnabled = false
+            rightImageView?.isUserInteractionEnabled = false
+            leftImageView?.isUserInteractionEnabled = false
            
             imageMoveToCenter(winImageView: winImageView)
              return true
@@ -226,9 +224,9 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
             return
         }
         
-        playableCount = playableCount/2
+        playableCount = playableCount!/2
         resetIndexes()
-        matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
+        matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount!)
    
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
         setImages(index: startIndex)
@@ -248,8 +246,8 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
             print(result)
         }
         
-        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView)
-        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView)
+        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
+        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView ?? UIImageView())
  
         winAttachs.append(matchedAttachs[startIndex][1])
       
@@ -262,13 +260,13 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
         }
         if winAttachs.count  == matchedAttachs.count  {
             print("tur bitti")
-            getNextTour(winImageView: rightImageView)
+            getNextTour(winImageView: rightImageView ?? UIImageView())
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
     func setRound(roundIndex:Int, tourCount:Int) {
-        roundLabel.text = "\(roundIndex) / \(tourCount)"
+        roundLabel?.text = "\(roundIndex) / \(tourCount)"
     }
     func fadeInOrOut(alpha:Double, imageView:UIImageView) {
         UIView.animate(withDuration: 1.1, animations: {
@@ -277,17 +275,50 @@ class GameViewModel:ImageViewPro,AttachListPro,AttachTitlePro,PlayableCount {
     }
     
     func disableLabels() {
-        leftTitleLabel.isHidden = true
-        rightTitleLabel.isHidden = true
-        roundLabel.isHidden = true
+        leftTitleLabel?.isHidden = true
+        rightTitleLabel?.isHidden = true
+        roundLabel?.isHidden = true
         
     }
     
-    func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
+    func rateQuiz() {
+        WebService.shared.rateQuiz(quizID: quiz?.id ?? 1, rateScore: rate) { result in
+            
+            AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: result)
+        }
     }
     func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
         WebService.shared.setAttachmentScore(attachID: attachID, completion: completion)
+    }
+    func showRateDropDown(dropDownButton:UIButton) {
+        let  action = getDropDownActions(completion: { result in
+            
+            if result > -1 {
+                self.isRateSelected = true
+                self.rate = result
+            }else {
+                self.isRateSelected = false
+            }
+      
+        })
+      
+        if  action != nil {
+            
+            dropDownButton.menu = UIMenu(children : action)
+     
+            dropDownButton.showsMenuAsPrimaryAction = true
+            dropDownButton.changesSelectionAsPrimaryAction = true
+        }
+    }
+    func startQuiz() {
+        print("quiz \(quiz)   play \(playableCount)")
+        matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)
+     
+       
+        setRound(roundIndex: 1, tourCount: matchedAttachs.count)
+         
+        setImages(index: startIndex)
+        setTitle(index: startIndex)
     }
     
 }

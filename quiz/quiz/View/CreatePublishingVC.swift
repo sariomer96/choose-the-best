@@ -18,7 +18,6 @@ class CreatePublishingVC: UIViewController {
         super.viewDidLoad()
 
         categorySelectButton.isHidden = true
-    
         viewModel.getCategory { result in
             self.showSelectCategoryButton()
         }

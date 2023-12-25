@@ -14,8 +14,7 @@ class HomeViewModel {
     var recentlyList : [QuizResponse]?
     var topQuizList:[QuizResponse]?
     let webService = WebService.shared
-    
-    
+     
     func getCategories(completion: @escaping (String?) -> Void) {
       
         webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {

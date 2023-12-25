@@ -24,6 +24,11 @@ class CreatePublishingViewModel {
        // self.categoryList = WebService.shared.categoryList
     }
     
+    func setVariables(is_image:Bool,attachID:[Int]) {
+        self.is_image = is_image
+        self.attachmentIds = attachID
+    }
+    
     func getCategory(completion: @escaping (Bool) -> Void) {
         
         webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
