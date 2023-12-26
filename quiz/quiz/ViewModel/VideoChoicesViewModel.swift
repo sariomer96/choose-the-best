@@ -20,10 +20,14 @@ class VideoChoicesViewModel {
     var titleArray = [String]()
     
     init() {
-        self.attachIdList = WebService.shared.attachIdList
+        self.attachIdList = WebService.shared.attachmentIdList
     }
     func addAttachment(title:String,videoUrl:String,image:UIImage?,score:Int) {
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _,_  in}
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _,_  in
+      
+            self.attachIdList = WebService.shared.attachmentIdList
+            print("self.attachIdList  \(self.attachIdList)")
+        }
     }
     
     
@@ -40,38 +44,6 @@ class VideoChoicesViewModel {
             }
         }
     }
-//    func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
-//      
-//      
-//        let baseUrl = url.split(separator: "v=")[1]
-// 
-//        let id = baseUrl.split(separator: "&")
-//        
-//        let videoID = String(id[0])
-//         
-//        DispatchQueue.main.async { [self] in
-//
-//        let thumbNail = URL(string: "https://img.youtube.com/vi/\(videoID)/0.jpg")!
-//               
-//           var image = UIImageView()
-//            
-//            image.kf.setImage(with: thumbNail) { [self] result in
-//                switch result {
-//                case .failure(let error):
-//                    print(error)
-//                    completion(false,nil)
-//                case .success(let success):
-//                     
-//                    thumbNails.append(image.image!)
-//                    thumbNailArrayRX.onNext(thumbNails)
-//                    
-//                    titleArray.append(title)
-//                    titleArrayRX.onNext(titleArray)
-//                    completion(true,image.image!)
-//                }
-//            }
-//            
-//        }
-//    }
+ 
     
 }

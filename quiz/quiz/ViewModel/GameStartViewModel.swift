@@ -13,7 +13,7 @@ class GameStartViewModel {
         WebService.shared.getQuiz(quizID: quiz?.id ?? 0) {
             result in
             self.quiz = result
-            
+      
             self.totalAttachScore = 0
             for i in self.quiz!.attachments{
                 self.totalAttachScore += i.score!

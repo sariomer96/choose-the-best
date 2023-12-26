@@ -586,9 +586,6 @@
                                     </children>
                                 </menu>
                                 <buttonConfiguration key="configuration" style="tinted" title="Button"/>
-                                <connections>
-                                    <action selector="dropDownClick:" destination="YCd-33-doI" eventType="touchUpInside" id="SRG-D7-x6w"/>
-                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwO-b5-og6">
                                 <rect key="frame" x="87" y="167" width="240" height="240"/>
@@ -1081,22 +1078,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbB-Vb-HQN">
-                                                    <rect key="frame" x="207" y="11" width="64" height="34"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" image="pencil.circle.fill" catalog="system" title="Edit">
-                                                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="8"/>
-                                                    </buttonConfiguration>
-                                                    <connections>
-                                                        <action selector="editClicked:" destination="xoO-AF-ldC" eventType="touchUpInside" id="lls-EG-Biu"/>
-                                                    </connections>
-                                                </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a6B-il-KTz">
+                                                    <rect key="frame" x="200" y="45" width="97" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gbB-Vb-HQN" firstAttribute="leading" secondItem="1RW-QJ-dov" secondAttribute="leading" constant="207" id="2SF-oK-OvU"/>
+                                                <constraint firstItem="a6B-il-KTz" firstAttribute="top" secondItem="1RW-QJ-dov" secondAttribute="top" constant="45" id="2he-60-05x"/>
                                                 <constraint firstItem="GaC-EZ-xxn" firstAttribute="top" secondItem="1RW-QJ-dov" secondAttribute="top" constant="4" id="RPl-oS-mGT"/>
-                                                <constraint firstItem="gbB-Vb-HQN" firstAttribute="top" secondItem="1RW-QJ-dov" secondAttribute="top" constant="11" id="mad-z9-292"/>
-                                                <constraint firstAttribute="trailing" secondItem="gbB-Vb-HQN" secondAttribute="trailing" constant="143" id="nEu-Mk-jWR"/>
+                                                <constraint firstAttribute="trailing" secondItem="a6B-il-KTz" secondAttribute="trailing" constant="117" id="ZWI-Kv-Qee"/>
+                                                <constraint firstItem="a6B-il-KTz" firstAttribute="leading" secondItem="1RW-QJ-dov" secondAttribute="leading" constant="200" id="gLV-SP-k7b"/>
                                                 <constraint firstItem="GaC-EZ-xxn" firstAttribute="leading" secondItem="1RW-QJ-dov" secondAttribute="leading" id="u7X-8D-DBa"/>
                                                 <constraint firstItem="L8z-g1-8ff" firstAttribute="leading" secondItem="1RW-QJ-dov" secondAttribute="leading" id="uIL-d0-ZZH"/>
                                                 <constraint firstAttribute="bottom" secondItem="L8z-g1-8ff" secondAttribute="bottom" id="x6j-ys-Eo0"/>
@@ -1105,6 +1097,7 @@
                                         <connections>
                                             <outlet property="attachImageView" destination="L8z-g1-8ff" id="fUw-39-SpR"/>
                                             <outlet property="attachNameLabel" destination="GaC-EZ-xxn" id="4z1-tj-PTl"/>
+                                            <outlet property="nameTextField" destination="a6B-il-KTz" id="3qU-8v-xeN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1135,34 +1128,6 @@
                                     <action selector="pickerClick:" destination="epE-jD-Lg0" eventType="touchUpInside" id="2M2-h7-HgP"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" id="pAq-Aq-nbj" userLabel="EditView">
-                                <rect key="frame" x="40" y="300" width="337" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hdz-4U-Kor">
-                                        <rect key="frame" x="18.5" y="48" width="300" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="ft6-Qz-pdU"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dv6-5W-GO0">
-                                        <rect key="frame" x="156" y="96" width="48" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="OK"/>
-                                        <connections>
-                                            <action selector="okClickViewButton:" destination="epE-jD-Lg0" eventType="touchUpInside" id="f4Q-Ag-ZW8"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="linkColor"/>
-                                <constraints>
-                                    <constraint firstItem="Hdz-4U-Kor" firstAttribute="top" secondItem="pAq-Aq-nbj" secondAttribute="top" constant="48" id="GH6-Pz-Nqv"/>
-                                    <constraint firstItem="Hdz-4U-Kor" firstAttribute="centerX" secondItem="pAq-Aq-nbj" secondAttribute="centerX" id="Pn8-Cu-xfn"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="c8x-La-1MP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1189,7 +1154,6 @@
                     <navigationItem key="navigationItem" id="VR8-LN-boU"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="editView" destination="pAq-Aq-nbj" id="viM-qq-S5W"/>
                         <outlet property="pickerButton" destination="NKT-2w-lGS" id="TCr-RB-Xot"/>
                         <outlet property="tableView" destination="EgX-fi-oc9" id="U7C-6C-aRf"/>
                     </connections>
@@ -1451,7 +1415,6 @@
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="homekit" catalog="system" width="128" height="104"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
         <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>
         <image name="square.grid.3x1.folder.badge.plus" catalog="system" width="128" height="93"/>
         <image name="video.fill.badge.plus" catalog="system" width="128" height="90"/>

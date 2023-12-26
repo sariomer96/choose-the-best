@@ -41,10 +41,10 @@ class CreatePublishingViewModel {
     func publishQuiz(uiview:UIViewController, title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
         
         WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible,is_image: is_image, attachment_ids: attachment_ids) {error,isSuccess, quiz  in
-           
+            self.attachmentIds.removeAll()
             if isSuccess == true {
                 AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-              
+                      
                     let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
                     vc.viewModel.quiz = quiz
                     

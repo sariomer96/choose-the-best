@@ -10,45 +10,85 @@ import UIKit
 import RxSwift
 import PhotosUI
 
-class ImageChoicesViewModel {
+
+protocol EditTitle {
+    func editTitle(index:Int, title:String)
+}
+class ImageChoicesViewModel:EditTitle {
    
+     static let shared = ImageChoicesViewModel()
+    var editTitleDelegate:EditTitle?
     var imageArray = [UIImage]()
     var attachIdList = [Int]()
-    var tableView:UITableView
-    var attachNameLabelList = [String]()
-    init(tableView:UITableView) {
-        self.attachIdList = WebService.shared.attachIdList
-        self.tableView = tableView
-       
+    var tableView:UITableView?
+    var attachNameList = [String]()
+    var total = 0
+    
+    init() {
+        self.attachIdList = WebService.shared.attachmentIdList
+        
+        editTitleDelegate = self
+      //  self.tableView = tableView
+    
     }
     
-    func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (String?, Bool) -> Void) {
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image, completion: completion)
+   
+    func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) { _,_ in
+            self.attachIdList = WebService.shared.attachmentIdList
+            completion(true)
+        }
+    }
+  
+
+    func onClickNext(completion: @escaping (Bool)->Void) {
+         
+        for (index, i) in attachNameList.enumerated() {
+            
+            
+            addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
+                
+                // if  result fail  - show alert!!
+                print("henuz bitmedi   \(index)   \(self.attachNameList.count - 1)")
+                
+                if index == self.attachNameList.count - 1 {
+                    // NEXT SCENE
+                    print("botti")
+                    completion(true)
+                    
+                }
+            }
+        }
     }
     
+    func editTitle(index:Int, title:String) {
+         attachNameList[index] = title
+    }
+    var num = 1
      func addAttachmentDidpick(results: [PHPickerResult]) {
-        var num = 1
+      
          
-         
+         total = results.count
         for result in results {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
                     
                     self.imageArray.append(image)
-                   
+                    self.attachNameList.append(String(self.num))
                     DispatchQueue.main.async { [self] in
                          
-                            self.tableView.reloadData()
-                            addAttachment(title: String(num), videoUrl: "", image: self.imageArray[num-1], score: 0) {error, isSuccess in
- 
-                        }
-                        num += 1
+                        self.tableView?.reloadData()
+
+                        
                             
                     }
+                    self.num += 1
                     
                 }
+                
             }
         }
+    
     }
     
 }

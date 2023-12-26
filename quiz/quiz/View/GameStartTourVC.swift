@@ -23,9 +23,7 @@ class GameStartTourVC: UIViewController {
         showDropDown()
       
     }
-    @IBAction func dropDownClick(_ sender: Any) {
-     
-    }
+  
     override func viewWillAppear(_ animated: Bool) {
         quizImage.kf.setImage(with: URL(string: (viewModel.quiz?.image)!))
         quizTitleLabel.text = viewModel.quiz?.title

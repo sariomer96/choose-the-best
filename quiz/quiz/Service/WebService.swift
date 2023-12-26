@@ -168,7 +168,7 @@ class WebService {
     var quizList =  [QuizResponse]()
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
-    var attachIdList = [Int]()
+   // var attachIdList = [Int]()
     func searchQuiz(searchText:String,categoryID:Int){
         
         let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
@@ -240,7 +240,7 @@ class WebService {
             case .success(let value):
                 
                 self.attachmentIdList.append(Int(value.id!))
-                self.attachIdList = self.attachmentIdList
+            //    self.attachIdList = self.attachmentIdList
                 completion(UploadSuccess.success.rawValue,true)
             case .failure(let error):
                 print("Error uploading image: \(error)")
@@ -305,7 +305,7 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
         print("Could not get JPEG representation of image")
         return
     }
-   
+       print(" title  \(title) attacghid \(attachment_ids) categoryid  \(categoryID)  imageDAta \(imageData)")
     let parameters: [String: Any] = [
         "title":title,
         "attachment_ids":attachment_ids,
@@ -353,13 +353,14 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
             do {
                 
                 guard let quiz = quiz else { return}
+                print(quiz)
                 let qz = try JSONDecoder().decode(QuizResponse.self, from: quiz)
                 
                  completion(UploadSuccess.success.rawValue, true,qz)
               
             }
             catch{
-                print(error.localizedDescription)
+                print("CREATE ERROR : \(error.localizedDescription)")
             }
             
         case .failure(let error):
@@ -370,8 +371,7 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
     
 }
     
-     var titleArrayRX =  BehaviorSubject<[String]>(value: [String]())
-     var thumbNailArrayRX = BehaviorSubject<[UIImage]>(value: [UIImage]())
+     
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
       
@@ -394,11 +394,6 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
                     completion(false,nil)
                 case .success(let success):
                      
-//                    thumbNails.append(image.image!)
-//                    thumbNailArrayRX.onNext(thumbNails)
-//                    
-//                    titleArray.append(title)
-//                    titleArrayRX.onNext(titleArray)
                     completion(true,image.image!)
                 }
             }

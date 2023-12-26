@@ -23,6 +23,10 @@ class CreatePublishingVC: UIViewController {
         }
       
     }
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.didSelectCategory = false
+       
+    }
     
     func showSelectCategoryButton(){
          
@@ -39,6 +43,7 @@ class CreatePublishingVC: UIViewController {
          
         if viewModel.didSelectCategory == true {
        
+            print(" ATTACH IDS    \(viewModel.attachmentIds)")
             viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryID, isVisible: viewModel.isVisible,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
         }
     }

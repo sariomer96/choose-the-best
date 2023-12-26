@@ -43,6 +43,9 @@ class VideoChoicesVC: UIViewController {
         }
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        clearArrays()
+    }
     @IBAction func nextClick(_ sender: Any) {
         if viewModel.thumbNails.count > 1 {
             
@@ -50,7 +53,9 @@ class VideoChoicesVC: UIViewController {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
             
             if let vc = vc { 
+                print("attach list  \(viewModel.attachIdList)")
                 vc.viewModel.setVariables(is_image: false, attachID: viewModel.attachIdList)
+                clearArrays()
                 self.navigationController!.pushViewController(vc, animated: true)
             }
            // performSegue(withIdentifier: "toPublish", sender: attachIdList)
@@ -58,6 +63,11 @@ class VideoChoicesVC: UIViewController {
             AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
         }
      
+    }
+    
+    func clearArrays() {
+        viewModel.attachIdList.removeAll()
+        WebService.shared.attachmentIdList.removeAll()
     }
 }
 

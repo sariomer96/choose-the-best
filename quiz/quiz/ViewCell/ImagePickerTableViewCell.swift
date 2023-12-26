@@ -7,25 +7,36 @@
 
 import UIKit
 
-class ImagePickerTableViewCell: UITableViewCell {
+class ImagePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
 
     @IBOutlet weak var attachNameLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField! 
+        
+  
+     
+     var index = 0
     
     @IBOutlet weak var attachImageView: UIImageView!
-    var view : UIView?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+      
+      
+        nameTextField.addTarget(self, action: #selector(didChanged), for: .editingChanged)
+        
         // Initialization code
     }
 
+    @objc func didChanged() {
+        print("degisiyorustam")
+        ImageChoicesViewModel.shared.editTitleDelegate?.editTitle(index: index, title: nameTextField.text!)
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
  
-    @IBAction func editClicked(_ sender: Any) {
-        view?.isHidden = false
-    }
+   
     
 }
