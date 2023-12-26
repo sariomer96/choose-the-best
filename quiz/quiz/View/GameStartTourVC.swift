@@ -14,18 +14,15 @@ class GameStartTourVC: UIViewController {
     @IBOutlet weak var dropdownButton: UIButton!
     @IBOutlet weak var quizImage: UIImageView!
     @IBOutlet weak var quizTitleLabel: UILabel!
-//    var quiz:QuizResponse?
+
     let viewModel = GameStartTourViewModel()
-//    var defaulPlayableCount = 2
-//   var maxPlayableCount = 2
+
   
     override func viewDidLoad() {
         super.viewDidLoad()
         showDropDown()
-        // Do any additional setup after loading the view.
+      
     }
-    
- 
     @IBAction func dropDownClick(_ sender: Any) {
      
     }
@@ -59,12 +56,11 @@ class GameStartTourVC: UIViewController {
               
                 self.navigationController!.pushViewController(vc, animated: true)
             }
-           // performSegue(withIdentifier: "toGame", sender: quiz)
+
         }
     }
     func showDropDown(){
-         
-       // fillDropDownActions()
+        
         let  action = viewModel.getDropDownActions(attachmentCount: (viewModel.quiz?.attachments.count)!) {
             count in
             self.viewModel.maxPlayableCount = count
@@ -73,12 +69,9 @@ class GameStartTourVC: UIViewController {
         
         if  action != nil {
             
-             
-             dropdownButton.menu = UIMenu(children : action
-              )
-     
-                  dropdownButton.showsMenuAsPrimaryAction = true
-                  dropdownButton.changesSelectionAsPrimaryAction = true
+             dropdownButton.menu = UIMenu(children : action)
+             dropdownButton.showsMenuAsPrimaryAction = true
+             dropdownButton.changesSelectionAsPrimaryAction = true
         }
     }
   
