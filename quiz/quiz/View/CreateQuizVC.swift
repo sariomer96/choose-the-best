@@ -12,7 +12,7 @@ class CreateQuizVC: UIViewController {
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UITextField!
     var viewModel = CreateQuizViewModel()
-    var attachment: [Attachment]?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

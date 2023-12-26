@@ -85,6 +85,29 @@ class WebService {
         }
         
     }
+    
+    func getQuizList() {
+        
+        let url = "\(quizListFromCategoryURL)4"
+        
+        AF.request(url,method: .get).response { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
+                    let apiRes = result as? ApiResponse
+                    print(apiRes?.results)
+                    print("suc")
+                }catch{
+                    print(error.localizedDescription)
+                }
+               
+            case .failure(let fail):
+                print("fail")
+            }
+         
+        }
+    }
     func AFGetRequest<T: Decodable>(requestType:GetRequestTypes , url: String, modelResponseType: T.Type, completion: @escaping (String?) -> Void) {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
@@ -96,19 +119,22 @@ class WebService {
                   
                     let result = try decoder.decode(modelResponseType, from: data!)
                     
+                     
                     let apiRes = result as? ApiResponse
+                    print(requestType)
                     switch requestType{
                         
+                  
                     case .topRate:
-                        if let list = apiRes?.results {
-                            self.topQuizList = list
+                        guard let apiRes = apiRes?.results else{return}
+                            self.topQuizList = apiRes
                             completion("AAA")
-                        }
+                       
                     case .recently:
-                        if let list = apiRes?.results {
-                            self.recentlyList = list
+                        guard let apiRes = apiRes?.results else{return}
+                            self.recentlyList = apiRes
                             completion("AAA")
-                        }
+                     
                     case .category:
                         let category = result as? CategoryResponse
                         
@@ -118,12 +144,13 @@ class WebService {
                         }
                         
                     case .quizList:
-                        if let quizList = apiRes?.results {
-                            self.quizList = quizList
-                            completion("tetik1")
-                        }
+                        guard let apiRes = apiRes?.results else{return}
+                        print("getquizz")
+                        self.quizList = apiRes
+                       
+                        completion("tetik1")
                         
-                        
+                    
                     }
                 } catch {
                     
@@ -142,19 +169,19 @@ class WebService {
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
     var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
-    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping (String) -> Void){
+    func searchQuiz(searchText:String,categoryID:Int){
         
         let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
         
         AF.request(url, method: .get).response { response in
             switch response.result {
             case .success(let data):
-                print("dataSuccess \(data)")
+           
                 do {
                     let data = try JSONDecoder().decode(ApiResponse.self, from: data!)
                     
                     if data != nil{
-                        print("DTAAA \(data.results)")
+                   
                         self.quizList = data.results!
                     }
                 }catch {

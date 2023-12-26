@@ -23,7 +23,7 @@ class CreateQuizViewModel:NSObject {
     var recogDelegate:UiViewDelegate?
     var isSelectedImage:Bool = false
     var coverImage:UIImageView?
-    
+
     override init() {
         super.init()
       //  delegateAlert = self

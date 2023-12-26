@@ -44,6 +44,7 @@ class HomeVC: UIViewController {
         
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
+        
         viewModel.getCategories { [self]
             result in
             
@@ -88,10 +89,13 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
  
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "QuizListVC") as! QuizListVC
-        vc.nameCategory = viewModel.categoryList?[indexPath.row].name
-        vc.categoryID = viewModel.categoryList?[indexPath.row].id
+         let vc = self.storyboard?.instantiateViewController(withIdentifier: "QuizListVC") as? QuizListVC
         
+        guard let vc = vc else{return}
+        vc.viewModel.nameCategory = viewModel.categoryList?[indexPath.row].name
+        vc.viewModel.categoryID = viewModel.categoryList?[indexPath.row].id
+        
+        print("VC  \(vc)")
         self.navigationController!.pushViewController(vc, animated: true)
     }
 }

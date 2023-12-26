@@ -6,35 +6,55 @@
 //
 
 import Foundation
+import UIKit
  
 
 protocol QuizListProtocol {
-    func getQuizList(categoryId:Int,completion: @escaping (String?) -> Void)
+    func getQuizList(completion: @escaping (String?) -> Void)
 }
 class QuizListViewModel : QuizListProtocol {
     
-    var quizList : [QuizResponse]?
+ 
+    var quizListDelegate:QuizListProtocol?
     let webService = WebService.shared
-   
+    var nameCategory:String?
+
+    var quizList = [QuizResponse]()
+    var imageList = [UIImage]()
+    var imagesList = [String]()
+    var imageViewList = [UIImageView]()
+    var categoryID:Int?
     
-    func getQuizList(categoryId:Int, completion: @escaping (String?) -> Void) {
+    init() {
+        quizListDelegate = self
+    }
+    
+    
+    func getQuizList(completion: @escaping (String?) -> Void) {
         
-          print("call count")
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: "\(webService.quizListFromCategoryURL)\(categoryId)", modelResponseType: ApiResponse.self) {
+  
+        guard let categoryId = categoryID else{ return }
+        let url = "\(webService.quizListFromCategoryURL)\(categoryId)"
+        WebService.shared.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: url, modelResponseType: ApiResponse.self) {
             result in
-            print("tetik")
+ 
+            print("IC RESU")
             self.quizList = self.webService.quizList
+             
+            for i in self.quizList {
+                guard let image = i.image else { return }
+                
+                self.imagesList.append(image)
+            }
+         
             completion("trigger")
-            
             
         }
       
+   }
+    
+    func search(searchText:String) {
+        WebService.shared.searchQuiz(searchText: searchText,categoryID: categoryID ?? 0)
     }
-    
-    func search(searchText:String,categoryID:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.searchQuiz(searchText: searchText,categoryID:categoryID, completion: completion)
-    }
-    
-    
     
 }

@@ -16,19 +16,16 @@ class QuizListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var nameCategory:String?
-    let viewModel = QuizListViewModel()
-    var quizList = [QuizResponse]()
-    var imageList = [UIImage]()
-    private var imagesList = [String]()
-    var imageViewList = [UIImageView]()
-    var categoryID:Int?
+      let viewModel = QuizListViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        
+       
       
    }
     override func viewWillAppear(_ animated: Bool) {
@@ -36,46 +33,39 @@ class QuizListVC: UIViewController {
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         categoryName.text = ""
-        categoryName.text = nameCategory
-       
+        categoryName.text = viewModel.nameCategory
+      
       
     }
     override func viewDidAppear(_ animated: Bool) {
   
-        viewModel.getQuizList(categoryId: categoryID!) { error in
-            guard let quizList = self.viewModel.quizList else {return}
-         
-            for i in quizList {
-                guard let image = i.image else { return }
-                
-                self.imagesList.append(image)
-             //   print("imagelist: \(self.quizList.count)  \(self.imagesList.count)")
-            }
-            print("Images listesi sayısı: \(self.imagesList.count)")
+      
+        viewModel.quizListDelegate?.getQuizList(completion: { result in
             DispatchQueue.main.async{
+                print("RESUL")
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
-              
-                self.quizList = quizList
+               
                 self.tableView.reloadData()
              
             }
-        }
+
+        })
+         
     }
  
 }
 
 extension QuizListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(searchText: searchText, categoryID: categoryID!) { result in
-          
-        }
+        viewModel.search(searchText: searchText)
+        
     }
 }
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("quizlst :    \(quizList.count)")
-        return self.quizList.count
+        print(viewModel.quizList.count)
+        return viewModel.quizList.count
     }
  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,22 +73,22 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListTableViewCell", for: indexPath) as! QuizListTableViewCell
      
         
-        cell.nameLabel.text = quizList[indexPath.row].title
+        cell.nameLabel.text = viewModel.quizList[indexPath.row].title
       
  
-        let rate = quizList[indexPath.row].average_rate
+        let rate = viewModel.quizList[indexPath.row].average_rate
         if rate != nil {
             cell.starView.rating = Double(rate!)
         }else{
             cell.starView.rating = 0.0
         }
-        cell.quizImageView.kf.setImage(with: URL(string:imagesList[indexPath.row]),placeholder: UIImage(named: "add"))
+        cell.quizImageView.kf.setImage(with: URL(string:viewModel.imagesList[indexPath.row]),placeholder: UIImage(named: "add"))
      
         return cell
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let quiz =  quizList[indexPath.row]
+        let quiz =  viewModel.quizList[indexPath.row]
         
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
