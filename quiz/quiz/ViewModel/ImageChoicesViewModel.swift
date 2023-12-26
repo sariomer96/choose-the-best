@@ -13,9 +13,9 @@ import PhotosUI
 class ImageChoicesViewModel {
    
     var imageArray = [UIImage]()
-    var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
+    var attachIdList = [Int]()
     var tableView:UITableView
-    
+    var attachNameLabelList = [String]()
     init(tableView:UITableView) {
         self.attachIdList = WebService.shared.attachIdList
         self.tableView = tableView
@@ -34,17 +34,13 @@ class ImageChoicesViewModel {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
                     
-                    
-                  
                     self.imageArray.append(image)
-                   
                    
                     DispatchQueue.main.async { [self] in
                          
                             self.tableView.reloadData()
-                            addAttachment(title: String(num), videoUrl: "", image: self.imageArray[num-1], score: 5) {error, isSuccess in
-
-                              
+                            addAttachment(title: String(num), videoUrl: "", image: self.imageArray[num-1], score: 0) {error, isSuccess in
+ 
                         }
                         num += 1
                             

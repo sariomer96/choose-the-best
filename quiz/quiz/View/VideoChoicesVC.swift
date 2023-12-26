@@ -12,52 +12,20 @@ import RxSwift
 class VideoChoicesVC: UIViewController {
 
     @IBOutlet weak var attachTableView: UITableView!
-//    @IBOutlet weak var testImage: UIImageView!
-//    @IBOutlet var playerView: YTPlayerView!
     @IBOutlet weak var videoTitleLabel: UITextField!
     @IBOutlet weak var youtubeURLTitle: UITextField!
-    var titleArray = [String]()
-    var thumbNailArray = [UIImage]()
+ 
     var viewModel = VideoChoicesViewModel()
-    var attachIdList = [Int]()
-    var bag = DisposeBag()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         attachTableView.delegate = self
         attachTableView.dataSource = self
-        _ = viewModel.thumbNailArrayRX.subscribe(onNext: {  list in
-            self.thumbNailArray = list
-             
-            DispatchQueue.main.async {
-                self.attachTableView.reloadData()
-            }
-            
-            
-        }).disposed(by: bag)
-        
-        _ = viewModel.attachIdList.subscribe(onNext: {  list in
-            self.attachIdList = list
-            
-            
-        }).disposed(by: bag)
-        
-        _ = viewModel.titleArrayRX.subscribe(onNext: {  list in
-            self.titleArray = list
-            
-            
-            DispatchQueue.main.async {
-                self.attachTableView.reloadData()
-            }
-            
-            
-        }).disposed(by: bag)
-    
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func AddVideoClick(_ sender: Any) {
-        let url = youtubeURLTitle.text!
-        let baseURL = url.replacingOccurrences(of: " ", with: "")
+        viewModel.url = youtubeURLTitle.text!
+        let baseURL = viewModel.url.replacingOccurrences(of: " ", with: "")
         let title = videoTitleLabel.text!
         
         if baseURL.isEmpty == true || title.isEmpty == true {
@@ -65,24 +33,24 @@ class VideoChoicesVC: UIViewController {
             return
         }
       
-        self.viewModel.loadYoutubeThumbnail(url: baseURL, title: title) { result,image in
-            if result == true {
-                self.youtubeURLTitle.text = ""
-                self.videoTitleLabel.text = ""
-                self.viewModel.addAttachment(title: title, videoUrl: baseURL, image: image, score: 5) { res, success in
-                     
-                }
+        
+        viewModel.loadThumbNail(url: baseURL, title: title, baseURL: baseURL) { done in
+            self.youtubeURLTitle.text = ""
+            self.videoTitleLabel.text = ""
+            DispatchQueue.main.async {
+                self.attachTableView.reloadData()
             }
         }
+        
     }
     @IBAction func nextClick(_ sender: Any) {
-        if thumbNailArray.count > 1 {
+        if viewModel.thumbNails.count > 1 {
             
             
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
             
             if let vc = vc { 
-                vc.viewModel.setVariables(is_image: false, attachID: attachIdList)
+                vc.viewModel.setVariables(is_image: false, attachID: viewModel.attachIdList)
                 self.navigationController!.pushViewController(vc, animated: true)
             }
            // performSegue(withIdentifier: "toPublish", sender: attachIdList)
@@ -95,15 +63,15 @@ class VideoChoicesVC: UIViewController {
 
 extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return thumbNailArray.count
+        return viewModel.thumbNails.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as! VideoChoicesTableViewCell
         
-        cell.videoTitleLabel.text = titleArray[indexPath.row]
-        cell.videoThumbnailImage.image = thumbNailArray[indexPath.row]
+        cell.videoTitleLabel.text = viewModel.titleArray[indexPath.row]
+        cell.videoThumbnailImage.image = viewModel.thumbNails[indexPath.row]
         
         return cell
     }

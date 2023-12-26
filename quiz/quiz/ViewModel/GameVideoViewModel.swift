@@ -13,16 +13,21 @@ class GameVideoViewModel {
     var matchedList = [[Attachment]]()
     var matchedAttachs = [[Attachment]]()
     var winAttachs = [Attachment]()
-    var playableCount =  0
     var isFinishQuiz = false
+    var quiz:QuizResponse?
+    var startIndex = 0
+    var roundIndex = 1
+    var playableCount = 2
+    var rate = 0
+    var isRateSelected = false
+    var vote = false
     @IBOutlet weak var activity:UIActivityIndicatorView?
     @IBOutlet weak var topAttachTitle:UILabel?
     @IBOutlet weak var bottomAttachTitle:UILabel?
     @IBOutlet weak var roundLabel:UILabel?
     var action = [UIAction]()
     var rates = [0,1,2,3,4,5]
-    var startIndex = 0
-    var roundIndex = 1
+
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
          
         matchedList.removeAll()

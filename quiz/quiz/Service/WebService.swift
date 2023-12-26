@@ -168,7 +168,7 @@ class WebService {
     var quizList =  [QuizResponse]()
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
-    var attachIdList = BehaviorSubject<[Int]>(value: [Int]())
+    var attachIdList = [Int]()
     func searchQuiz(searchText:String,categoryID:Int){
         
         let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
@@ -240,7 +240,7 @@ class WebService {
             case .success(let value):
                 
                 self.attachmentIdList.append(Int(value.id!))
-                self.attachIdList.onNext(self.attachmentIdList)
+                self.attachIdList = self.attachmentIdList
                 completion(UploadSuccess.success.rawValue,true)
             case .failure(let error):
                 print("Error uploading image: \(error)")
@@ -369,6 +369,42 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
     }
     
 }
+    
+     var titleArrayRX =  BehaviorSubject<[String]>(value: [String]())
+     var thumbNailArrayRX = BehaviorSubject<[UIImage]>(value: [UIImage]())
+    func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
+      
+      
+        let baseUrl = url.split(separator: "v=")[1]
+ 
+        let id = baseUrl.split(separator: "&")
+        
+        let videoID = String(id[0])
+         
+        DispatchQueue.main.async { [self] in
+
+        let thumbNail = URL(string: "https://img.youtube.com/vi/\(videoID)/0.jpg")!
+               
+           var image = UIImageView()
+            
+            image.kf.setImage(with: thumbNail) { [self] result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                    completion(false,nil)
+                case .success(let success):
+                     
+//                    thumbNails.append(image.image!)
+//                    thumbNailArrayRX.onNext(thumbNails)
+//                    
+//                    titleArray.append(title)
+//                    titleArrayRX.onNext(titleArray)
+                    completion(true,image.image!)
+                }
+            }
+            
+        }
+    }
         
 }
 

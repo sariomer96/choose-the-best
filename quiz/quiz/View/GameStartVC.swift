@@ -53,7 +53,7 @@ class GameStartVC: UIViewController {
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartTourVC") as! GameStartTourVC
    
-        vc.quiz = viewModel.quiz
+        vc.viewModel.quiz = viewModel.quiz
           
         
         self.navigationController!.pushViewController(vc, animated: true)

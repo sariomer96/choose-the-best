@@ -10,6 +10,9 @@ import UIKit
 
 class GameStartTourViewModel {
     var rounds = [2,4,8,16,32,64,128]
+    var defaulPlayableCount = 2
+    var maxPlayableCount = 2
+    var quiz:QuizResponse?
  
     var action = [UIAction]()
     let roundsKey = [

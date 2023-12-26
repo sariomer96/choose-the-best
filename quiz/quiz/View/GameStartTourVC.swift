@@ -14,10 +14,10 @@ class GameStartTourVC: UIViewController {
     @IBOutlet weak var dropdownButton: UIButton!
     @IBOutlet weak var quizImage: UIImageView!
     @IBOutlet weak var quizTitleLabel: UILabel!
-    var quiz:QuizResponse?
+//    var quiz:QuizResponse?
     let viewModel = GameStartTourViewModel()
-    var defaulPlayableCount = 2
-   var maxPlayableCount = 2
+//    var defaulPlayableCount = 2
+//   var maxPlayableCount = 2
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,34 +30,33 @@ class GameStartTourVC: UIViewController {
      
     }
     override func viewWillAppear(_ animated: Bool) {
-        quizImage.kf.setImage(with: URL(string: (quiz?.image)!))
-        quizTitleLabel.text = quiz?.title
+        quizImage.kf.setImage(with: URL(string: (viewModel.quiz?.image)!))
+        quizTitleLabel.text = viewModel.quiz?.title
     }
     
     @IBAction func startClick(_ sender: Any) {
         
-        if quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
+        if viewModel.quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
   
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVideoVC") as? GameVideoVC
             
             if let vc = vc {
                  
-                vc.quiz = quiz
-                vc.playableCount = maxPlayableCount
+                vc.viewModel.quiz = viewModel.quiz
+                vc.viewModel.playableCount = viewModel.maxPlayableCount
                 self.navigationController!.pushViewController(vc, animated: true)
             }
-          //  performSegue(withIdentifier: "toGameVideoVC", sender: quiz)
+         
         }else {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVC") as? GameVC
             
             if let vc = vc {
                 
                 
-                vc.viewModel.quiz = quiz
+                vc.viewModel.quiz = viewModel.quiz
               
-                vc.viewModel.playableDelegate?.playableCount = maxPlayableCount
-               // print("quiz zzzz   \(vc.viewModel?.quiz)  ----- \(quiz) ---- nmax play \(vc.viewModel?.playableDelegate?.playableCount)")
-             //   vc.playableCount = maxPlayableCount
+                vc.viewModel.playableDelegate?.playableCount =  viewModel.maxPlayableCount
+              
                 self.navigationController!.pushViewController(vc, animated: true)
             }
            // performSegue(withIdentifier: "toGame", sender: quiz)
@@ -66,9 +65,9 @@ class GameStartTourVC: UIViewController {
     func showDropDown(){
          
        // fillDropDownActions()
-        let  action = viewModel.getDropDownActions(attachmentCount: (quiz?.attachments.count)!) {
+        let  action = viewModel.getDropDownActions(attachmentCount: (viewModel.quiz?.attachments.count)!) {
             count in
-            self.maxPlayableCount = count
+            self.viewModel.maxPlayableCount = count
            
         }
         

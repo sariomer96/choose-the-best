@@ -22,15 +22,7 @@ class GameVideoVC: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topVideoView: YTPlayerView!
     var viewModel = GameVideoViewModel()
-    var matchedAttachs = [[Attachment]]()
-    var quiz:QuizResponse?
-    var winAttachs = [Attachment]()
-    var startIndex = 0
-    var roundIndex = 1
-    var playableCount = 2 
-    var rate = 0
-    var isRateSelected = false
-    var vote = false
+
 
     @IBOutlet weak var bottomVideoView: YTPlayerView!
     override func viewDidLoad() {
@@ -41,8 +33,7 @@ class GameVideoVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         viewModel.activity = activityIndicator
-        viewModel.winAttachs = winAttachs
-        viewModel.playableCount = playableCount
+    
         viewModel.topAttachTitle = topAttachmentTitle
         viewModel.bottomAttachTitle = bottomAttachmentTitle
         viewModel.roundLabel = roundLabel
@@ -51,12 +42,12 @@ class GameVideoVC: UIViewController {
     }
     
     func showRateDropDown() {
-        let  action = viewModel.getDropDownActions(completion: { result in
+        let  action = viewModel.getDropDownActions(completion: { [self] result in
             if result > -1 {
-                self.isRateSelected = true
-                self.rate = result
+                viewModel.isRateSelected = true
+                viewModel.rate = result
             }else {
-                self.isRateSelected = false
+                viewModel.isRateSelected = false
             }
         })
         if  action != nil {
@@ -67,10 +58,10 @@ class GameVideoVC: UIViewController {
         }
     }
     @IBAction func voteClick(_ sender: Any) {
-        if isRateSelected == true {
-             print(rate)
-            vote = true
-            viewModel.rateQuiz(quizID: quiz!.id, rateScore: rate)
+        if viewModel.isRateSelected == true {
+            
+            viewModel.vote = true
+            viewModel.rateQuiz(quizID: viewModel.quiz!.id, rateScore: viewModel.rate)
             { result in
                print(result)
                 AlertManager.shared.alert(view: self, title: "Alert", message: result)
@@ -85,8 +76,8 @@ class GameVideoVC: UIViewController {
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as? GameStartVC
         
         if let vc = vc {
-            if vote == true {
-                vc.viewModel.quiz = quiz
+            if viewModel.vote == true {
+                vc.viewModel.quiz = viewModel.quiz
                 self.navigationController!.pushViewController(vc, animated: true)
             }
         }
@@ -103,7 +94,7 @@ class GameVideoVC: UIViewController {
     }
   
     func startQuiz() {
-        viewModel.matchedAttachs = viewModel.matchQuiz(attachment: quiz!.attachments, playableCount: playableCount)
+        viewModel.matchedAttachs = viewModel.matchQuiz(attachment: viewModel.quiz!.attachments, playableCount: viewModel.playableCount)
          
         viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count, roundLabel: roundLabel)
         

@@ -13,10 +13,8 @@ class ImageChoicesVC: UIViewController {
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerButton: UIButton!
-   // var imageArray = [UIImage]()
-    var attachNameLabelList = [String]()
-    var attachIdList = [Int]()
-    let bag = DisposeBag()
+ 
+    
     var viewModel:ImageChoicesViewModel?
     
     override func viewDidLoad() {
@@ -26,10 +24,7 @@ class ImageChoicesVC: UIViewController {
         tableView.delegate = self
         viewModel = ImageChoicesViewModel(tableView: tableView)
         
-        _ = viewModel!.attachIdList.subscribe(onNext: {  list in
-            self.attachIdList = list
-             
-        }).disposed(by: bag)
+     
         
     }
     @IBAction func nextClick(_ sender: Any) {
@@ -39,7 +34,7 @@ class ImageChoicesVC: UIViewController {
             
             if let vc = vc {
                 
-                vc.viewModel.setVariables(is_image: true, attachID: attachIdList)
+                vc.viewModel.setVariables(is_image: true, attachID: viewModel?.attachIdList ?? [Int]())
                 self.navigationController!.pushViewController(vc, animated: true)
             }
           //  performSegue(withIdentifier: "toPublish", sender: attachIdList)
@@ -86,7 +81,7 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
        let index =  indexPath.row
        
         cell.attachNameLabel.text = String(index+1)
-        attachNameLabelList.append(cell.attachNameLabel.text!)
+        viewModel?.attachNameLabelList.append(cell.attachNameLabel.text!)
         cell.attachImageView.image = viewModel!.imageArray[indexPath.row]
         
         cell.view = editView
