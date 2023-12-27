@@ -47,15 +47,13 @@ class ImageChoicesVC: UIViewController {
             if let vc = vc {
                  
                 viewModel.onClickNext() { _ in
-                    print("googogo")
-                    print("ATTA KLIST  \(self.viewModel.attachIdList)")
+                 
                     vc.viewModel.setVariables(is_image: true, attachID: self.viewModel.attachIdList )
                     self.clearArrays()
                     self.navigationController!.pushViewController(vc, animated: true)
                 }
                
             }
-          //  performSegue(withIdentifier: "toPublish", sender: attachIdList)
         }else {
             AlertManager.shared.alert(view: self, title: "Fail", message: "need 2 attachments")
         }
@@ -91,19 +89,41 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImagePickerTableViewCell") as! ImagePickerTableViewCell
-        
-      
-        print(indexPath.row)
-    //    cell.attachNameLabel.text = String(indexPath.row+1)
       
         let index =  indexPath.row
         cell.attachImageView.image = viewModel.imageArray[indexPath.row]
         cell.nameTextField.text =   viewModel.attachNameList[indexPath.row]
-          cell.index = indexPath.row
+        cell.index = indexPath.row
        
-
-  
-        
         return cell
     } 
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
+            contextualAction,view,bool in
+         
+            self.removeAttachment(index: indexPath.row)
+          
+    }
+    return UISwipeActionsConfiguration(actions: [deleteAction])
+  }
+    
+    func removeAttachment(index:Int) {
+        let title = self.viewModel.attachNameList[index]
+        let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?", preferredStyle: .alert)
+    
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let yes = UIAlertAction(title: "Delete", style: .destructive) {
+        action in
+        self.viewModel.removeAttachment(index: index)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+      }
+    
+        alert.addAction(cancel)
+        alert.addAction(yes)
+        self.present(alert,animated: true)
+    
+    }
 }

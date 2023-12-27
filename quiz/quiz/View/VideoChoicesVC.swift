@@ -45,29 +45,38 @@ class VideoChoicesVC: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         clearArrays()
+        DispatchQueue.main.async {
+            self.attachTableView.reloadData()
+        }
     }
     @IBAction func nextClick(_ sender: Any) {
         if viewModel.thumbNails.count > 1 {
             
-            
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
-            
-            if let vc = vc { 
-                print("attach list  \(viewModel.attachIdList)")
-                vc.viewModel.setVariables(is_image: false, attachID: viewModel.attachIdList)
-                clearArrays()
-                self.navigationController!.pushViewController(vc, animated: true)
+            viewModel.addAttachmentsOnNextClick { [self] result in
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
+                
+                if let vc = vc {
+                   
+                    vc.viewModel.setVariables(is_image: false, attachID: viewModel.attachIdList)
+                    
+                    clearArrays()
+                    self.navigationController!.pushViewController(vc, animated: true)
+                }else {
+                    AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
+                }
+              
             }
-           // performSegue(withIdentifier: "toPublish", sender: attachIdList)
-        }else {
-            AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
+          
         }
+      
      
     }
     
     func clearArrays() {
         viewModel.attachIdList.removeAll()
         WebService.shared.attachmentIdList.removeAll()
+        self.viewModel.thumbNails.removeAll()
+        self.viewModel.titleArray.removeAll()
     }
 }
 
@@ -85,4 +94,34 @@ extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
         
         return cell
     }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
+            contextualAction,view,bool in
+            
+            self.removeAttachment(index: indexPath.row)
+            
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func removeAttachment(index:Int) {
+        let title = self.viewModel.titleArray[index]
+        let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?", preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let yes = UIAlertAction(title: "Delete", style: .destructive) {
+            action in
+            self.viewModel.removeAttachment(index: index)
+            DispatchQueue.main.async {
+                self.attachTableView.reloadData()
+            }
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(yes)
+        self.present(alert,animated: true)
+        
+    }
+    
 }

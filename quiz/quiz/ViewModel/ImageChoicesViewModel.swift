@@ -45,11 +45,12 @@ class ImageChoicesViewModel:EditTitle {
          
         for (index, i) in attachNameList.enumerated() {
             
-            
+            print("henuz bitmedi   \(index)   \(self.attachNameList.count - 1)")
             addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
                 
+                print("\(index)")
                 // if  result fail  - show alert!!
-                print("henuz bitmedi   \(index)   \(self.attachNameList.count - 1)")
+              
                 
                 if index == self.attachNameList.count - 1 {
                     // NEXT SCENE
@@ -59,6 +60,11 @@ class ImageChoicesViewModel:EditTitle {
                 }
             }
         }
+    }
+    func removeAttachment(index:Int) {
+        //attachIdList.remove(at: index)
+        imageArray.remove(at: index)
+        attachNameList.remove(at: index)
     }
     
     func editTitle(index:Int, title:String) {
@@ -75,6 +81,8 @@ class ImageChoicesViewModel:EditTitle {
                     
                     self.imageArray.append(image)
                     self.attachNameList.append(String(self.num))
+                    print(self.attachNameList)
+                   
                     DispatchQueue.main.async { [self] in
                          
                         self.tableView?.reloadData()
