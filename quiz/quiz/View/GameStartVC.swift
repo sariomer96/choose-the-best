@@ -13,6 +13,7 @@ class GameStartVC: UIViewController {
     
     
     @IBOutlet weak var quizTitleLabel: UILabel!
+    @IBOutlet weak var quizTitle: UILabel!
     @IBOutlet weak var quizHeaderImageView: UIImageView!
 
 //    var quizTitle:String?
@@ -33,7 +34,7 @@ class GameStartVC: UIViewController {
          
         viewModel.getQuiz() {
             _ in
-           
+            self.quizTitle.text =  self.viewModel.quiz?.title
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }

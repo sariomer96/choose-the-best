@@ -124,6 +124,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         }
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
         vc.viewModel.quiz = quiz
+        
         self.navigationController!.pushViewController(vc, animated: true)
          
     }
