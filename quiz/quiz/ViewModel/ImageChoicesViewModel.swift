@@ -45,16 +45,16 @@ class ImageChoicesViewModel:EditTitle {
          
         for (index, i) in attachNameList.enumerated() {
             
-            print("henuz bitmedi   \(index)   \(self.attachNameList.count - 1)")
+ 
             addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
                 
-                print("\(index)")
+ 
                 // if  result fail  - show alert!!
               
                 
                 if index == self.attachNameList.count - 1 {
                     // NEXT SCENE
-                    print("botti")
+         
                     completion(true)
                     
                 }

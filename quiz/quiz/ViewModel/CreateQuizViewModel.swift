@@ -17,8 +17,7 @@ protocol UiViewDelegate:AnyObject {
 }
 
 class CreateQuizViewModel:NSObject {
-      
-   //  var delegateAlert:AlertProtocol?
+   
     var uiView:UIViewController?
     var recogDelegate:UiViewDelegate?
     var isSelectedImage:Bool = false
@@ -26,13 +25,13 @@ class CreateQuizViewModel:NSObject {
 
     override init() {
         super.init()
-      //  delegateAlert = self
+    
         recogDelegate = self
     }
     
     func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool,
                     attachment_ids:[Int],completion: @escaping (String?, Bool,QuizResponse?) -> Void){
-        print("work viewmodel")
+        
         WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible,is_image: is_image, attachment_ids: attachment_ids, completion: completion)
     }
     func checkIsEmptyFields(title:String, view:UIViewController) -> Bool{
@@ -45,21 +44,6 @@ class CreateQuizViewModel:NSObject {
             return false
         }
     }
-    
-    
-//    func alert(view:UIViewController, title:String,message:String) {
-//
-//
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//        let ok = UIAlertAction(title: "OK", style: .default)
-//        alert.addAction(ok)
-//        view.present(alert,animated: true)
-//
-//    }
-//
-    
- 
 }
 
 
@@ -67,7 +51,7 @@ class CreateQuizViewModel:NSObject {
 extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     func getUiViewController(view: UIViewController) {
         uiView = view
-        print("setuiview \(uiView)")
+ 
     }
     
     func recognizer(imageView:UIImageView,view:UIViewController) {
@@ -78,7 +62,7 @@ extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UI
         coverImage = imageView
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
         coverImage!.addGestureRecognizer(gestureRecognizer)
-        print("recog")
+ 
     }
     
     @objc func chooseImage() {

@@ -33,7 +33,7 @@ class CreatePublishingVC: UIViewController {
         let  action = viewModel.getDropDownActions()
         categorySelectButton.isHidden = false
         if  action != nil {
-            print("action \(action.count)")
+ 
             categorySelectButton.menu = UIMenu(children : action)
             categorySelectButton.showsMenuAsPrimaryAction = true
             categorySelectButton.changesSelectionAsPrimaryAction = true
@@ -42,8 +42,7 @@ class CreatePublishingVC: UIViewController {
     @IBAction func publishClick(_ sender: Any) {
          
         if viewModel.didSelectCategory == true {
-       
-            print(" ATTACH IDS    \(viewModel.attachmentIds)")
+        
             viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryID, isVisible: viewModel.isVisible,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
         }
     }

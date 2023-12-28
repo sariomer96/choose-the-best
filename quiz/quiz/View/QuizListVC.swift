@@ -42,7 +42,7 @@ class QuizListVC: UIViewController {
       
         viewModel.quizListDelegate?.getQuizList(completion: { result in
             DispatchQueue.main.async{
-                print("RESUL")
+ 
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                

@@ -21,10 +21,7 @@ class ImageChoicesVC: UIViewController {
         viewModel.tableView = tableView
         tableView.dataSource = self
         tableView.delegate = self
-    
-        
      
-  
     }
     override func viewWillAppear(_ animated: Bool) {
         self.viewModel.num = 1

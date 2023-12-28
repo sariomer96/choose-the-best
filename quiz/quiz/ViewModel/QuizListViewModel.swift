@@ -38,7 +38,7 @@ class QuizListViewModel : QuizListProtocol {
         WebService.shared.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: url, modelResponseType: ApiResponse.self) {
             result in
  
-            print("IC RESU")
+   
             self.quizList = self.webService.quizList
              
             for i in self.quizList {

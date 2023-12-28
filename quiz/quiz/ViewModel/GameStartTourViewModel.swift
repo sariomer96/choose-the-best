@@ -58,7 +58,7 @@ class GameStartTourViewModel {
 
             default:
                 completion(self.rounds[0])
-                print("def")
+                
             }
            
         }

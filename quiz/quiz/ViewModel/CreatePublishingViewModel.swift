@@ -20,10 +20,7 @@ class CreatePublishingViewModel {
     var isVisible = true
     var categoryID = 1
     var attachmentIds = [Int]()
-    init() {
-       // self.categoryList = WebService.shared.categoryList
-    }
-    
+  
     func setVariables(is_image:Bool,attachID:[Int]) {
         self.is_image = is_image
         self.attachmentIds = attachID
@@ -71,11 +68,7 @@ class CreatePublishingViewModel {
                 self.didSelectCategory = true
         
             }
-           //" completion(selectedCategoryIndex)
-            // Now you can use selectedCategoryIndex to identify which categoryList index is selected
-            print("Selected category index: \(selectedCategoryIndex)")
-        }
-        print("categoryList \(categoryList?.count)")
+        } 
         for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
             if i == 0 {
                 action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))

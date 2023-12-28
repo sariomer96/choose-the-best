@@ -97,7 +97,7 @@ class WebService {
                     let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
                     let apiRes = result as? ApiResponse
                     print(apiRes?.results)
-                    print("suc")
+                    
                 }catch{
                     print(error.localizedDescription)
                 }

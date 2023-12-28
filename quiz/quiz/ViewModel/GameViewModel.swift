@@ -105,8 +105,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         return action
     }
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
-        
-        print("match worked \(playableCount)  \(attachment)")
+         
         matchedList.removeAll()
         var tempAttachList = attachment
         
@@ -139,8 +138,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
        imageViewRight.isUserInteractionEnabled = true
     }
     func setImages(index:Int) {
-        
-        print("COUNTL  :  \(matchedList.count)")
+         
         leftImageView?.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
             res in
             fadeInOrOut(alpha: 1.0, imageView: leftImageView ?? UIImageView())
@@ -182,7 +180,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
             setTitle(index: startIndex)
         }
         if winAttachs.count  == matchedAttachs.count  {
-            print("tur bitti")
+      
             getNextTour(winImageView: leftImageView ?? UIImageView())
             return
         }
@@ -259,7 +257,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
             setTitle(index: startIndex)
         }
         if winAttachs.count  == matchedAttachs.count  {
-            print("tur bitti")
+          
             getNextTour(winImageView: rightImageView ?? UIImageView())
             return
         }
@@ -311,7 +309,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         }
     }
     func startQuiz() {
-        print("quiz \(quiz)   play \(playableCount)")
+        
         matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)
      
        

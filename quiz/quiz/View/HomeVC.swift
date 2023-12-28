@@ -81,9 +81,12 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryViewCell", for: indexPath) as! CategoryViewCell
 
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 12
         cell.categoryLabel.text = viewModel.categoryList?[indexPath.row].name
+        cell.categoryLabel.clipsToBounds = true
+        cell.categoryLabel.layer.cornerRadius = 12
          
-        
         return cell
     }
 
@@ -94,8 +97,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
         guard let vc = vc else{return}
         vc.viewModel.nameCategory = viewModel.categoryList?[indexPath.row].name
         vc.viewModel.categoryID = viewModel.categoryList?[indexPath.row].id
-        
-        print("VC  \(vc)")
+         
         self.navigationController!.pushViewController(vc, animated: true)
     }
 }
@@ -112,6 +114,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+ 
         var quiz:QuizResponse?
         if tableView == topRateTableView {
              

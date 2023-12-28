@@ -104,7 +104,7 @@ class GameVideoViewModel {
             setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         }
         if winAttachs.count  == matchedAttachs.count  {
-            print("tur bitti")
+          
             getNextTour(bottomPlayer: bottomVideoView, topPlayer: topVideoView, completion: completion)
             return
         }
@@ -180,8 +180,7 @@ class GameVideoViewModel {
        var finish =   winState()
 
         if finish == true{
-           // disableLabels()
-   
+           
             completion(winAttachs[0])
             return
         }

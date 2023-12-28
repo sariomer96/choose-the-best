@@ -15,6 +15,7 @@ class GameStartVC: UIViewController {
     @IBOutlet weak var quizTitleLabel: UILabel!
     @IBOutlet weak var quizTitle: UILabel!
     @IBOutlet weak var quizHeaderImageView: UIImageView!
+ 
 
     var viewModel = GameStartViewModel()
     override func viewDidLoad() {
@@ -30,6 +31,8 @@ class GameStartVC: UIViewController {
         viewModel.getQuiz() {
             _ in
             self.quizTitle.text =  self.viewModel.quiz?.title
+            let url = self.viewModel.quiz?.image
+            self.quizHeaderImageView.kf.setImage(with: URL(string: url!))
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }
@@ -84,11 +87,7 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
         
         DispatchQueue.main.async { [self] in
             let score = self.viewModel.quiz?.attachments[indexPath.row].score
-            
-            
-              
-             //let normalizedScore = Double(score!)*100.0
-        
+             
             if self.viewModel.totalAttachScore > 0 {
                 let resultScore = CGFloat(score!)/CGFloat(viewModel.totalAttachScore)
                  
