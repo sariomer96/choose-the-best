@@ -53,8 +53,11 @@ class QuizListViewModel : QuizListProtocol {
       
    }
     
-    func search(searchText:String) {
-        WebService.shared.searchQuiz(searchText: searchText,categoryID: categoryID ?? 0)
+    func search(searchText:String,completion: @escaping (Bool)->Void) {
+        WebService.shared.searchQuiz(searchText: searchText,categoryID: categoryID ?? 0) { quizlist in
+            self.quizList = quizlist
+            completion(true)
+        }
     }
     
 }

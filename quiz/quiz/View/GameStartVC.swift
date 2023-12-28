@@ -16,11 +16,6 @@ class GameStartVC: UIViewController {
     @IBOutlet weak var quizTitle: UILabel!
     @IBOutlet weak var quizHeaderImageView: UIImageView!
 
-//    var quizTitle:String?
-//    var quizImage:String?
-//    var quiz:QuizResponse?
-//    var totalAttachScore = 0
-//    var progress:CGFloat = 0
     var viewModel = GameStartViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()

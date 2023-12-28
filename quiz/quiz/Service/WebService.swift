@@ -68,8 +68,8 @@ class WebService {
                     let data = try JSONDecoder().decode(QuizResponse.self, from: data!)
                     
                     if data != nil{
-                       // print("DTAAA \(data.results)")
-                        print("QUIZ IDD  \(data.title) ")
+                    
+                      
                         completion(data)
                     }
                 }catch {
@@ -169,7 +169,7 @@ class WebService {
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
    // var attachIdList = [Int]()
-    func searchQuiz(searchText:String,categoryID:Int){
+    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping ([QuizResponse])->Void){
         
         let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
         
@@ -183,6 +183,7 @@ class WebService {
                     if data != nil{
                    
                         self.quizList = data.results!
+                        completion(self.quizList)
                     }
                 }catch {
                     print(error.localizedDescription)

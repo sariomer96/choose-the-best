@@ -58,7 +58,12 @@ class QuizListVC: UIViewController {
 
 extension QuizListVC : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(searchText: searchText)
+        viewModel.search(searchText: searchText) {
+            _ in
+            DispatchQueue.main.async{
+                self.tableView.reloadData()
+            }
+        }
         
     }
 }
