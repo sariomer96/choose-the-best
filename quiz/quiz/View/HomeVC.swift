@@ -34,7 +34,8 @@ class HomeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        topRateTableView.layer.cornerRadius = 7
+        lastUpdateTableView.layer.cornerRadius = 7
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         topRateTableView.delegate = self
@@ -137,8 +138,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         
         if tableView == topRateTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
-           
- 
+  
             cell.nameLabel.text = viewModel.topQuizList?[indexPath.row].title
             cell.categoryNameLabel.text = viewModel.topQuizList?[indexPath.row].category.name
             let rate = viewModel.topQuizList?[indexPath.row].average_rate
