@@ -46,7 +46,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     var rightImageView: UIImageView?
     var leftTitleLabel: UILabel?
     var rightTitleLabel: UILabel?
-    
+    var popUpView:UIView?
     var isFinishQuiz = false
     
     var startIndex = 0
@@ -192,7 +192,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
             let upper = winAttachs[0].title?.uppercased()
             winLabel?.textColor = .systemRed
             winLabel?.text = "\(upper!) WIN!!"
-       
+            popUpView?.isHidden = false
             isFinishQuiz = true
             rightImageView?.isUserInteractionEnabled = false
             leftImageView?.isUserInteractionEnabled = false

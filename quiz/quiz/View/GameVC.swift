@@ -10,6 +10,7 @@ import Kingfisher
 
 class GameVC: UIViewController {
 
+    @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var quizRateDropDownButton: UIButton!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
@@ -20,10 +21,12 @@ class GameVC: UIViewController {
     var viewModel = GameViewModel()
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
+        
+        super.viewDidLoad()
+        popUpView.isHidden = true
         viewModel.imageViewDelegate?.leftImageView = leftImageView
         viewModel.imageViewDelegate?.rightImageView = rightImageView
-        
+        viewModel.popUpView = popUpView
         viewModel.attachTitleDelegate?.leftTitleLabel = leftTitleLabel
         viewModel.attachTitleDelegate?.rightTitleLabel = rightTitleLabel
         viewModel.attachTitleDelegate?.winLabel = winLabel

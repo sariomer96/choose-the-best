@@ -824,6 +824,7 @@
                     <connections>
                         <outlet property="leftImageView" destination="0Dy-Bb-DQ1" id="ckF-L0-kvW"/>
                         <outlet property="leftTitleLabel" destination="UwE-Ed-tpt" id="B9s-SX-5CN"/>
+                        <outlet property="popUpView" destination="6wy-Fp-1OG" id="fsw-jF-7ti"/>
                         <outlet property="quizRateDropDownButton" destination="gLM-ZG-i6z" id="I7J-d3-oO3"/>
                         <outlet property="rightImageView" destination="Xhc-uZ-Pl7" id="URg-rY-ST9"/>
                         <outlet property="rightTitleLabel" destination="hsA-nw-mV4" id="yfi-Uw-IFn"/>
