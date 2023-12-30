@@ -13,7 +13,7 @@ class GameStartVC: UIViewController {
     
     
     @IBOutlet weak var quizTitleLabel: UILabel!
-    @IBOutlet weak var quizTitle: UILabel!
+
     @IBOutlet weak var quizHeaderImageView: UIImageView!
  
 
@@ -30,7 +30,7 @@ class GameStartVC: UIViewController {
          
         viewModel.getQuiz() {
             _ in
-            self.quizTitle.text =  self.viewModel.quiz?.title
+          //  self.quizTitle.text =  self.viewModel.quiz?.title
             let url = self.viewModel.quiz?.image
             self.quizHeaderImageView.kf.setImage(with: URL(string: url!))
             DispatchQueue.main.async {
