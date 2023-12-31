@@ -197,7 +197,89 @@ class WebService {
             }
         }
     }
-    
+    func createAttachments(attachList:[Attachment],imageList:[UIImage],completion: @escaping (String?,Bool) -> Void) {
+        
+     
+        var emptyArray: [[String: Any]] = []
+        
+        for i in stride(from: 0, to: attachList.count, by: 1) {
+            
+            var imageData = imageList[i].jpegData(compressionQuality: 0.5)
+            if imageList[i] != nil {
+                
+                
+                guard let data = imageData else {
+                    print("Could not get JPEG representation of image")
+                    return
+                }
+                
+            }
+            print(attachList[i].title)
+            let parameters: [String: Any] = [
+                "title":attachList[i].title!,
+                "url":attachList[i].url!,
+                "image":imageData!,
+                "score":0
+            ]
+            emptyArray.append(parameters)
+        }
+        let arr  = emptyArray
+        print("COUNT \(arr.count)")
+        AF.upload(multipartFormData: { multipartFormData in
+            for object in arr{
+            for (key, value) in object {
+                     print("sayy \(key)  \(value)")
+                    if let data = value as? Data {
+                        print("set image")
+                        multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
+                    } else if let value = value as? Int {
+                        print("set int")
+                        let intData = Data(String(value).utf8)
+                        multipartFormData.append(intData, withName: key)
+                    }else if let value = value as? String {
+                        print("set str")
+                        let stringData = Data(value.utf8)
+                        multipartFormData.append(stringData, withName: key)
+                    }
+                }
+            }
+        }, to: createAttachmentURL,method: .post,  headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
+        .uploadProgress { progress in
+       
+            
+        }
+        .response{ response in
+           
+            switch response.result {
+            case .success(let value):
+                do {
+                    
+                    guard let value = value else { return}
+                    
+                    let qz = try JSONDecoder().decode([Attachment].self, from: value)
+                    print(qz)
+                    // completion(UploadSuccess.success.rawValue, true,qz)
+                  
+                }
+                catch{
+                    print("CREATE ERROR : \(error.localizedDescription)")
+                }
+                
+//                for item in value{
+//                    self.attachmentIdList.append(Int(item.id!))
+//                }
+            //    self.attachIdList = self.attachmentIdList
+                print("SUCCEESSS")
+                completion(UploadSuccess.success.rawValue,true)
+            case .failure(let error):
+                print("Error uploading image: \(error)")
+                completion(FormDataError.uploadError.description, false)
+            }
+            
+            
+        }
+        
+    }
     
     func createAttachment(title: String, videoUrl: String,image: UIImage?,completion: @escaping (String?,Bool) -> Void) {
         

@@ -22,6 +22,7 @@ class ImageChoicesViewModel:EditTitle {
     var attachIdList = [Int]()
     var tableView:UITableView?
     var attachNameList = [String]()
+    var attachmentList = [Attachment]()
     var total = 0
     
     init() {
@@ -40,25 +41,38 @@ class ImageChoicesViewModel:EditTitle {
         }
     }
   
-
+    func addAttachments(attachList:[Attachment],imageList:[UIImage],completion :@escaping (Bool) -> Void) {
+        WebService.shared.createAttachments(attachList: attachList, imageList: imageList, completion: { str, resultBool in
+            self.attachIdList = WebService.shared.attachmentIdList
+            completion(true)
+        })
+    }
+  
     func onClickNext(completion: @escaping (Bool)->Void) {
          
         for (index, i) in attachNameList.enumerated() {
             
- 
-            addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
-                
- 
-                // if  result fail  - show alert!!
-              
-                
-                if index == self.attachNameList.count - 1 {
-                    // NEXT SCENE
-         
-                    completion(true)
-                    
-                }
-            }
+            let attach  = Attachment(id: nil , title: i, url: "", image: nil, score: 0, created_at: nil, updated_at: nil)
+            
+            attachmentList.append(attach)
+            
+//            addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
+//                
+// 
+//                // if  result fail  - show alert!!
+//              
+//                
+//                if index == self.attachNameList.count - 1 {
+//                    // NEXT SCENE
+//         
+//                    completion(true)
+//                    
+//                }
+//            }
+        }
+        addAttachments(attachList: attachmentList, imageList: imageArray) {
+            result in
+            completion(true)
         }
     }
     func removeAttachment(index:Int) {
