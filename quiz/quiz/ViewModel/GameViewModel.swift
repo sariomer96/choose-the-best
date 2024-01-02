@@ -62,6 +62,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         playableDelegate = self
         attachTitleDelegate = self
         imageViewDelegate = self
+        
     }
     
     // match quiz
@@ -186,13 +187,30 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
+    func setPopUpView(imageUrl:String,title:String) {
+        let vc = viewController as? GameVC
+       
+        if let vc = vc {
+            
+            vc.popUpQuizImageView.kf.setImage(with: URL(string: imageUrl),placeholder: UIImage(named: "add"))
+            vc.popUpQuizTitle.text = title
+            print("work")
+        }
+    }
     func winState(winImageView:UIImageView ) -> Bool {
         if winAttachs.count == 1 {
            
+        
             let upper = winAttachs[0].title?.uppercased()
             winLabel?.textColor = .systemRed
             winLabel?.text = "\(upper!) WIN!!"
             popUpView?.isHidden = false
+            let url = winAttachs[0].image!
+             
+        
+                setPopUpView(imageUrl: url, title: upper ?? "")
+          
+      
             isFinishQuiz = true
             rightImageView?.isUserInteractionEnabled = false
             leftImageView?.isUserInteractionEnabled = false

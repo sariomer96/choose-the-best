@@ -10,7 +10,12 @@ import Kingfisher
 
 class GameVC: UIViewController {
 
+    @IBOutlet weak var popUpQuizTitle: UILabel!
+    @IBOutlet weak var popUpQuizImageView: UIImageView!
     @IBOutlet weak var popUpView: UIView!
+    
+    
+    
     @IBOutlet weak var quizRateDropDownButton: UIButton!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
@@ -31,6 +36,7 @@ class GameVC: UIViewController {
         viewModel.attachTitleDelegate?.rightTitleLabel = rightTitleLabel
         viewModel.attachTitleDelegate?.winLabel = winLabel
         viewModel.attachTitleDelegate?.roundLabel = roundLabel
+        viewModel.viewController = self
     }
     @IBAction func voteClick(_ sender: Any) {
         if viewModel.isRateSelected == true {

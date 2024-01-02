@@ -58,7 +58,7 @@ class WebService {
     }
     
     func getQuiz(quizID:Int,completion: @escaping (QuizResponse) -> Void) {
-      let url = "http://localhost:8000/quizes/\(quizID)/"
+        let url = "http://localhost:8000/quizes/\(quizID)/"
         
         AF.request(url, method: .get).response { response in
             switch response.result {
@@ -68,8 +68,8 @@ class WebService {
                     let data = try JSONDecoder().decode(QuizResponse.self, from: data!)
                     
                     if data != nil{
-                    
-                      
+                        
+                        
                         completion(data)
                     }
                 }catch {
@@ -101,11 +101,11 @@ class WebService {
                 }catch{
                     print(error.localizedDescription)
                 }
-               
+                
             case .failure(let fail):
                 print("fail")
             }
-         
+            
         }
     }
     func AFGetRequest<T: Decodable>(requestType:GetRequestTypes , url: String, modelResponseType: T.Type, completion: @escaping (String?) -> Void) {
@@ -116,25 +116,25 @@ class WebService {
             switch response.result {
             case .success(let data):
                 do {
-                  
+                    
                     let result = try decoder.decode(modelResponseType, from: data!)
                     
-                     
+                    
                     let apiRes = result as? ApiResponse
                     print(requestType)
                     switch requestType{
                         
-                  
+                        
                     case .topRate:
                         guard let apiRes = apiRes?.results else{return}
-                            self.topQuizList = apiRes
-                            completion("AAA")
-                       
+                        self.topQuizList = apiRes
+                        completion("AAA")
+                        
                     case .recently:
                         guard let apiRes = apiRes?.results else{return}
-                            self.recentlyList = apiRes
-                            completion("AAA")
-                     
+                        self.recentlyList = apiRes
+                        completion("AAA")
+                        
                     case .category:
                         let category = result as? CategoryResponse
                         
@@ -147,10 +147,10 @@ class WebService {
                         guard let apiRes = apiRes?.results else{return}
                         print("getquizz")
                         self.quizList = apiRes
-                       
+                        
                         completion("tetik1")
                         
-                    
+                        
                     }
                 } catch {
                     
@@ -163,12 +163,12 @@ class WebService {
         }
     }
     var recentlyList = [QuizResponse]()
-   // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
+    // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     var categoryList = [Category]()
     var quizList =  [QuizResponse]()
     //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
     var topQuizList = [QuizResponse]()
-   // var attachIdList = [Int]()
+    // var attachIdList = [Int]()
     func searchQuiz(searchText:String,categoryID:Int,completion: @escaping ([QuizResponse])->Void){
         
         let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
@@ -176,12 +176,12 @@ class WebService {
         AF.request(url, method: .get).response { response in
             switch response.result {
             case .success(let data):
-           
+                
                 do {
                     let data = try JSONDecoder().decode(ApiResponse.self, from: data!)
                     
                     if data != nil{
-                   
+                        
                         self.quizList = data.results!
                         completion(self.quizList)
                     }
@@ -197,9 +197,8 @@ class WebService {
             }
         }
     }
-    func createAttachments(attachList:[Attachment],imageList:[UIImage],completion: @escaping (String?,Bool) -> Void) {
-        
-     
+  
+    func setParams(attachList:[Attachment],imageList:[UIImage]) -> [[String: Any]] {
         var emptyArray: [[String: Any]] = []
         
         for i in stride(from: 0, to: attachList.count, by: 1) {
@@ -210,11 +209,11 @@ class WebService {
                 
                 guard let data = imageData else {
                     print("Could not get JPEG representation of image")
-                    return
+                    return [[String:Any]]()
                 }
                 
             }
-            print(attachList[i].title)
+          
             let parameters: [String: Any] = [
                 "title":attachList[i].title!,
                 "url":attachList[i].url!,
@@ -223,31 +222,35 @@ class WebService {
             ]
             emptyArray.append(parameters)
         }
-        let arr  = emptyArray
-        print("COUNT \(arr.count)")
+        return emptyArray
+    }
+    func createAttachments(attachList:[Attachment],imageList:[UIImage],completion: @escaping (String?,Bool) -> Void) {
+        
+            
+            let arr =   setParams(attachList: attachList, imageList: imageList)
+       
+    
         AF.upload(multipartFormData: { multipartFormData in
             for object in arr{
+              
             for (key, value) in object {
-                     print("sayy \(key)  \(value)")
+                        print("  ---\(key)  \(value)")
                     if let data = value as? Data {
-                        print("set image")
+                    
                         multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
                     } else if let value = value as? Int {
-                        print("set int")
+                      
                         let intData = Data(String(value).utf8)
                         multipartFormData.append(intData, withName: key)
                     }else if let value = value as? String {
-                        print("set str")
+                        
                         let stringData = Data(value.utf8)
                         multipartFormData.append(stringData, withName: key)
                     }
                 }
             }
         }, to: createAttachmentURL,method: .post,  headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-        .uploadProgress { progress in
        
-            
-        }
         .response{ response in
            
             switch response.result {
@@ -257,7 +260,7 @@ class WebService {
                     guard let value = value else { return}
                     
                     let qz = try JSONDecoder().decode([Attachment].self, from: value)
-                    print(qz)
+                  //  print("\(qz) \(qz.count)")
                     // completion(UploadSuccess.success.rawValue, true,qz)
                   
                 }
@@ -314,10 +317,7 @@ class WebService {
                 }
             }
         }, to: createAttachmentURL,method: .post,  headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-        .uploadProgress { progress in
-            print(progress.fractionCompleted)
-            
-        }
+      
         .responseDecodable(of: Attachment.self){ response in
             switch response.result {
             case .success(let value):

@@ -17,13 +17,15 @@ class ImageChoicesVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         viewModel.tableView = tableView
         tableView.dataSource = self
         tableView.delegate = self
      
+     
     }
     override func viewWillAppear(_ animated: Bool) {
+        
         self.viewModel.num = 1
         clearArrays()
         DispatchQueue.main.async {
@@ -47,7 +49,7 @@ class ImageChoicesVC: UIViewController {
                  
                     vc.viewModel.setVariables(is_image: true, attachID: self.viewModel.attachIdList )
                     self.clearArrays()
-                    self.navigationController!.pushViewController(vc, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                
             }
