@@ -37,11 +37,7 @@ class CreatePublishingViewModel {
                 print (fail)
             }
         }
-//        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
-//            result in
-//            self.categoryList = self.webService.categoryList
-//              completion(true)
-//        }
+ 
     }
     
     func publishQuiz(uiview:UIViewController, title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){

@@ -9,8 +9,7 @@ class GameStartViewModel {
     var progress:CGFloat = 0
     
     func getQuiz(completion: @escaping (Bool) -> Void) {
-        
-        
+         
         WebService.shared.getQuiz(quizID: quiz?.id ?? 0) {
             result in
             

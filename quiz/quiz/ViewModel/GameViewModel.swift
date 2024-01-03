@@ -310,10 +310,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
             }
            
         }
-//        WebService.shared.rateQuiz(quizID: quiz?.id ?? 1, rateScore: rate) { result in
-//            print(result)
-//            AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: result)
-//        }
+ 
     }
     func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
         

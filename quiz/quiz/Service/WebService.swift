@@ -1,6 +1,5 @@
 import Foundation
 import Alamofire
-import RxSwift
 import UIKit
  
 // MARK: ENUMS  --------------
@@ -47,15 +46,15 @@ class WebService {
        let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
    
        endpoint.request { params, url,header in
-           print("PARAMS  \(params)")
+           print("PARAMS  \(url)")
            AF.request(url,method: alamofireMethod, parameters: params).response { response in
                 switch response.result {
                 case .success(let data):
                     do {
-                             print(url)
+                        print(T.self)
                         let result = try JSONDecoder().decode(T.self, from: data!)
                         completion(.success(result))
-                        print("successbbb \(result)")
+                        print("successbbb \(result) \(T.self)")
                         
                     }catch{
                         print("DECODE ERROR \(error.localizedDescription)")
@@ -161,25 +160,29 @@ class WebService {
          
        request(endpoint: endpoint, completion: completion)
     }
+    func getQuizList(categoryID:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getQuizList(categoryID: categoryID)
+           
+         request(endpoint: endpoint, completion: completion)
+    }
     func setAttachmentScores(attachID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void ) {
         let endpoint = Endpoint.setAttachmentScore(attachID: attachID)
            
          request(endpoint: endpoint, completion: completion)
     }
-    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping (Result<[QuizResponse],Error>) ->Void) {
-        
+    func searchQuizs(searchText:String,categoryID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.searchQuiz(searchText: searchText, categoryID: categoryID)
+           
+         request(endpoint: endpoint, completion: completion)
     }
     
     var attachmentIdList = [Int]()
     static let shared = WebService()
     private init(){}
-    let topURL = "http://127.0.0.1:8000/quizes/top-rated"
-    let recentlyURL = "http://127.0.0.1:8000/quizes/?ordering=-created_at"
-    let categoryURL = "http://127.0.0.1:8000/categories"
-    let quizListFromCategoryURL = "http://127.0.0.1:8000/quizes?category__id="
+    
     let createQuizURL = "http://localhost:8000/quizes/"
     let createAttachmentURL = "http://localhost:8000/attachments/"
-    let rateQuizURL = "http://localhost:8000/quiz-rates/"
+   
     enum GetRequestTypes {
         case topRate
         case recently
@@ -187,43 +190,6 @@ class WebService {
         case quizList
         
     }
-
-    var recentlyList = [QuizResponse]()
-    // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
-    var categoryList = [Category]()
-    var quizList =  [QuizResponse]()
-    //var topQuizList = BehaviorSubject<[QuizResponse]>(value: [QuizResponse]())
-    var topQuizList = [QuizResponse]()
-    // var attachIdList = [Int]()
-    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping ([QuizResponse])->Void){
-        
-        let url = "http://localhost:8000/quizes/?category__id=\(categoryID)&search=\(searchText)"
-        
-        AF.request(url, method: .get).response { response in
-            switch response.result {
-            case .success(let data):
-                
-                do {
-                    let data = try JSONDecoder().decode(ApiResponse.self, from: data!)
-                    
-                    if data != nil{
-                        
-                        self.quizList = data.results!
-                        completion(self.quizList)
-                    }
-                }catch {
-                    print(error.localizedDescription)
-                }
-                
-                
-                
-            case .failure(let fail):
-                print(fail)
-                
-            }
-        }
-    }
-  
     func setParams(attachList:[Attachment],imageList:[UIImage]) -> [[String: Any]] {
         var emptyArray: [[String: Any]] = []
         
@@ -360,29 +326,6 @@ class WebService {
         }
         
     }
-    func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        let url = "http://localhost:8000/attachments/\(attachID)/set-score/"
-        AF.request(url, method: .put ).response { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                      completion("Vote Success  \(data)")
-                }
-                catch {
-                    
-                    completion(ErrorType.parseError.description)
-                }
-            case .failure(let error):
-                
-                completion(ErrorType.networkError.description)
-            }
-        }
-    }
-    
-    
 func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
     
     guard let imageData = image.jpegData(compressionQuality: 0.1) else {
@@ -454,8 +397,6 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
     }
     
 }
-    
-     
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
       

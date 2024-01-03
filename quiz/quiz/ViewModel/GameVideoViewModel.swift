@@ -154,6 +154,16 @@ class GameVideoViewModel {
         loadVideo(videoID: videoId, videoView: videoView)
     }
     func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
+        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore) { result in
+            switch result {
+                
+            case .success(let success):
+               
+                 print(success)
+            case .failure(let fail):
+                print(fail)
+            }
+        }
        // WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
         
     }

@@ -34,30 +34,45 @@ class QuizListViewModel : QuizListProtocol {
         
   
         guard let categoryId = categoryID else{ return }
-        let url = "\(webService.quizListFromCategoryURL)\(categoryId)"
-//        WebService.shared.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: url, modelResponseType: ApiResponse.self) {
-//            result in
-// 
-//   
-//            self.quizList = self.webService.quizList
-//             
-//            for i in self.quizList {
-//                guard let image = i.image else { return }
-//                
-//                self.imagesList.append(image)
-//            }
-//         
-//            completion("trigger")
-//            
-//        }
+   //     let url = "\(webService.quizListFromCategoryURL)\(categoryId)"
+        
+        
+        webService.getQuizList(categoryID: categoryId) { result in
+            switch result {
+            case .success(let list):
+                self.quizList = list.results!
+                    for i in self.quizList {
+                        guard let image = i.image else { return }
+        
+                        self.imagesList.append(image)
+                    }
+        
+                    completion("trigger")
+            case .failure(let error):
+                print(error)
+            }
+        }
+ 
       
    }
     
     func search(searchText:String,completion: @escaping (Bool)->Void) {
-        WebService.shared.searchQuiz(searchText: searchText,categoryID: categoryID ?? 0) { quizlist in
-            self.quizList = quizlist
-            completion(true)
+        
+        webService.searchQuizs(searchText: searchText, categoryID: categoryID ?? 0) { result in
+            switch result {
+                
+            case .success(let quizList):
+       
+                guard let list = quizList.results else {return}
+                self.quizList = list
+                print("QZLIIIST \(quizList)")
+                completion(true)
+               
+            case .failure(let fail):
+                print(fail)
+            }
         }
+ 
     }
     
 }

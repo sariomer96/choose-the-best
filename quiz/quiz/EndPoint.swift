@@ -43,21 +43,19 @@ enum HTTPMethods: String {
 enum Endpoint {
     case getTopRated
     case getRecently
-    case getQuizList
+    case getQuizList(categoryID:Int)
     case getCategories
     case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int])
     case createAttachment
     case rateQuiz(quizID:Int,rateScore:Int)
     case getQuiz(quizID:Int)
     case setAttachmentScore(attachID:Int)
+    case searchQuiz(searchText:String,categoryID:Int)
    // case setQuizScore
 }
 
 extension Endpoint: EndPointProtocol {
-   
     
- 
-  
     var parameters: [String : Any]? {
         if case .createQuiz(let title, let image, let categoryID, let isVisible, let is_image, let attachment_ids) = self {
             return [   "title":title,
@@ -90,8 +88,8 @@ extension Endpoint: EndPointProtocol {
             return "quizes/top-rated"
         case .getRecently:
             return "quizes/?ordering=-created_at"
-        case .getQuizList:
-            return "quizes?category__id="
+        case .getQuizList(categoryID: let categoryID):
+            return "quizes?category__id=\(categoryID)"
         case .getCategories:
             return "categories"
         case .createQuiz:
@@ -106,19 +104,24 @@ extension Endpoint: EndPointProtocol {
             return "quizes/"
         case .setAttachmentScore(attachID: let attachID):
             return "attachments/\(attachID)/set-score/"
+        case .searchQuiz(searchText: let searchText, categoryID: let categoryID):
+           
+            return "quizes/?category__id=\(categoryID)&search=\(searchText)"
+            
         }
     }
     
     var method: HTTPMethods {
         switch self{
             
-        case .getTopRated, .getRecently, .getQuizList, .getCategories , .getQuiz:
+        case .getTopRated, .getRecently, .getQuizList, .getCategories , .getQuiz, .searchQuiz:
             return .get
         case .createQuiz, .createAttachment, .rateQuiz:
             return .post
-        case .setAttachmentScore(attachID: let attachID):
+        case .setAttachmentScore:
             return .put
         }
+       
     }
     
     var header: [String : String]? {
@@ -143,6 +146,8 @@ extension Endpoint: EndPointProtocol {
             
         case .setAttachmentScore(attachID: let attachID): break
             
+        case .searchQuiz(searchText: let searchText, categoryID: let categoryID): break
+            
         }
         return nil
     }
@@ -161,19 +166,7 @@ extension Endpoint: EndPointProtocol {
             
                    url = URL(string: "\(baseURL)\(path)")
         }
-
-     
-       // components.path = path
-      //  var request = URLRequest(url: components.url? )
-       // request.httpMethod = method.rawValue
-      
  
-        
-//        if let header = header {
-//            for (key,value) in header {
-//                request.setValue(value, forHTTPHeaderField: key)
-//            }
-//        }
         completion(parameters,url!,header)
        
  
