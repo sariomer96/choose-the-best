@@ -17,31 +17,48 @@ class HomeViewModel {
      
     func getCategories(completion: @escaping (String?) -> Void) {
       
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
-            result in
-            self.categoryList = self.webService.categoryList
-            completion("AAA")
+        
+        webService.getCategories { result in
+            switch result {
+                
+            case .success(let category):
+                self.categoryList = category.results
+                completion("trigger")
+            case .failure(let error):
+                print("error")
+            }
         }
-       
-        //WebService.shared.getCategories(completion: completion)
+ 
     }
     
      func getTopRateQuiz(completion: @escaping (String?) -> Void){
         
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.topRate, url:webService.topURL , modelResponseType: ApiResponse.self) { res in
-           // print(res)
-            self.topQuizList = self.webService.topQuizList
-            completion("trigger")
-             
-        }
-       // WebService.shared.getTopRateQuiz(completion: completion)
+         webService.getTopRate { result in
+             switch result {
+                 
+             case .success(let quiz):
+                 self.topQuizList = quiz.results
+                 completion("trigger")
+             case .failure(let error):
+                 print("errorrr")
+             }
+         }
+
     }
     func getRecentlyQuiz(completion: @escaping (String?) -> Void){
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.recently, url: webService.recentlyURL, modelResponseType: ApiResponse.self) {
-            result in
-            self.recentlyList = self.webService.recentlyList
-            completion("trigger")
+      
+        webService.getRecentlyQuiz { result in
+            switch result {
+                
+            case .success(let quiz):
+                self.recentlyList = quiz.results
+                completion("trigger")
+            case .failure(let error):
+                print("errorrr")
+            }
         }
+
+ 
 
     }
 }

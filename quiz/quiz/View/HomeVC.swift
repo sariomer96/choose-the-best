@@ -34,6 +34,11 @@ class HomeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let img = UIImage(named: "add")
+        let arr = [75,77]
+        guard let img = img else{return}
+ 
         topRateTableView.layer.cornerRadius = 7
         lastUpdateTableView.layer.cornerRadius = 7
         categoryCollectionView.dataSource = self

@@ -37,6 +37,13 @@ struct Attachment: Codable{
     let created_at: String?
     let updated_at: String?
 }
+
+struct QuizRate :Codable{
+    let id: Int
+    let created_at, updated_at: String
+    let quiz: QuizResponse
+    let rate_score: Int
+}
 //extension Attachment: Equatable {
 //    static func == (lhs: Attachment, rhs: Attachment) -> Bool {
 //        return true

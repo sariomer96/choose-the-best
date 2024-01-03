@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 import RxSwift
 import UIKit
-
+ 
 // MARK: ENUMS  --------------
 enum ErrorType: Error{
     case networkError
@@ -40,8 +40,139 @@ enum UploadSuccess : String {
 
 class WebService {
     
+    
+    func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void) {
+         
+        let method =   endpoint.method
+       let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
+   
+       endpoint.request { params, url,header in
+           print("PARAMS  \(params)")
+           AF.request(url,method: alamofireMethod, parameters: params).response { response in
+                switch response.result {
+                case .success(let data):
+                    do {
+                             print(url)
+                        let result = try JSONDecoder().decode(T.self, from: data!)
+                        completion(.success(result))
+                        print("successbbb \(result)")
+                        
+                    }catch{
+                        print("DECODE ERROR \(error.localizedDescription)")
+                    }
+                    
+                case .failure(let fail):
+                    completion(.failure(fail))
+                }
+                
+            }
+        }
+        
+   }
+    var header:[String:String]? = nil
+    func upload<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void){
+        
+        var arr = [String:Any]()
+        var urlLast:URL? = nil
+   
+      var req =   endpoint.request { params, url, header in
+         
+            urlLast = url
+            arr = params!
+          self.header = header
+        }
+         AF.upload(multipartFormData: { multipartFormData in
+             for (key, value) in  arr{
+                if let data = value as? Data {
+                    multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
+                    
+                }else  if let intArray = value as? [Int] {
+                    for intValue in intArray {
+                        let intData = Data(String(intValue).utf8)
+                        
+                        multipartFormData.append(intData, withName: key )
+                    }
+                }
+                else if let value = value as? Int {
+                    let intData = Data(String(value).utf8)
+                    multipartFormData.append(intData, withName: key)
+                    
+                }else if let value = value as? String {
+                    let stringData = Data(value.utf8)
+                    multipartFormData.append(stringData, withName: key)
+                }else if let value = value as? Bool {
+                    let boolData = Data("\(value)".utf8)
+                    multipartFormData.append(boolData, withName: key)
+                }
+                
+            }
+         }, to: urlLast!,method: .post ,  headers: HTTPHeaders(self.header!))
+        
+         .response {  resp in
+             
+             switch resp.result {
+                 
+             case .success(let success):
+                 do{
+           
+                     let object = try JSONDecoder().decode(T.self, from: success!)
+                     
+                     completion(.success(object))
+                 }catch{
+                      print("error json decode")
+                 }
+             case .failure(let fail):
+                 completion(.failure(fail))
+             }
+         }
+    }
+    
+    func postQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (Result<QuizResponse,Error>) -> Void){
+        
+        let imageData = image.jpegData(compressionQuality: 0.5)
+        guard let imageData = imageData else {return}
+        
+        let endpoint = Endpoint.createQuiz(title: title, image: imageData, categoryID: categoryID, isVisible: isVisible, is_image: is_image, attachment_ids: attachment_ids)
+        
+        upload(endpoint: endpoint, completion: completion)
+    }
+    
+    func rateQuiz(quizID:Int,rateScore:Int, completion: @escaping (Result<ApiResponse,Error>) ->Void)  {
+        let endpoint = Endpoint.rateQuiz(quizID: quizID, rateScore: rateScore)
+           request(endpoint: endpoint, completion: completion)
+    }
+    
+    func getTopRate(completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getTopRated
+           request(endpoint: endpoint, completion: completion)
+    }
+    func getRecentlyQuiz(completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getRecently
+           request(endpoint: endpoint, completion: completion)
+    }
+    
+    func getCategories(completion:@escaping (Result<CategoryResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getCategories
+           request(endpoint: endpoint, completion: completion)
+    }
+    
+    func getQuiz(quizID:Int,completion:@escaping (Result<QuizResponse,Error>) ->Void) {
+      let endpoint = Endpoint.getQuiz(quizID: quizID)
+         
+       request(endpoint: endpoint, completion: completion)
+    }
+    func setAttachmentScores(attachID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void ) {
+        let endpoint = Endpoint.setAttachmentScore(attachID: attachID)
+           
+         request(endpoint: endpoint, completion: completion)
+    }
+    func searchQuiz(searchText:String,categoryID:Int,completion: @escaping (Result<[QuizResponse],Error>) ->Void) {
+        
+    }
+    
     var attachmentIdList = [Int]()
     static let shared = WebService()
+    private init(){}
     let topURL = "http://127.0.0.1:8000/quizes/top-rated"
     let recentlyURL = "http://127.0.0.1:8000/quizes/?ordering=-created_at"
     let categoryURL = "http://127.0.0.1:8000/categories"
@@ -56,112 +187,7 @@ class WebService {
         case quizList
         
     }
-    
-    func getQuiz(quizID:Int,completion: @escaping (QuizResponse) -> Void) {
-        let url = "http://localhost:8000/quizes/\(quizID)/"
-        
-        AF.request(url, method: .get).response { response in
-            switch response.result {
-            case .success(let data):
-                
-                do {
-                    let data = try JSONDecoder().decode(QuizResponse.self, from: data!)
-                    
-                    if data != nil{
-                        
-                        
-                        completion(data)
-                    }
-                }catch {
-                    print(error.localizedDescription)
-                }
-                
-                
-                
-            case .failure(let fail):
-                print(fail)
-                
-            }
-        }
-        
-    }
-    
-    func getQuizList() {
-        
-        let url = "\(quizListFromCategoryURL)4"
-        
-        AF.request(url,method: .get).response { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    let result = try JSONDecoder().decode(ApiResponse.self, from: data!)
-                    let apiRes = result as? ApiResponse
-                    print(apiRes?.results)
-                    
-                }catch{
-                    print(error.localizedDescription)
-                }
-                
-            case .failure(let fail):
-                print("fail")
-            }
-            
-        }
-    }
-    func AFGetRequest<T: Decodable>(requestType:GetRequestTypes , url: String, modelResponseType: T.Type, completion: @escaping (String?) -> Void) {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        
-        AF.request(url, method: .get).response { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                    
-                    let result = try decoder.decode(modelResponseType, from: data!)
-                    
-                    
-                    let apiRes = result as? ApiResponse
-                    print(requestType)
-                    switch requestType{
-                        
-                        
-                    case .topRate:
-                        guard let apiRes = apiRes?.results else{return}
-                        self.topQuizList = apiRes
-                        completion("AAA")
-                        
-                    case .recently:
-                        guard let apiRes = apiRes?.results else{return}
-                        self.recentlyList = apiRes
-                        completion("AAA")
-                        
-                    case .category:
-                        let category = result as? CategoryResponse
-                        
-                        if let category = category?.results {
-                            self.categoryList = category
-                            completion("AAA")
-                        }
-                        
-                    case .quizList:
-                        guard let apiRes = apiRes?.results else{return}
-                        print("getquizz")
-                        self.quizList = apiRes
-                        
-                        completion("tetik1")
-                        
-                        
-                    }
-                } catch {
-                    
-                    completion(ErrorType.parseError.description)
-                }
-            case .failure(let error):
-                
-                completion(ErrorType.networkError.description)
-            }
-        }
-    }
+
     var recentlyList = [QuizResponse]()
     // var categoryList = BehaviorSubject<[Category]>(value: [Category]())
     var categoryList = [Category]()
@@ -355,32 +381,7 @@ class WebService {
             }
         }
     }
-    func rateQuiz(quizID:Int,rateScore:Int, completion : @escaping (String) -> Void) {
-        
-        let parameters: [String: Any] = [
-            "quiz_id":quizID,
-            "rate_score":rateScore,
-            
-        ]
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        
-        AF.request(rateQuizURL, method: .post, parameters: parameters).response { response in
-            switch response.result {
-            case .success(let data):
-                do {
-                      completion("Vote Success")
-                }
-                catch {
-                    
-                    completion(ErrorType.parseError.description)
-                }
-            case .failure(let error):
-                
-                completion(ErrorType.networkError.description)
-            }
-        }
-    }
+    
     
 func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
     

@@ -113,7 +113,17 @@ class GameVideoViewModel {
    
     
     func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.setAttachmentScore(attachID: attachID, completion: completion)
+       
+        WebService.shared.setAttachmentScores(attachID: attachID) {
+            result in
+            switch result {
+                
+            case .success(let success):
+                  print(success)
+            case .failure(let fail):
+                print(fail)
+            }
+        }
     }
     
     func getAttachmentID(side:Int) -> Int{
@@ -144,7 +154,8 @@ class GameVideoViewModel {
         loadVideo(videoID: videoId, videoView: videoView)
     }
     func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
+       // WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
+        
     }
     func getURL(matchIndex:Int,rowIndex:Int) -> String {
         

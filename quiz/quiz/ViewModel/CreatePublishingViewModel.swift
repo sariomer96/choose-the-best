@@ -28,31 +28,48 @@ class CreatePublishingViewModel {
     
     func getCategory(completion: @escaping (Bool) -> Void) {
         
-        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
-            result in
-            self.categoryList = self.webService.categoryList
-              completion(true)
+        webService.getCategories { result in
+            switch result {
+            case .success(let success):
+                self.categoryList = success.results
+                  completion(true)
+            case .failure(let fail):
+                print (fail)
+            }
         }
+//        webService.AFGetRequest(requestType: WebService.GetRequestTypes.category, url:webService.categoryURL, modelResponseType: CategoryResponse.self) {
+//            result in
+//            self.categoryList = self.webService.categoryList
+//              completion(true)
+//        }
     }
     
     func publishQuiz(uiview:UIViewController, title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
         
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible,is_image: is_image, attachment_ids: attachment_ids) {error,isSuccess, quiz  in
-            self.attachmentIds.removeAll()
-            if isSuccess == true {
-                AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-                      
-                    let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-                    vc.viewModel.quiz = quiz
-                    
-                    uiview.navigationController!.pushViewController(vc, animated: true)
-                     //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
-                }
+        WebService.shared.postQuiz(title: title, image:image , categoryID: categoryID, isVisible: true, is_image: true, attachment_ids: attachment_ids){ result in
+           
+            
+            switch result{
+                
+            case .success(let quiz):
+                self.attachmentIds.removeAll()
+                   
+                            AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
+
+                                let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+                                vc.viewModel.quiz = quiz
+
+                                uiview.navigationController!.pushViewController(vc, animated: true)
+                                 //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+                            }
+             case .failure(let error):
+                 print(error)
+                AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error.localizedDescription)
             }
-            if let error = error {
-                AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error)
-            }
+                
+
         }
+  
     }
     
     func getDropDownActions() -> [UIAction] {
@@ -87,3 +104,4 @@ class CreatePublishingViewModel {
         return action
     }
 }
+

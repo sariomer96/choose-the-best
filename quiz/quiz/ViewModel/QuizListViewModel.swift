@@ -35,21 +35,21 @@ class QuizListViewModel : QuizListProtocol {
   
         guard let categoryId = categoryID else{ return }
         let url = "\(webService.quizListFromCategoryURL)\(categoryId)"
-        WebService.shared.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: url, modelResponseType: ApiResponse.self) {
-            result in
- 
-   
-            self.quizList = self.webService.quizList
-             
-            for i in self.quizList {
-                guard let image = i.image else { return }
-                
-                self.imagesList.append(image)
-            }
-         
-            completion("trigger")
-            
-        }
+//        WebService.shared.AFGetRequest(requestType: WebService.GetRequestTypes.quizList, url: url, modelResponseType: ApiResponse.self) {
+//            result in
+// 
+//   
+//            self.quizList = self.webService.quizList
+//             
+//            for i in self.quizList {
+//                guard let image = i.image else { return }
+//                
+//                self.imagesList.append(image)
+//            }
+//         
+//            completion("trigger")
+//            
+//        }
       
    }
     

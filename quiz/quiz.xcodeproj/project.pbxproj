@@ -51,6 +51,7 @@
 		17B12E182B00CC0100CB513A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E172B00CC0100CB513A /* RxSwift */; };
 		17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E192B00EF5800CB513A /* CategoryViewCell.swift */; };
 		17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */; };
+		17C644402B45572000D67969 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6443F2B45572000D67969 /* EndPoint.swift */; };
 		17DC48492B32FD7800AC20E8 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 17DC48482B32FD7800AC20E8 /* Cosmos */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		17B12E142B00292000CB513A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		17B12E192B00EF5800CB513A /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListTableViewCell.swift; sourceTree = "<group>"; };
+		17C6443F2B45572000D67969 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				17B12DE72AF8075C00CB513A /* Info.plist */,
 				1719F1C12B0CD31E0087A86E /* AlertManager.swift */,
 				179B77A52B2080E200FB317A /* ProgressBar.swift */,
+				17C6443F2B45572000D67969 /* EndPoint.swift */,
 			);
 			path = quiz;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
 				174B03512B0373DF00A7076C /* TopRatedViewCell.swift in Sources */,
+				17C644402B45572000D67969 /* EndPoint.swift in Sources */,
 				17B12E152B00292000CB513A /* Category.swift in Sources */,
 				17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */,
 				17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */,

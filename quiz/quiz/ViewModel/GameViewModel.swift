@@ -189,7 +189,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     }
     func setPopUpView(imageUrl:String,title:String) {
         let vc = viewController as? GameVC
-       
+        print("dddd")
         if let vc = vc {
             
             vc.popUpQuizImageView.kf.setImage(with: URL(string: imageUrl),placeholder: UIImage(named: "add"))
@@ -298,13 +298,35 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     }
     
     func rateQuiz() {
-        WebService.shared.rateQuiz(quizID: quiz?.id ?? 1, rateScore: rate) { result in
-            
-            AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: result)
+        
+        print("QZ ID \(quiz?.id) \(rate)")
+        WebService.shared.rateQuiz(quizID: 33, rateScore: rate) { result in
+            switch result {
+            case .success(let response):
+                print("RESILTT  \(response)")
+                AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: "Rate success")
+            case .failure(let error):
+                print(error)
+            }
+           
         }
+//        WebService.shared.rateQuiz(quizID: quiz?.id ?? 1, rateScore: rate) { result in
+//            print(result)
+//            AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: result)
+//        }
     }
     func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.setAttachmentScore(attachID: attachID, completion: completion)
+        
+        WebService.shared.setAttachmentScores(attachID: attachID) {
+            result in
+            switch result {
+                
+            case .success(let success):
+                  print(success)
+            case .failure(let fail):
+                print(fail)
+            }
+        }
     }
     func showRateDropDown(dropDownButton:UIButton) {
         let  action = getDropDownActions(completion: { result in
