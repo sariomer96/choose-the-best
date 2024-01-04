@@ -17,7 +17,11 @@ protocol UiViewDelegate:AnyObject {
 }
 
 class CreateQuizViewModel:NSObject {
-   
+    var categoryList: [Category]?
+    var action = [UIAction]()
+    var categoryID = 1
+    var didSelectCategory = false
+    
     var uiView:UIViewController?
     var recogDelegate:UiViewDelegate?
     var isSelectedImage:Bool = false
@@ -28,12 +32,7 @@ class CreateQuizViewModel:NSObject {
     
         recogDelegate = self
     }
-    
-    func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool,
-                    attachment_ids:[Int],completion: @escaping (String?, Bool,QuizResponse?) -> Void){
-        
-        WebService.shared.createQuiz(title: title, image: image, categoryID: categoryID, isVisible: isVisible,is_image: is_image, attachment_ids: attachment_ids, completion: completion)
-    }
+ 
     func checkIsEmptyFields(title:String, view:UIViewController) -> Bool{
       
         let trimmedString = title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -80,6 +79,52 @@ extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UI
        
         isSelectedImage = true
         
+    }
+    
+    
+    func getCategory(completion: @escaping (Bool) -> Void) {
+        
+        WebService.shared.getCategories { result in
+            switch result {
+            case .success(let success):
+                self.categoryList = success.results
+                  completion(true)
+            case .failure(let fail):
+                print (fail)
+            }
+        }
+ 
+    }
+    func getDropDownActions() -> [UIAction] {
+        var categoryActionMap: [UIAction: Int] = [:]
+         action.removeAll()
+        let optionClosure = { [self] (action: UIAction) in
+            guard let selectedCategoryIndex = categoryActionMap[action] else {
+                return
+            }
+             
+            if selectedCategoryIndex != -1 {
+                self.categoryID = selectedCategoryIndex
+                self.didSelectCategory = true
+        
+            }
+        }
+        for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
+            if i == 0 {
+                action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))
+                categoryActionMap[action[0]] = -1
+            }else {
+                let categoryAction = UIAction(title: String(categoryList?[i-1].name! ?? ""), state: .on, handler: optionClosure)
+                  
+                  // Map the action to its corresponding index
+                categoryActionMap[categoryAction] = categoryList?[i-1].id
+                  
+                  action.append(categoryAction)
+            }
+        }
+     
+   
+        return action
     }
      
 }

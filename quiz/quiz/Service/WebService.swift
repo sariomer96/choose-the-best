@@ -39,14 +39,15 @@ enum UploadSuccess : String {
 
 class WebService {
     
-    
+    static let shared = WebService()
+    private init(){}
     func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void) {
          
         let method =   endpoint.method
        let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
    
        endpoint.request { params, url,header in
-           print("PARAMS  \(url)")
+           
            AF.request(url,method: alamofireMethod, parameters: params).response { response in
                 switch response.result {
                 case .success(let data):
@@ -54,7 +55,7 @@ class WebService {
                         print(T.self)
                         let result = try JSONDecoder().decode(T.self, from: data!)
                         completion(.success(result))
-                        print("successbbb \(result) \(T.self)")
+                        
                         
                     }catch{
                         print("DECODE ERROR \(error.localizedDescription)")
@@ -177,8 +178,7 @@ class WebService {
     }
     
     var attachmentIdList = [Int]()
-    static let shared = WebService()
-    private init(){}
+  
     
     let createQuizURL = "http://localhost:8000/quizes/"
     let createAttachmentURL = "http://localhost:8000/attachments/"
@@ -226,7 +226,7 @@ class WebService {
             for object in arr{
               
             for (key, value) in object {
-                        print("  ---\(key)  \(value)")
+                     
                     if let data = value as? Data {
                     
                         multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
@@ -253,6 +253,7 @@ class WebService {
                     
                     let qz = try JSONDecoder().decode([Attachment].self, from: value)
                   //  print("\(qz) \(qz.count)")
+                    print(qz)
                     // completion(UploadSuccess.success.rawValue, true,qz)
                   
                 }
@@ -332,7 +333,7 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
         print("Could not get JPEG representation of image")
         return
     }
-       print(" title  \(title) attacghid \(attachment_ids) categoryid  \(categoryID)  imageDAta \(imageData)")
+       
     let parameters: [String: Any] = [
         "title":title,
         "attachment_ids":attachment_ids,
@@ -372,15 +373,14 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
     .uploadProgress(closure: { progress in
         print(progress.description)
     }).response { response in
-   // .responseDecodable(of : QuizResponse.self) { response in
-        
+   
         switch response.result {
         case .success(let quiz):
          
             do {
                 
                 guard let quiz = quiz else { return}
-                print(quiz)
+              
                 let qz = try JSONDecoder().decode(QuizResponse.self, from: quiz)
                 
                  completion(UploadSuccess.success.rawValue, true,qz)

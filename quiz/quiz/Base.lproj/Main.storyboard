@@ -1091,6 +1091,19 @@
                                     <constraint firstAttribute="height" constant="130" id="2P2-fc-Gnp"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ug2-Cy-12M">
+                                <rect key="frame" x="133" y="416" width="92" height="30"/>
+                                <menu key="menu" id="Zeq-hX-FvK">
+                                    <children>
+                                        <command title="Item 1" id="KmF-TA-1uo"/>
+                                        <command title="Item 2" id="EAJ-os-1Lf"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Button">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RwE-NN-qCQ"/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1103,14 +1116,18 @@
                             <constraint firstItem="fuD-Lw-8T6" firstAttribute="top" secondItem="ieL-MW-KJu" secondAttribute="bottom" constant="54" id="Qe7-SS-4wL"/>
                             <constraint firstItem="ieL-MW-KJu" firstAttribute="leading" secondItem="RwE-NN-qCQ" secondAttribute="leading" id="Rc3-KW-LRh"/>
                             <constraint firstItem="RwE-NN-qCQ" firstAttribute="trailing" secondItem="zFK-fe-dUg" secondAttribute="trailing" constant="56" id="SC3-tf-H1S"/>
+                            <constraint firstItem="Ug2-Cy-12M" firstAttribute="leading" secondItem="RwE-NN-qCQ" secondAttribute="leading" constant="133" id="UFf-Yx-9Sx"/>
                             <constraint firstItem="gZp-7r-bZC" firstAttribute="top" secondItem="fuD-Lw-8T6" secondAttribute="bottom" constant="22" id="UYi-Ti-cVd"/>
                             <constraint firstItem="gix-gI-LYh" firstAttribute="leading" secondItem="RwE-NN-qCQ" secondAttribute="leading" constant="56" id="Yti-yv-4Hf"/>
                             <constraint firstItem="gix-gI-LYh" firstAttribute="top" secondItem="gZp-7r-bZC" secondAttribute="bottom" constant="134" id="mxU-CD-aQ9"/>
+                            <constraint firstItem="RwE-NN-qCQ" firstAttribute="trailing" secondItem="Ug2-Cy-12M" secondAttribute="trailing" constant="189" id="oys-Oy-s2a"/>
                             <constraint firstItem="ieL-MW-KJu" firstAttribute="top" secondItem="RwE-NN-qCQ" secondAttribute="top" constant="16" id="xvK-DE-NgA"/>
+                            <constraint firstItem="Ug2-Cy-12M" firstAttribute="top" secondItem="fuD-Lw-8T6" secondAttribute="bottom" constant="90" id="zwP-ET-YhU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OZV-jD-NQG"/>
                     <connections>
+                        <outlet property="categorySelectButton" destination="Ug2-Cy-12M" id="Wwr-is-GqT"/>
                         <outlet property="coverImageView" destination="fuD-Lw-8T6" id="FRD-RL-u8b"/>
                         <outlet property="quizTitleLabel" destination="ieL-MW-KJu" id="Y7h-zY-Uwp"/>
                     </connections>

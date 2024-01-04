@@ -48,7 +48,6 @@
 		17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E102AFCDCAC00CB513A /* Alamofire */; };
 		17B12E132AFECEF800CB513A /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E122AFECEF800CB513A /* Quiz.swift */; };
 		17B12E152B00292000CB513A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E142B00292000CB513A /* Category.swift */; };
-		17B12E182B00CC0100CB513A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 17B12E172B00CC0100CB513A /* RxSwift */; };
 		17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E192B00EF5800CB513A /* CategoryViewCell.swift */; };
 		17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */; };
 		17C644402B45572000D67969 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6443F2B45572000D67969 /* EndPoint.swift */; };
@@ -108,7 +107,6 @@
 			files = (
 				17DC48492B32FD7800AC20E8 /* Cosmos in Frameworks */,
 				172ED89B2B02470B00CD02F4 /* Kingfisher in Frameworks */,
-				17B12E182B00CC0100CB513A /* RxSwift in Frameworks */,
 				17B12E112AFCDCAC00CB513A /* Alamofire in Frameworks */,
 				176D3D672B249E410010DD4B /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
@@ -240,7 +238,6 @@
 			name = quiz;
 			packageProductDependencies = (
 				17B12E102AFCDCAC00CB513A /* Alamofire */,
-				17B12E172B00CC0100CB513A /* RxSwift */,
 				172ED89A2B02470B00CD02F4 /* Kingfisher */,
 				176D3D662B249E410010DD4B /* YouTubeiOSPlayerHelper */,
 				17DC48482B32FD7800AC20E8 /* Cosmos */,
@@ -621,11 +618,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 17B12E0F2AFCDCAC00CB513A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		17B12E172B00CC0100CB513A /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 17B12E162B00CC0100CB513A /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		17DC48482B32FD7800AC20E8 /* Cosmos */ = {
 			isa = XCSwiftPackageProductDependency;

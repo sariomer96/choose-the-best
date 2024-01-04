@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import RxSwift
 import PhotosUI
 
 
@@ -29,11 +28,8 @@ class ImageChoicesViewModel:EditTitle {
         self.attachIdList = WebService.shared.attachmentIdList
         
         editTitleDelegate = self
-      //  self.tableView = tableView
     
     }
-    
-   
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) { _,_ in
             self.attachIdList = WebService.shared.attachmentIdList
@@ -95,14 +91,10 @@ class ImageChoicesViewModel:EditTitle {
                     
                     self.imageArray.append(image)
                     self.attachNameList.append(String(self.num))
-                    print(self.attachNameList)
-                   
-                    DispatchQueue.main.async { [self] in
+                   DispatchQueue.main.async { [self] in
                          
                         self.tableView?.reloadData()
-
-                        
-                            
+ 
                     }
                     self.num += 1
                     

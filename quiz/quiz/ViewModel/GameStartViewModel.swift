@@ -2,8 +2,7 @@
 import Foundation
 
 class GameStartViewModel {
-//    var quizTitle:String?
-//    var quizImage:String?
+ 
     var quiz:QuizResponse?
     var totalAttachScore = 0
     var progress:CGFloat = 0

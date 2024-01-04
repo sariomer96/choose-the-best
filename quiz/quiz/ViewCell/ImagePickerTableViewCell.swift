@@ -28,7 +28,7 @@ class ImagePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
 
     @objc func didChanged() {
-        print("degisiyorustam")
+      
         ImageChoicesViewModel.shared.editTitleDelegate?.editTitle(index: index, title: nameTextField.text!)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

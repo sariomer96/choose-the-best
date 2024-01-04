@@ -123,11 +123,11 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         if tableView == topRateTableView {
              
             quiz =  viewModel.topQuizList?[indexPath.row]
-          //  performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+         
         }else {
             
             quiz =   viewModel.recentlyList?[indexPath.row]
-           // performSegue(withIdentifier: "toGameStartVC", sender: quiz)
+            
         }
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
         vc.viewModel.quiz = quiz
@@ -182,21 +182,5 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     
     }
     
-   
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let screenWidth = UIScreen.main.bounds.width
-//        // 32 constraints + inter space
-//        let width: CGFloat = (screenWidth - 16)/2
-//
-//
-//        let height: CGFloat = 64
-//
-//
-//        return .init(width: width, height: height)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    }
+  
 }

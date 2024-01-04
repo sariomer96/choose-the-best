@@ -17,10 +17,7 @@ import UIKit
 //let createAttachmentURL = "http://localhost:8000/attachments/"
 //let rateQuizURL = "http://localhost:8000/quiz-rates/"
 ///   let url = "http://localhost:8000/attachments/\(attachID)/set-score/"
-///
-///
-///
-///
+ 
 
 protocol EndPointProtocol {
     var baseURL: String {get}
@@ -30,8 +27,6 @@ protocol EndPointProtocol {
     var parameters: [String:Any]?{get}
     func request(completion: @escaping (([String:Any])?,URL,[String : String]?)->Void)
       
-    
-    
 }
 
 enum HTTPMethods: String {
@@ -160,16 +155,12 @@ extension Endpoint: EndPointProtocol {
         var url:URL? = nil
         if case .getQuiz(let quizID) = self {
              url = URL(string: "\(baseURL)\(path)\(quizID)/")
-            print("set url = \(url)")
-         //   components.queryItems = [URLQueryItem(name: "", value: String(quizID))]
+  
         } else{
-            
-                   url = URL(string: "\(baseURL)\(path)")
+           url = URL(string: "\(baseURL)\(path)")
         }
  
-        completion(parameters,url!,header)
-       
- 
+        completion(parameters,url!,header) 
     }
     
     

@@ -36,8 +36,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     var matchedAttachs = [[Attachment]]()
   
     var winAttachs = [Attachment]()
-    
-    
+     
     var view:UIView = UIView()
     var playableCount: Int?
     var winLabel: UILabel?
@@ -75,8 +74,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
-                 
-            print(action.title)
+             
             switch action.title{
             case String(rates[0]):
                 completion(self.rates[0])
@@ -165,7 +163,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         let id =   getAttachmentID(side: 0)
         setAttachmentScore(attachID: id) {
             result in
-            print(result)
+         
         }
         self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
         self.fadeInOrOut(alpha: 0.0, imageView: rightImageView ?? UIImageView())
@@ -189,12 +187,12 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     }
     func setPopUpView(imageUrl:String,title:String) {
         let vc = viewController as? GameVC
-        print("dddd")
+ 
         if let vc = vc {
             
             vc.popUpQuizImageView.kf.setImage(with: URL(string: imageUrl),placeholder: UIImage(named: "add"))
             vc.popUpQuizTitle.text = title
-            print("work")
+      
         }
     }
     func winState(winImageView:UIImageView ) -> Bool {
@@ -259,7 +257,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         let id =   getAttachmentID(side: 1)
         setAttachmentScore(attachID: id) {
             result in
-            print(result)
+      
         }
         
         self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
@@ -298,12 +296,10 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     }
     
     func rateQuiz() {
-        
-        print("QZ ID \(quiz?.id) \(rate)")
         WebService.shared.rateQuiz(quizID: 33, rateScore: rate) { result in
             switch result {
             case .success(let response):
-                print("RESILTT  \(response)")
+     
                 AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: "Rate success")
             case .failure(let error):
                 print(error)

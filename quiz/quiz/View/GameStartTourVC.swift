@@ -7,7 +7,7 @@
 
 import UIKit
 import Kingfisher
-import RxSwift
+
 
 class GameStartTourVC: UIViewController {
 

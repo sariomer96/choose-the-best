@@ -34,9 +34,7 @@ class QuizListViewModel : QuizListProtocol {
         
   
         guard let categoryId = categoryID else{ return }
-   //     let url = "\(webService.quizListFromCategoryURL)\(categoryId)"
-        
-        
+ 
         webService.getQuizList(categoryID: categoryId) { result in
             switch result {
             case .success(let list):
@@ -52,8 +50,6 @@ class QuizListViewModel : QuizListProtocol {
                 print(error)
             }
         }
- 
-      
    }
     
     func search(searchText:String,completion: @escaping (Bool)->Void) {
@@ -65,7 +61,7 @@ class QuizListViewModel : QuizListProtocol {
        
                 guard let list = quizList.results else {return}
                 self.quizList = list
-                print("QZLIIIST \(quizList)")
+            
                 completion(true)
                
             case .failure(let fail):

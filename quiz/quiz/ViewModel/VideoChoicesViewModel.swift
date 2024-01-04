@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import RxSwift
+
 import YouTubeiOSPlayerHelper
 import Kingfisher
 
@@ -24,7 +24,7 @@ class VideoChoicesViewModel {
         self.attachIdList = WebService.shared.attachmentIdList
     }
     func removeAttachment(index:Int) {
-        //attachIdList.remove(at: index)
+         
         thumbNails.remove(at: index)
         titleArray.remove(at: index)
         videoUrlList.remove(at: index)
@@ -33,7 +33,7 @@ class VideoChoicesViewModel {
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _,_  in
       
             self.attachIdList = WebService.shared.attachmentIdList
-            print(self.attachIdList)
+            
                 completion(true)
         }
     }
@@ -56,9 +56,6 @@ class VideoChoicesViewModel {
             self.thumbNails.append(uiimage!)
             self.titleArray.append(title)
             self.videoUrlList.append(baseURL)
-            print(self.titleArray)
-            
-             
             
             if boolResult == true {
               

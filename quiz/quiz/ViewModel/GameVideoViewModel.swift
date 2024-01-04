@@ -52,8 +52,7 @@ class GameVideoViewModel {
     func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
-                 
-            print(action.title)
+            
             switch action.title{
             case String(rates[0]):
                 completion(self.rates[0])
@@ -91,7 +90,7 @@ class GameVideoViewModel {
         let id =   getAttachmentID(side: rowIndex)
         setAttachmentScore(attachID: id) {
             result in
-            print(result)
+          
         }
         startIndex += 1
         roundIndex += 1
@@ -224,8 +223,7 @@ class GameVideoViewModel {
    
     func winState( ) -> Bool {
         if winAttachs.count == 1 {
-            print("WIIINN")
- 
+       
             isFinishQuiz = true
  
              return true

@@ -13,15 +13,34 @@ class CreateQuizVC: UIViewController {
     @IBOutlet weak var quizTitleLabel: UITextField!
     var viewModel = CreateQuizViewModel()
 
+    @IBOutlet weak var categorySelectButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
        
         viewModel.recognizer(imageView: coverImageView, view: self)
+        categorySelectButton.isHidden = true
+        viewModel.getCategory { result in
+            self.showSelectCategoryButton()
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.didSelectCategory = false
     }
    
-     
+    func showSelectCategoryButton(){
+         
+        let  action = viewModel.getDropDownActions()
+        categorySelectButton.isHidden = false
+        if  action != nil {
+ 
+            categorySelectButton.menu = UIMenu(children : action)
+            categorySelectButton.showsMenuAsPrimaryAction = true
+            categorySelectButton.changesSelectionAsPrimaryAction = true
+        }
+    }
+
     func setQuizFields(quiztype:QuizType) {
         
          let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)

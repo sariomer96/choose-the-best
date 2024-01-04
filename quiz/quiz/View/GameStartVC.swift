@@ -30,7 +30,7 @@ class GameStartVC: UIViewController {
          
         viewModel.getQuiz() {
             _ in
-          //  self.quizTitle.text =  self.viewModel.quiz?.title
+        
             let url = self.viewModel.quiz?.image
             self.quizHeaderImageView.kf.setImage(with: URL(string: url!))
             DispatchQueue.main.async {
@@ -41,11 +41,9 @@ class GameStartVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-     
-     
+   
         quizTitleLabel.text = viewModel.quiz?.title
-        
- 
+    
     }
     @IBAction func startClick(_ sender: Any) {
         
@@ -58,9 +56,6 @@ class GameStartVC: UIViewController {
         self.navigationController!.pushViewController(vc, animated: true)
       //  performSegue(withIdentifier: "toSelectTourVC", sender: quiz)
     }
-
-  
-    
 }
 
 extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
@@ -81,10 +76,7 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
         
          
         cell.attachName.text = viewModel.quiz?.attachments[indexPath.row].title
-        
-    
-      
-        
+         
         DispatchQueue.main.async { [self] in
             let score = self.viewModel.quiz?.attachments[indexPath.row].score
              
@@ -95,9 +87,6 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
             }else{
                 viewModel.progress = 0
             }
-            
- 
-              
             cell.winRateCircleBar.progress = viewModel.progress
             cell.attachImageView.kf.setImage(with: URL(string: (viewModel.quiz?.attachments[indexPath.row].image!)!))
         }

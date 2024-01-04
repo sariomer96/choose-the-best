@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 import YouTubeiOSPlayerHelper
-import RxSwift
+
 class VideoChoicesVC: UIViewController {
 
     @IBOutlet weak var attachTableView: UITableView!

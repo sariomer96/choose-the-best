@@ -37,8 +37,7 @@ class GameStartTourViewModel {
     func getDropDownActions(attachmentCount:Int,completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
-                 
-            print(action.title)
+              
             switch action.title{
             case Round.final.rawValue:
                 completion(self.rounds[0])

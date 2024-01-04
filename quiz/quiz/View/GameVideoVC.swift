@@ -62,7 +62,7 @@ class GameVideoVC: UIViewController {
             viewModel.vote = true
             viewModel.rateQuiz(quizID: viewModel.quiz!.id, rateScore: viewModel.rate)
             { result in
-               print(result)
+             
                 AlertManager.shared.alert(view: self, title: "Alert", message: result)
             }
         }else {

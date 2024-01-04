@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+
 
 class HomeViewModel {
     
@@ -16,8 +16,7 @@ class HomeViewModel {
     let webService = WebService.shared
      
     func getCategories(completion: @escaping (String?) -> Void) {
-      
-        
+     
         webService.getCategories { result in
             switch result {
                 
@@ -57,8 +56,5 @@ class HomeViewModel {
                 print("errorrr")
             }
         }
-
- 
-
     }
 }

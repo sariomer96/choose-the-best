@@ -46,13 +46,7 @@ class CreatePublishingVC: UIViewController {
             viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryID, isVisible: viewModel.isVisible,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
         }
     }
-    @IBAction func privateClick(_ sender: Any) {
-        viewModel.isVisible = false
-    }
-    
-    @IBAction func publicClick(_ sender: Any) {
-        viewModel.isVisible = true
-    }
+ 
     
 }
  

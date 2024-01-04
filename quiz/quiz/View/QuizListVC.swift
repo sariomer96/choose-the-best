@@ -69,7 +69,7 @@ extension QuizListVC : UISearchBarDelegate {
 }
 extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(viewModel.quizList.count)
+         
         return viewModel.quizList.count
     }
  

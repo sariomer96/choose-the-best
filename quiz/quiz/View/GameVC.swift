@@ -52,8 +52,7 @@ class GameVC: UIViewController {
         roundLabel.text = ""
     }
     override func viewDidAppear(_ animated: Bool) {
-       
-
+        
         viewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
         viewModel.view = view
 

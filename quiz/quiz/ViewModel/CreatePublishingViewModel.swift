@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxSwift
 import UIKit
 
 class CreatePublishingViewModel {
@@ -61,9 +60,7 @@ class CreatePublishingViewModel {
              case .failure(let error):
                  print(error)
                 AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error.localizedDescription)
-            }
-                
-
+            } 
         }
   
     }

@@ -44,12 +44,7 @@ struct QuizRate :Codable{
     let quiz: QuizResponse
     let rate_score: Int
 }
-//extension Attachment: Equatable {
-//    static func == (lhs: Attachment, rhs: Attachment) -> Bool {
-//        return true
-//    }
-//    
-//}
+ 
 
 struct Category: Codable {
     let id: Int?
