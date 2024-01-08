@@ -6,30 +6,23 @@
 //
 
 import Foundation
-import UIKit
 import PhotosUI
 
+typealias VoidCallBack = (() -> Void)
+typealias CallBack<T> = ((T) -> Void)
 
-protocol EditTitle {
-    func editTitle(index:Int, title:String)
-}
-class ImageChoicesViewModel:EditTitle {
+final class ImageChoicesViewModel {
    
-     static let shared = ImageChoicesViewModel()
-    var editTitleDelegate:EditTitle?
-    var imageArray = [UIImage]()
-    var attachIdList = [Int]()
-    var tableView:UITableView?
+    static let shared = ImageChoicesViewModel()
+    var attachIdList = WebService.shared.attachmentIdList
     var attachNameList = [String]()
+    var imageArray = [UIImage]()
     var attachmentList = [Attachment]()
+    var callbackReloadTableView: VoidCallBack?
+
+    var attachmentRequestList = [AttachmentRequestObject]()
     var total = 0
     
-    init() {
-        self.attachIdList = WebService.shared.attachmentIdList
-        
-        editTitleDelegate = self
-    
-    }
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) { _,_ in
             self.attachIdList = WebService.shared.attachmentIdList
@@ -45,7 +38,8 @@ class ImageChoicesViewModel:EditTitle {
     }
   
     func onClickNext(completion: @escaping (Bool)->Void) {
-         
+        
+        self.attachNameList
         for (index, i) in attachNameList.enumerated() {
             
             let attach  = Attachment(id: nil , title: i, url: "", image: nil, score: 0, created_at: nil, updated_at: nil)
@@ -71,38 +65,43 @@ class ImageChoicesViewModel:EditTitle {
             completion(true)
         }
     }
+    
+    func editTitle(index: Int, title: String?) {
+        guard let title = title, attachNameList.count > index else { return }
+        attachNameList[index] = title
+    }
+
     func removeAttachment(index:Int) {
         //attachIdList.remove(at: index)
         imageArray.remove(at: index)
         attachNameList.remove(at: index)
     }
-    
-    func editTitle(index:Int, title:String) {
-         attachNameList[index] = title
-    }
     var num = 1
+    private func checkNewPickItems(results: [PHPickerResult]){ }
      func addAttachmentDidpick(results: [PHPickerResult]) {
-      
          
          total = results.count
-        for result in results {
+         for (index, result) in results.enumerated() {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
                     
                     self.imageArray.append(image)
                     self.attachNameList.append(String(self.num))
-                   DispatchQueue.main.async { [self] in
-                         
-                        self.tableView?.reloadData()
- 
-                    }
                     self.num += 1
-                    
+                    if index == results.count-1 {
+                        // burdaki asenkronu kaldir
+                        DispatchQueue.main.asyncAfter(deadline: .now()) {
+                            self.callbackReloadTableView?()
+                        }
+                    }
                 }
-                
             }
         }
-    
     }
-    
+    func setImage(image: UIImage) {
+        
+        self.imageArray.append(image)
+        self.attachNameList.append(String(self.num))
+        self.num += 1
+   }
 }

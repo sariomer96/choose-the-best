@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class GameVC: UIViewController {
+class GameVC: BaseViewController {
 
     @IBOutlet weak var popUpQuizTitle: UILabel!
     @IBOutlet weak var popUpQuizImageView: UIImageView!
@@ -23,59 +23,68 @@ class GameVC: UIViewController {
     @IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var rightTitleLabel: UILabel!
-    var viewModel = GameViewModel()
-    
+    lazy var gameViewModel = GameViewModel()
+    // MARK: Life Cycles Method
     override func viewDidLoad() {
         
         super.viewDidLoad()
         popUpView.isHidden = true
-        viewModel.imageViewDelegate?.leftImageView = leftImageView
-        viewModel.imageViewDelegate?.rightImageView = rightImageView
-        viewModel.popUpView = popUpView
-        viewModel.attachTitleDelegate?.leftTitleLabel = leftTitleLabel
-        viewModel.attachTitleDelegate?.rightTitleLabel = rightTitleLabel
-        viewModel.attachTitleDelegate?.winLabel = winLabel
-        viewModel.attachTitleDelegate?.roundLabel = roundLabel
-        viewModel.viewController = self
+        gameViewModel.imageViewDelegate?.leftImageView = leftImageView
+        gameViewModel.imageViewDelegate?.rightImageView = rightImageView
+        gameViewModel.popUpView = popUpView
+        gameViewModel.attachTitleDelegate?.leftTitleLabel = leftTitleLabel
+        gameViewModel.attachTitleDelegate?.rightTitleLabel = rightTitleLabel
+        gameViewModel.attachTitleDelegate?.winLabel = winLabel
+        gameViewModel.attachTitleDelegate?.roundLabel = roundLabel
+        gameViewModel.viewController = self
+        initVM()
     }
-    @IBAction func voteClick(_ sender: Any) {
-        if viewModel.isRateSelected == true {
- 
-            viewModel.vote = true
-            viewModel.rateQuiz()
-           
-        }else {
-            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+    func initVM() {
+        gameViewModel.callbackShowAlert = { [weak self] alertInfo in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showAlert(alertInfo.alertTitle, alertInfo.description)
+            }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         roundLabel.text = ""
     }
     override func viewDidAppear(_ animated: Bool) {
         
-        viewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
-        viewModel.view = view
+        gameViewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
+        gameViewModel.view = view
 
          startQuiz()
          showRateDropDown()
     }
     func showRateDropDown() {
-        viewModel.showRateDropDown(dropDownButton: quizRateDropDownButton)
+        gameViewModel.showRateDropDown(dropDownButton: quizRateDropDownButton)
     }
     func startQuiz() {
-        viewModel.startQuiz()
+        gameViewModel.startQuiz()
     }
+
     @IBAction func playAgainClick(_ sender: Any) {
         
-        if viewModel.vote == true {
-            
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-            
-            vc.viewModel.quiz = viewModel.quiz
-            self.navigationController!.pushViewController(vc, animated: true)
-        }else {
+        if gameViewModel.vote == true {
+            self.presentGameStartViewController(quiz: gameViewModel.quiz)
+        } else {
             AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
         }
 
     }
+
+    @IBAction func voteClick(_ sender: Any) {
+        if gameViewModel.isRateSelected == true {
+ 
+            gameViewModel.vote = true
+            gameViewModel.rateQuiz()
+           
+        }else {
+            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+        }
+    }
+
 }

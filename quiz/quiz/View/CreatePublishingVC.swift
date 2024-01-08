@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreatePublishingVC: UIViewController {
+final class CreatePublishingVC: BaseViewController {
 
     
     @IBOutlet weak var categorySelectButton: UIButton!

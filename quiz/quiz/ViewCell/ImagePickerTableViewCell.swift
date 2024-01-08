@@ -7,12 +7,15 @@
 
 import UIKit
 
-class ImagePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
+protocol ImagePickerTableViewCellDelegate: AnyObject {
+    func didEndTextChange(text: String?, index: Int)
+}
+
+final class ImagePickerTableViewCell: UITableViewCell {
+    weak var delegate: ImagePickerTableViewCellDelegate?
 
     @IBOutlet weak var attachNameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField! 
-        
-  
      
      var index = 0
     
@@ -20,23 +23,19 @@ class ImagePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
-      
-        nameTextField.addTarget(self, action: #selector(didChanged), for: .editingChanged)
-        
-        // Initialization code
+        nameTextField.delegate = self
     }
 
-    @objc func didChanged() {
-      
-        ImageChoicesViewModel.shared.editTitleDelegate?.editTitle(index: index, title: nameTextField.text!)
-    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
- 
-   
-    
+}
+
+
+extension ImagePickerTableViewCell: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.didEndTextChange(text: textField.text, index: index)
+    }
 }

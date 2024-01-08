@@ -3,7 +3,7 @@ import Foundation
 
 class GameStartViewModel {
  
-    var quiz:QuizResponse?
+    var quiz:QuizResponse? // private yap  disari erisime kapat 
     var totalAttachScore = 0
     var progress:CGFloat = 0
     
@@ -27,7 +27,9 @@ class GameStartViewModel {
             }
  
         }
-        
- 
+    }
+
+    func setQuiz(quiz: QuizResponse?) { // optionalliktan kurtarip gonder
+        self.quiz = quiz
     }
 }

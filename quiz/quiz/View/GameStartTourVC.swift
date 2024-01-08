@@ -48,9 +48,9 @@ class GameStartTourVC: UIViewController {
             if let vc = vc {
                 
                 
-                vc.viewModel.quiz = viewModel.quiz
+                vc.gameViewModel.quiz = viewModel.quiz
               
-                vc.viewModel.playableDelegate?.playableCount =  viewModel.maxPlayableCount
+                vc.gameViewModel.playableDelegate?.playableCount =  viewModel.maxPlayableCount
               
                 self.navigationController!.pushViewController(vc, animated: true)
             }

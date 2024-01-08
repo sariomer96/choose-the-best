@@ -26,7 +26,12 @@ protocol PlayableCount {
     var playableCount:Int? {get set}
 }
 
-class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
+protocol GameViewModelProtocol {
+    var callbackShowAlert: CallBack<(alertTitle: String, description: String )>? { get set }
+}
+
+final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,PlayableCount {
+    var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
     var playableDelegate:PlayableCount?
     var attachTitleDelegate:SetLabels?
 
@@ -63,7 +68,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         imageViewDelegate = self
         
     }
-    
+
     // match quiz
     
     var randomChooseAttachList = [Attachment]()
@@ -252,6 +257,7 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
         startIndex = 0
         roundIndex = 1
     }
+   
     @objc func imageClickedRight() {
        
         let id =   getAttachmentID(side: 1)
@@ -298,16 +304,15 @@ class GameViewModel:ImageViewPro,SetLabels,PlayableCount {
     func rateQuiz() {
         WebService.shared.rateQuiz(quizID: 33, rateScore: rate) { result in
             switch result {
-            case .success(let response):
-     
-                AlertManager.shared.alert(view: self.viewController ?? UIViewController(), title: "Alert", message: "Rate success")
+            case .success(_): // let response
+                self.callbackShowAlert?(("Alert", "Rate success"))
+
             case .failure(let error):
                 print(error)
             }
-           
         }
- 
     }
+    
     func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
         
         WebService.shared.setAttachmentScores(attachID: attachID) {

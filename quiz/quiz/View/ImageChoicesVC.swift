@@ -13,41 +13,51 @@ class ImageChoicesVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerButton: UIButton!
-    var viewModel = ImageChoicesViewModel.shared
+    lazy var imageChoicesViewModel = ImageChoicesViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.tableView = tableView
+        self.imageChoicesViewModel.num = 1
+        clearArrays()
+        initView()
+        initVM()
+    }
+    deinit {
+        print("ALI KOS PICKER EKRAN OLDU")
+    }
+    func initView() {
         tableView.dataSource = self
         tableView.delegate = self
-     
-     
     }
-    override func viewWillAppear(_ animated: Bool) {
-        
-        self.viewModel.num = 1
-        clearArrays()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+    
+    func initVM() {
+        imageChoicesViewModel.callbackReloadTableView = { [weak self] in
+            guard let self = self else { return }
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+            UIView.transition(with: tableView,
+                              duration: 0.35,
+                              options: .transitionCrossDissolve,
+                              animations: { self.tableView.reloadData() })
         }
     }
     func clearArrays() {
-        self.viewModel.imageArray.removeAll()
-        self.viewModel.attachIdList.removeAll()
-        self.viewModel.attachNameList.removeAll()
+        self.imageChoicesViewModel.imageArray.removeAll()
+        self.imageChoicesViewModel.attachIdList.removeAll()
+        self.imageChoicesViewModel.attachNameList.removeAll()
         WebService.shared.attachmentIdList.removeAll()
     }
     @IBAction func nextClick(_ sender: Any) {
          
-        if viewModel.imageArray.count > 1 {
+        if imageChoicesViewModel.imageArray.count > 1 {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
             
             if let vc = vc {
                  
-                viewModel.onClickNext() { _ in
+                imageChoicesViewModel.onClickNext() { _ in
                  
-                    vc.viewModel.setVariables(is_image: true, attachID: self.viewModel.attachIdList )
+                    vc.viewModel.setVariables(is_image: true, attachID: self.imageChoicesViewModel.attachIdList )
                     self.clearArrays()
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -74,24 +84,22 @@ extension ImageChoicesVC:PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         dismiss(animated: true)
-         
-        viewModel.addAttachmentDidpick(results: results)
-
+        imageChoicesViewModel.addAttachmentDidpick(results: results)
+        print("Ali Kose FOto cekimi calisti")
     }
 }
 
 extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.imageArray.count
+        return imageChoicesViewModel.imageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImagePickerTableViewCell") as! ImagePickerTableViewCell
-      
-        let index =  indexPath.row
-        cell.attachImageView.image = viewModel.imageArray[indexPath.row]
-        cell.nameTextField.text =   viewModel.attachNameList[indexPath.row]
+        cell.delegate = self
+        cell.attachImageView.image = imageChoicesViewModel.imageArray[indexPath.row]
+        cell.nameTextField.text =   imageChoicesViewModel.attachNameList[indexPath.row]
         cell.index = indexPath.row
        
         return cell
@@ -107,13 +115,13 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
   }
     
     func removeAttachment(index:Int) {
-        let title = self.viewModel.attachNameList[index]
+        let title = self.imageChoicesViewModel.attachNameList[index]
         let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?", preferredStyle: .alert)
     
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         let yes = UIAlertAction(title: "Delete", style: .destructive) {
         action in
-        self.viewModel.removeAttachment(index: index)
+        self.imageChoicesViewModel.removeAttachment(index: index)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -124,5 +132,10 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
         alert.addAction(yes)
         self.present(alert,animated: true)
     
+    }
+}
+extension ImageChoicesVC: ImagePickerTableViewCellDelegate {
+    func didEndTextChange(text: String?, index: Int) {
+        imageChoicesViewModel.editTitle(index: index, title: text)
     }
 }

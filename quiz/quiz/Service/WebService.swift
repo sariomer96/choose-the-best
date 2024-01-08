@@ -40,6 +40,9 @@ enum UploadSuccess : String {
 class WebService {
     
     static let shared = WebService()
+    var currentRecentlyQuestionPageCount = 0
+    var currentTopRatedQuestionPageCount = 0
+
     private init(){}
     func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void) {
          
@@ -142,12 +145,12 @@ class WebService {
            request(endpoint: endpoint, completion: completion)
     }
     
-    func getTopRate(completion:@escaping (Result<ApiResponse,Error>) ->Void) {
-        let endpoint = Endpoint.getTopRated
+    func getTopRate(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getTopRated(page: page, count: count)
            request(endpoint: endpoint, completion: completion)
     }
-    func getRecentlyQuiz(completion:@escaping (Result<ApiResponse,Error>) ->Void) {
-        let endpoint = Endpoint.getRecently
+    func getRecentlyQuiz(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getRecently(page: page, count: count)
            request(endpoint: endpoint, completion: completion)
     }
     
@@ -158,7 +161,8 @@ class WebService {
     
     func getQuiz(quizID:Int,completion:@escaping (Result<QuizResponse,Error>) ->Void) {
       let endpoint = Endpoint.getQuiz(quizID: quizID)
-         
+        print("Ali Kose Pagination")
+        print("\(endpoint)")
        request(endpoint: endpoint, completion: completion)
     }
     func getQuizList(categoryID:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
@@ -254,6 +258,7 @@ class WebService {
                     let qz = try JSONDecoder().decode([Attachment].self, from: value)
                   //  print("\(qz) \(qz.count)")
                     print(qz)
+                    print("SUCCESS")
                     // completion(UploadSuccess.success.rawValue, true,qz)
                   
                 }
@@ -279,23 +284,21 @@ class WebService {
     
     func createAttachment(title: String, videoUrl: String,image: UIImage?,completion: @escaping (String?,Bool) -> Void) {
         
-        var imageData = image?.jpegData(compressionQuality: 0.5)
-        if image != nil {
+        let imageData = image?.jpegData(compressionQuality: 0.5)
             
-            
-            guard let data = imageData else {
+            guard let imageData = imageData else {
                 print("Could not get JPEG representation of image")
                 return
             }
-            
-        }
-        
+                    
         let parameters: [String: Any] = [
             "title":title,
             "url":videoUrl,
             "image":imageData,
             "score":0
         ]
+        
+        
         
         AF.upload(multipartFormData: { multipartFormData in
             for (key, value) in parameters {

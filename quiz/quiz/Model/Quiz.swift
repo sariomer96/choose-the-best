@@ -25,6 +25,47 @@ struct QuizResponse: Codable {
     let is_visible : Bool?
     let is_image : Bool?
     let average_rate: Double?
+//    enum CodingKeys: String, CodingKey {
+//           case userID = "user_id"
+//           case fullName = "full_name"
+//           case emailAddress = "email_address"
+//       }
+}
+
+struct CreateAttachmentRequestModel: Codable {
+    let attachmentList: [AttachmentRequestObject]?
+}
+
+struct AttachmentRequestObject: Codable {
+    let title: String?
+    let imageData: Data?
+    let score: String?
+}
+
+struct CreateAttachmentResponseModel: Codable {
+    let attachmentIdList: [Int]?
+}
+
+
+
+/*
+ "title":attachList[i].title!,
+ "url":attachList[i].url!,
+ "image":imageData!,
+ "score":0
+ */
+//"title":attachList[i].title!,
+//"url":attachList[i].url!,
+//"image":imageData!,
+//"score":0
+struct AttachmentResponseModel: Codable {
+    
+}
+
+struct QuestionCreateRequestModel: Codable {
+    let title: String?
+    let questionImage: String?
+    
 }
 
 struct Attachment: Codable{

@@ -36,8 +36,8 @@ enum HTTPMethods: String {
 }
 
 enum Endpoint {
-    case getTopRated
-    case getRecently
+    case getTopRated(page:Int,count:Int)
+    case getRecently(page:Int,count:Int)
     case getQuizList(categoryID:Int)
     case getCategories
     case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int])
@@ -79,10 +79,10 @@ extension Endpoint: EndPointProtocol {
     var path: String {
         switch self{
             
-        case .getTopRated:
-            return "quizes/top-rated"
-        case .getRecently:
-            return "quizes/?ordering=-created_at"
+        case .getTopRated(page: let page,count: let pageSize):
+            return "quizes/top-rated?page_size=\(pageSize)&page=\(page)"
+        case .getRecently(page: let page,count: let pageSize):
+            return "quizes/?ordering=-created_at&page_size=\(pageSize)&page=\(page)"
         case .getQuizList(categoryID: let categoryID):
             return "quizes?category__id=\(categoryID)"
         case .getCategories:

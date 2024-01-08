@@ -51,6 +51,10 @@
 		17B12E1A2B00EF5800CB513A /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E192B00EF5800CB513A /* CategoryViewCell.swift */; };
 		17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */; };
 		17C644402B45572000D67969 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6443F2B45572000D67969 /* EndPoint.swift */; };
+		17C644422B484DDE00D67969 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644412B484DDE00D67969 /* BaseViewController.swift */; };
+		17C644442B48506400D67969 /* LoaderUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644432B48506400D67969 /* LoaderUtility.swift */; };
+		17C644462B48508500D67969 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644452B48508500D67969 /* ProgressController.swift */; };
+		17C644482B4851B100D67969 /* GameStartViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */; };
 		17DC48492B32FD7800AC20E8 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 17DC48482B32FD7800AC20E8 /* Cosmos */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +102,10 @@
 		17B12E192B00EF5800CB513A /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListTableViewCell.swift; sourceTree = "<group>"; };
 		17C6443F2B45572000D67969 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		17C644412B484DDE00D67969 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		17C644432B48506400D67969 /* LoaderUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderUtility.swift; sourceTree = "<group>"; };
+		17C644452B48508500D67969 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
+		17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartViewControllerBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +189,10 @@
 				1767325C2B0529600000ED79 /* ImageChoicesVC.swift */,
 				179B779F2B152BB400FB317A /* GameStartTourVC.swift */,
 				176D3D6A2B2712410010DD4B /* GameVideoVC.swift */,
+				17C644412B484DDE00D67969 /* BaseViewController.swift */,
+				17C644432B48506400D67969 /* LoaderUtility.swift */,
+				17C644452B48508500D67969 /* ProgressController.swift */,
+				17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1719F1C22B0CD31E0087A86E /* AlertManager.swift in Sources */,
+				17C644442B48506400D67969 /* LoaderUtility.swift in Sources */,
 				17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */,
 				179B77A42B1B166500FB317A /* GameStartTourViewModel.swift in Sources */,
 				179B779E2B15127100FB317A /* GameStartTableViewCell.swift in Sources */,
@@ -315,6 +328,7 @@
 				174B03542B0381AF00A7076C /* LastUpdateTableViewCell.swift in Sources */,
 				176732632B0529DF0000ED79 /* VideoChoicesViewModel.swift in Sources */,
 				17B12E002AFCD99A00CB513A /* HomeViewModel.swift in Sources */,
+				17C644482B4851B100D67969 /* GameStartViewControllerBuilder.swift in Sources */,
 				179B77A22B15323200FB317A /* ImagePickerTableViewCell.swift in Sources */,
 				17B12DF62AFCD88600CB513A /* QuizListVC.swift in Sources */,
 				1701C5472B0B7F5100230762 /* CreateQuizFields.swift in Sources */,
@@ -324,10 +338,12 @@
 				17B12E042AFCD9F800CB513A /* CreateQuizViewModel.swift in Sources */,
 				1767325F2B0529780000ED79 /* VideoChoicesVC.swift in Sources */,
 				17B12E132AFECEF800CB513A /* Quiz.swift in Sources */,
+				17C644462B48508500D67969 /* ProgressController.swift in Sources */,
 				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
 				179B77A62B2080E200FB317A /* ProgressBar.swift in Sources */,
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
+				17C644422B484DDE00D67969 /* BaseViewController.swift in Sources */,
 				174B03512B0373DF00A7076C /* TopRatedViewCell.swift in Sources */,
 				17C644402B45572000D67969 /* EndPoint.swift in Sources */,
 				17B12E152B00292000CB513A /* Category.swift in Sources */,
@@ -496,6 +512,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,6 +541,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
