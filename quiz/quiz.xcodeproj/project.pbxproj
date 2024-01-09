@@ -55,6 +55,7 @@
 		17C644442B48506400D67969 /* LoaderUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644432B48506400D67969 /* LoaderUtility.swift */; };
 		17C644462B48508500D67969 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644452B48508500D67969 /* ProgressController.swift */; };
 		17C644482B4851B100D67969 /* GameStartViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */; };
+		17C6444A2B4C0CB700D67969 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644492B4C0CB700D67969 /* BaseViewModel.swift */; };
 		17DC48492B32FD7800AC20E8 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 17DC48482B32FD7800AC20E8 /* Cosmos */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		17C644432B48506400D67969 /* LoaderUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderUtility.swift; sourceTree = "<group>"; };
 		17C644452B48508500D67969 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartViewControllerBuilder.swift; sourceTree = "<group>"; };
+		17C644492B4C0CB700D67969 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				17B12E092AFCDA5800CB513A /* GameStartViewModel.swift */,
 				17B12E0B2AFCDA8500CB513A /* GameViewModel.swift */,
 				176D3D6C2B2759DA0010DD4B /* GameVideoViewModel.swift */,
+				17C644492B4C0CB700D67969 /* BaseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				1701C5472B0B7F5100230762 /* CreateQuizFields.swift in Sources */,
 				1767325D2B0529600000ED79 /* ImageChoicesVC.swift in Sources */,
 				17B12DDE2AF8075A00CB513A /* HomeVC.swift in Sources */,
+				17C6444A2B4C0CB700D67969 /* BaseViewModel.swift in Sources */,
 				176732612B05298F0000ED79 /* ImageChoicesViewModel.swift in Sources */,
 				17B12E042AFCD9F800CB513A /* CreateQuizViewModel.swift in Sources */,
 				1767325F2B0529780000ED79 /* VideoChoicesVC.swift in Sources */,

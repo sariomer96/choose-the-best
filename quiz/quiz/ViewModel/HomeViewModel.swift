@@ -15,23 +15,21 @@ enum QuizType {
 class HomeViewModel {
     var callbackReloadTopRatedTableView: VoidCallBack?
     var callbackReloadRecentlyTableView: VoidCallBack?
-
+    var quizType:QuizType = .topQuiz
     var categoryList:  [Category]?
     var recentlyList = [QuizResponse]()
     var topQuizList = [QuizResponse]()
-
+    var currentQuizList = [QuizResponse]()
+    
 
     var currentSizeCount = 10
 
     var currentRecentlyQuestPageCount = 1
     var isStillExistRecentlyQuest = true
-    var recentlyQuestItemCount = 0 // recentlyList.count
-    var allItemsCount = 50 // servisten gelirse ornk
-    var recentlyUrl = ""
-
+  
     var currentTopRateQuestPageCount = 1
     var isStillExistTopRatedQuest = true
-    var topRatedQuestItemCount = 0 // topQuizList.count
+   
 
     let webService = WebService.shared
      
@@ -49,7 +47,13 @@ class HomeViewModel {
         }
  
     }
-// onura Sor Paginationi calistirsin ne eklemen gerekiyorsa url e 
+    func setQuizList(quizList:[QuizResponse]) {
+        currentQuizList = quizList
+        print(currentQuizList.count)
+        callbackReloadTopRatedTableView?()
+        
+    }
+ 
     func getRecentlyQuiz(completion: @escaping (String?) -> Void) {
         guard isStillExistRecentlyQuest else { return }
         webService.getRecentlyQuiz(page: currentRecentlyQuestPageCount, count: currentSizeCount){ result in
@@ -58,11 +62,15 @@ class HomeViewModel {
                
                 if let questionList = apiResponse.results {
                     self.recentlyList += questionList
+                    print("ekle")
                 }
                 self.isStillExistRecentlyQuest = (apiResponse.next != nil) ? true : false
                 self.checkPaginateEnableRecentlyQuest(self.recentlyList.count, allItemsCount: apiResponse.count ?? 0)
-                self.callbackReloadRecentlyTableView?()
-
+             //   self.currentQuizList = self.recentlyList
+                print("recent ac")
+                self.callbackReloadTopRatedTableView?()
+              //  self.callbackReloadRecentlyTableView?()
+                   completion("trigger")
             case .failure(let error):
                 print("error \(error)")
             }
@@ -82,7 +90,8 @@ class HomeViewModel {
                 self.isStillExistTopRatedQuest = (quiz.next != nil) ? true : false
                 self.checkPaginateEnableTopQuest(self.topQuizList.count, allItemsCount: quiz.count ?? 0)
                 print("couunt \( self.topQuizList.count)")
-                self.callbackReloadTopRatedTableView?()
+                self.currentQuizList = self.topQuizList
+               // self.callbackReloadTopRatedTableView?()
                 completion("trigger")
          
             case .failure(let error):
@@ -90,15 +99,13 @@ class HomeViewModel {
             }
         }
    }
-
-    
-
-     func startPaginateToTopRateQuestions() {
+    func startPaginateToTopRateQuestions() {
  
+        
            guard isStillExistTopRatedQuest else { return }
          currentTopRateQuestPageCount += 1
          self.getTopRateQuiz { _ in
-             
+             self.callbackReloadTopRatedTableView?()
          }
        //     getCollections()
        }
@@ -107,8 +114,12 @@ class HomeViewModel {
     func startPaginateToRecentlyQuestions() {
           guard isStillExistRecentlyQuest else { return }
         currentRecentlyQuestPageCount += 1
-        print(currentRecentlyQuestPageCount)
-        self.getRecentlyQuiz{ _ in}
+        print("currentRecentlyQuestPageCount")
+        self.getRecentlyQuiz{ _ in
+            print("yebile")
+            self.currentQuizList = self.recentlyList
+            self.callbackReloadTopRatedTableView?()
+        }
            
       }
 

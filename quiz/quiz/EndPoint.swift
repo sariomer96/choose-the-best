@@ -38,7 +38,7 @@ enum HTTPMethods: String {
 enum Endpoint {
     case getTopRated(page:Int,count:Int)
     case getRecently(page:Int,count:Int)
-    case getQuizList(categoryID:Int)
+    case getQuizList(categoryID:Int,page:Int,count:Int)
     case getCategories
     case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int])
     case createAttachment
@@ -83,8 +83,8 @@ extension Endpoint: EndPointProtocol {
             return "quizes/top-rated?page_size=\(pageSize)&page=\(page)"
         case .getRecently(page: let page,count: let pageSize):
             return "quizes/?ordering=-created_at&page_size=\(pageSize)&page=\(page)"
-        case .getQuizList(categoryID: let categoryID):
-            return "quizes?category__id=\(categoryID)"
+        case .getQuizList(categoryID: let categoryID,page: let page , count: let pageSize):
+            return "quizes?category__id=\(categoryID)&page_size=\(pageSize)&page=\(page)"
         case .getCategories:
             return "categories"
         case .createQuiz:
@@ -93,8 +93,7 @@ extension Endpoint: EndPointProtocol {
             return "attachments/"
         case .rateQuiz:
             return "quiz-rates/"
-            
-         
+        
         case .getQuiz:
             return "quizes/"
         case .setAttachmentScore(attachID: let attachID):
@@ -155,9 +154,11 @@ extension Endpoint: EndPointProtocol {
         var url:URL? = nil
         if case .getQuiz(let quizID) = self {
              url = URL(string: "\(baseURL)\(path)\(quizID)/")
+             
   
         } else{
            url = URL(string: "\(baseURL)\(path)")
+            print("set url \(url)")
         }
  
         completion(parameters,url!,header) 

@@ -51,6 +51,7 @@ class WebService {
    
        endpoint.request { params, url,header in
            
+           print("REQUIEST \(url)")
            AF.request(url,method: alamofireMethod, parameters: params).response { response in
                 switch response.result {
                 case .success(let data):
@@ -161,13 +162,12 @@ class WebService {
     
     func getQuiz(quizID:Int,completion:@escaping (Result<QuizResponse,Error>) ->Void) {
       let endpoint = Endpoint.getQuiz(quizID: quizID)
-        print("Ali Kose Pagination")
-        print("\(endpoint)")
+         
        request(endpoint: endpoint, completion: completion)
     }
-    func getQuizList(categoryID:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
-        let endpoint = Endpoint.getQuizList(categoryID: categoryID)
-           
+    func getQuizList(pageSize:Int,page:Int,categoryID:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+        let endpoint = Endpoint.getQuizList(categoryID: categoryID, page: page, count: pageSize)
+        
          request(endpoint: endpoint, completion: completion)
     }
     func setAttachmentScores(attachID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void ) {

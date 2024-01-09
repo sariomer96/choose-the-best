@@ -9,15 +9,15 @@ import UIKit
 import Kingfisher
 import Cosmos
 class QuizListVC: UIViewController {
-
-
+    
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-      let viewModel = QuizListViewModel()
-
+    let viewModel = QuizListViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,35 +25,51 @@ class QuizListVC: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         
-       
-      
-   }
+        viewModel.callbackReloadQuizTableView = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
-       
+        
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         categoryName.text = ""
         categoryName.text = viewModel.nameCategory
-      
-      
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
-  
-      
+        
+        
         viewModel.quizListDelegate?.getQuizList(completion: { result in
             DispatchQueue.main.async{
- 
+                print("quizlst ")
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
-               
+                
                 self.tableView.reloadData()
-             
+                
             }
-
+            
         })
-         
+        
     }
- 
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        let quarterwayPoint = scrollView.contentSize.height / 3
+        
+        if scrollView.contentOffset.y >= quarterwayPoint {
+            
+            
+            viewModel.startPaginateToQuiz()
+        }
+        
+    }
 }
 
 extension QuizListVC : UISearchBarDelegate {
