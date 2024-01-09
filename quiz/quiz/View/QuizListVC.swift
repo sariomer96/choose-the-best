@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 import Cosmos
-class QuizListVC: UIViewController {
+class QuizListVC: BaseViewController {
     
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -111,12 +111,12 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let quiz =  viewModel.quizList[indexPath.row]
         
-        
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-         
-        vc.viewModel.quiz = quiz
+        self.presentGameStartViewController(quiz: quiz)
+//        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
+//         
+//        vc.viewModel.quiz = quiz
           
-        self.navigationController!.pushViewController(vc, animated: true)
-       // performSegue(withIdentifier: "GameStartVC", sender: quiz)
-    } 
+     //   self.navigationController!.pushViewController(vc, animated: true)
+        
+    }
 }

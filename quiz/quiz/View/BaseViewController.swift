@@ -18,7 +18,7 @@ class BaseViewController: UIViewController {
         self.present(alert,animated: true)
     }
     
-    func presentGameStartViewController(quiz: QuizResponse?) {
+    func presentGameStartViewController(quiz: QuizResponse) {
         let viewController = GameStartViewControllerBuilder.build(quiz: quiz)
         self.navigationController?.pushViewController(viewController, animated: true)
     }

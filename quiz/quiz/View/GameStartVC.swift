@@ -28,11 +28,15 @@ class GameStartVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         quizTitleLabel.text = ""
          
-        viewModel.getQuiz() {
+        viewModel.getQuizResponse() {
             _ in
         
-            let url = self.viewModel.quiz?.image
-            self.quizHeaderImageView.kf.setImage(with: URL(string: url!))
+          let img =  self.viewModel.getQuizImage()
+            if img.isEmpty == true {
+                return
+            }
+            let url = img
+            self.quizHeaderImageView.kf.setImage(with: URL(string: url))
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }
@@ -41,16 +45,19 @@ class GameStartVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-   
-        quizTitleLabel.text = viewModel.quiz?.title
+        let quiz = viewModel.getQuiz()
+        guard let quiz = quiz else {return}
+        quizTitleLabel.text = quiz.title
     
     }
     @IBAction func startClick(_ sender: Any) {
         
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartTourVC") as! GameStartTourVC
-   
-        vc.viewModel.quiz = viewModel.quiz
+          
+        let quiz = viewModel.getQuiz()
+        guard let quiz = quiz else{return}
+        vc.viewModel.quiz = quiz
           
         
         self.navigationController!.pushViewController(vc, animated: true)
@@ -61,24 +68,22 @@ class GameStartVC: UIViewController {
 extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   
-        
-        if let attach = viewModel.quiz?.attachments.count {
-            return attach
-        }else{
- 
-            return 0
-        }
+        let attach = viewModel.getAttachments()
+        guard let attach = attach else{ return 0}
+          
+        return attach.count
    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameStartTableViewCell") as! GameStartTableViewCell
         
-         
-        cell.attachName.text = viewModel.quiz?.attachments[indexPath.row].title
+        let attachment = viewModel.getAttachments()
+        guard let attachment = attachment else { return cell}
+        cell.attachName.text = attachment[indexPath.row].title
          
         DispatchQueue.main.async { [self] in
-            let score = self.viewModel.quiz?.attachments[indexPath.row].score
+            let score = attachment[indexPath.row].score
              
             if self.viewModel.totalAttachScore > 0 {
                 let resultScore = CGFloat(score!)/CGFloat(viewModel.totalAttachScore)
@@ -88,7 +93,7 @@ extension GameStartVC:UITableViewDataSource,UITableViewDelegate {
                 viewModel.progress = 0
             }
             cell.winRateCircleBar.progress = viewModel.progress
-            cell.attachImageView.kf.setImage(with: URL(string: (viewModel.quiz?.attachments[indexPath.row].image!)!))
+            cell.attachImageView.kf.setImage(with: URL(string: (attachment[indexPath.row].image!)))
         }
         return cell
         
