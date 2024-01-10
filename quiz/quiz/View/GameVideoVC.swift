@@ -9,7 +9,7 @@ import UIKit
 import YouTubeiOSPlayerHelper
 import Kingfisher
 
-class GameVideoVC: UIViewController {
+class GameVideoVC: BaseViewController {
     @IBOutlet weak var quizRateButton: UIButton!
     
     @IBOutlet weak var roundLabel: UILabel!
@@ -28,14 +28,45 @@ class GameVideoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         popUpView.layer.cornerRadius = 20
+        
+        viewModel.callbackSetAttachmentTitle = { [weak self] result in
+            guard let self = self else {return}
+            
+            switch result.1 {
+                
+            case .top:
+                topAttachmentTitle.text = result.0
+            case .bottom:
+                bottomAttachmentTitle.text = result.0
+            default :
+                break
+            }
+      
+        }
+        
+        viewModel.callbackSetRoundLabel = { [weak self] title in
+            guard let self = self else {return}
+            roundLabel.text = title
+        }
+        
+        viewModel.callbackLoadIndicator =  { [weak self] isPlaying in
+            guard let self = self else {return}
+            activityIndicator.isHidden = !isPlaying
+            if isPlaying == true {
+                activityIndicator.startAnimating()
+            }else {
+                activityIndicator.stopAnimating()
+                activityIndicator.isHidden = true
+            }
+         }
  
     }
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.activity = activityIndicator
-    
-        viewModel.topAttachTitle = topAttachmentTitle
-        viewModel.bottomAttachTitle = bottomAttachmentTitle
-        viewModel.roundLabel = roundLabel
+//        viewModel.activity = activityIndicator
+//    
+//        viewModel.topAttachTitle = topAttachmentTitle
+//        viewModel.bottomAttachTitle = bottomAttachmentTitle
+       // viewModel.roundLabel = roundLabel
         startQuiz()
         showRateDropDown()
     }
@@ -63,10 +94,10 @@ class GameVideoVC: UIViewController {
             viewModel.rateQuiz(quizID: viewModel.quiz!.id, rateScore: viewModel.rate)
             { result in
              
-                AlertManager.shared.alert(view: self, title: "Alert", message: result)
+                self.alert(title: "Alert", message: result)
             }
         }else {
-            AlertManager.shared.alert(view: self, title: "Empty Field", message: "Please vote the quiz")
+            self.alert(title: "Empty Field", message: "Please vote the quiz")
         }
     }
     
@@ -74,28 +105,17 @@ class GameVideoVC: UIViewController {
          
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as? GameStartVC
         
-        if let vc = vc {
-            if viewModel.vote == true {
-                vc.viewModel.quiz = viewModel.quiz
-                self.navigationController!.pushViewController(vc, animated: true)
-            }
+        if viewModel.vote == true {
+            guard let quiz = viewModel.quiz else {return}
+            presentGameStartViewController(quiz:quiz)
         }
-       // performSegue(withIdentifier: "toDetail", sender: quiz)
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as? GameStartVC
-        
-        let quiz = sender as? QuizResponse
-        
-        if let vc = vc {
-            vc.viewModel.quiz = quiz
-        }
-    }
   
+    }
+ 
     func startQuiz() {
         viewModel.matchedAttachs = viewModel.matchQuiz(attachment: viewModel.quiz!.attachments, playableCount: viewModel.playableCount)
          
-        viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count, roundLabel: roundLabel)
+        viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count)
         
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
         viewModel.setVideo(videoView: bottomVideoView, matchIndex: 0, rowIndex: 1)

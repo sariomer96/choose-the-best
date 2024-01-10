@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateQuizVC: UIViewController {
+class CreateQuizVC: BaseViewController {
     
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UITextField!
@@ -19,28 +19,44 @@ class CreateQuizVC: UIViewController {
         super.viewDidLoad()
         
        
-        viewModel.recognizer(imageView: coverImageView, view: self)
-        categorySelectButton.isHidden = true
+        recognizer(imageView: coverImageView)
+      //  categorySelectButton.isHidden = true
         viewModel.getCategory { result in
-            self.showSelectCategoryButton()
+           // self.showSelectCategoryButton()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
         viewModel.didSelectCategory = false
     }
-   
-    func showSelectCategoryButton(){
+//   
+//    func showSelectCategoryButton(){
+//         
+//        let  action = viewModel.getDropDownActions()
+//        categorySelectButton.isHidden = false
+//        if  action != nil {
+// 
+//            categorySelectButton.menu = UIMenu(children : action)
+//            categorySelectButton.showsMenuAsPrimaryAction = true
+//            categorySelectButton.changesSelectionAsPrimaryAction = true
+//        }
+//    }
+    func recognizer(imageView:UIImageView) {
          
-        let  action = viewModel.getDropDownActions()
-        categorySelectButton.isHidden = false
-        if  action != nil {
+        imageView.isUserInteractionEnabled = true
+   
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
+        imageView.addGestureRecognizer(gestureRecognizer)
  
-            categorySelectButton.menu = UIMenu(children : action)
-            categorySelectButton.showsMenuAsPrimaryAction = true
-            categorySelectButton.changesSelectionAsPrimaryAction = true
-        }
     }
-
+    @objc func chooseImage() {
+         
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker,animated: true,completion: nil)
+  
+    }
+    
     func setQuizFields(quiztype:QuizType) {
         
          let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)
@@ -66,8 +82,8 @@ class CreateQuizVC: UIViewController {
              //  performSegue(withIdentifier: identifier, sender: nil)
                  
           }else {
-              AlertManager().delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
-             // viewModel.delegateAlert?.alert(view: self, title: "Empty Fields", message: "Please fill title and select image")
+               alert(title: "Empty Fields", message: "Please fill title and select image")
+              
           }
     }
     
@@ -83,4 +99,14 @@ class CreateQuizVC: UIViewController {
         setQuizFields(quiztype: QuizType.video)
     }
     
+}
+extension CreateQuizVC:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        coverImageView.image = info[.originalImage] as? UIImage
+        dismiss(animated: true)
+       
+        viewModel.setSelectImageStatus(status:true)
+       // isSelectedImage = true
+        
+    }
 }

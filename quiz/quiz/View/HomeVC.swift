@@ -30,9 +30,7 @@ class HomeVC: BaseViewController {
         }
         
         viewModel.getRecentlyQuiz { error in
-//            DispatchQueue.main.async {
-//                self.topRateTableView.reloadData()
-//            }
+ 
         }
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -130,11 +128,7 @@ extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
 extension HomeVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if tableView == topRateTableView {
-//            return viewModel.topQuizList.count ?? 0
-//        }else {
-//            return viewModel.recentlyList.count ?? 0
-//        }
+ 
         
         return viewModel.currentQuizList.count ?? 0
         
@@ -148,11 +142,11 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
    
              if viewModel.quizType == .topQuiz {
                  
-                  print("topquz")
+ 
                  viewModel.startPaginateToTopRateQuestions()
                 
              } else {
-                 print("recent")
+ 
                  viewModel.startPaginateToRecentlyQuestions()
              }
          }
@@ -167,11 +161,8 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             quiz = viewModel.getQuizList(quizType: .recentlyQuiz, index: indexPath.row)
         }
         
-        self.presentGameStartViewController(quiz: quiz)
-//        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-//        vc.viewModel.quiz = quiz
-//        
-//        self.navigationController!.pushViewController(vc, animated: true)
+        guard let quiz = quiz else{return}
+        self.presentGameStartViewController(quiz: quiz )
         
     }
 
@@ -193,18 +184,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
                 cell.startViews.rating = 0.0
             }
             let url = viewModel.currentQuizList[indexPath.row].image
-                cell.topImageView.kf.setImage(with: URL(string: url!))
-//            cell.nameLabel.text = viewModel.topQuizList[indexPath.row].title
-//            cell.categoryNameLabel.text = viewModel.topQuizList[indexPath.row].category.name
-//            let rate = viewModel.topQuizList[indexPath.row].average_rate
-//            if rate != nil {
-//                cell.startViews.rating = Double(rate!)
-//            }else{
-//                cell.startViews.rating = 0.0
-//            }
-//            
-//            let url = viewModel.topQuizList[indexPath.row].image
-//            cell.topImageView.kf.setImage(with: URL(string: url!))
+                cell.topImageView.kf.setImage(with: URL(string: url!)) 
              
             return cell
         }

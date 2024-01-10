@@ -8,7 +8,7 @@ import PhotosUI
 import UIKit
 
 
-class ImageChoicesVC: UIViewController {
+class ImageChoicesVC: BaseViewController {
      
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,9 +22,7 @@ class ImageChoicesVC: UIViewController {
         initView()
         initVM()
     }
-    deinit {
-        print("ALI KOS PICKER EKRAN OLDU")
-    }
+    
     func initView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -64,7 +62,8 @@ class ImageChoicesVC: UIViewController {
                
             }
         }else {
-            AlertManager.shared.alert(view: self, title: "Fail", message: "need 2 attachments")
+            alert(title: "Fail", message: "need 2 attachments")
+         
         }
        
     }

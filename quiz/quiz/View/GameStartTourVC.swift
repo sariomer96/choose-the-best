@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 
-class GameStartTourVC: UIViewController {
+class GameStartTourVC: BaseViewController {
 
     @IBOutlet weak var dropdownButton: UIButton!
     @IBOutlet weak var quizImage: UIImageView!
@@ -49,9 +49,8 @@ class GameStartTourVC: UIViewController {
                 
                 
                 vc.gameViewModel.quiz = viewModel.quiz
-              
-                vc.gameViewModel.playableDelegate?.playableCount =  viewModel.maxPlayableCount
-              
+               
+                vc.gameViewModel.setPlayableCount(count: viewModel.maxPlayableCount)
                 self.navigationController!.pushViewController(vc, animated: true)
             }
 

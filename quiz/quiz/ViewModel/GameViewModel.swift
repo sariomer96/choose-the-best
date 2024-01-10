@@ -8,49 +8,74 @@
 import Foundation
 import UIKit
 
-protocol ImageViewPro {
- 
-    var leftImageView:UIImageView? {get set}
-    var rightImageView:UIImageView? {get set}
-    
-}
+//protocol ImageViewPro {
+// 
+//    var leftImageView:UIImageView? {get set}
+//    var rightImageView:UIImageView? {get set}
+//    
+//}
+//
+//
+//protocol SetLabels {
+//    var leftTitleLabel:UILabel? {get set}
+//    var rightTitleLabel:UILabel? {get set}
+//    var roundLabel:UILabel? {get set}
+//    var winLabel:UILabel? {get set}
+//}
+// 
 
 
-protocol SetLabels {
-    var leftTitleLabel:UILabel? {get set}
-    var rightTitleLabel:UILabel? {get set}
-    var roundLabel:UILabel? {get set}
-    var winLabel:UILabel? {get set}
-}
-protocol PlayableCount {
-    var playableCount:Int? {get set}
-}
 
 protocol GameViewModelProtocol {
     var callbackShowAlert: CallBack<(alertTitle: String, description: String )>? { get set }
+    var callbackSetImageURL:CallBack<(String,String)>? { get set }
+    var callbackSetTitle:CallBack<(String,String)>? { get set }
+    var callbackWin:CallBack<String>? { get set }
+    var callbackShowPopUp:CallBack<(String,String)>? { get set }
+    var callbackDisableUIElements:VoidCallBack? {get set}
+    var callbackSetRoundText:CallBack<String>? {get set}
+    var callbackImageMoveCenter:CallBack<Int>? {get set}
 }
 
-final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,PlayableCount {
+final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
+    var callbackWin: CallBack<String>?
+    
+     
+    var callbackImageMoveCenter: CallBack<Int>?
+    
+    var callbackSetRoundText: CallBack<String>?
+    
+    var callbackDisableUIElements: VoidCallBack?
+    
+    
+    
+    var callbackShowPopUp: CallBack<(String, String)>?
+    
+    var callbackSetTitle: CallBack<(String, String)>?
+    
+    var callbackSetImageURL: CallBack<(String,String)>?
+    var callBackSetSideImage: CallBack<(Double,Int)>?
     var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
-    var playableDelegate:PlayableCount?
-    var attachTitleDelegate:SetLabels?
 
-    var imageViewDelegate:ImageViewPro?
+  //  var playableDelegate:PlayableCount?
+//    var attachTitleDelegate:SetLabels?
+//
+//    var imageViewDelegate:ImageViewPro?
     
     
     var matchedAttachs = [[Attachment]]()
   
     var winAttachs = [Attachment]()
      
-    var view:UIView = UIView()
+  //  var view:UIView = UIView()
     var playableCount: Int?
-    var winLabel: UILabel?
-    var roundLabel: UILabel?
-    var leftImageView: UIImageView?
-    var rightImageView: UIImageView?
-    var leftTitleLabel: UILabel?
-    var rightTitleLabel: UILabel?
-    var popUpView:UIView?
+//    var winLabel: UILabel?
+//    var roundLabel: UILabel?
+//    var leftImageView: UIImageView?
+//    var rightImageView: UIImageView?
+//    var leftTitleLabel: UILabel?
+//    var rightTitleLabel: UILabel?
+//    var popUpView:UIView?
     var isFinishQuiz = false
     
     var startIndex = 0
@@ -59,15 +84,15 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
     var isRateSelected = false
     var vote = false
     var roundIndex = 1
-    var viewController:UIViewController?
+   // var viewController:UIViewController?
    
     
-    init() {
-        playableDelegate = self
-        attachTitleDelegate = self
-        imageViewDelegate = self
-        
-    }
+//    init() {
+//      
+//        attachTitleDelegate = self
+//        imageViewDelegate = self
+//        
+//    }
 
     // match quiz
     
@@ -76,6 +101,13 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
     var action = [UIAction]()
     var rates = [0,1,2,3,4,5]
  
+    enum ImageSide {
+       case leftImage
+       case rightImage
+    }
+    func setPlayableCount(count: Int) {
+          playableCount  = count
+    }
     func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
@@ -143,19 +175,27 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
     }
     func setImages(index:Int) {
          
-        leftImageView?.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
-            res in
-            fadeInOrOut(alpha: 1.0, imageView: leftImageView ?? UIImageView())
-        }
-        rightImageView?.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) { [self]
-            _ in
-            fadeInOrOut(alpha: 1.0, imageView: rightImageView ?? UIImageView())
-        }
+         let quiz = matchedAttachs[index]
+          
+        guard let quiz0 = quiz[0].image , let quiz1 = quiz[1].image else{return}
+        callbackSetImageURL?((quiz0,quiz1))
+//        leftImageView?.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
+//            res in
+//            fadeInOrOut(alpha: 1.0, imageView: leftImageView ?? UIImageView())
+//        }
+//        rightImageView?.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) { [self]
+//            _ in
+//            fadeInOrOut(alpha: 1.0, imageView: rightImageView ?? UIImageView())
+//        }
     }
     func setTitle(index:Int) {
+           
+        guard let leftTitle = matchedAttachs[index][0].title,
+              let rightTitle = matchedAttachs[index][1].title else {return}
         
-        leftTitleLabel?.text = matchedAttachs[index][0].title!
-        rightTitleLabel?.text = matchedAttachs[index][1].title!
+        callbackSetTitle?((leftTitle,rightTitle))
+     //   leftTitleLabel?.text = matchedAttachs[index][0].title!
+     //   rightTitleLabel?.text = matchedAttachs[index][1].title!
     }
     func getAttachmentID(side:Int) -> Int{
         
@@ -170,8 +210,9 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
             result in
          
         }
-        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
-        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView ?? UIImageView())
+        self.fadeInOrOut(alpha: 0.0, side: 0)
+        self.fadeInOrOut(alpha: 0.0, side: 1)
+       
   
         
         winAttachs.append(matchedAttachs[startIndex][0])
@@ -185,58 +226,45 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
         }
         if winAttachs.count  == matchedAttachs.count  {
       
-            getNextTour(winImageView: leftImageView ?? UIImageView())
+            getNextTour(winImageSide: 0)
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
     func setPopUpView(imageUrl:String,title:String) {
-        let vc = viewController as? GameVC
- 
-        if let vc = vc {
-            
-            vc.popUpQuizImageView.kf.setImage(with: URL(string: imageUrl),placeholder: UIImage(named: "add"))
-            vc.popUpQuizTitle.text = title
-      
-        }
-    }
-    func winState(winImageView:UIImageView ) -> Bool {
+        
+        callbackShowPopUp?((imageUrl,title))
+     }
+    func winState(winImageSide:Int ) -> Bool {
         if winAttachs.count == 1 {
            
         
             let upper = winAttachs[0].title?.uppercased()
-            winLabel?.textColor = .systemRed
-            winLabel?.text = "\(upper!) WIN!!"
-            popUpView?.isHidden = false
+            guard let upper = upper else {return false}
+            callbackWin?(upper)
+            
+//            winLabel?.textColor = .systemRed
+//            winLabel?.text = "\(upper!) WIN!!"
+//            popUpView?.isHidden = false
             let url = winAttachs[0].image!
-             
-        
-                setPopUpView(imageUrl: url, title: upper ?? "")
-          
-      
+            setPopUpView(imageUrl: url, title: upper ?? "")
             isFinishQuiz = true
-            rightImageView?.isUserInteractionEnabled = false
-            leftImageView?.isUserInteractionEnabled = false
-           
-            imageMoveToCenter(winImageView: winImageView)
+//            rightImageView?.isUserInteractionEnabled = false
+//            leftImageView?.isUserInteractionEnabled = false
+//           
+            imageMoveToCenter(winImageSide: winImageSide)
              return true
         }
         return false
     }
-    func imageMoveToCenter(winImageView:UIImageView) {
-        winImageView.alpha = 1
-  
-        winImageView.translatesAutoresizingMaskIntoConstraints = false
-         //view.addSubview(winImageView)
-
-        NSLayoutConstraint.activate([
-            winImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            winImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
+    func imageMoveToCenter(winImageSide:Int) {
+        
+        callbackImageMoveCenter?(winImageSide)
+      
     }
-    func getNextTour(winImageView:UIImageView) {
+    func getNextTour(winImageSide:Int) {
          
-       var finish =   winState(winImageView: winImageView)
+       var finish =   winState(winImageSide: winImageSide)
          
         if finish == true{
             disableLabels()
@@ -266,9 +294,9 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
       
         }
         
-        self.fadeInOrOut(alpha: 0.0, imageView: leftImageView ?? UIImageView())
-        self.fadeInOrOut(alpha: 0.0, imageView: rightImageView ?? UIImageView())
- 
+        self.fadeInOrOut(alpha: 0.0, side: 0)
+        self.fadeInOrOut(alpha: 0.0, side: 1)
+        
         winAttachs.append(matchedAttachs[startIndex][1])
       
         startIndex += 1
@@ -280,25 +308,27 @@ final class GameViewModel: GameViewModelProtocol, ImageViewPro,SetLabels,Playabl
         }
         if winAttachs.count  == matchedAttachs.count  {
           
-            getNextTour(winImageView: rightImageView ?? UIImageView())
+            getNextTour(winImageSide: 1)
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
     func setRound(roundIndex:Int, tourCount:Int) {
-        roundLabel?.text = "\(roundIndex) / \(tourCount)"
+        
+        callbackSetRoundText?("\(roundIndex) / \(tourCount)")
+      //  roundLabel?.text = "\(roundIndex) / \(tourCount)"
     }
-    func fadeInOrOut(alpha:Double, imageView:UIImageView) {
-        UIView.animate(withDuration: 1.1, animations: {
-                  imageView.alpha = alpha
-            })
+    func fadeInOrOut(alpha:Double, side:Int) {
+        
+          
+          callBackSetSideImage?((alpha,side))
+       
     }
     
     func disableLabels() {
-        leftTitleLabel?.isHidden = true
-        rightTitleLabel?.isHidden = true
-        roundLabel?.isHidden = true
         
+        callbackDisableUIElements?()
+    
     }
     
     func rateQuiz() {

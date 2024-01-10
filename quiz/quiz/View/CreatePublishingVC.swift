@@ -21,6 +21,19 @@ final class CreatePublishingVC: BaseViewController {
         viewModel.getCategory { result in
             self.showSelectCategoryButton()
         }
+        
+        viewModel.callbackFail = {[weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Upload Failed!", message: error.localizedDescription)
+            
+        }
+        viewModel.callbackPublishQuiz = { [weak self] quiz in
+            guard let self = self else { return }
+            self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
+ 
+                self.presentGameStartViewController(quiz: quiz)
+            }
+        }
       
     }
     override func viewDidAppear(_ animated: Bool) {

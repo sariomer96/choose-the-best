@@ -8,8 +8,19 @@
 import Foundation
 import YouTubeiOSPlayerHelper
 
-class GameVideoViewModel {
+protocol GameVideoModelProtocol {
+    var callbackSetAttachmentTitle:CallBack<(String,GameVideoViewModel.AttachmentTitleType)>? {get set}
+    var callbackSetRoundLabel:CallBack<String>? {get set}
+    var callbackLoadIndicator:CallBack<Bool>? {get set}
+}
+
+class GameVideoViewModel: GameVideoModelProtocol{
+    var callbackLoadIndicator: CallBack<Bool>?
     
+    var callbackSetRoundLabel: CallBack<String>?
+    
+    var callbackSetAttachmentTitle: CallBack<(String,AttachmentTitleType)>?
+     
     var matchedList = [[Attachment]]()
     var matchedAttachs = [[Attachment]]()
     var winAttachs = [Attachment]()
@@ -21,13 +32,14 @@ class GameVideoViewModel {
     var rate = 0
     var isRateSelected = false
     var vote = false
-    @IBOutlet weak var activity:UIActivityIndicatorView?
-    @IBOutlet weak var topAttachTitle:UILabel?
-    @IBOutlet weak var bottomAttachTitle:UILabel?
-    @IBOutlet weak var roundLabel:UILabel?
+  
     var action = [UIAction]()
     var rates = [0,1,2,3,4,5]
-
+    enum AttachmentTitleType {
+        case top
+        case bottom
+    }
+  
     func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
          
         matchedList.removeAll()
@@ -81,8 +93,10 @@ class GameVideoViewModel {
         
         return action
     }
-    func setAttachmentTitle(title:String,titleLabel:UILabel) {
-        titleLabel.text = title
+    func setAttachmentTitle(title:String,titleLabelType:AttachmentTitleType) {
+        callbackSetAttachmentTitle?((title,titleLabelType))
+    
+        
     }
     func chooseClick(bottomVideoView:YTPlayerView,topVideoView:YTPlayerView,rowIndex:Int,completion: @escaping  (Attachment) -> Void) {
         winAttachs.append(matchedAttachs[startIndex][rowIndex])
@@ -99,15 +113,17 @@ class GameVideoViewModel {
             setVideo(videoView: bottomVideoView, matchIndex: startIndex, rowIndex: 1)
             setVideo(videoView: topVideoView, matchIndex: startIndex, rowIndex: 0)
             
-            setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
-            setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
+            setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabelType: AttachmentTitleType.top)
+            setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabelType: AttachmentTitleType.bottom)
+//            setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
+//            setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         }
         if winAttachs.count  == matchedAttachs.count  {
           
             getNextTour(bottomPlayer: bottomVideoView, topPlayer: topVideoView, completion: completion)
             return
         }
-        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count,roundLabel: roundLabel!)
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
    
     
@@ -132,22 +148,25 @@ class GameVideoViewModel {
          
     }
  
-    func loadIndicator(activityInd:UIActivityIndicatorView,isPlaying:Bool) {
-        activityInd.isHidden = !isPlaying
-        if isPlaying == true {
-            activityInd.startAnimating()
-        }else {
-            activityInd.stopAnimating()
-            activityInd.isHidden = true
-        }
+    func loadIndicator(isPlaying:Bool) {
+        
+        callbackLoadIndicator?(isPlaying)
+//        activityInd.isHidden = !isPlaying
+//        if isPlaying == true {
+//            activityInd.startAnimating()
+//        }else {
+//            activityInd.stopAnimating()
+//            activityInd.isHidden = true
+//        }
        
     }
-    func setRound(roundIndex:Int,tourCount:Int,roundLabel:UILabel) {
-        roundLabel.text = "\(roundIndex) / \(tourCount)"
+    func setRound(roundIndex:Int,tourCount:Int) {
+        callbackSetRoundLabel?("\(roundIndex) / \(tourCount)")
+       // roundLabel.text = "\(roundIndex) / \(tourCount)"
     }
     func setVideo(videoView:YTPlayerView,matchIndex:Int,rowIndex:Int) {
         
-        loadIndicator(activityInd: activity!,isPlaying: true)
+        loadIndicator(isPlaying: true)
         let url =   getURL(matchIndex: matchIndex, rowIndex: rowIndex)
         let videoId = getYoutubeVideoID(url: url)
         loadVideo(videoID: videoId, videoView: videoView)
@@ -191,7 +210,7 @@ class GameVideoViewModel {
         videoView.load(withVideoId: videoID)
         videoView.currentTime { [self]
             time,error in
-            loadIndicator(activityInd: activity!, isPlaying: false)
+            loadIndicator(isPlaying: false)
         }
         
     }
@@ -209,11 +228,12 @@ class GameVideoViewModel {
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
         
-        setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
-        setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
+        setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabelType: AttachmentTitleType.top)
+        setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabelType: AttachmentTitleType.bottom)
+       
         setVideo(videoView: bottomPlayer, matchIndex: startIndex, rowIndex: 1)
         setVideo(videoView: topPlayer, matchIndex: startIndex, rowIndex: 0)
-        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count,roundLabel: roundLabel!)
+        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
         winAttachs.removeAll()
         
     }

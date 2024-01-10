@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class GameStartVC: UIViewController {
+class GameStartVC: BaseViewController {
     @IBOutlet weak var attachTableView: UITableView!
     
     

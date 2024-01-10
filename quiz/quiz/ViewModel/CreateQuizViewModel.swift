@@ -7,32 +7,26 @@
 
 import Foundation
 import UIKit
-
-protocol AlertProtocol:AnyObject {
-    func alert(view:UIViewController,title:String,message:String)
-}
  
-protocol UiViewDelegate:AnyObject {
-    func getUiViewController(view:UIViewController)
-}
-
 class CreateQuizViewModel:NSObject {
     var categoryList: [Category]?
     var action = [UIAction]()
     var categoryID = 1
     var didSelectCategory = false
     
-    var uiView:UIViewController?
-    var recogDelegate:UiViewDelegate?
+    
     var isSelectedImage:Bool = false
     var coverImage:UIImageView?
 
     override init() {
         super.init()
     
-        recogDelegate = self
+      //  recogDelegate = self
     }
  
+    func setSelectImageStatus(status:Bool) {
+        isSelectedImage = status
+    }
     func checkIsEmptyFields(title:String, view:UIViewController) -> Bool{
       
         let trimmedString = title.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -43,45 +37,6 @@ class CreateQuizViewModel:NSObject {
             return false
         }
     }
-}
-
-
-/// IMAGE RECOGNIZER
-extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    func getUiViewController(view: UIViewController) {
-        uiView = view
- 
-    }
-    
-    func recognizer(imageView:UIImageView,view:UIViewController) {
-        
-        
-        recogDelegate?.getUiViewController(view: view)
-        imageView.isUserInteractionEnabled = true
-        coverImage = imageView
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
-        coverImage!.addGestureRecognizer(gestureRecognizer)
- 
-    }
-    
-    @objc func chooseImage() {
-         
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        uiView?.present(picker,animated: true,completion: nil)
-  
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        coverImage?.image = info[.originalImage] as? UIImage
-        uiView?.dismiss(animated: true)
-       
-        isSelectedImage = true
-        
-    }
-    
-    
     func getCategory(completion: @escaping (Bool) -> Void) {
         
         WebService.shared.getCategories { result in
@@ -126,5 +81,45 @@ extension CreateQuizViewModel:UiViewDelegate ,UIImagePickerControllerDelegate,UI
    
         return action
     }
+}
+
+
+/// IMAGE RECOGNIZER
+extension CreateQuizViewModel:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+//    func getUiViewController(view: UIViewController) {
+//        uiView = view
+// 
+//    }
+    
+//    func recognizer(imageView:UIImageView) {
+//        
+//        
+//        recogDelegate?.getUiViewController(view: view)
+//        imageView.isUserInteractionEnabled = true
+//        coverImage = imageView
+//        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
+//        coverImage!.addGestureRecognizer(gestureRecognizer)
+// 
+//    }
+//    
+//    @objc func chooseImage() {
+//         
+//        let picker = UIImagePickerController()
+//        picker.delegate = self
+//        picker.sourceType = .photoLibrary
+//        uiView?.present(picker,animated: true,completion: nil)
+//  
+//    }
+    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        coverImage?.image = info[.originalImage] as? UIImage
+//        uiView?.dismiss(animated: true)
+//       
+//        isSelectedImage = true
+//        
+//    }
+//    
+    
+  
      
 }

@@ -22,6 +22,29 @@ class BaseViewController: UIViewController {
         let viewController = GameStartViewControllerBuilder.build(quiz: quiz)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    
+    func alert(title:String,message:String) {
+        
+         
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default) { _ in
+             
+        }
+        alert.addAction(ok)
+        self.present(alert,animated: true)
+        
+    }
+    func alert(title:String,message:String, completion: @escaping (Bool) -> Void ){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default) {_ in
+            completion(true)
+        }
+        alert.addAction(ok)
+        self.present(alert,animated: true)
+    }
 }
 
 extension UIViewController {

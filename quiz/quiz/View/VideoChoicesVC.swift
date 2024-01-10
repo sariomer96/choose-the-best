@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import YouTubeiOSPlayerHelper
 
-class VideoChoicesVC: UIViewController {
+class VideoChoicesVC: BaseViewController {
 
     @IBOutlet weak var attachTableView: UITableView!
     @IBOutlet weak var videoTitleLabel: UITextField!
@@ -29,7 +29,7 @@ class VideoChoicesVC: UIViewController {
         let title = videoTitleLabel.text!
         
         if baseURL.isEmpty == true || title.isEmpty == true {
-            AlertManager.shared.alert(view: self, title: "Empty Fields", message: "Please fill the fields")
+            alert(title: "Empty Fields", message: "Please fill the fields")
             return
         }
       
@@ -62,7 +62,7 @@ class VideoChoicesVC: UIViewController {
                     clearArrays()
                     self.navigationController!.pushViewController(vc, animated: true)
                 }else {
-                    AlertManager.shared.alert(view: self, title: "Attachment fail", message: "Minimum attachment is 2 ")
+                    alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
                 }
               
             }
