@@ -22,7 +22,7 @@ class QuizListViewModel : QuizListProtocol {
     var quizList = [QuizResponse]()
     var imageList = [UIImage]()
     var imagesList = [String]()
-    var imageViewList = [UIImageView]()
+     
     var categoryID:Int?
     var isStillExistQuiz = true
     var currentQuizPageCount = 1
@@ -56,19 +56,18 @@ class QuizListViewModel : QuizListProtocol {
         guard let categoryId = categoryID else{ return }
  
         
-         print("\(categoryId)  \(currentQuizPageCount)   \(currentSizeCount)")
+         
         webService.getQuizList(pageSize: currentSizeCount, page: currentQuizPageCount, categoryID: categoryId) { result in
             switch result {
             case .success(let list):
-                print("succes \(list.results)")
+                
                 guard let list1 = list.results else{
                      return
                 }
                 self.quizList += list1
                 self.isStillExistQuiz = (list.next != nil) ? true : false
                 self.checkPaginateEnableQuiz(self.quizList.count, allItemsCount: list.count ?? 0)
-             //   self.currentQuizList = self.recentlyList
-                print("recent ac --- \(self.quizList.count)")
+       
           
                     for i in self.quizList {
                         guard let image = i.image else { return }

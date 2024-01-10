@@ -17,10 +17,10 @@ final class CreatePublishingVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categorySelectButton.isHidden = true
-        viewModel.getCategory { result in
-            self.showSelectCategoryButton()
-        }
+       // categorySelectButton.isHidden = true
+//        viewModel.getCategory { result in
+//            self.showSelectCategoryButton()
+//        }
         
         viewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
@@ -36,27 +36,27 @@ final class CreatePublishingVC: BaseViewController {
         }
       
     }
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.didSelectCategory = false
-       
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        viewModel.didSelectCategory = false
+//       
+//    }
     
-    func showSelectCategoryButton(){
-         
-        let  action = viewModel.getDropDownActions()
-        categorySelectButton.isHidden = false
-        if  action != nil {
- 
-            categorySelectButton.menu = UIMenu(children : action)
-            categorySelectButton.showsMenuAsPrimaryAction = true
-            categorySelectButton.changesSelectionAsPrimaryAction = true
-        }
-    }
+//    func showSelectCategoryButton(){
+//         
+//        let  action = viewModel.getDropDownActions()
+//        categorySelectButton.isHidden = false
+//        if  action != nil {
+// 
+//            categorySelectButton.menu = UIMenu(children : action)
+//            categorySelectButton.showsMenuAsPrimaryAction = true
+//            categorySelectButton.changesSelectionAsPrimaryAction = true
+//        }
+//    }
     @IBAction func publishClick(_ sender: Any) {
          
         if viewModel.didSelectCategory == true {
-        
-            viewModel.publishQuiz(uiview:self, title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryID, isVisible: viewModel.isVisible,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
+//        
+//            viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryID, isVisible: viewModel.isVisible,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
         }
     }
  

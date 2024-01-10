@@ -21,6 +21,19 @@ class VideoChoicesVC: BaseViewController {
         super.viewDidLoad()
         attachTableView.delegate = self
         attachTableView.dataSource = self
+        
+        viewModel.callbackFail = {[weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Upload Failed!", message: error.localizedDescription)
+            
+        }
+        viewModel.callbackPublishQuiz = { [weak self] quiz in
+            guard let self = self else { return }
+            self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
+                       
+                self.presentGameStartViewController(quiz: quiz)
+            }
+        }
     }
     
     @IBAction func AddVideoClick(_ sender: Any) {
@@ -55,16 +68,11 @@ class VideoChoicesVC: BaseViewController {
             viewModel.addAttachmentsOnNextClick { [self] result in
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
                 
-                if let vc = vc {
-                   
-                    vc.viewModel.setVariables(is_image: false, attachID: viewModel.attachIdList)
-                    
-                    clearArrays()
-                    self.navigationController!.pushViewController(vc, animated: true)
-                }else {
+                if viewModel.thumbNails.count > 1 {
+                    viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryId, isVisible: true,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
+                }else{
                     alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
-                }
-              
+                } 
             }
           
         }

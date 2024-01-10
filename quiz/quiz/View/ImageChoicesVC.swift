@@ -39,6 +39,21 @@ class ImageChoicesVC: BaseViewController {
                               options: .transitionCrossDissolve,
                               animations: { self.tableView.reloadData() })
         }
+        
+        imageChoicesViewModel.callbackFail = {[weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Upload Failed!", message: error.localizedDescription)
+            
+        }
+        imageChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
+            guard let self = self else { return }
+            self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
+            
+ 
+                self.clearArrays()
+                self.presentGameStartViewController(quiz: quiz)
+            }
+        }
     }
     func clearArrays() {
         self.imageChoicesViewModel.imageArray.removeAll()
@@ -49,19 +64,16 @@ class ImageChoicesVC: BaseViewController {
     @IBAction func nextClick(_ sender: Any) {
          
         if imageChoicesViewModel.imageArray.count > 1 {
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
-            
-            if let vc = vc {
-                 
-                imageChoicesViewModel.onClickNext() { _ in
-                 
-                    vc.viewModel.setVariables(is_image: true, attachID: self.imageChoicesViewModel.attachIdList )
-                    self.clearArrays()
-                    self.navigationController?.pushViewController(vc, animated: true)
+             
+                imageChoicesViewModel.onClickNext() { [weak self] _ in
+                    guard let self = self else {return}
+                  
+                    imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image, attachment_ids: imageChoicesViewModel.attachmentIds)
+ 
+ 
                 }
-               
-            }
-        }else {
+              
+       }else {
             alert(title: "Fail", message: "need 2 attachments")
          
         }
@@ -84,7 +96,7 @@ extension ImageChoicesVC:PHPickerViewControllerDelegate {
         
         dismiss(animated: true)
         imageChoicesViewModel.addAttachmentDidpick(results: results)
-        print("Ali Kose FOto cekimi calisti")
+        
     }
 }
 

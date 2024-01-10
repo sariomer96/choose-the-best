@@ -62,14 +62,13 @@ class HomeViewModel {
                
                 if let questionList = apiResponse.results {
                     self.recentlyList += questionList
-                    print("ekle")
+           
                 }
                 self.isStillExistRecentlyQuest = (apiResponse.next != nil) ? true : false
                 self.checkPaginateEnableRecentlyQuest(self.recentlyList.count, allItemsCount: apiResponse.count ?? 0)
-             //   self.currentQuizList = self.recentlyList
-                print("recent ac")
+             
                 self.callbackReloadTopRatedTableView?()
-              //  self.callbackReloadRecentlyTableView?()
+              
                    completion("trigger")
             case .failure(let error):
                 print("error \(error)")
@@ -89,9 +88,9 @@ class HomeViewModel {
                 self.topQuizList += quizy
                 self.isStillExistTopRatedQuest = (quiz.next != nil) ? true : false
                 self.checkPaginateEnableTopQuest(self.topQuizList.count, allItemsCount: quiz.count ?? 0)
-                print("couunt \( self.topQuizList.count)")
+                
                 self.currentQuizList = self.topQuizList
-               // self.callbackReloadTopRatedTableView?()
+         
                 completion("trigger")
          
             case .failure(let error):
@@ -122,32 +121,7 @@ class HomeViewModel {
         }
            
       }
-
-    // Localde pagination yonetimi
-    // sana donecek response sen size sayisi gondericen page sayisi gondericen
-    // response model totalItemCount ve sana suanki elaman listesi
-    // bana en son gelen responsedaki eleaman sayisi benim istek attigim size sayisina esit degilse item bitmistir
-    // VEEE bu totalItemCount her istek attiginda clientta bir array de tutucaksin buaradai
-    
-    
-    /* Pagination Nasil Yapilir ?
-     Endpoint Requestinde Beslenecek:
-     - Size -> Kacarli Obje listesi alacagin
-     - Page -> Hangi Kaclik obje listesini alacagin
-     orn: 120 urun page : 3 Size: 20 40 - 60 arasindaki urunleri doner
-     
-     Endpoint Response Alinabilicekler:
-     totalItemCount: Toplam Urun Sayisi
-     items: Urun Listesi
-     
-     Clientta Sayfa sonuna gelindiginde cagri basinda
-     (size == items.count) && (totalItemCount != items.count)
-     Sorularin icin
-     Size sayini besleyeceksin gelen list
-    
-     */
-    //recentlyList = recentlyquestitemcount
-        //allItemsCount = tum gelen veriler
+ 
     
     //MARK: CHECK PAGINATE
     private func checkPaginateEnableRecentlyQuest(_ recentlyQuestItemCount: Int?,allItemsCount:Int) {

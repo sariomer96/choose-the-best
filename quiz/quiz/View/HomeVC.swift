@@ -77,7 +77,7 @@ class HomeVC: BaseViewController {
                 self.activityIndicator.isHidden = true
                 self.categoryCollectionView.reloadData()
             }
-           // AlertManager.shared.alert(view: self, title: "RESPONSE", message: String(result.description))
+           
         }
      }
  

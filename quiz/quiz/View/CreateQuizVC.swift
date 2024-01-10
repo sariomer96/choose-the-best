@@ -20,26 +20,26 @@ class CreateQuizVC: BaseViewController {
         
        
         recognizer(imageView: coverImageView)
-      //  categorySelectButton.isHidden = true
+       categorySelectButton.isHidden = true
         viewModel.getCategory { result in
-           // self.showSelectCategoryButton()
+         self.showSelectCategoryButton()
         }
     }
     override func viewDidAppear(_ animated: Bool) {
         viewModel.didSelectCategory = false
     }
-//   
-//    func showSelectCategoryButton(){
-//         
-//        let  action = viewModel.getDropDownActions()
-//        categorySelectButton.isHidden = false
-//        if  action != nil {
-// 
-//            categorySelectButton.menu = UIMenu(children : action)
-//            categorySelectButton.showsMenuAsPrimaryAction = true
-//            categorySelectButton.changesSelectionAsPrimaryAction = true
-//        }
-//    }
+   
+    func showSelectCategoryButton(){
+         
+        let  action = viewModel.getDropDownActions()
+        categorySelectButton.isHidden = false
+        if  action != nil {
+ 
+            categorySelectButton.menu = UIMenu(children : action)
+            categorySelectButton.showsMenuAsPrimaryAction = true
+            categorySelectButton.changesSelectionAsPrimaryAction = true
+        }
+    }
     func recognizer(imageView:UIImageView) {
          
         imageView.isUserInteractionEnabled = true

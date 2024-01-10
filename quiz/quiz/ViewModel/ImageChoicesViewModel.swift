@@ -11,7 +11,7 @@ import PhotosUI
 typealias VoidCallBack = (() -> Void)
 typealias CallBack<T> = ((T) -> Void)
 
-final class ImageChoicesViewModel {
+final class ImageChoicesViewModel: BaseChoicesViewModel {
    
     static let shared = ImageChoicesViewModel()
     var attachIdList = WebService.shared.attachmentIdList
@@ -39,7 +39,7 @@ final class ImageChoicesViewModel {
   
     func onClickNext(completion: @escaping (Bool)->Void) {
         
-        self.attachNameList
+      
         for (index, i) in attachNameList.enumerated() {
             
             let attach  = Attachment(id: nil , title: i, url: "", image: nil, score: 0, created_at: nil, updated_at: nil)

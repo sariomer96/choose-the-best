@@ -7,23 +7,7 @@
 
 import Foundation
 import UIKit
-
-//protocol ImageViewPro {
-// 
-//    var leftImageView:UIImageView? {get set}
-//    var rightImageView:UIImageView? {get set}
-//    
-//}
-//
-//
-//protocol SetLabels {
-//    var leftTitleLabel:UILabel? {get set}
-//    var rightTitleLabel:UILabel? {get set}
-//    var roundLabel:UILabel? {get set}
-//    var winLabel:UILabel? {get set}
-//}
-// 
-
+ 
 
 
 protocol GameViewModelProtocol {
@@ -56,26 +40,13 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
     var callbackSetImageURL: CallBack<(String,String)>?
     var callBackSetSideImage: CallBack<(Double,Int)>?
     var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
-
-  //  var playableDelegate:PlayableCount?
-//    var attachTitleDelegate:SetLabels?
-//
-//    var imageViewDelegate:ImageViewPro?
-    
-    
+ 
     var matchedAttachs = [[Attachment]]()
   
     var winAttachs = [Attachment]()
-     
-  //  var view:UIView = UIView()
+      
     var playableCount: Int?
-//    var winLabel: UILabel?
-//    var roundLabel: UILabel?
-//    var leftImageView: UIImageView?
-//    var rightImageView: UIImageView?
-//    var leftTitleLabel: UILabel?
-//    var rightTitleLabel: UILabel?
-//    var popUpView:UIView?
+ 
     var isFinishQuiz = false
     
     var startIndex = 0
@@ -84,15 +55,9 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
     var isRateSelected = false
     var vote = false
     var roundIndex = 1
-   // var viewController:UIViewController?
+ 
    
-    
-//    init() {
-//      
-//        attachTitleDelegate = self
-//        imageViewDelegate = self
-//        
-//    }
+  
 
     // match quiz
     
@@ -179,14 +144,7 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
           
         guard let quiz0 = quiz[0].image , let quiz1 = quiz[1].image else{return}
         callbackSetImageURL?((quiz0,quiz1))
-//        leftImageView?.kf.setImage(with: URL(string: matchedAttachs[index][0].image!)) { [self]
-//            res in
-//            fadeInOrOut(alpha: 1.0, imageView: leftImageView ?? UIImageView())
-//        }
-//        rightImageView?.kf.setImage(with: URL(string: matchedAttachs[index][1].image!)) { [self]
-//            _ in
-//            fadeInOrOut(alpha: 1.0, imageView: rightImageView ?? UIImageView())
-//        }
+ 
     }
     func setTitle(index:Int) {
            
@@ -194,8 +152,6 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
               let rightTitle = matchedAttachs[index][1].title else {return}
         
         callbackSetTitle?((leftTitle,rightTitle))
-     //   leftTitleLabel?.text = matchedAttachs[index][0].title!
-     //   rightTitleLabel?.text = matchedAttachs[index][1].title!
     }
     func getAttachmentID(side:Int) -> Int{
         
@@ -242,16 +198,11 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
             let upper = winAttachs[0].title?.uppercased()
             guard let upper = upper else {return false}
             callbackWin?(upper)
-            
-//            winLabel?.textColor = .systemRed
-//            winLabel?.text = "\(upper!) WIN!!"
-//            popUpView?.isHidden = false
+         
             let url = winAttachs[0].image!
             setPopUpView(imageUrl: url, title: upper ?? "")
             isFinishQuiz = true
-//            rightImageView?.isUserInteractionEnabled = false
-//            leftImageView?.isUserInteractionEnabled = false
-//           
+ 
             imageMoveToCenter(winImageSide: winImageSide)
              return true
         }

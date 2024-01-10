@@ -28,15 +28,14 @@ class GameVC: BaseViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        leftImageView.layer.borderWidth = 2
+        leftImageView.layer.borderColor = UIColor.cyan.cgColor
+        
+        rightImageView.layer.borderWidth = 2
+        rightImageView.layer.borderColor = UIColor.green.cgColor
         popUpView.isHidden = true
-        //        gameViewModel.imageViewDelegate?.leftImageView = leftImageView
-        //        gameViewModel.imageViewDelegate?.rightImageView = rightImageView
-        //        gameViewModel.popUpView = popUpView
-        //        gameViewModel.attachTitleDelegate?.leftTitleLabel = leftTitleLabel
-        //        gameViewModel.attachTitleDelegate?.rightTitleLabel = rightTitleLabel
-        //        gameViewModel.attachTitleDelegate?.winLabel = winLabel
-        //        gameViewModel.attachTitleDelegate?.roundLabel = roundLabel
-        //  gameViewModel.viewController = self
+     
         initVM()
     }
     

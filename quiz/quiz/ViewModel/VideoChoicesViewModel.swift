@@ -13,7 +13,7 @@ import Kingfisher
 
 
 
-class VideoChoicesViewModel {
+class VideoChoicesViewModel : BaseChoicesViewModel {
    
  
     var url = ""
@@ -22,7 +22,7 @@ class VideoChoicesViewModel {
     var titleArray = [String]()
     var videoUrlList = [String]()
     
-    init() {
+    override init() {
         self.attachIdList = WebService.shared.attachmentIdList
     }
     func removeAttachment(index:Int) {
