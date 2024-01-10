@@ -19,6 +19,10 @@ class BaseChoicesViewModel {
         self.is_image = is_image
         self.attachmentIds = attachID
     }
+    
+    func setCategoryID(id:Int){
+        categoryId = id
+    }
     func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
         
         WebService.shared.postQuiz(title: title, image:image , categoryID: categoryID, isVisible: true, is_image: true, attachment_ids: attachment_ids){ result in

@@ -71,12 +71,13 @@ class CreateQuizVC: BaseViewController {
                   
                   let vc = self.storyboard!.instantiateViewController(withIdentifier: "ImageChoicesVC") as! ImageChoicesVC
                   
-                 
-                 self.navigationController?.pushViewController(vc, animated: true)
+                  vc.imageChoicesViewModel.setCategoryID(id: viewModel.categoryID)
+                      self.navigationController?.pushViewController(vc, animated: true)
                   
               }else {
                   
                   let vc = self.storyboard!.instantiateViewController(withIdentifier: "VideoChoicesVC") as! VideoChoicesVC
+                     vc.videoChoicesViewModel.setCategoryID(id: viewModel.categoryID)
                  self.navigationController!.pushViewController(vc, animated: true)
               }
              //  performSegue(withIdentifier: identifier, sender: nil)

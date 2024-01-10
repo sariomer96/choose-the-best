@@ -15,19 +15,19 @@ class VideoChoicesVC: BaseViewController {
     @IBOutlet weak var videoTitleLabel: UITextField!
     @IBOutlet weak var youtubeURLTitle: UITextField!
  
-    var viewModel = VideoChoicesViewModel()
+    var videoChoicesViewModel = VideoChoicesViewModel()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         attachTableView.delegate = self
         attachTableView.dataSource = self
         
-        viewModel.callbackFail = {[weak self] error in
+        videoChoicesViewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
             self.alert(title: "Upload Failed!", message: error.localizedDescription)
             
         }
-        viewModel.callbackPublishQuiz = { [weak self] quiz in
+        videoChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
             guard let self = self else { return }
             self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
                        
@@ -37,8 +37,8 @@ class VideoChoicesVC: BaseViewController {
     }
     
     @IBAction func AddVideoClick(_ sender: Any) {
-        viewModel.url = youtubeURLTitle.text!
-        let baseURL = viewModel.url.replacingOccurrences(of: " ", with: "")
+        videoChoicesViewModel.url = youtubeURLTitle.text!
+        let baseURL = videoChoicesViewModel.url.replacingOccurrences(of: " ", with: "")
         let title = videoTitleLabel.text!
         
         if baseURL.isEmpty == true || title.isEmpty == true {
@@ -47,7 +47,7 @@ class VideoChoicesVC: BaseViewController {
         }
       
         
-        viewModel.loadThumbNail(url: baseURL, title: title, baseURL: baseURL) { done in
+        videoChoicesViewModel.loadThumbNail(url: baseURL, title: title, baseURL: baseURL) { done in
             self.youtubeURLTitle.text = ""
             self.videoTitleLabel.text = ""
             DispatchQueue.main.async {
@@ -63,13 +63,13 @@ class VideoChoicesVC: BaseViewController {
         }
     }
     @IBAction func nextClick(_ sender: Any) {
-        if viewModel.thumbNails.count > 1 {
+        if videoChoicesViewModel.thumbNails.count > 1 {
             
-            viewModel.addAttachmentsOnNextClick { [self] result in
+            videoChoicesViewModel.addAttachmentsOnNextClick { [self] result in
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
                 
-                if viewModel.thumbNails.count > 1 {
-                    viewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: viewModel.categoryId, isVisible: true,is_image: viewModel.is_image, attachment_ids: viewModel.attachmentIds)
+                if videoChoicesViewModel.thumbNails.count > 1 {
+                    videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: videoChoicesViewModel.categoryId, isVisible: true,is_image: videoChoicesViewModel.is_image, attachment_ids: videoChoicesViewModel.attachmentIds)
                 }else{
                     alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
                 } 
@@ -81,24 +81,24 @@ class VideoChoicesVC: BaseViewController {
     }
     
     func clearArrays() {
-        viewModel.attachIdList.removeAll()
+        videoChoicesViewModel.attachIdList.removeAll()
         WebService.shared.attachmentIdList.removeAll()
-        self.viewModel.thumbNails.removeAll()
-        self.viewModel.titleArray.removeAll()
+        self.videoChoicesViewModel.thumbNails.removeAll()
+        self.videoChoicesViewModel.titleArray.removeAll()
     }
 }
 
 extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.thumbNails.count
+        return videoChoicesViewModel.thumbNails.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as! VideoChoicesTableViewCell
         
-        cell.videoTitleLabel.text = viewModel.titleArray[indexPath.row]
-        cell.videoThumbnailImage.image = viewModel.thumbNails[indexPath.row]
+        cell.videoTitleLabel.text = videoChoicesViewModel.titleArray[indexPath.row]
+        cell.videoThumbnailImage.image = videoChoicesViewModel.thumbNails[indexPath.row]
         
         return cell
     }
@@ -113,13 +113,13 @@ extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
     }
     
     func removeAttachment(index:Int) {
-        let title = self.viewModel.titleArray[index]
+        let title = self.videoChoicesViewModel.titleArray[index]
         let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?", preferredStyle: .alert)
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         let yes = UIAlertAction(title: "Delete", style: .destructive) {
             action in
-            self.viewModel.removeAttachment(index: index)
+            self.videoChoicesViewModel.removeAttachment(index: index)
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }

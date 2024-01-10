@@ -1117,9 +1117,12 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ke-sS-GhI">
-                                <rect key="frame" x="176" y="743" width="62" height="31"/>
+                                <rect key="frame" x="162" y="743" width="90" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="Fyy-e8-xO1"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="NEXT">
+                                <buttonConfiguration key="configuration" style="filled" title="PUBLISH">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                     <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1193,12 +1196,12 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0m-Kd-yTF">
-                                <rect key="frame" x="142" y="824" width="130" height="28.5"/>
+                                <rect key="frame" x="162" y="824" width="90" height="28.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="WAn-7H-JZz"/>
+                                    <constraint firstAttribute="width" constant="90" id="WAn-7H-JZz"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="NEXT">
+                                <buttonConfiguration key="configuration" style="filled" title="PUBLISH">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="12"/>
                                     <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1298,79 +1301,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h41-KQ-ZgU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5771.0144927536239" y="-346.20535714285711"/>
-        </scene>
-        <!--Create PublishingVC-->
-        <scene sceneID="NJQ-ty-6cX">
-            <objects>
-                <viewController storyboardIdentifier="CreatePublishingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qSk-aW-xAo" customClass="CreatePublishingVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iVD-07-7nf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publish Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93o-VT-Qff">
-                                <rect key="frame" x="139" y="83" width="136" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTv-P5-Jhp">
-                                <rect key="frame" x="120.5" y="167" width="173" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuL-lD-SUy">
-                                <rect key="frame" x="167" y="523" width="80" height="34.5"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Publish">
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="publishClick:" destination="qSk-aW-xAo" eventType="touchUpInside" id="eIt-C3-PxE"/>
-                                </connections>
-                            </button>
-                            <button contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOZ-fr-ZsO">
-                                <rect key="frame" x="148" y="251" width="118" height="51"/>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="118" id="MyJ-N1-yzr"/>
-                                </constraints>
-                                <color key="tintColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <menu key="menu" id="afC-O0-tJX">
-                                    <menuOptions key="menuOptions" singleSelection="YES"/>
-                                    <children>
-                                        <command title="Item 1" id="Mhu-KO-eg3"/>
-                                        <command title="Item 2" id="29q-ph-X31"/>
-                                    </children>
-                                </menu>
-                                <buttonConfiguration key="configuration" style="tinted" title="" subtitle="" buttonSize="large">
-                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="k4J-8I-rL5"/>
-                        <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="93o-VT-Qff" firstAttribute="top" secondItem="k4J-8I-rL5" secondAttribute="top" constant="35" id="EH2-3q-3cq"/>
-                            <constraint firstItem="LuL-lD-SUy" firstAttribute="centerX" secondItem="iVD-07-7nf" secondAttribute="centerX" id="FM0-Zk-aeQ"/>
-                            <constraint firstItem="rTv-P5-Jhp" firstAttribute="centerX" secondItem="iVD-07-7nf" secondAttribute="centerX" id="MQS-3q-SdF"/>
-                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="top" secondItem="rTv-P5-Jhp" secondAttribute="bottom" constant="54" id="al8-iI-VKt"/>
-                            <constraint firstItem="KOZ-fr-ZsO" firstAttribute="centerX" secondItem="iVD-07-7nf" secondAttribute="centerX" id="cdK-XR-VZ7"/>
-                            <constraint firstItem="93o-VT-Qff" firstAttribute="centerX" secondItem="iVD-07-7nf" secondAttribute="centerX" id="h2o-3p-M2l"/>
-                            <constraint firstItem="LuL-lD-SUy" firstAttribute="top" secondItem="KOZ-fr-ZsO" secondAttribute="bottom" constant="221" id="lVJ-kP-KjR"/>
-                            <constraint firstItem="rTv-P5-Jhp" firstAttribute="top" secondItem="93o-VT-Qff" secondAttribute="bottom" constant="60" id="vFJ-yy-f8b"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="XCo-rg-SjD"/>
-                    <connections>
-                        <outlet property="categorySelectButton" destination="KOZ-fr-ZsO" id="hYy-kD-nXJ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HqV-Qv-pOo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6473.8317757009345" y="-346.65226781857456"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JhA-L9-IHC">
