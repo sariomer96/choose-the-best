@@ -8,6 +8,15 @@
 import Foundation
 import UIKit
 
+let roundsKey = [
+    "final",
+    "semi",
+    "quarter",
+    "round16",
+    "round32",
+    "round64",
+    "round128"
+]
 class GameStartTourViewModel {
     var rounds = [2,4,8,16,32,64,128]
     var defaulPlayableCount = 2
@@ -15,15 +24,7 @@ class GameStartTourViewModel {
     var quiz:QuizResponse?
  
     var action = [UIAction]()
-    let roundsKey = [
-        "final",
-        "semi",
-        "quarter",
-        "round16",
-        "round32",
-        "round64",
-        "round128"
-    ]
+   
     
     enum Round:String{
         case final

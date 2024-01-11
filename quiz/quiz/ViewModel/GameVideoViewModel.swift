@@ -12,9 +12,12 @@ protocol GameVideoModelProtocol {
     var callbackSetAttachmentTitle:CallBack<(String,GameVideoViewModel.AttachmentTitleType)>? {get set}
     var callbackSetRoundLabel:CallBack<String>? {get set}
     var callbackLoadIndicator:CallBack<Bool>? {get set}
+    var callbackWin:CallBack<Attachment>? {get set}
 }
 
 class GameVideoViewModel: GameVideoModelProtocol{
+    var callbackWin: CallBack<Attachment>?
+    
     var callbackLoadIndicator: CallBack<Bool>?
     
     var callbackSetRoundLabel: CallBack<String>?
@@ -61,38 +64,7 @@ class GameVideoViewModel: GameVideoModelProtocol{
         }
         return matchedList
     }
-    func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
-      
-        let optionClosure = { [self] (action : UIAction) in
-            
-            switch action.title{
-            case String(rates[0]):
-                completion(self.rates[0])
-            case String(rates[1]):
-                completion(self.rates[1])
-            case String(rates[2]):
-                completion(self.rates[2])
-            case String(rates[3]):
-                completion(self.rates[3])
-            case String(rates[4]):
-                completion(self.rates[4])
-            case String(rates[5]):
-                completion(self.rates[5])
-        
-            default:
-                completion(-1)
-              
-            }
-           
-        }
-        action.append(UIAction(title: "Select..", state : .on , handler: optionClosure))
-        for i in rates {
-            action.append(UIAction(title: String(i), state : .on , handler: optionClosure))
-        }
-
-        
-        return action
-    }
+ 
     func setAttachmentTitle(title:String,titleLabelType:AttachmentTitleType) {
         callbackSetAttachmentTitle?((title,titleLabelType))
     
@@ -115,8 +87,6 @@ class GameVideoViewModel: GameVideoModelProtocol{
             
             setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabelType: AttachmentTitleType.top)
             setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabelType: AttachmentTitleType.bottom)
-//            setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabel: topAttachTitle!)
-//            setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabel: bottomAttachTitle!)
         }
         if winAttachs.count  == matchedAttachs.count  {
           
@@ -152,12 +122,7 @@ class GameVideoViewModel: GameVideoModelProtocol{
         
         callbackLoadIndicator?(isPlaying)
 //        activityInd.isHidden = !isPlaying
-//        if isPlaying == true {
-//            activityInd.startAnimating()
-//        }else {
-//            activityInd.stopAnimating()
-//            activityInd.isHidden = true
-//        }
+ 
        
     }
     func setRound(roundIndex:Int,tourCount:Int) {
@@ -171,21 +136,7 @@ class GameVideoViewModel: GameVideoModelProtocol{
         let videoId = getYoutubeVideoID(url: url)
         loadVideo(videoID: videoId, videoView: videoView)
     }
-    func rateQuiz(quizID:Int,rateScore:Int,completion: @escaping (String) -> Void) {
-        WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore) { result in
-            switch result {
-                
-            case .success(let success):
-               
-                 print(success)
-            case .failure(let fail):
-                print(fail)
-            }
-        }
-       // WebService.shared.rateQuiz(quizID: quizID, rateScore: rateScore, completion: completion)
-        
-    }
-    func getURL(matchIndex:Int,rowIndex:Int) -> String {
+     func getURL(matchIndex:Int,rowIndex:Int) -> String {
         
         return  matchedAttachs[matchIndex][rowIndex].url!
     }
@@ -220,7 +171,9 @@ class GameVideoViewModel: GameVideoModelProtocol{
 
         if finish == true{
            
+        
             completion(winAttachs[0])
+            callbackWin?(winAttachs[0])
             return
         }
         
@@ -237,15 +190,13 @@ class GameVideoViewModel: GameVideoModelProtocol{
         winAttachs.removeAll()
         
     }
-    func showPopUp(popUpView:UIView) {
-        popUpView.isHidden = false
-    }
+    
    
     func winState( ) -> Bool {
         if winAttachs.count == 1 {
        
             isFinishQuiz = true
- 
+              
              return true
         }
         return false

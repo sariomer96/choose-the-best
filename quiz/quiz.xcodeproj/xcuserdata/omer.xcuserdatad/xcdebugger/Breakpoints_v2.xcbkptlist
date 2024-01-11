@@ -14,8 +14,8 @@
             filePath = "quiz/View/GameVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -273,6 +273,21 @@
                   endingLineNumber = "138"
                   offsetFromSymbolStart = "61">
                </Location>
+               <Location
+                  uuid = "490D74AC-C52D-4728-938E-69B6DF196B99 - 25fd56ce8b44006c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "quiz.ImageChoicesVC.didEndTextChange(text: Swift.Optional&lt;Swift.String&gt;, index: Swift.Int) -&gt; ()"
+                  moduleName = "quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/View/ImageChoicesVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "61">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -462,69 +477,6 @@
                   startingLineNumber = "37"
                   endingLineNumber = "37"
                   offsetFromSymbolStart = "145">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "745A6A49-5333-4D3E-939F-04CF27636406"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "quiz/ViewModel/GameViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "fadeInOrOut(alpha:side:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "745A6A49-5333-4D3E-939F-04CF27636406 - 9e3f134c627f76b0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;quiz.ApiResponse, Swift.Error&gt;) -&gt; () in quiz.GameViewModel.rateQuiz() -&gt; ()"
-                  moduleName = "quiz"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/GameViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "309"
-                  endingLineNumber = "309"
-                  offsetFromSymbolStart = "452">
-               </Location>
-               <Location
-                  uuid = "745A6A49-5333-4D3E-939F-04CF27636406 - 9e3f134c627f7691"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;quiz.ApiResponse, Swift.Error&gt;) -&gt; () in quiz.GameViewModel.rateQuiz() -&gt; ()"
-                  moduleName = "quiz"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/GameViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "308"
-                  endingLineNumber = "308"
-                  offsetFromSymbolStart = "156">
-               </Location>
-               <Location
-                  uuid = "745A6A49-5333-4D3E-939F-04CF27636406 - 9e3f134c627f7a73"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;quiz.ApiResponse, Swift.Error&gt;) -&gt; () in quiz.GameViewModel.rateQuiz() -&gt; ()"
-                  moduleName = "quiz"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/GameViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "338"
-                  endingLineNumber = "338"
-                  offsetFromSymbolStart = "156">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -935,8 +887,8 @@
             filePath = "quiz/View/GameVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
             landmarkName = "GameVC"
             landmarkType = "3">
          </BreakpointContent>

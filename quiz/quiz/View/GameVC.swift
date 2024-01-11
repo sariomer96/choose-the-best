@@ -9,14 +9,7 @@ import UIKit
 import Kingfisher
 
 class GameVC: BaseViewController {
-    
-    @IBOutlet weak var popUpQuizTitle: UILabel!
-    @IBOutlet weak var popUpQuizImageView: UIImageView!
-    @IBOutlet weak var popUpView: UIView!
-    
-    
-    
-    @IBOutlet weak var quizRateDropDownButton: UIButton!
+     
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
     @IBOutlet weak var leftImageView: UIImageView!
@@ -34,7 +27,7 @@ class GameVC: BaseViewController {
         
         rightImageView.layer.borderWidth = 2
         rightImageView.layer.borderColor = UIColor.green.cgColor
-        popUpView.isHidden = true
+      
      
         initVM()
     }
@@ -80,13 +73,23 @@ class GameVC: BaseViewController {
                 break
             }
         }
-        gameViewModel.callbackWin = { [weak self] title in
+        gameViewModel.callbackWin = { [weak self] attachment in
             guard let self = self else {return}
             winLabel.textColor = .systemRed
-            winLabel.text = "\(title) WIN!!"
-            popUpView.isHidden = false
+            winLabel.text = "\(attachment.title) WIN!!"
+            //popUpView.isHidden = false
              
               setImageInteraction(value: false)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+            let vc = storyboard.instantiateViewController(withIdentifier: "GamePopUpVC") as? GamePopUpVC
+            guard let vc = vc else{return}
+            
+            vc.gamePopUpViewModel.quiz = gameViewModel.quiz
+            vc.gamePopUpViewModel.attachment = attachment
+          
+            self.navigationController?.pushViewController(vc, animated: false)
+     
         }
         
         func setImageInteraction(value : Bool) {
@@ -96,8 +99,6 @@ class GameVC: BaseViewController {
         gameViewModel.callbackShowPopUp = { [weak self] result in
             guard let self = self else {return}
             
-            popUpQuizImageView.kf.setImage(with: URL(string: result.0),placeholder: UIImage(named: "add"))
-            popUpQuizTitle.text = result.1
         }
         gameViewModel.callbackDisableUIElements = { [weak self] in
             guard let self = self else {return}
@@ -105,19 +106,7 @@ class GameVC: BaseViewController {
             rightTitleLabel.isHidden = true
             roundLabel.isHidden = true
         }
-        gameViewModel.callbackImageMoveCenter = { [weak self] index in
-            guard let self = self else {return}
-            
-            switch index {
-            case 0:
-                setWinImage(winImageView: leftImageView)
-            case 1:
-                setWinImage(winImageView: rightImageView)
-            default:
-                break
-            }
-            
-        }
+ 
         
         func setWinImage(winImageView:UIImageView) {
             winImageView.alpha = 1
@@ -149,35 +138,12 @@ class GameVC: BaseViewController {
             // gameViewModel.view = view
             
             startQuiz()
-            showRateDropDown()
+             
         }
-        func showRateDropDown() {
-            gameViewModel.showRateDropDown(dropDownButton: quizRateDropDownButton)
-        }
+       
         func startQuiz() {
             gameViewModel.startQuiz()
         }
-        
-        @IBAction func playAgainClick(_ sender: Any) {
-            
-            if gameViewModel.vote == true {
-                guard let gameQuiz = gameViewModel.quiz else{return}
-                self.presentGameStartViewController(quiz: gameQuiz)
-            } else {
-                alert(title: "Empty Field", message: "Please vote the quiz")
-            }
-            
-        }
-        
-        @IBAction func voteClick(_ sender: Any) {
-            if gameViewModel.isRateSelected == true {
-                
-                gameViewModel.vote = true
-                gameViewModel.rateQuiz()
-                
-            }else {
-                alert(title: "Empty Field", message: "Please vote the quiz")
-            }
-        }
+  
         
     }

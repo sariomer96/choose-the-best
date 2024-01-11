@@ -10,14 +10,12 @@ import YouTubeiOSPlayerHelper
 import Kingfisher
 
 class GameVideoVC: BaseViewController {
-    @IBOutlet weak var quizRateButton: UIButton!
+ 
     
     @IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var bottomAttachmentTitle: UILabel!
     @IBOutlet weak var topAttachmentTitle: UILabel!
-    @IBOutlet weak var popUpAttachTitle: UILabel!
-    @IBOutlet weak var popUpView: UIView!
-    @IBOutlet weak var popUpAttachImage: UIImageView!
+  
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topVideoView: YTPlayerView!
@@ -27,8 +25,19 @@ class GameVideoVC: BaseViewController {
     @IBOutlet weak var bottomVideoView: YTPlayerView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        popUpView.layer.cornerRadius = 20
-        
+     
+        viewModel.callbackWin = { [weak self] attachment in
+            guard let self = self else {return}
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+            let vc = storyboard.instantiateViewController(withIdentifier: "GamePopUpVC") as? GamePopUpVC
+            guard let vc = vc else{return}
+            
+            vc.gamePopUpViewModel.quiz = viewModel.quiz
+            vc.gamePopUpViewModel.attachment = attachment
+          
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
         viewModel.callbackSetAttachmentTitle = { [weak self] result in
             guard let self = self else {return}
             
@@ -62,55 +71,11 @@ class GameVideoVC: BaseViewController {
  
     }
     override func viewWillAppear(_ animated: Bool) {
-//        viewModel.activity = activityIndicator
-//    
-//        viewModel.topAttachTitle = topAttachmentTitle
-//        viewModel.bottomAttachTitle = bottomAttachmentTitle
-       // viewModel.roundLabel = roundLabel
+ 
         startQuiz()
-        showRateDropDown()
-    }
-    
-    func showRateDropDown() {
-        let  action = viewModel.getDropDownActions(completion: { [self] result in
-            if result > -1 {
-                viewModel.isRateSelected = true
-                viewModel.rate = result
-            }else {
-                viewModel.isRateSelected = false
-            }
-        })
-        if  action != nil {
-            
-            quizRateButton.menu = UIMenu(children : action)
-            quizRateButton.showsMenuAsPrimaryAction = true
-            quizRateButton.changesSelectionAsPrimaryAction = true
-        }
-    }
-    @IBAction func voteClick(_ sender: Any) {
-        if viewModel.isRateSelected == true {
-            
-            viewModel.vote = true
-            viewModel.rateQuiz(quizID: viewModel.quiz!.id, rateScore: viewModel.rate)
-            { result in
-             
-                self.alert(title: "Alert", message: result)
-            }
-        }else {
-            self.alert(title: "Empty Field", message: "Please vote the quiz")
-        }
-    }
-    
-    @IBAction func popUpPlayAgainClick(_ sender: Any) {
          
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as? GameStartVC
-        
-        if viewModel.vote == true {
-            guard let quiz = viewModel.quiz else {return}
-            presentGameStartViewController(quiz:quiz)
-        }
-  
     }
+ 
  
     func startQuiz() {
         viewModel.matchedAttachs = viewModel.matchQuiz(attachment: viewModel.quiz!.attachments, playableCount: viewModel.playableCount)
@@ -126,11 +91,9 @@ class GameVideoVC: BaseViewController {
     @IBAction func bottomChooseClick(_ sender: Any) {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 1) {
             attachment in
-            let url = attachment.image
+  
             
-            self.popUpAttachImage.kf.setImage(with: URL(string: url!))
-            self.popUpAttachTitle.text = attachment.title
-            self.viewModel.showPopUp(popUpView: self.popUpView)
+   
         }
     }
     
@@ -138,10 +101,7 @@ class GameVideoVC: BaseViewController {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 0) {
             attachment in
             
-            let url = attachment.image!
-            self.popUpAttachImage.kf.setImage(with: URL(string: url))
-            self.popUpAttachTitle.text = attachment.title
-            self.viewModel.showPopUp(popUpView: self.popUpView)
+ 
         }
     }
     
