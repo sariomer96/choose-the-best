@@ -33,6 +33,7 @@ enum HTTPMethods: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
+    case patch = "PATCH"
 }
 
 enum Endpoint {
@@ -41,11 +42,12 @@ enum Endpoint {
     case getQuizList(categoryID:Int,page:Int,count:Int)
     case getCategories
     case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int])
-    case createAttachment
+    case createAttachment(title:String,videoUrl:String,imageData:Data)
     case rateQuiz(quizID:Int,rateScore:Int)
     case getQuiz(quizID:Int)
     case setAttachmentScore(attachID:Int)
     case searchQuiz(searchText:String,categoryID:Int)
+    case updateAttachment(titles:[String], ids: [Int])
    // case setQuizScore
 }
 
@@ -66,6 +68,21 @@ extension Endpoint: EndPointProtocol {
                 "quiz_id":quizID,
                 "rate_score":rateScore,
                  
+            ]
+        }
+        else if case .createAttachment(let title, let videoUrl, let imageData) = self {
+            return   [
+                "title":title,
+                "url":videoUrl,
+                "image":imageData,
+                "score":0
+            ]
+        }else if case .updateAttachment(let titles, let ids) = self {
+      
+            return   [
+                "titles": ["puaff","agaaaddd"],
+                "ids": [182,183]
+         
             ]
         }
         return nil
@@ -102,6 +119,8 @@ extension Endpoint: EndPointProtocol {
            
             return "quizes/?category__id=\(categoryID)&search=\(searchText)"
             
+        case .updateAttachment:
+            return "attachments/update-titles/"
         }
     }
     
@@ -114,6 +133,8 @@ extension Endpoint: EndPointProtocol {
             return .post
         case .setAttachmentScore:
             return .put
+        case .updateAttachment:
+            return .patch
         }
        
     }
@@ -142,6 +163,8 @@ extension Endpoint: EndPointProtocol {
             
         case .searchQuiz(searchText: let searchText, categoryID: let categoryID): break
             
+        case .updateAttachment:
+            break
         }
         return nil
     }
@@ -160,8 +183,10 @@ extension Endpoint: EndPointProtocol {
            url = URL(string: "\(baseURL)\(path)")
             print("set url \(url)")
         }
- 
-        completion(parameters,url!,header) 
+         
+        
+  
+        completion(parameters,url!,header)
     }
     
     

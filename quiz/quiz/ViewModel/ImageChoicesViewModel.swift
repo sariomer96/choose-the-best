@@ -26,44 +26,26 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) { _,_ in
             self.attachIdList = WebService.shared.attachmentIdList
+            print(self.attachIdList)
             completion(true)
         }
     }
   
-    func addAttachments(attachList:[Attachment],imageList:[UIImage],completion :@escaping (Bool) -> Void) {
-        WebService.shared.createAttachments(attachList: attachList, imageList: imageList, completion: { str, resultBool in
-            self.attachIdList = WebService.shared.attachmentIdList
-            completion(true)
-        })
-    }
-  
+//    func addAttachments(attachList:[Attachment],imageList:[UIImage],completion :@escaping (Bool) -> Void) {
+//        WebService.shared.createAttachments(attachList: attachList, imageList: imageList, completion: { str, resultBool in
+//            self.attachIdList = WebService.shared.attachmentIdList
+//            completion(true)
+//        })
+//    }
+//  
+    let titles = [ "aa", "bb","cc"]
     func onClickNext(completion: @escaping (Bool)->Void) {
         
-      
-        for (index, i) in attachNameList.enumerated() {
-            
-            let attach  = Attachment(id: nil , title: i, url: "", image: nil, score: 0, created_at: nil, updated_at: nil)
-            
-            attachmentList.append(attach)
-            
-//            addAttachment(title: i, videoUrl: "", image: self.imageArray[index], score: 0) { boolResult in
-//                
-// 
-//                // if  result fail  - show alert!!
-//              
-//                
-//                if index == self.attachNameList.count - 1 {
-//                    // NEXT SCENE
-//         
-//                    completion(true)
-//                    
-//                }
-//            }
-        }
-        addAttachments(attachList: attachmentList, imageList: imageArray) {
+        WebService.shared.updateAttachment(titles: titles, ids: attachIdList) {
             result in
-            completion(true)
+            print(result)
         }
+    
     }
     
     func editTitle(index: Int, title: String?) {
@@ -84,9 +66,14 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
          for (index, result) in results.enumerated() {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
-                    
+                     
                     self.imageArray.append(image)
                     self.attachNameList.append(String(self.num))
+                    self.addAttachment(title: String(self.num), videoUrl: "", image: image, score: 0) {
+                        result in
+                     
+                    }
+                   
                     self.num += 1
                     if index == results.count-1 {
                         // burdaki asenkronu kaldir
@@ -104,4 +91,6 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
         self.attachNameList.append(String(self.num))
         self.num += 1
    }
+    
+    
 }
