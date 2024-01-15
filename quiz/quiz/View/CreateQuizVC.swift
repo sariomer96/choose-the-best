@@ -62,7 +62,7 @@ class CreateQuizVC: BaseViewController {
          let isEmpty = viewModel.checkIsEmptyFields(title: quizTitleLabel.text!, view: self)
           
           
-          if isEmpty == false, viewModel.isSelectedImage == true{
+        if isEmpty == false, viewModel.isSelectedImage == true , viewModel.didSelectCategory == true{
               CreateQuizFields.shared.quizHeaderImage = coverImageView.image!
               CreateQuizFields.shared.quizTitle = quizTitleLabel.text!
               

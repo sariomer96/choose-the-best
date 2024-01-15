@@ -62,6 +62,8 @@ class CreateQuizViewModel:NSObject {
                 self.categoryID = selectedCategoryIndex
                 self.didSelectCategory = true
         
+            }else{
+                self.didSelectCategory = false
             }
         }
         for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {

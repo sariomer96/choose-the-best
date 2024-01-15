@@ -431,7 +431,10 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fla-cL-cgb">
-                                <rect key="frame" x="180" y="423" width="54" height="28.5"/>
+                                <rect key="frame" x="162" y="423" width="90" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="mdc-pH-WBU"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="PLAY">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
@@ -506,7 +509,10 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMp-Q7-LPO">
-                                <rect key="frame" x="176" y="565" width="62" height="28"/>
+                                <rect key="frame" x="162" y="565" width="90" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="y0q-6u-Fvx"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="START">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
@@ -778,7 +784,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-L8-NFB">
-                                <rect key="frame" x="169.5" y="436.5" width="75" height="28.5"/>
+                                <rect key="frame" x="162" y="436.5" width="90" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="HP6-Rr-59Y"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
@@ -790,7 +799,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHd-Eh-1QB">
-                                <rect key="frame" x="169.5" y="768.5" width="75" height="28"/>
+                                <rect key="frame" x="162" y="768.5" width="90" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="92k-oy-zdF"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
