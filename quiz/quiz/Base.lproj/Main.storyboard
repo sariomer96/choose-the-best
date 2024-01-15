@@ -807,6 +807,15 @@
                                 <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9I-TL-i77">
+                                <rect key="frame" x="104" y="64" width="206" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="206" id="o4V-Ph-y2i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MGC-FJ-eeq"/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -819,6 +828,7 @@
                             <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="Anv-eh-2Zy"/>
                             <constraint firstItem="sle-yQ-Zsp" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="8" id="B59-dE-R0Y"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" id="Bem-C9-GVv"/>
+                            <constraint firstItem="x9I-TL-i77" firstAttribute="centerX" secondItem="GQF-fx-hVc" secondAttribute="centerX" id="DNv-0b-iMW"/>
                             <constraint firstItem="keq-QD-xJ2" firstAttribute="top" secondItem="lUl-mc-pfs" secondAttribute="bottom" constant="86" id="EUz-Ot-gZu"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="trailing" secondItem="MGC-FJ-eeq" secondAttribute="trailing" id="LXM-Zn-y3Z"/>
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="leading" secondItem="MGC-FJ-eeq" secondAttribute="leading" id="NVO-QG-O3b"/>
@@ -833,6 +843,7 @@
                             <constraint firstItem="lUl-mc-pfs" firstAttribute="top" secondItem="MGC-FJ-eeq" secondAttribute="top" constant="98" id="nza-Zc-TfQ"/>
                             <constraint firstItem="fTP-Cb-AQs" firstAttribute="centerY" secondItem="GQF-fx-hVc" secondAttribute="centerY" constant="-50.5" id="oQJ-7L-C05"/>
                             <constraint firstItem="KXf-L8-NFB" firstAttribute="top" secondItem="sle-yQ-Zsp" secondAttribute="bottom" constant="16" id="qlc-BH-X6c"/>
+                            <constraint firstItem="GPy-Bt-dnC" firstAttribute="top" secondItem="x9I-TL-i77" secondAttribute="bottom" constant="8" id="thY-wg-xlm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GGf-ay-1Ar"/>
@@ -841,6 +852,7 @@
                         <outlet property="bottomAttachmentTitle" destination="ZUi-D8-Dgv" id="7JE-3D-3OS"/>
                         <outlet property="bottomVideoView" destination="keq-QD-xJ2" id="qgp-yd-9y8"/>
                         <outlet property="roundLabel" destination="GPy-Bt-dnC" id="4Mb-iT-p3B"/>
+                        <outlet property="roundNameLabel" destination="x9I-TL-i77" id="sQC-BG-ATH"/>
                         <outlet property="topAttachmentTitle" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
                         <outlet property="topVideoView" destination="lUl-mc-pfs" id="5IB-hi-BLm"/>
                     </connections>

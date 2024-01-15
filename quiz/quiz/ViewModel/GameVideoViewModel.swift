@@ -180,7 +180,7 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         playableCount = playableCount/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount)
-        
+        self.setRoundName(index: matchedAttachs.count-1)
         setAttachmentTitle(title: matchedAttachs[startIndex][0].title!, titleLabelType: AttachmentTitleType.top)
         setAttachmentTitle(title: matchedAttachs[startIndex][1].title!, titleLabelType: AttachmentTitleType.bottom)
        

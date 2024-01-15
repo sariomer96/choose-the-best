@@ -12,6 +12,7 @@ import Kingfisher
 class GameVideoVC: BaseViewController {
  
     
+    @IBOutlet weak var roundNameLabel: UILabel!
     @IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var bottomAttachmentTitle: UILabel!
     @IBOutlet weak var topAttachmentTitle: UILabel!
@@ -57,6 +58,10 @@ class GameVideoVC: BaseViewController {
             guard let self = self else {return}
             roundLabel.text = title
         }
+        self.viewModel.callbackRoundName = { [weak self] name in
+            guard let self = self else {return}
+            roundNameLabel.text = name
+        }
         
         viewModel.callbackLoadIndicator =  { [weak self] isPlaying in
             guard let self = self else {return}
@@ -79,7 +84,7 @@ class GameVideoVC: BaseViewController {
  
     func startQuiz() {
         viewModel.matchedAttachs = viewModel.matchQuiz(attachment: viewModel.quiz!.attachments, playableCount: viewModel.playableCount)
-         
+        self.viewModel.setRoundName(index: viewModel.matchedAttachs.count-1)
         viewModel.setRound(roundIndex: 1, tourCount: viewModel.matchedAttachs.count)
         
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
