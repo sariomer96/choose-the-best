@@ -10,6 +10,7 @@ import Kingfisher
 
 class GameVC: BaseViewController {
      
+    @IBOutlet weak var roundNameLabel: UILabel!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
     @IBOutlet weak var leftImageView: UIImageView!
@@ -37,6 +38,7 @@ class GameVC: BaseViewController {
             imageView.alpha = alpha
         })
     }
+    
     func initVM() {
         gameViewModel.callbackShowAlert = { [weak self] alertInfo in
             guard let self = self else { return }
@@ -58,6 +60,11 @@ class GameVC: BaseViewController {
             rightImageView.kf.setImage(with: URL(string: image.1) ) { _ in
                 self.fadeInOrOut(alpha: 1.0, imageView: self.rightImageView)
             }
+        }
+        gameViewModel.callbackRoundName = { [weak self] name in
+            guard let self = self else { return }
+            roundNameLabel.text = name
+            
         }
         
         gameViewModel.callBackSetSideImage = { [weak self] sideResult in

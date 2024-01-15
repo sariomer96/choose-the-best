@@ -19,7 +19,7 @@ protocol GameViewModelProtocol {
     var callbackImageMoveCenter:CallBack<Int>? {get set}
 }
 
-final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
+final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
     var callbackWin: CallBack<Attachment>?
     
      
@@ -191,7 +191,7 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
         playableCount = playableCount!/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount!)
-   
+        self.setRoundName( index: matchedAttachs.count-1)
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
         setImages(index: startIndex)
         setTitle(index: startIndex)
@@ -265,12 +265,13 @@ final class GameViewModel: GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
         
         matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)
      
-       
+         self.setRoundName(index: matchedAttachs.count-1)
         setRound(roundIndex: 1, tourCount: matchedAttachs.count)
          
         setImages(index: startIndex)
         setTitle(index: startIndex)
     }
+    
     
 }
 

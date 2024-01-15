@@ -2,36 +2,8 @@ import Foundation
 import Alamofire
 import UIKit
  
-// MARK: ENUMS  --------------
-enum ErrorType: Error{
-    case networkError
-    case parseError
-}
-extension ErrorType {
-    public var description: String {
-           switch self {
-           case .networkError:
-               return "Network error."
-           case .parseError:
-               return "Response failed."
-           }
-       }
-}
-enum FormDataError:Error {
-    case uploadError
-}
-
-extension FormDataError {
-    public var description: String {
-           switch self {
-           case .uploadError:
-               return "Upload failed."
-      
-   
-           }
-       }
-}
-enum UploadSuccess : String {
+ 
+  enum UploadSuccess : String {
     case success = " Upload succesful"
 }
 // MARK: ENUMS END -------------------
@@ -50,9 +22,7 @@ class WebService {
        let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
    
        endpoint.request { params, url,header in
-           
-         
-       
+            
            AF.request(url,method: alamofireMethod, parameters: params,encoding: JSONEncoding.default).response { response in
                 switch response.result {
                 case .success(let data):
@@ -62,8 +32,7 @@ class WebService {
                         guard let data = data else {return }
                         let result = try JSONDecoder().decode(T.self, from: data)
                         completion(.success(result))
-                        
-                        
+                         
                     }catch{
                         print("DECODE ERROR \(error.localizedDescription) \(response.response?.statusCode)")
                     }
@@ -159,6 +128,11 @@ class WebService {
         request(endpoint: endpoint, completion: completion)
         
     }
+    func deleteAttachment(attachmentID:Int, completion: @escaping (Result<(Attachment),Error>) -> Void){
+        let endpoint = Endpoint.deleteAttachment(attachmentID: attachmentID)
+        
+        request(endpoint: endpoint, completion: completion)
+    }
     func rateQuiz(quizID:Int,rateScore:Int, completion: @escaping (Result<ApiResponse,Error>) ->Void)  {
         let endpoint = Endpoint.rateQuiz(quizID: quizID, rateScore: rateScore)
            request(endpoint: endpoint, completion: completion)
@@ -200,10 +174,6 @@ class WebService {
     }
     
     var attachmentIdList = [Int]()
-  
-    
-    let createQuizURL = "http://localhost:8000/quizes/"
-    let createAttachmentURL = "http://localhost:8000/attachments/"
    
     enum GetRequestTypes {
         case topRate
@@ -212,210 +182,6 @@ class WebService {
         case quizList
         
     }
-    func setParams(attachList:[Attachment],imageList:[UIImage]) -> [[String: Any]] {
-        var emptyArray: [[String: Any]] = []
-        
-        for i in stride(from: 0, to: attachList.count, by: 1) {
-            
-            var imageData = imageList[i].jpegData(compressionQuality: 0.5)
-            if imageList[i] != nil {
-                
-                
-                guard let data = imageData else {
-                    print("Could not get JPEG representation of image")
-                    return [[String:Any]]()
-                }
-                
-            }
-          
-            let parameters: [String: Any] = [
-                "title":attachList[i].title!,
-                "url":attachList[i].url!,
-                "image":imageData!,
-                "score":0
-            ]
-            emptyArray.append(parameters)
-        }
-        return emptyArray
-    }
-    func createAttachments(attachList:[Attachment],imageList:[UIImage],completion: @escaping (String?,Bool) -> Void) {
-        
-            
-            let arr =   setParams(attachList: attachList, imageList: imageList)
-       
-    
-        AF.upload(multipartFormData: { multipartFormData in
-            for object in arr{
-              
-            for (key, value) in object {
-                     
-                    if let data = value as? Data {
-                    
-                        multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
-                    } else if let value = value as? Int {
-                      
-                        let intData = Data(String(value).utf8)
-                        multipartFormData.append(intData, withName: key)
-                    }else if let value = value as? String {
-                        
-                        let stringData = Data(value.utf8)
-                        multipartFormData.append(stringData, withName: key)
-                    }
-                }
-            }
-        }, to: createAttachmentURL,method: .post,  headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-       
-        .response{ response in
-           
-            switch response.result {
-            case .success(let value):
-                do {
-                    
-                    guard let value = value else { return}
-                    
-                    let qz = try JSONDecoder().decode([Attachment].self, from: value)
-             
-                    // completion(UploadSuccess.success.rawValue, true,qz)
-                  
-                }
-                catch{
-                    print("CREATE ERROR : \(error.localizedDescription)")
-                }
-                
-//                for item in value{
-//                    self.attachmentIdList.append(Int(item.id!))
-//                }
-            //    self.attachIdList = self.attachmentIdList
-                print("SUCCEESSS")
-                completion(UploadSuccess.success.rawValue,true)
-            case .failure(let error):
-                print("Error uploading image: \(error)")
-                completion(FormDataError.uploadError.description, false)
-            }
-            
-            
-        }
-        
-    }
-    
-    func createAttachment(title: String, videoUrl: String,image: UIImage?,completion: @escaping (String?,Bool) -> Void) {
-        
-        let imageData = image?.jpegData(compressionQuality: 0.5)
-            
-            guard let imageData = imageData else {
-                print("Could not get JPEG representation of image")
-                return
-            }
-                    
-        let parameters: [String: Any] = [
-            "title":title,
-            "url":videoUrl,
-            "image":imageData,
-            "score":0
-        ]
-        
-        
-        
-        AF.upload(multipartFormData: { multipartFormData in
-            for (key, value) in parameters {
-                if let data = value as? Data {
-                    multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
-                } else if let value = value as? Int {
-                    let intData = Data(String(value).utf8)
-                    multipartFormData.append(intData, withName: key)
-                }else if let value = value as? String {
-                    let stringData = Data(value.utf8)
-                    multipartFormData.append(stringData, withName: key)
-                }
-            }
-        }, to: createAttachmentURL,method: .post,  headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-      
-        .responseDecodable(of: Attachment.self){ response in
-            switch response.result {
-            case .success(let value):
-                
-                self.attachmentIdList.append(Int(value.id!))
-            //    self.attachIdList = self.attachmentIdList
-                completion(UploadSuccess.success.rawValue,true)
-            case .failure(let error):
-                print("Error uploading image: \(error)")
-                completion(FormDataError.uploadError.description, false)
-            }
-            
-            
-        }
-        
-    }
-func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int],completion: @escaping (String?,Bool,QuizResponse?) -> Void) {
-    
-    guard let imageData = image.jpegData(compressionQuality: 0.1) else {
-        print("Could not get JPEG representation of image")
-        return
-    }
-       
-    let parameters: [String: Any] = [
-        "title":title,
-        "attachment_ids":attachment_ids,
-        "image": imageData,
-        "category_id":categoryID,
-        "is_visible":isVisible,
-        "is_image":is_image
-        
-    ]
-    
-    AF.upload(multipartFormData: { multipartFormData in
-        for (key, value) in parameters {
-            if let data = value as? Data {
-                multipartFormData.append(data, withName: key, fileName: "image.jpeg", mimeType: "image/jpeg")
-                
-            }else  if let intArray = value as? [Int] {
-                for intValue in intArray {
-                    let intData = Data(String(intValue).utf8)
-                    
-                    multipartFormData.append(intData, withName: key )
-                }
-            }
-            else if let value = value as? Int {
-                let intData = Data(String(value).utf8)
-                multipartFormData.append(intData, withName: key)
-                
-            }else if let value = value as? String {
-                let stringData = Data(value.utf8)
-                multipartFormData.append(stringData, withName: key)
-            }else if let value = value as? Bool {
-                let boolData = Data("\(value)".utf8)
-                multipartFormData.append(boolData, withName: key)
-            }
-            
-        }
-    }, to: createQuizURL,method: .post, headers:  ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"])
-    .uploadProgress(closure: { progress in
-        print(progress.description)
-    }).response { response in
-   
-        switch response.result {
-        case .success(let quiz):
-         
-            do {
-                
-                guard let quiz = quiz else { return}
-              
-                let qz = try JSONDecoder().decode(QuizResponse.self, from: quiz)
-                
-                 completion(UploadSuccess.success.rawValue, true,qz)
-              
-            }
-            catch{
-                print("CREATE ERROR : \(error.localizedDescription)")
-            }
-            
-        case .failure(let error):
-            print("Error  \(error)")
-            completion(FormDataError.uploadError.description,false, nil)
-        }
-    }
-    
-}
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
       
@@ -444,9 +210,6 @@ func createQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,
             
         }
     }
-    
-    
-    
         
 }
 

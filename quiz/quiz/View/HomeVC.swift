@@ -32,12 +32,7 @@ class HomeVC: BaseViewController {
         viewModel.getRecentlyQuiz { error in
  
         }
-        let a = UIImage(named: "add")
-        guard let a =  a else { return}
-        WebService.shared.createAtch(title: "AGAAAA", videoUrl: "", image: a ){
-            result in
-            
-        }
+      
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex{

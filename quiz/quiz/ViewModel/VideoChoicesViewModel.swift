@@ -32,7 +32,9 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
         videoUrlList.remove(at: index)
     }
     func addAttachment(title:String,videoUrl:String,image:UIImage?,score:Int, completion: @escaping (Bool)->Void) {
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _,_  in
+        
+        guard let image = image else {return}
+        WebService.shared.createAtch(title: title, videoUrl: videoUrl, image:image) { _  in
       
             self.attachIdList = WebService.shared.attachmentIdList
             

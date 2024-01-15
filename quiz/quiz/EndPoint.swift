@@ -34,6 +34,7 @@ enum HTTPMethods: String {
     case post = "POST"
     case put = "PUT"
     case patch = "PATCH"
+    case delete = "DELETE"
 }
 
 enum Endpoint {
@@ -48,6 +49,7 @@ enum Endpoint {
     case setAttachmentScore(attachID:Int)
     case searchQuiz(searchText:String,categoryID:Int)
     case updateAttachment(titles:[String], ids: [Int])
+    case deleteAttachment(attachmentID:Int)
    // case setQuizScore
 }
 
@@ -80,9 +82,9 @@ extension Endpoint: EndPointProtocol {
         }else if case .updateAttachment(let titles, let ids) = self {
       
             return   [
-                "titles": ["puaff","agaaaddd"],
-                "ids": [182,183]
-         
+                "titles": titles,
+                "ids": ids
+          
             ]
         }
         return nil
@@ -121,6 +123,8 @@ extension Endpoint: EndPointProtocol {
             
         case .updateAttachment:
             return "attachments/update-titles/"
+        case .deleteAttachment(attachmentID: let attachmentID):
+            return "attachments/\(attachmentID)/"
         }
     }
     
@@ -135,6 +139,8 @@ extension Endpoint: EndPointProtocol {
             return .put
         case .updateAttachment:
             return .patch
+        case .deleteAttachment(attachmentID: let attachmentID):
+            return .delete
         }
        
     }
@@ -165,6 +171,8 @@ extension Endpoint: EndPointProtocol {
             
         case .updateAttachment:
             break
+        case .deleteAttachment(attachmentID: let attachmentID):
+            break
         }
         return nil
     }
@@ -181,12 +189,12 @@ extension Endpoint: EndPointProtocol {
   
         } else{
            url = URL(string: "\(baseURL)\(path)")
-            print("set url \(url)")
+     
         }
          
-        
+        guard let url = url else {return}
   
-        completion(parameters,url!,header)
+        completion(parameters,url,header)
     }
     
     

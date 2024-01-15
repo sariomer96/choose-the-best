@@ -132,7 +132,8 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         let yes = UIAlertAction(title: "Delete", style: .destructive) {
         action in
-        self.imageChoicesViewModel.removeAttachment(index: index)
+              print(self.imageChoicesViewModel.attachIdList[index])
+            self.imageChoicesViewModel.removeAttachment(index: index, attachmentID: self.imageChoicesViewModel.attachIdList[index])
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

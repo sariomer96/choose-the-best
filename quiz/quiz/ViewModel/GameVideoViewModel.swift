@@ -15,7 +15,7 @@ protocol GameVideoModelProtocol {
     var callbackWin:CallBack<Attachment>? {get set}
 }
 
-class GameVideoViewModel: GameVideoModelProtocol{
+class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
     var callbackWin: CallBack<Attachment>?
     
     var callbackLoadIndicator: CallBack<Bool>?
