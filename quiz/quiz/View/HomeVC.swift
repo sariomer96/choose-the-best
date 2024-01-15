@@ -29,9 +29,7 @@ class HomeVC: BaseViewController {
             }
         }
         
-        viewModel.getRecentlyQuiz { error in
- 
-        }
+        viewModel.getRecentlyQuiz()
       
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -55,6 +53,7 @@ class HomeVC: BaseViewController {
         super.viewDidLoad()
         
          
+        
  
         topRateTableView.layer.cornerRadius = 7
         
@@ -81,14 +80,19 @@ class HomeVC: BaseViewController {
            
         }
      }
- 
-        
+  
         viewModel.callbackReloadTopRatedTableView = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.topRateTableView.reloadData()
             }
         }
+        
+        viewModel.callbackFailRequest = { [weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Error" , message: error.localizedDescription)
+        }
+            
     }
  
 }
@@ -140,14 +144,11 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
  
          if scrollView.contentOffset.y >= quarterwayPoint {
            
-   
              if viewModel.quizType == .topQuiz {
                  
- 
                  viewModel.startPaginateToTopRateQuestions()
                 
              } else {
- 
                  viewModel.startPaginateToRecentlyQuestions()
              }
          }
@@ -174,8 +175,6 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         if tableView == topRateTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedViewCell", for: indexPath) as! TopRatedViewCell
   
-            
-            
             cell.nameLabel.text = viewModel.currentQuizList[indexPath.row].title
             cell.categoryNameLabel.text = viewModel.currentQuizList[indexPath.row].category.name
             let rate = viewModel.currentQuizList[indexPath.row].average_rate
@@ -189,9 +188,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
              
             return cell
         }
-        
-      
-        
+         
         return UITableViewCell()
     
     }

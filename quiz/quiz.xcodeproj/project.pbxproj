@@ -55,7 +55,6 @@
 		17B12E1C2B0245A700CB513A /* QuizListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */; };
 		17C644402B45572000D67969 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6443F2B45572000D67969 /* EndPoint.swift */; };
 		17C644422B484DDE00D67969 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644412B484DDE00D67969 /* BaseViewController.swift */; };
-		17C644442B48506400D67969 /* LoaderUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644432B48506400D67969 /* LoaderUtility.swift */; };
 		17C644462B48508500D67969 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644452B48508500D67969 /* ProgressController.swift */; };
 		17C644482B4851B100D67969 /* GameStartViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */; };
 		17C6444A2B4C0CB700D67969 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C644492B4C0CB700D67969 /* BaseViewModel.swift */; };
@@ -110,7 +109,6 @@
 		17B12E1B2B0245A600CB513A /* QuizListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListTableViewCell.swift; sourceTree = "<group>"; };
 		17C6443F2B45572000D67969 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		17C644412B484DDE00D67969 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		17C644432B48506400D67969 /* LoaderUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderUtility.swift; sourceTree = "<group>"; };
 		17C644452B48508500D67969 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartViewControllerBuilder.swift; sourceTree = "<group>"; };
 		17C644492B4C0CB700D67969 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 				179B779F2B152BB400FB317A /* GameStartTourVC.swift */,
 				176D3D6A2B2712410010DD4B /* GameVideoVC.swift */,
 				17C644412B484DDE00D67969 /* BaseViewController.swift */,
-				17C644432B48506400D67969 /* LoaderUtility.swift */,
 				17C644452B48508500D67969 /* ProgressController.swift */,
 				17C644472B4851B100D67969 /* GameStartViewControllerBuilder.swift */,
 			);
@@ -329,7 +326,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17C644442B48506400D67969 /* LoaderUtility.swift in Sources */,
 				17B12E0E2AFCDBEA00CB513A /* WebService.swift in Sources */,
 				175A8F012B4F4F5A00072010 /* GamePopUpVC.swift in Sources */,
 				179B77A42B1B166500FB317A /* GameStartTourViewModel.swift in Sources */,

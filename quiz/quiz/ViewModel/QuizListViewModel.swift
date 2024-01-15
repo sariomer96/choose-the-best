@@ -14,6 +14,7 @@ protocol QuizListProtocol {
 }
 class QuizListViewModel : QuizListProtocol {
     
+    var callbackFail:CallBack<Error>?
     var callbackReloadQuizTableView: VoidCallBack?
     var quizListDelegate:QuizListProtocol?
     let webService = WebService.shared
@@ -43,7 +44,7 @@ class QuizListViewModel : QuizListProtocol {
     
     private func checkPaginateEnableQuiz(_ recentlyQuestItemCount: Int?,allItemsCount:Int) {
        
-        guard let recentlyQuestItemCount = recentlyQuestItemCount else {print("false"); isStillExistQuiz = false; return }
+        guard let recentlyQuestItemCount = recentlyQuestItemCount else { isStillExistQuiz = false; return }
         if  self.currentSizeCount != recentlyQuestItemCount && allItemsCount == recentlyQuestItemCount {
             isStillExistQuiz = false
             
@@ -78,6 +79,7 @@ class QuizListViewModel : QuizListProtocol {
                     completion("trigger")
             case .failure(let error):
                 print(error)
+                self.callbackFail?(error)
             }
         }
    }
@@ -95,7 +97,7 @@ class QuizListViewModel : QuizListProtocol {
                 completion(true)
                
             case .failure(let fail):
-                print(fail)
+                self.callbackFail?(fail)
             }
         }
  

@@ -26,20 +26,7 @@ class CreatePublishingViewModel {
         self.is_image = is_image
         self.attachmentIds = attachID
     }
-//    
-//    func getCategory(completion: @escaping (Bool) -> Void) {
-//        
-//        webService.getCategories { result in
-//            switch result {
-//            case .success(let success):
-//                self.categoryList = success.results
-//                  completion(true)
-//            case .failure(let fail):
-//                print (fail)
-//            }
-//        }
-// 
-//    }
+ 
     
     func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
         

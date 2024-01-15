@@ -365,6 +365,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="125" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GeK-tQ-t6x">
                                 <rect key="frame" x="0.0" y="481" width="414" height="381"/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameStartTableViewCell" rowHeight="125" id="wb0-30-iKz" customClass="GameStartTableViewCell" customModule="quiz" customModuleProvider="target">
@@ -387,24 +388,29 @@
                                                     <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Win Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afo-SM-v8g">
-                                                    <rect key="frame" x="176" y="28" width="69" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Win Rate:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afo-SM-v8g">
+                                                    <rect key="frame" x="191" y="50" width="73" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="6fT-2j-eLE"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-7A-whU" customClass="ProgressBar" customModule="quiz" customModuleProvider="target">
-                                                    <rect key="frame" x="288" y="6" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-7A-whU" customClass="ProgressBar" customModule="quiz" customModuleProvider="target">
+                                                    <rect key="frame" x="288" y="37.5" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="OgQ-6P-KvZ"/>
+                                                    </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="backGroundCircleColor">
                                                             <color key="value" systemColor="secondarySystemBackgroundColor"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="startGradientColor">
-                                                            <color key="value" systemColor="systemRedColor"/>
+                                                            <color key="value" systemColor="systemYellowColor"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="endGradientColor">
-                                                            <color key="value" systemColor="systemPurpleColor"/>
+                                                            <color key="value" systemColor="systemPinkColor"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -413,12 +419,15 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="afo-SM-v8g" secondAttribute="bottom" constant="76" id="2SB-Af-Flx"/>
                                                 <constraint firstItem="7DO-NY-5rF" firstAttribute="leading" secondItem="8Ao-1c-NKO" secondAttribute="leading" id="Cxy-HX-NZH"/>
+                                                <constraint firstItem="1fN-7A-whU" firstAttribute="leading" secondItem="afo-SM-v8g" secondAttribute="trailing" constant="24" id="Dtl-G6-Lm3"/>
                                                 <constraint firstItem="7DO-NY-5rF" firstAttribute="top" secondItem="8Ao-1c-NKO" secondAttribute="top" constant="31" id="Iw7-eW-KCA"/>
-                                                <constraint firstAttribute="trailing" secondItem="afo-SM-v8g" secondAttribute="trailing" constant="169" id="b3J-Po-cad"/>
+                                                <constraint firstAttribute="trailing" secondItem="afo-SM-v8g" secondAttribute="trailing" constant="150" id="b3J-Po-cad"/>
+                                                <constraint firstAttribute="trailing" secondItem="1fN-7A-whU" secondAttribute="trailing" constant="76" id="ia6-Nn-Ves"/>
                                                 <constraint firstItem="NrT-wy-FYE" firstAttribute="top" secondItem="8Ao-1c-NKO" secondAttribute="top" constant="6" id="lVk-SE-2JF"/>
                                                 <constraint firstItem="NrT-wy-FYE" firstAttribute="leading" secondItem="8Ao-1c-NKO" secondAttribute="leading" constant="16" id="srS-fj-uMH"/>
+                                                <constraint firstItem="1fN-7A-whU" firstAttribute="centerY" secondItem="afo-SM-v8g" secondAttribute="centerY" id="xMh-ol-JTE"/>
+                                                <constraint firstItem="afo-SM-v8g" firstAttribute="centerY" secondItem="8Ao-1c-NKO" secondAttribute="centerY" id="zwT-wu-Yzs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1344,11 +1353,8 @@
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -34,7 +34,7 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
     func addAttachment(title:String,videoUrl:String,image:UIImage?,score:Int, completion: @escaping (Bool)->Void) {
         
         guard let image = image else {return}
-        WebService.shared.createAtch(title: title, videoUrl: videoUrl, image:image) { _  in
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _  in
       
             self.attachIdList = WebService.shared.attachmentIdList
             
@@ -64,9 +64,7 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
             if boolResult == true {
               
                     completion(true)
-            
-                
-              //  self.addAttachment(title: title, videoUrl: baseURL, image: uiimage, score: 0)
+              
             }
         }
     }

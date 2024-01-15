@@ -16,8 +16,7 @@ let roundsKey = [
     "Round Of 32",
     "Round Of 64",
     "Round Of 128"
-    
-    
+     
 ]
 
  
@@ -29,17 +28,7 @@ class GameStartTourViewModel {
     var quiz:QuizResponse?
  
     var action = [UIAction]()
-//   
-//    
-//    enum Round:String{
-//        case Final
-//        case SemiFinal
-//        case quarter
-//        case round16
-//        case round32
-//        case round64
-//        case round128
-//    }
+ 
     func getDropDownActions(attachmentCount:Int,completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
@@ -69,18 +58,14 @@ class GameStartTourViewModel {
         }
      
         let round =  getClosestRound(count: (attachmentCount), rounds: rounds, completion: completion)
-       
         
-      
         let index =  rounds.firstIndex(of: round!)
         
   
          
         for i in stride(from: 0, to: index!+1, by: 1) {
-
-   
+ 
             action.append(UIAction(title: roundsKey[i], state : .on , handler: optionClosure))
-
         }
         
         return action
@@ -92,7 +77,7 @@ class GameStartTourViewModel {
         guard let closest = rounds.filter({ $0 <= count }).max() else {
             return nil
         }
-          // completion(closest)
+    
         return closest
     }
 }

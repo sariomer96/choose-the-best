@@ -15,22 +15,17 @@ protocol GameViewModelProtocol {
     var callbackWin:CallBack<Attachment>? { get set }
     var callbackShowPopUp:CallBack<(String,String)>? { get set }
     var callbackDisableUIElements:VoidCallBack? {get set}
-    var callbackSetRoundText:CallBack<String>? {get set}
+ 
     var callbackImageMoveCenter:CallBack<Int>? {get set}
 }
 
-final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPro,SetLabels*/ {
+final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
     var callbackWin: CallBack<Attachment>?
     
      
     var callbackImageMoveCenter: CallBack<Int>?
-    
-    var callbackSetRoundText: CallBack<String>?
-    
+ 
     var callbackDisableUIElements: VoidCallBack?
-    
-    
-    
     var callbackShowPopUp: CallBack<(String, String)>?
     
     var callbackSetTitle: CallBack<(String, String)>?
@@ -39,28 +34,24 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
     var callBackSetSideImage: CallBack<(Double,Int)>?
     var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
  
-    var matchedAttachs = [[Attachment]]()
+ 
   
     var winAttachs = [Attachment]()
       
     var playableCount: Int?
  
     var isFinishQuiz = false
-    
-    var startIndex = 0
+  
     var quiz:QuizResponse?
     var rate = 0
     var isRateSelected = false
     var vote = false
-    var roundIndex = 1
- 
-   
-  
-
+    
+    
     // match quiz
     
     var randomChooseAttachList = [Attachment]()
-    var matchedList = [[Attachment]]()
+  
    
  
     enum ImageSide {
@@ -70,29 +61,6 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
     func setPlayableCount(count: Int) {
           playableCount  = count
     }
-   
-    func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
-         
-        matchedList.removeAll()
-        var tempAttachList = attachment
-        
-        tempAttachList.shuffle()
-    
-        for i in stride(from: 0, to: playableCount/2, by: 1) {
-            
-            var match = [Attachment]()
-            for j in stride(from:i, to: i+2 , by: 1){
- 
-             
-                match.append(tempAttachList[0])
-                tempAttachList.remove(at: 0)
-            }
-            matchedList.append(match)
-           
-        }
-       return matchedList
-    }
-    
     func imageTap(imageViewLeft:UIImageView,imageViewRight:UIImageView) {
     
      let tapGestureLeft = UITapGestureRecognizer(target: self, action: #selector(imageClickedLeft))
@@ -119,23 +87,13 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
         
         callbackSetTitle?((leftTitle,rightTitle))
     }
-    func getAttachmentID(side:Int) -> Int{
-        
-        let id =  matchedAttachs[startIndex][side].id
-         return id!
-         
-    }
+   
     @objc func imageClickedLeft() {
         
         let id =   getAttachmentID(side: 0)
-        setAttachmentScore(attachID: id) {
-            result in
-         
-        }
+        setAttachmentScore(attachID: id)
         self.fadeInOrOut(alpha: 0.0, side: 0)
         self.fadeInOrOut(alpha: 0.0, side: 1)
-       
-  
         
         winAttachs.append(matchedAttachs[startIndex][0])
        
@@ -198,18 +156,12 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
         winAttachs.removeAll()
         
     }
-    func resetIndexes() {
-        startIndex = 0
-        roundIndex = 1
-    }
+     
    
     @objc func imageClickedRight() {
        
         let id =   getAttachmentID(side: 1)
-        setAttachmentScore(attachID: id) {
-            result in
-      
-        }
+        setAttachmentScore(attachID: id)
         
         self.fadeInOrOut(alpha: 0.0, side: 0)
         self.fadeInOrOut(alpha: 0.0, side: 1)
@@ -230,14 +182,9 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
-    func setRound(roundIndex:Int, tourCount:Int) {
-        
-        callbackSetRoundText?("\(roundIndex) / \(tourCount)")
-      //  roundLabel?.text = "\(roundIndex) / \(tourCount)"
-    }
+  
     func fadeInOrOut(alpha:Double, side:Int) {
-        
-          
+         
           callBackSetSideImage?((alpha,side))
        
     }
@@ -247,20 +194,7 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol/* ImageViewPr
         callbackDisableUIElements?()
     
     }
-     
-    func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
-        
-        WebService.shared.setAttachmentScores(attachID: attachID) {
-            result in
-            switch result {
-                
-            case .success(let success):
-                  print(success)
-            case .failure(let fail):
-                print(fail)
-            }
-        }
-    }
+    
      func startQuiz() {
         
         matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)

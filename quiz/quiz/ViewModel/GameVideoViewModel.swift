@@ -10,7 +10,7 @@ import YouTubeiOSPlayerHelper
 
 protocol GameVideoModelProtocol {
     var callbackSetAttachmentTitle:CallBack<(String,GameVideoViewModel.AttachmentTitleType)>? {get set}
-    var callbackSetRoundLabel:CallBack<String>? {get set}
+    
     var callbackLoadIndicator:CallBack<Bool>? {get set}
     var callbackWin:CallBack<Attachment>? {get set}
 }
@@ -19,18 +19,14 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
     var callbackWin: CallBack<Attachment>?
     
     var callbackLoadIndicator: CallBack<Bool>?
-    
-    var callbackSetRoundLabel: CallBack<String>?
+ 
     
     var callbackSetAttachmentTitle: CallBack<(String,AttachmentTitleType)>?
-     
-    var matchedList = [[Attachment]]()
-    var matchedAttachs = [[Attachment]]()
+       
     var winAttachs = [Attachment]()
     var isFinishQuiz = false
     var quiz:QuizResponse?
-    var startIndex = 0
-    var roundIndex = 1
+    
     var playableCount = 2
     var rate = 0
     var isRateSelected = false
@@ -43,27 +39,7 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         case bottom
     }
   
-    func matchQuiz(attachment:[Attachment], playableCount:Int) -> [[Attachment]] {
-         
-        matchedList.removeAll()
-        var tempAttachList = attachment
-        
-        tempAttachList.shuffle()
-        
-        for i in stride(from: 0, to: playableCount/2, by: 1) {
-            
-            var match = [Attachment]()
-            for _ in stride(from:i, to: i+2 , by: 1){
-                
-                
-                match.append(tempAttachList[0])
-                tempAttachList.remove(at: 0)
-            }
-            matchedList.append(match)
-            
-        }
-        return matchedList
-    }
+ 
  
     func setAttachmentTitle(title:String,titleLabelType:AttachmentTitleType) {
         callbackSetAttachmentTitle?((title,titleLabelType))
@@ -74,10 +50,7 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         winAttachs.append(matchedAttachs[startIndex][rowIndex])
 
         let id =   getAttachmentID(side: rowIndex)
-        setAttachmentScore(attachID: id) {
-            result in
-          
-        }
+        setAttachmentScore(attachID: id) 
         startIndex += 1
         roundIndex += 1
        
@@ -96,39 +69,14 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
    
-    
-    func setAttachmentScore(attachID:Int,completion: @escaping (String) -> Void) {
-       
-        WebService.shared.setAttachmentScores(attachID: attachID) {
-            result in
-            switch result {
-                
-            case .success(let success):
-                  print(success)
-            case .failure(let fail):
-                print(fail)
-            }
-        }
-    }
-    
-    func getAttachmentID(side:Int) -> Int{
-        
-        let id =  matchedAttachs[startIndex][side].id
-         return id!
-         
-    }
- 
+  
     func loadIndicator(isPlaying:Bool) {
         
         callbackLoadIndicator?(isPlaying)
 //        activityInd.isHidden = !isPlaying
- 
-       
+  
     }
-    func setRound(roundIndex:Int,tourCount:Int) {
-        callbackSetRoundLabel?("\(roundIndex) / \(tourCount)")
-       // roundLabel.text = "\(roundIndex) / \(tourCount)"
-    }
+    
     func setVideo(videoView:YTPlayerView,matchIndex:Int,rowIndex:Int) {
         
         loadIndicator(isPlaying: true)
@@ -140,22 +88,7 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         
         return  matchedAttachs[matchIndex][rowIndex].url!
     }
-//    func getYoutubeVideoID(url:String) -> String {
-//        
-//        let baseURL = url.replacingOccurrences(of: " ", with: "")
-//        let splitUrl = baseURL.split(separator: "?v=")
-// 
-//      let id = splitUrl[1].split(separator: "&")
-//      var videoID = ""
-//        if id == nil {
-//            videoID = String(splitUrl[1])
-//        }else {
-//            videoID = String(id[0])
-//        }
-//   
-//        return videoID
-//        
-//    }
+ 
     
     func loadVideo(videoID:String,videoView:YTPlayerView) {
         videoView.load(withVideoId: videoID)
@@ -201,8 +134,5 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         }
         return false
     }
-    func resetIndexes() {
-        startIndex = 0
-        roundIndex = 1
-    }
+   
 }

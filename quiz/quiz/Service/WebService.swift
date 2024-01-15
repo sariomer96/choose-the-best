@@ -112,7 +112,7 @@ class WebService {
         
         upload(endpoint: endpoint, completion: completion)
     }
-    func createAtch(title:String,videoUrl:String,image:UIImage,completion: @escaping (Result<Attachment,Error>) -> Void){
+    func createAttachment(title:String,videoUrl:String,image:UIImage,completion: @escaping (Result<Attachment,Error>) -> Void){
        
         let imageData = image.jpegData(compressionQuality: 0.5)
         guard let imageData = imageData else {return}

@@ -32,6 +32,11 @@ class QuizListVC: BaseViewController {
             }
         }
         
+        viewModel.callbackFail = { [weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Error", message: error.localizedDescription)
+        }
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +53,7 @@ class QuizListVC: BaseViewController {
         
         viewModel.quizListDelegate?.getQuizList(completion: { result in
             DispatchQueue.main.async{
-                print("quizlst ")
+         
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
                 
@@ -112,11 +117,6 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         let quiz =  viewModel.quizList[indexPath.row]
         
         self.presentGameStartViewController(quiz: quiz)
-//        let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-//         
-//        vc.viewModel.quiz = quiz
-          
-     //   self.navigationController!.pushViewController(vc, animated: true)
-        
+ 
     }
 }

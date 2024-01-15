@@ -6,10 +6,7 @@ class GameStartViewModel {
     private var quiz:QuizResponse? // private yap  disari erisime kapat
     var totalAttachScore = 0
     var progress:CGFloat = 0
-     
-    
-  
-    
+    var callbackFailAlert:CallBack<Error>?
     func getQuizResponse(completion: @escaping (Bool) -> Void) {
          
         WebService.shared.getQuiz(quizID: quiz?.id ?? 0) {
@@ -26,7 +23,7 @@ class GameStartViewModel {
                 }
                 completion(true)
             case .failure(let fail):
-                print("FAIL GAMESTART \(fail)")
+                self.callbackFailAlert?(fail)
             }
  
         }
@@ -41,7 +38,7 @@ class GameStartViewModel {
     func getAttachments()  -> [Attachment]?{
         return quiz?.attachments
     }
-    func setQuiz(quiz: QuizResponse) { // optionalliktan kurtarip gonder
+    func setQuiz(quiz: QuizResponse) {
         self.quiz = quiz
     }
 }

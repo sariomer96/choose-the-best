@@ -96,8 +96,6 @@ class GameVideoVC: BaseViewController {
     @IBAction func bottomChooseClick(_ sender: Any) {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 1) {
             attachment in
-  
-            
    
         }
     }

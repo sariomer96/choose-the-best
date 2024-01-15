@@ -50,6 +50,8 @@ class CreateQuizViewModel:NSObject {
         }
  
     }
+   
+    
     func getDropDownActions() -> [UIAction] {
         var categoryActionMap: [UIAction: Int] = [:]
          action.removeAll()
@@ -68,12 +70,11 @@ class CreateQuizViewModel:NSObject {
         }
         for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
             if i == 0 {
-                action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))
+                action.append( UIAction(title: "Select", state: .on, handler: optionClosure))
                 categoryActionMap[action[0]] = -1
             }else {
                 let categoryAction = UIAction(title: String(categoryList?[i-1].name! ?? ""), state: .on, handler: optionClosure)
-                  
-                  // Map the action to its corresponding index
+                   
                 categoryActionMap[categoryAction] = categoryList?[i-1].id
                   
                   action.append(categoryAction)
@@ -84,44 +85,6 @@ class CreateQuizViewModel:NSObject {
         return action
     }
 }
-
-
-/// IMAGE RECOGNIZER
-extension CreateQuizViewModel:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-//    func getUiViewController(view: UIViewController) {
-//        uiView = view
-// 
-//    }
-    
-//    func recognizer(imageView:UIImageView) {
-//        
-//        
-//        recogDelegate?.getUiViewController(view: view)
-//        imageView.isUserInteractionEnabled = true
-//        coverImage = imageView
-//        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage))
-//        coverImage!.addGestureRecognizer(gestureRecognizer)
-// 
-//    }
-//    
-//    @objc func chooseImage() {
-//         
-//        let picker = UIImagePickerController()
-//        picker.delegate = self
-//        picker.sourceType = .photoLibrary
-//        uiView?.present(picker,animated: true,completion: nil)
-//  
-//    }
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        coverImage?.image = info[.originalImage] as? UIImage
-//        uiView?.dismiss(animated: true)
-//       
-//        isSelectedImage = true
-//        
-//    }
-//    
-    
-  
+ 
      
-}
+

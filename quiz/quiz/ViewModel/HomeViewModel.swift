@@ -20,7 +20,7 @@ class HomeViewModel {
     var recentlyList = [QuizResponse]()
     var topQuizList = [QuizResponse]()
     var currentQuizList = [QuizResponse]()
-    
+    var callbackFailRequest:CallBack<Error>?
 
     var currentSizeCount = 10
 
@@ -43,6 +43,7 @@ class HomeViewModel {
                 completion("trigger")
             case .failure(let error):
                 print("error \(error)")
+                self.callbackFailRequest?(error)
             }
         }
  
@@ -54,7 +55,7 @@ class HomeViewModel {
         
     }
  
-    func getRecentlyQuiz(completion: @escaping (String?) -> Void) {
+    func getRecentlyQuiz() {
         guard isStillExistRecentlyQuest else { return }
         webService.getRecentlyQuiz(page: currentRecentlyQuestPageCount, count: currentSizeCount){ result in
             switch result {
@@ -67,11 +68,13 @@ class HomeViewModel {
                 self.isStillExistRecentlyQuest = (apiResponse.next != nil) ? true : false
                 self.checkPaginateEnableRecentlyQuest(self.recentlyList.count, allItemsCount: apiResponse.count ?? 0)
              
+                self.currentQuizList = self.recentlyList
+     
                 self.callbackReloadTopRatedTableView?()
-              
-                   completion("trigger")
+               
             case .failure(let error):
-                print("error \(error)")
+                self.callbackFailRequest?(error)
+      
             }
         }
     }
@@ -91,10 +94,11 @@ class HomeViewModel {
                 
                 self.currentQuizList = self.topQuizList
          
+           
                 completion("trigger")
          
             case .failure(let error):
-                print("error \(error)")
+                self.callbackFailRequest?(error)
             }
         }
    }
@@ -114,12 +118,8 @@ class HomeViewModel {
           guard isStillExistRecentlyQuest else { return }
         currentRecentlyQuestPageCount += 1
         print("currentRecentlyQuestPageCount")
-        self.getRecentlyQuiz{ _ in
-            print("yebile")
-            self.currentQuizList = self.recentlyList
-            self.callbackReloadTopRatedTableView?()
-        }
-           
+           self.getRecentlyQuiz()
+         
       }
  
     

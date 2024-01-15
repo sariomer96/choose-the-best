@@ -31,7 +31,7 @@ class GameStartTourVC: BaseViewController {
     
     @IBAction func startClick(_ sender: Any) {
         
-        if viewModel.quiz?.attachments[0].url?.lowercased().range(of:"youtube") != nil {
+        if viewModel.quiz?.attachments[0].url?.lowercased().range(of:"youtu") != nil {
   
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "GameVideoVC") as? GameVideoVC
             

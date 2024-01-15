@@ -25,7 +25,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     var total = 0
     
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
-        WebService.shared.createAtch(title: title, videoUrl: videoUrl, image: image) {  result in
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) {  result in
             
             switch result {
                 

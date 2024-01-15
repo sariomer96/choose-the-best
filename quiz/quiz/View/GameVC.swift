@@ -82,9 +82,7 @@ class GameVC: BaseViewController {
         }
         gameViewModel.callbackWin = { [weak self] attachment in
             guard let self = self else {return}
-            winLabel.textColor = .systemRed
-            winLabel.text = "\(attachment.title) WIN!!"
-            //popUpView.isHidden = false
+    
              
               setImageInteraction(value: false)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -125,7 +123,7 @@ class GameVC: BaseViewController {
             ])
         }
         
-        gameViewModel.callbackSetRoundText = { [weak self] text in
+        gameViewModel.callbackSetRoundLabel = { [weak self] text in
             guard let self = self else {return}
             roundLabel.text = text
         }
