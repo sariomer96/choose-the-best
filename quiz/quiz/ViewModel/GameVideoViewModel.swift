@@ -133,29 +133,29 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
         
         loadIndicator(isPlaying: true)
         let url =   getURL(matchIndex: matchIndex, rowIndex: rowIndex)
-        let videoId = getYoutubeVideoID(url: url)
+        let videoId = WebService.shared.getYoutubeID(url: url)
         loadVideo(videoID: videoId, videoView: videoView)
     }
      func getURL(matchIndex:Int,rowIndex:Int) -> String {
         
         return  matchedAttachs[matchIndex][rowIndex].url!
     }
-    func getYoutubeVideoID(url:String) -> String {
-        
-        let baseURL = url.replacingOccurrences(of: " ", with: "")
-        let splitUrl = baseURL.split(separator: "v=")
- 
-      let id = splitUrl[1].split(separator: "&")
-      var videoID = ""
-        if id == nil {
-            videoID = String(splitUrl[1])
-        }else {
-            videoID = String(id[0])
-        }
-   
-        return videoID
-        
-    }
+//    func getYoutubeVideoID(url:String) -> String {
+//        
+//        let baseURL = url.replacingOccurrences(of: " ", with: "")
+//        let splitUrl = baseURL.split(separator: "?v=")
+// 
+//      let id = splitUrl[1].split(separator: "&")
+//      var videoID = ""
+//        if id == nil {
+//            videoID = String(splitUrl[1])
+//        }else {
+//            videoID = String(id[0])
+//        }
+//   
+//        return videoID
+//        
+//    }
     
     func loadVideo(videoID:String,videoView:YTPlayerView) {
         videoView.load(withVideoId: videoID)

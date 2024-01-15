@@ -182,18 +182,36 @@ class WebService {
         case quizList
         
     }
+    
+    func getYoutubeID (url:String) -> String {
+        var videoID = ""
+        let linkStart = "https://youtu.be/"
+       let isSharedLink =  url.hasPrefix(linkStart)
+        
+        
+        if isSharedLink == true {
+            let splitUrl = url.split(separator: linkStart)[0]
+           let id =   splitUrl.split(separator: "?")[0]
+          
+            videoID = String(id)
+        }else {
+            let baseUrl = url.split(separator: "?v=")[1]
+     
+            let id = baseUrl.split(separator: "&")
+            
+             videoID = String(id[0])
+        }
+         return videoID
+    }
+    
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
-      
-        let baseUrl = url.split(separator: "v=")[1]
- 
-        let id = baseUrl.split(separator: "&")
+         let id =  getYoutubeID(url: url)
         
-        let videoID = String(id[0])
          
         DispatchQueue.main.async { [self] in
 
-        let thumbNail = URL(string: "https://img.youtube.com/vi/\(videoID)/0.jpg")!
+        let thumbNail = URL(string: "https://img.youtube.com/vi/\(id)/0.jpg")!
                
            var image = UIImageView()
             
