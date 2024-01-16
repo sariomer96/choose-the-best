@@ -761,7 +761,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3b-ss-7pO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4689.8550724637689" y="576.5625"/>
+            <point key="canvasLocation" x="4030" y="581"/>
         </scene>
         <!--Game VideoVC-->
         <scene sceneID="oIR-lY-lNs">
@@ -996,12 +996,65 @@
                     </view>
                     <navigationItem key="navigationItem" id="OZV-jD-NQG"/>
                     <connections>
+                        <outlet property="blurView" destination="lsC-8d-48K" id="dia-53-Qyg"/>
                         <outlet property="categorySelectButton" destination="UPh-vO-TFM" id="EBy-ug-cb9"/>
                         <outlet property="coverImageView" destination="fuD-Lw-8T6" id="FRD-RL-u8b"/>
+                        <outlet property="popUpView" destination="yir-e2-6XA" id="gBF-rX-Bhh"/>
                         <outlet property="quizTitleLabel" destination="ieL-MW-KJu" id="Y7h-zY-Uwp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIT-OF-LXW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="yir-e2-6XA">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="419"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMa-qB-p5n">
+                            <rect key="frame" x="8" y="91.5" width="304" height="236.5"/>
+                            <string key="text">In our application, it is important that the shared photos do not contain sexual, religious, or ethnic content. We remind you that such content is prohibited, and content that violates these rules will be removed. Necessary measures will be taken in case of violation, including actions related to user accounts. Please ensure that your posts comply with these rules. Thank you.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0P-hr-LZR">
+                            <rect key="frame" x="124" y="351" width="72.5" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Confirm" subtitle="">
+                                <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
+                                <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="confirmButtonClicked:" destination="Yg9-lF-IT4" eventType="touchUpInside" id="5mF-x3-DX9"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attention Please" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4G-T8-AaX">
+                            <rect key="frame" x="93" y="54" width="134" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="NLi-6N-NIj"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="NLi-6N-NIj" firstAttribute="trailing" secondItem="nMa-qB-p5n" secondAttribute="trailing" constant="8" id="07u-ps-Pr1"/>
+                        <constraint firstItem="K4G-T8-AaX" firstAttribute="centerX" secondItem="yir-e2-6XA" secondAttribute="centerX" id="65T-f3-Qac"/>
+                        <constraint firstItem="NLi-6N-NIj" firstAttribute="bottom" secondItem="t0P-hr-LZR" secondAttribute="bottom" constant="4" id="7C1-JI-YbF"/>
+                        <constraint firstItem="nMa-qB-p5n" firstAttribute="leading" secondItem="NLi-6N-NIj" secondAttribute="leading" constant="8" id="NtW-GL-aJQ"/>
+                        <constraint firstItem="t0P-hr-LZR" firstAttribute="centerX" secondItem="yir-e2-6XA" secondAttribute="centerX" id="YtA-aj-0V7"/>
+                        <constraint firstItem="nMa-qB-p5n" firstAttribute="centerY" secondItem="yir-e2-6XA" secondAttribute="centerY" id="jv9-du-6eh"/>
+                        <constraint firstItem="nMa-qB-p5n" firstAttribute="top" secondItem="K4G-T8-AaX" secondAttribute="bottom" constant="16.5" id="qwh-me-Co8"/>
+                    </constraints>
+                </view>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" id="lsC-8d-48K">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VSt-Ug-M0H">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
             </objects>
             <point key="canvasLocation" x="4266.666666666667" y="-322.09821428571428"/>
         </scene>
@@ -1333,7 +1386,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2n-vU-vNq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3779.7101449275365" y="576.5625"/>
+            <point key="canvasLocation" x="3120" y="581"/>
         </scene>
     </scenes>
     <resources>

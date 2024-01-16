@@ -65,7 +65,7 @@ class CreateQuizViewModel:NSObject {
         }
         for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
             if i == 0 {
-                action.append( UIAction(title: "Select", state: .on, handler: optionClosure))
+                action.append( UIAction(title: "Category", state: .on, handler: optionClosure))
                 categoryActionMap[action[0]] = -1
             }else {
                 let categoryAction = UIAction(title: String(categoryList?[i-1].name! ?? ""), state: .on, handler: optionClosure)

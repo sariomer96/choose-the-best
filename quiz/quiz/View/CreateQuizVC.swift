@@ -11,6 +11,8 @@ class CreateQuizVC: BaseViewController {
     
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UITextField!
+    @IBOutlet var popUpView: UIView!
+    @IBOutlet var blurView: UIVisualEffectView!
     var viewModel = CreateQuizViewModel()
 
     @IBOutlet weak var categorySelectButton: UIButton!
@@ -18,7 +20,9 @@ class CreateQuizVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        blurView.bounds = self.view.bounds
+        popUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width*0.9, height: self.view.bounds.height*0.4)
+        popUpView.layer.cornerRadius = 10
         recognizer(imageView: coverImageView)
        categorySelectButton.isHidden = true
         viewModel.getCategory { result in
@@ -27,8 +31,36 @@ class CreateQuizVC: BaseViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         viewModel.didSelectCategory = false
+        animateIn(desiredView: blurView)
+        animateIn(desiredView: popUpView)
+ 
     }
    
+    @IBAction func confirmButtonClicked(_ sender: Any) {
+        animateOut(desiredView: blurView)
+        animateOut(desiredView: popUpView)
+    }
+    func animateIn(desiredView:UIView){
+        let backgroundView = self.view!
+        
+        backgroundView.addSubview(desiredView)
+        desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.2)
+        desiredView.alpha = 0
+        desiredView.center = backgroundView.center
+        
+        UIView.animate(withDuration: 0.3) {
+            desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            desiredView.alpha = 1
+        }
+    }
+    func animateOut(desiredView:UIView){
+        UIView.animate(withDuration: 0.3, animations: {
+            desiredView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            desiredView.alpha = 0
+        }, completion: { _ in
+            desiredView.removeFromSuperview()
+        })
+    }
     func showSelectCategoryButton(){
          
         let  action = viewModel.getDropDownActions()

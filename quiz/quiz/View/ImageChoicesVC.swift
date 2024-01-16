@@ -59,7 +59,7 @@ class ImageChoicesVC: BaseViewController {
         self.imageChoicesViewModel.imageArray.removeAll()
         self.imageChoicesViewModel.attachIdList.removeAll()
         self.imageChoicesViewModel.attachNameList.removeAll()
-        WebService.shared.attachmentIdList.removeAll()
+       // WebService.shared.attachmentIdList.removeAll()
     }
     @IBAction func nextClick(_ sender: Any) {
          
