@@ -18,50 +18,33 @@ let roundsKey = [
     "Round Of 128"
      
 ]
-
- 
-
 class GameStartTourViewModel {
     var rounds = [2,4,8,16,32,64,128]
     var defaulPlayableCount = 2
     var maxPlayableCount = 2
     var quiz:QuizResponse?
- 
     var action = [UIAction]()
  
+    func getActionRoundCount(actionTitle:String) -> Int{
+        for (index,obj) in roundsKey.enumerated() {
+            if (obj == actionTitle){
+                return rounds[index]
+            }
+        }
+        return rounds[0]
+    }
     func getDropDownActions(attachmentCount:Int,completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
               
-            switch action.title{
-            case roundsKey[0]:
-                completion(self.rounds[0])
-            case roundsKey[1]:
-                completion(self.rounds[1])
-            case roundsKey[2]:
-                completion(self.rounds[2])
-            case roundsKey[3]:
-                completion(self.rounds[3])
-            case roundsKey[4]:
-                completion(self.rounds[4])
-            case roundsKey[5]:
-                completion(self.rounds[5])
-            case roundsKey[6]:
-                completion(self.rounds[6])
-
-
-            default:
-                completion(self.rounds[0])
-                
-            }
-           
+           let roundCount = getActionRoundCount(actionTitle: action.title)
+             
+            completion(roundCount)
+        
         }
      
         let round =  getClosestRound(count: (attachmentCount), rounds: rounds, completion: completion)
-        
         let index =  rounds.firstIndex(of: round!)
-        
-  
          
         for i in stride(from: 0, to: index!+1, by: 1) {
  
@@ -72,12 +55,9 @@ class GameStartTourViewModel {
     }
  
     func getClosestRound(count:Int, rounds:[Int], completion: @escaping (Int) -> Void) -> Int? {
-        
-        
         guard let closest = rounds.filter({ $0 <= count }).max() else {
             return nil
         }
-    
         return closest
     }
 }

@@ -22,9 +22,9 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
     var titleArray = [String]()
     var videoUrlList = [String]()
     
-    override init() {
-        self.attachIdList = WebService.shared.attachmentIdList
-    }
+//    override init() {
+//        self.attachIdList = WebService.shared.attachmentIdList
+//    }
     func removeAttachment(index:Int) {
          
         thumbNails.remove(at: index)
@@ -34,11 +34,17 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
     func addAttachment(title:String,videoUrl:String,image:UIImage?,score:Int, completion: @escaping (Bool)->Void) {
         
         guard let image = image else {return}
-        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { _  in
+        WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image:image) { attachment  in
       
-            self.attachIdList = WebService.shared.attachmentIdList
-            
+            switch attachment {
+                
+            case .success(let attach):
+                guard let id = attach.id else {return}
+                self.attachIdList.append(id)
                 completion(true)
+            case .failure(_):
+                print("fail")
+            } 
         }
     }
      

@@ -82,7 +82,7 @@ class VideoChoicesVC: BaseViewController {
     
     func clearArrays() {
         videoChoicesViewModel.attachIdList.removeAll()
-        WebService.shared.attachmentIdList.removeAll()
+      //  WebService.shared.attachmentIdList.removeAll()
         self.videoChoicesViewModel.thumbNails.removeAll()
         self.videoChoicesViewModel.titleArray.removeAll()
     }

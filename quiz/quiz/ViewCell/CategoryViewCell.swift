@@ -10,9 +10,5 @@ import UIKit
 class CategoryViewCell: UICollectionViewCell {
     
     @IBOutlet weak var categoryLabel: UILabel! 
-       
-    
- 
    
-    
 }

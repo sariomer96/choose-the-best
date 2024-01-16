@@ -189,8 +189,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -252,8 +252,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -471,8 +471,8 @@
             filePath = "quiz/ViewModel/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "checkPaginateEnableRecentlyQuest(_:allItemsCount:)"
             landmarkType = "7">
             <Locations>
@@ -599,8 +599,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "startPaginateToTopRateQuestions()"
-            landmarkType = "7">
+            landmarkName = "HomeViewModel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -677,8 +677,8 @@
             filePath = "quiz/ViewModel/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "checkPaginateEnableRecentlyQuest(_:allItemsCount:)"
             landmarkType = "7">
          </BreakpointContent>

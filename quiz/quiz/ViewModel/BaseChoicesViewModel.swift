@@ -34,20 +34,12 @@ class BaseChoicesViewModel {
                 self.attachmentIds.removeAll()
                     
                 self.callbackPublishQuiz?(quiz)
-//                            AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-//
-//
-//                                let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-//                                vc.viewModel.quiz = quiz
-//
-//                                uiview.navigationController!.pushViewController(vc, animated: true)
-//                                 //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
-//                            }
+ 
              case .failure(let error):
                  print(error)
                 
                 self.callbackFail?(error)
-               // AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error.localizedDescription)
+ 
             }
         }
   

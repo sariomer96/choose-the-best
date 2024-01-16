@@ -19,29 +19,15 @@ class GamePopUpViewModel {
     var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
     var callbackRateQuiz: VoidCallBack?
     
-    func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
+     func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
       
         let optionClosure = { [self] (action : UIAction) in
              
-            switch action.title{
-            case String(rates[0]):
-                completion(self.rates[0])
-            case String(rates[1]):
-                completion(self.rates[1])
-            case String(rates[2]):
-                completion(self.rates[2])
-            case String(rates[3]):
-                completion(self.rates[3])
-            case String(rates[4]):
-                completion(self.rates[4])
-            case String(rates[5]):
-                completion(self.rates[5])
-        
-            default:
-                completion(-1)
-              
-            }
-           
+            let rate = Int(action.title)
+            guard let rate = rate else {return}
+            
+            completion(rate)
+          
         }
         action.append(UIAction(title: "Rate Quiz", state : .on , handler: optionClosure))
         for i in rates {

@@ -30,7 +30,7 @@ class BaseGameViewModel : BaseViewModel {
     }
     func setRound(roundIndex:Int,tourCount:Int) {
         callbackSetRoundLabel?("\(roundIndex) / \(tourCount)")
-       // roundLabel.text = "\(roundIndex) / \(tourCount)"
+    
     }
     func setAttachmentScore(attachID:Int) {
         

@@ -17,7 +17,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     var attachIdList = [Int]()
     var attachNameList = [String]()
     var imageArray = [UIImage]()
-   // var attachmentList = [Attachment]()
+  
     var createdAttachmentList = [Attachment]()
     var callbackReloadTableView: VoidCallBack?
 
@@ -41,10 +41,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
             
         }
     }
-  
- 
-  //  let titles = [ "aa", "bb","cc"]
-    func onClickNext(completion: @escaping (Bool)->Void) {
+   
+    func updateAttachment(completion: @escaping (Bool)->Void) {
         
         WebService.shared.updateAttachment(titles: attachNameList, ids: attachIdList) {
             result in
@@ -59,7 +57,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     }
 
     func removeAttachment(index:Int, attachmentID:Int) {
-        //attachIdList.remove(at: index)
+    
         WebService.shared.deleteAttachment(attachmentID: attachmentID) { result in
             switch result {
             case .success(let result):
@@ -79,10 +77,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
          for (index, result) in results.enumerated() {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
-                     
-                   
-                    
-             
+                      
                     self.addAttachment(title: String(self.num), videoUrl: "", image: image, score: 0) {
                         result in
                   
@@ -97,16 +92,11 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                             print("image load failed")
                             break
                         }
-                        
-
-                              
+                         
                       //  self.num += 1
                        
                     }
-               
-                 
                 
-                   
                 }
             }
         }

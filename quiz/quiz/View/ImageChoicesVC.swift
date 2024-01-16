@@ -65,7 +65,7 @@ class ImageChoicesVC: BaseViewController {
          
         if imageChoicesViewModel.imageArray.count > 1 {
              
-                imageChoicesViewModel.onClickNext() { [weak self] _ in
+                imageChoicesViewModel.updateAttachment() { [weak self] _ in
                     guard let self = self else {return}
                   
                     imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image, attachment_ids: imageChoicesViewModel.attachmentIds)

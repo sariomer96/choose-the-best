@@ -173,16 +173,8 @@ class WebService {
          request(endpoint: endpoint, completion: completion)
     }
     
-    var attachmentIdList = [Int]()
-   
-    enum GetRequestTypes {
-        case topRate
-        case recently
-        case category
-        case quizList
-        
-    }
-    
+
+
     func getYoutubeID (url:String) -> String {
         var videoID = ""
         let linkStart = "https://youtu.be/"
@@ -207,7 +199,6 @@ class WebService {
     func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
       
          let id =  getYoutubeID(url: url)
-        
          
         DispatchQueue.main.async { [self] in
 
@@ -218,10 +209,9 @@ class WebService {
             image.kf.setImage(with: thumbNail) { [self] result in
                 switch result {
                 case .failure(let error):
-                    print(error)
+                   
                     completion(false,nil)
                 case .success(let success):
-                     
                     completion(true,image.image!)
                 }
             }

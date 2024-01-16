@@ -17,12 +17,7 @@ class CreateQuizViewModel:NSObject {
     
     var isSelectedImage:Bool = false
     var coverImage:UIImageView?
-
-    override init() {
-        super.init()
-    
-      //  recogDelegate = self
-    }
+ 
  
     func setSelectImageStatus(status:Bool) {
         isSelectedImage = status

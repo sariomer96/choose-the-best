@@ -60,23 +60,23 @@ class HomeViewModel {
         webService.getRecentlyQuiz(page: currentRecentlyQuestPageCount, count: currentSizeCount){ result in
             switch result {
             case .success(let apiResponse):
-               
-                if let questionList = apiResponse.results {
-                    self.recentlyList += questionList
-           
-                }
-                self.isStillExistRecentlyQuest = (apiResponse.next != nil) ? true : false
-                self.checkPaginateEnableRecentlyQuest(self.recentlyList.count, allItemsCount: apiResponse.count ?? 0)
-             
-                self.currentQuizList = self.recentlyList
-     
+                self.onRecentlyRequestSuccess(response: apiResponse)
                 self.callbackReloadTopRatedTableView?()
                
             case .failure(let error):
                 self.callbackFailRequest?(error)
-      
             }
         }
+    }
+    func onRecentlyRequestSuccess(response:ApiResponse) {
+        if let questionList = response.results {
+            self.recentlyList += questionList
+   
+        }
+        self.isStillExistRecentlyQuest = (response.next != nil) ? true : false
+        self.checkPaginateEnableRecentlyQuest(self.recentlyList.count, allItemsCount: response.count ?? 0)
+     
+        self.currentQuizList = self.recentlyList
     }
     
     func getTopRateQuiz(completion: @escaping (String?) -> Void){
@@ -84,48 +84,44 @@ class HomeViewModel {
         webService.getTopRate(page: currentTopRateQuestPageCount, count: currentSizeCount) { result in
             switch result {
               
-            case .success(let quiz):
-                guard let quizy = quiz.results else{return}
+            case .success(let apiResponse):
+                guard let quiz = apiResponse.results else{return}
                 
-                
-                self.topQuizList += quizy
-                self.isStillExistTopRatedQuest = (quiz.next != nil) ? true : false
-                self.checkPaginateEnableTopQuest(self.topQuizList.count, allItemsCount: quiz.count ?? 0)
-                
-                self.currentQuizList = self.topQuizList
-         
-           
+                self.onTopRateRequestSuccess(apiResponse: apiResponse, quiz: quiz)
+          
                 completion("trigger")
-         
             case .failure(let error):
                 self.callbackFailRequest?(error)
             }
         }
    }
-    func startPaginateToTopRateQuestions() {
- 
+    func onTopRateRequestSuccess(apiResponse:ApiResponse,quiz:[QuizResponse]){
+        self.topQuizList += quiz
+        self.isStillExistTopRatedQuest = (apiResponse.next != nil) ? true : false
+        self.checkPaginateEnableTopQuest(self.topQuizList.count, allItemsCount: apiResponse.count ?? 0)
         
+        self.currentQuizList = self.topQuizList
+    }
+    func startPaginateToTopRateQuestions() {
+  
            guard isStillExistTopRatedQuest else { return }
          currentTopRateQuestPageCount += 1
          self.getTopRateQuiz { _ in
              self.callbackReloadTopRatedTableView?()
          }
-       //     getCollections()
+ 
        }
-    
-    // TODO: ONURUN YAPTI[I APIRESPONSE GELEN NEXT DEGERI SON URUNLER ICIN NIL GELIYORSA CALISIR
+     
     func startPaginateToRecentlyQuestions() {
           guard isStillExistRecentlyQuest else { return }
         currentRecentlyQuestPageCount += 1
-        print("currentRecentlyQuestPageCount")
            self.getRecentlyQuiz()
-         
       }
  
     
     //MARK: CHECK PAGINATE
     private func checkPaginateEnableRecentlyQuest(_ recentlyQuestItemCount: Int?,allItemsCount:Int) {
-        guard let recentlyQuestItemCount = recentlyQuestItemCount else {print("false"); isStillExistRecentlyQuest = false; return }
+        guard let recentlyQuestItemCount = recentlyQuestItemCount else {isStillExistRecentlyQuest = false; return }
         if  self.currentSizeCount != recentlyQuestItemCount && allItemsCount == recentlyQuestItemCount {
             isStillExistRecentlyQuest = false
             
@@ -141,8 +137,7 @@ class HomeViewModel {
         }
     }
     //MARK: CHECK PAGINATE
-    
-    
+     
     func getQuizList(quizType: QuizType, index: Int) -> QuizResponse? {
         switch quizType {
         case .topQuiz:

@@ -37,58 +37,16 @@ class CreatePublishingViewModel {
                 
             case .success(let quiz):
                 self.attachmentIds.removeAll()
-                   
-                
                 self.callbackPublishQuiz?(quiz)
-//                            AlertManager.shared.alert(view: uiview, title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-//
-//                                
-//                                let vc = uiview.storyboard!.instantiateViewController(withIdentifier: "GameStartVC") as! GameStartVC
-//                                vc.viewModel.quiz = quiz
-//
-//                                uiview.navigationController!.pushViewController(vc, animated: true)
-//                                 //uiview.performSegue(withIdentifier: "toGameStartVC", sender: quiz)
-//                            }
+ 
              case .failure(let error):
                  print(error)
                 
                 self.callbackFail?(error)
-               // AlertManager.shared.alert(view: uiview, title: "Upload Failed!", message: error.localizedDescription)
-            }
+             }
         }
   
     }
-    
-//    func getDropDownActions() -> [UIAction] {
-//        var categoryActionMap: [UIAction: Int] = [:]
-//         action.removeAll()
-//        let optionClosure = { [self] (action: UIAction) in
-//            guard let selectedCategoryIndex = categoryActionMap[action] else {
-//                return
-//            }
-//             
-//            if selectedCategoryIndex != -1 {
-//                self.categoryID = selectedCategoryIndex
-//                self.didSelectCategory = true
-//        
-//            }
-//        } 
-//        for i in stride(from: 0, to: (categoryList?.count ?? 0) + 1, by: 1) {
-//            if i == 0 {
-//                action.append( UIAction(title: "Select..", state: .on, handler: optionClosure))
-//                categoryActionMap[action[0]] = -1
-//            }else {
-//                let categoryAction = UIAction(title: String(categoryList?[i-1].name! ?? ""), state: .on, handler: optionClosure)
-//                  
-//                  // Map the action to its corresponding index
-//                categoryActionMap[categoryAction] = categoryList?[i-1].id
-//                  
-//                  action.append(categoryAction)
-//            }
-//        }
-//     
-//   
-//        return action
-//    }
+
 }
 
