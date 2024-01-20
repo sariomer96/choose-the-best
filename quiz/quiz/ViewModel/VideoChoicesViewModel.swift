@@ -17,7 +17,7 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
    
  
     var url = ""
-    var attachIdList = [Int]()
+    
     var thumbNails = [UIImage]()
     var titleArray = [String]()
     var videoUrlList = [String]()
@@ -40,7 +40,7 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
                 
             case .success(let attach):
                 guard let id = attach.id else {return}
-                self.attachIdList.append(id)
+                self.attachmentIds.append(id)
                 completion(true)
             case .failure(_):
                 print("fail")

@@ -66,10 +66,10 @@ class VideoChoicesVC: BaseViewController {
         if videoChoicesViewModel.thumbNails.count > 1 {
             
             videoChoicesViewModel.addAttachmentsOnNextClick { [self] result in
-                let vc = self.storyboard!.instantiateViewController(withIdentifier: "CreatePublishingVC") as? CreatePublishingVC
+               
                 
                 if videoChoicesViewModel.thumbNails.count > 1 {
-                    videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: videoChoicesViewModel.categoryId, isVisible: true,is_image: videoChoicesViewModel.is_image, attachment_ids: videoChoicesViewModel.attachmentIds)
+                    videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: videoChoicesViewModel.categoryId, isVisible: true,is_image: false, attachment_ids: videoChoicesViewModel.attachmentIds)
                 }else{
                     alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
                 } 
@@ -81,7 +81,7 @@ class VideoChoicesVC: BaseViewController {
     }
     
     func clearArrays() {
-        videoChoicesViewModel.attachIdList.removeAll()
+        self.videoChoicesViewModel.attachmentIds.removeAll()
       //  WebService.shared.attachmentIdList.removeAll()
         self.videoChoicesViewModel.thumbNails.removeAll()
         self.videoChoicesViewModel.titleArray.removeAll()

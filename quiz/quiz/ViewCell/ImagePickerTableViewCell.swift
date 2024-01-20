@@ -35,7 +35,10 @@ final class ImagePickerTableViewCell: UITableViewCell {
 
 
 extension ImagePickerTableViewCell: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        delegate?.didEndTextChange(text: textField.text, index: index)
+//    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         delegate?.didEndTextChange(text: textField.text, index: index)
     }
 }

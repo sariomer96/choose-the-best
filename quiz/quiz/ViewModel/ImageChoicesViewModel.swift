@@ -14,12 +14,13 @@ typealias CallBack<T> = ((T) -> Void)
 final class ImageChoicesViewModel: BaseChoicesViewModel {
    
     static let shared = ImageChoicesViewModel()
-    var attachIdList = [Int]()
+ 
     var attachNameList = [String]()
     var imageArray = [UIImage]()
   
     var createdAttachmentList = [Attachment]()
     var callbackReloadTableView: VoidCallBack?
+    
 
     var attachmentRequestList = [AttachmentRequestObject]()
     var total = 0
@@ -32,10 +33,12 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
             case .success(let attachment):
                 
                 guard let attachment = attachment.id else {return}
-                self.attachIdList.append(attachment)
-         
+                self.attachmentIds.append(attachment)
+                print("add \(self.attachmentIds)")
+          
                 completion(true)
             case .failure(_):
+                print("false")
                 completion(false)
             }
             
@@ -44,15 +47,23 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
    
     func updateAttachment(completion: @escaping (Bool)->Void) {
         
-        WebService.shared.updateAttachment(titles: attachNameList, ids: attachIdList) {
+    
+        print(attachNameList)
+        WebService.shared.updateAttachment(titles: attachNameList, ids: self.attachmentIds) {
             result in
-            print(result)
+            print("resi;ttt")
+              
+           
+             completion(result)
+         
+          
         }
     
     }
     
     func editTitle(index: Int, title: String?) {
         guard let title = title, attachNameList.count > index else { return }
+        print("edit title \(title) \(index)")
         attachNameList[index] = title
     }
 
@@ -63,6 +74,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
             case .success(let result):
                 self.imageArray.remove(at: index)
                 self.attachNameList.remove(at: index)
+                self.attachmentIds.remove(at: index)
+                self.callbackReloadTableView?()
             case .failure(let fail):
                 print("fail")
             }

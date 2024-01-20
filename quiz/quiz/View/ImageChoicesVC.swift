@@ -31,9 +31,7 @@ class ImageChoicesVC: BaseViewController {
     func initVM() {
         imageChoicesViewModel.callbackReloadTableView = { [weak self] in
             guard let self = self else { return }
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
+           
             UIView.transition(with: tableView,
                               duration: 0.35,
                               options: .transitionCrossDissolve,
@@ -57,7 +55,7 @@ class ImageChoicesVC: BaseViewController {
     }
     func clearArrays() {
         self.imageChoicesViewModel.imageArray.removeAll()
-        self.imageChoicesViewModel.attachIdList.removeAll()
+        self.imageChoicesViewModel.attachmentIds.removeAll()
         self.imageChoicesViewModel.attachNameList.removeAll()
        // WebService.shared.attachmentIdList.removeAll()
     }
@@ -65,11 +63,15 @@ class ImageChoicesVC: BaseViewController {
          
         if imageChoicesViewModel.imageArray.count > 1 {
              
-                imageChoicesViewModel.updateAttachment() { [weak self] _ in
+                imageChoicesViewModel.updateAttachment() { [weak self] result in
                     guard let self = self else {return}
-                  
-                    imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image, attachment_ids: imageChoicesViewModel.attachmentIds)
- 
+                      print("olustu attach")
+                    if result == true {
+                        print("ids \(imageChoicesViewModel.attachmentIds)")
+                        imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image, attachment_ids: imageChoicesViewModel.attachmentIds)
+     
+                    }
+               
  
                 }
               
@@ -132,11 +134,9 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         let yes = UIAlertAction(title: "Delete", style: .destructive) {
         action in
-              print(self.imageChoicesViewModel.attachIdList[index])
-            self.imageChoicesViewModel.removeAttachment(index: index, attachmentID: self.imageChoicesViewModel.attachIdList[index])
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+            
+            self.imageChoicesViewModel.removeAttachment(index: index, attachmentID: self.imageChoicesViewModel.attachmentIds[index])
+        
         
       }
     

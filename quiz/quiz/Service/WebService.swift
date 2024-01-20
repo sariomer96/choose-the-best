@@ -16,6 +16,31 @@ class WebService {
     var currentTopRatedQuestionPageCount = 0
 
     private init(){}
+    func request(endpoint:Endpoint,completion: @escaping (Bool) -> Void){
+        let method =   endpoint.method
+       let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
+   
+       endpoint.request { params, url,header in
+            
+           AF.request(url,method: alamofireMethod, parameters: params,encoding: JSONEncoding.default).response { response in
+                switch response.result {
+                case .success(let data):
+                    do {
+                        
+                       
+                        completion(true)
+                         
+                    }catch{
+                        print("DECODE ERROR \(error.localizedDescription) \(response.response?.statusCode)")
+                    }
+                    
+                case .failure(let fail):
+                    completion(false)
+                }
+                
+            }
+        }
+    }
     func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void) {
          
         let method =   endpoint.method
@@ -28,9 +53,11 @@ class WebService {
                 case .success(let data):
                     do {
                         
-                        print(T.self)
-                        guard let data = data else {return }
+                        print("DATASSS")
+                       guard let data = data else {return }
+                        
                         let result = try JSONDecoder().decode(T.self, from: data)
+                        print("SIUCESS \(result)")
                         completion(.success(result))
                          
                     }catch{
@@ -122,8 +149,9 @@ class WebService {
         upload(endpoint: endpoint, completion: completion)
         
     }
-    func updateAttachment(titles:[String],ids:[Int],completion: @escaping (Result<Attachment,Error>) -> Void) {
+    func updateAttachment(titles:[String],ids:[Int],completion: @escaping (Bool) -> Void) {
         let endpoint = Endpoint.updateAttachment(titles: titles, ids: ids)
+        
         
         request(endpoint: endpoint, completion: completion)
         

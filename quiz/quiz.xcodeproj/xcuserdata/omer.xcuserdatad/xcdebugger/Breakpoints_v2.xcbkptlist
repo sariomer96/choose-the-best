@@ -80,8 +80,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "151"
             endingLineNumber = "151"
-            landmarkName = "didEndTextChange(text:index:)"
-            landmarkType = "7">
+            landmarkName = "ImageChoicesVC"
+            landmarkType = "21">
             <Locations>
                <Location
                   uuid = "490D74AC-C52D-4728-938E-69B6DF196B99 - 25fd56ce8b440787"
@@ -189,8 +189,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -252,8 +252,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -345,8 +345,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "initVM()"
             landmarkType = "7">
             <Locations>
@@ -549,8 +549,8 @@
             filePath = "quiz/Service/WebService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "getQuiz(quizID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -599,8 +599,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "HomeViewModel"
-            landmarkType = "3">
+            landmarkName = "startPaginateToTopRateQuestions()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -751,34 +751,34 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "removeAttachment(index:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE - 4ea0168c104ca299"
+                  uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE - 80a5433d47af93c8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in quiz.ImageChoicesVC.removeAttachment(index: Swift.Int) -&gt; ()"
+                  symbolName = "quiz.ImageChoicesVC.removeAttachment(index: Swift.Int) -&gt; ()"
                   moduleName = "quiz"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/View/ImageChoicesVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "135"
-                  endingLineNumber = "135"
-                  offsetFromSymbolStart = "207">
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "796">
                </Location>
                <Location
-                  uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE - 4ea0168c104ca299"
+                  uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE - 4ea0168c104ca33c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -788,9 +788,24 @@
                   urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/View/ImageChoicesVC.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "135"
-                  endingLineNumber = "135"
-                  offsetFromSymbolStart = "249">
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
+                  offsetFromSymbolStart = "198">
+               </Location>
+               <Location
+                  uuid = "8D3F4E94-0100-4BCB-83CF-23A32610EFFE - 4ea0168c104ca37a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in quiz.ImageChoicesVC.removeAttachment(index: Swift.Int) -&gt; ()"
+                  moduleName = "quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/View/ImageChoicesVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "57">
                </Location>
             </Locations>
          </BreakpointContent>
