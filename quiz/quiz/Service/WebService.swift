@@ -53,11 +53,11 @@ class WebService {
                 case .success(let data):
                     do {
                         
-                        print("DATASSS")
+                   
                        guard let data = data else {return }
                         
                         let result = try JSONDecoder().decode(T.self, from: data)
-                        print("SIUCESS \(result)")
+               
                         completion(.success(result))
                          
                     }catch{
@@ -204,30 +204,97 @@ class WebService {
 
 
     func getYoutubeID (url:String) -> String {
-        var videoID = ""
-        let linkStart = "https://youtu.be/"
-       let isSharedLink =  url.hasPrefix(linkStart)
-        
-        
-        if isSharedLink == true {
-            let splitUrl = url.split(separator: linkStart)[0]
-           let id =   splitUrl.split(separator: "?")[0]
-          
-            videoID = String(id)
-        }else {
-            let baseUrl = url.split(separator: "?v=")[1]
      
-            let id = baseUrl.split(separator: "&")
-            
-             videoID = String(id[0])
-        }
-         return videoID
+        let regexPattern = #"^(?:(?:https?:)?\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})"#
+
+           do {
+               let regex = try NSRegularExpression(pattern: regexPattern, options: .caseInsensitive)
+               let string = url
+               let range = NSRange(location: 0, length: string.utf16.count)
+
+               if let match = regex.firstMatch(in: string, options: [], range: range) {
+                   let idRange = Range(match.range(at: 1), in: string)!
+                   let id = String(string[idRange])
+                   print("Valid: true")
+                   print("ID: \(id)")
+                   return id
+               } else {
+                   print("Valid: false")
+                   return ""
+               }
+           } catch {
+               print("Error creating regex: \(error)")
+               return ""
+           }
+//        let regexPattern = #"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"#
+//
+//        do {
+//            let regex = try NSRegularExpression(pattern: regexPattern, options: .caseInsensitive)
+//            let string = url
+//            let range = NSRange(location: 0, length: string.utf16.count)
+//
+//            if let match = regex.firstMatch(in: string, options: [], range: range) {
+//                let idRange = Range(match.range(at: 6), in: string)!
+//                let id = String(string[idRange])
+//                print("Valid: true")
+//                print("ID: \(id)")
+//                return id
+//            } else {
+//                print("Valid: false")
+//                return ""
+//            }
+//        } catch {
+//          
+//            print("Error creating regex: \(error)")
+//            return ""
+//        }
+        
+        
+        
+        
+//
+//        
+//         
+//        
+//        var videoID = ""
+//        let linkStart = "https://youtu.be/"
+//        let linkStart2 = "https://www.youtube"
+//        let link3 = "https://m.youtube"
+//       let isSharedLink =  url.hasPrefix(linkStart)
+//        
+//        if  url.hasPrefix(linkStart) || url.hasPrefix(linkStart2) || url.hasPrefix(link3) {
+//            if isSharedLink == true {
+//                let splitUrl = url.split(separator: linkStart)[0]
+//               let id =   splitUrl.split(separator: "?")[0]
+//              
+//                videoID = String(id)
+//            }else {
+//                let baseUrl = url.split(separator: "?v=")[1]
+//                    
+//                let id = baseUrl.split(separator: "&")
+//                
+//                if id.count == 0 {
+//                    videoID = String(baseUrl)
+//                }else{
+//                    videoID = String(id[0])
+//                }
+//                
+//            }
+//            return videoID
+//        }
+//        
+//      
+//         return ""
     }
     
-    func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?) -> Void) {
+    func loadYoutubeThumbnail(url:String,title:String,completion: @escaping (Bool,UIImage?,String) -> Void) {
       
          let id =  getYoutubeID(url: url)
          
+        if id.isEmpty == true {
+            //invalid url 
+            return
+        }
         DispatchQueue.main.async { [self] in
 
         let thumbNail = URL(string: "https://img.youtube.com/vi/\(id)/0.jpg")!
@@ -238,9 +305,11 @@ class WebService {
                 switch result {
                 case .failure(let error):
                    
-                    completion(false,nil)
+                    completion(false,nil,"")
                 case .success(let success):
-                    completion(true,image.image!)
+                    var embedUrl = "https://www.youtube.com/embed/"
+                    embedUrl.append(id)
+                    completion(true,image.image!,embedUrl)
                 }
             }
             

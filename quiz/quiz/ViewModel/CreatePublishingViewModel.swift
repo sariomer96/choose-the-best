@@ -22,15 +22,15 @@ class CreatePublishingViewModel {
  
     var attachmentIds = [Int]()
   
-    func setVariables(is_image:Bool,attachID:[Int]) {
-        self.is_image = is_image
-        self.attachmentIds = attachID
-    }
- 
+//    func setVariables(is_image:Bool,attachID:[Int]) {
+//        self.is_image = is_image
+//        self.attachmentIds = attachID
+//    }
+// 
     
     func publishQuiz(title: String, image: UIImage, categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int]){
         
-        WebService.shared.postQuiz(title: title, image:image , categoryID: categoryID, isVisible: true, is_image: true, attachment_ids: attachment_ids){ result in
+        WebService.shared.postQuiz(title: title, image:image , categoryID: categoryID, isVisible: true, is_image: is_image, attachment_ids: attachment_ids){ result in
            
             
             switch result{
