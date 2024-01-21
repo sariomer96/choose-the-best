@@ -21,15 +21,7 @@ class HomeVC: BaseViewController {
     let viewModel = HomeViewModel()
  
     override func viewDidAppear(_ animated: Bool) {
-        viewModel.getTopRateQuiz { result in
-            
-            DispatchQueue.main.async {
-                self.viewModel.setQuizList(quizList: self.viewModel.topQuizList)
-                self.topRateTableView.reloadData()
-            }
-        }
-        
-        viewModel.getRecentlyQuiz()
+       
       
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -66,6 +58,15 @@ class HomeVC: BaseViewController {
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         
+        viewModel.getTopRateQuiz { result in
+            
+            DispatchQueue.main.async {
+                self.viewModel.setQuizList(quizList: self.viewModel.topQuizList)
+                self.topRateTableView.reloadData()
+            }
+        }
+        
+        viewModel.getRecentlyQuiz()
         viewModel.getCategories { [self]
             result in
             
@@ -157,7 +158,9 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         
         
         var quiz:QuizResponse?
-        if tableView == topRateTableView {
+        
+        
+        if viewModel.quizType == .topQuiz {
             quiz = viewModel.getQuizList(quizType: .topQuiz, index: indexPath.row)
         } else {
             quiz = viewModel.getQuizList(quizType: .recentlyQuiz, index: indexPath.row)

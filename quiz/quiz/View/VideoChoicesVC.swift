@@ -27,6 +27,11 @@ class VideoChoicesVC: BaseViewController {
             self.alert(title: "Upload Failed!", message: error.localizedDescription)
             
         }
+        videoChoicesViewModel.callbackAlert = {[weak self] errorMessage in
+            guard let self = self else { return }
+            self.alert(title: "Error!", message: errorMessage)
+            
+        }
         videoChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
             guard let self = self else { return }
             self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in

@@ -15,6 +15,8 @@ import Kingfisher
 
 class VideoChoicesViewModel : BaseChoicesViewModel {
    
+    
+    var callbackAlert:CallBack<String>?
  
     var url = ""
     
@@ -62,16 +64,20 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
         }
     }
     func loadThumbNail(url:String,title:String,baseURL:String,completion: @escaping (Bool) -> Void) {
-        WebService.shared.loadYoutubeThumbnail(url: url, title: title) { boolResult, uiimage,url  in
-            self.thumbNails.append(uiimage!)
-            self.titleArray.append(title)
-            self.videoUrlList.append(url)
+        WebService.shared.loadYoutubeThumbnail(url: url, title: title) { boolResult, uiimage,result  in
             
             if boolResult == true {
-              
+                self.thumbNails.append(uiimage!)
+                self.titleArray.append(title)
+                self.videoUrlList.append(result)
                     completion(true)
               
+            }else {
+                self.callbackAlert?(result)
             }
+          
+            
+           
         }
     }
  
