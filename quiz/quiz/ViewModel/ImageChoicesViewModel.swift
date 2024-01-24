@@ -20,7 +20,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
   
     var createdAttachmentList = [Attachment]()
     var callbackReloadTableView: VoidCallBack?
-    
+    var callbackImageUploadFail:CallBack<String>?
+    var callbackAttachRemoveFail:CallBack<String>?
 
     var attachmentRequestList = [AttachmentRequestObject]()
     var total = 0
@@ -34,11 +35,11 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                 
                 guard let attachment = attachment.id else {return}
                 self.attachmentIds.append(attachment)
-                print("add \(self.attachmentIds)")
+             
           
                 completion(true)
             case .failure(_):
-                print("false")
+          
                 completion(false)
             }
             
@@ -51,7 +52,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
         print(attachNameList)
         WebService.shared.updateAttachment(titles: attachNameList, ids: self.attachmentIds) {
             result in
-            print("resi;ttt")
+           
               
            
              completion(result)
@@ -63,7 +64,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     
     func editTitle(index: Int, title: String?) {
         guard let title = title, attachNameList.count > index else { return }
-        print("edit title \(title) \(index)")
+     
         attachNameList[index] = title
     }
 
@@ -77,7 +78,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                 self.attachmentIds.remove(at: index)
                 self.callbackReloadTableView?()
             case .failure(let fail):
-                print("fail")
+                 
+                self.callbackAttachRemoveFail?(fail.localizedDescription)
             }
         }
       
@@ -102,7 +104,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                                 self.callbackReloadTableView?()
                                 print(self.imageArray.count)
                         case false:
-                            print("image load failed")
+                            self.callbackImageUploadFail?("Image load failed")
+                             
                             break
                         }
                          

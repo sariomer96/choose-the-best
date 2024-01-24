@@ -28,6 +28,11 @@ class CreateQuizVC: BaseViewController {
         viewModel.getCategory { result in
          self.showSelectCategoryButton()
         }
+        
+        viewModel.callbackCategoryFailed = { [weak self] fail in
+            guard let self = self else {return}
+            self.alert(title: "Category Failed", message: fail)
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         viewModel.didSelectCategory = false

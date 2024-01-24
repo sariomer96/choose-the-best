@@ -42,7 +42,7 @@ class HomeViewModel {
                 self.categoryList = category.results
                 completion("trigger")
             case .failure(let error):
-                print("error \(error)")
+            
                 self.callbackFailRequest?(error)
             }
         }
@@ -50,7 +50,7 @@ class HomeViewModel {
     }
     func setQuizList(quizList:[QuizResponse]) {
         currentQuizList = quizList
-        print(currentQuizList.count)
+        
         callbackReloadTopRatedTableView?()
         
     }

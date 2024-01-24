@@ -23,10 +23,7 @@ class VideoChoicesViewModel : BaseChoicesViewModel {
     var thumbNails = [UIImage]()
     var titleArray = [String]()
     var videoUrlList = [String]()
-    
-//    override init() {
-//        self.attachIdList = WebService.shared.attachmentIdList
-//    }
+ 
     func removeAttachment(index:Int) {
          
         thumbNails.remove(at: index)

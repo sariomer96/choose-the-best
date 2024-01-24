@@ -140,8 +140,7 @@ class GameVC: BaseViewController {
         override func viewDidAppear(_ animated: Bool) {
             
             gameViewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
-            // gameViewModel.view = view
-            
+           
             startQuiz()
              
         }

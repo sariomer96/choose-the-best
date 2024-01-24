@@ -26,6 +26,7 @@ class ImageChoicesVC: BaseViewController {
     func initView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.allowsSelection = false
     }
     
     func initVM() {
@@ -36,6 +37,15 @@ class ImageChoicesVC: BaseViewController {
                               duration: 0.35,
                               options: .transitionCrossDissolve,
                               animations: { self.tableView.reloadData() })
+        }
+        imageChoicesViewModel.callbackAttachRemoveFail = { [weak self] alertStr in
+            guard let self = self else { return}
+            
+            self.alert(title: "Remove process is failed", message: alertStr)
+        }
+        imageChoicesViewModel.callbackImageUploadFail = { [weak self] fail in
+            guard let self = self else {return}
+            self.alert(title: "Failed", message: fail)
         }
         
         imageChoicesViewModel.callbackFail = {[weak self] error in
@@ -106,6 +116,7 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageChoicesViewModel.imageArray.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

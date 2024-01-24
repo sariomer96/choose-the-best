@@ -17,7 +17,7 @@ class CreateQuizViewModel:NSObject {
     
     var isSelectedImage:Bool = false
     var coverImage:UIImageView?
- 
+    var callbackCategoryFailed:CallBack<String>?
  
     func setSelectImageStatus(status:Bool) {
         isSelectedImage = status
@@ -41,6 +41,8 @@ class CreateQuizViewModel:NSObject {
                   completion(true)
             case .failure(let fail):
                 print (fail)
+                self.callbackCategoryFailed?(fail.localizedDescription)
+                
             }
         }
  

@@ -947,7 +947,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="fuD-Lw-8T6">
-                                <rect key="frame" x="16" y="206.5" width="384.5" height="200"/>
+                                <rect key="frame" x="16" y="206" width="382" height="197.5"/>
                                 <color key="tintColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="GPi-CP-J93"/>
@@ -1138,11 +1138,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKT-2w-lGS">
-                                <rect key="frame" x="143.5" y="137" width="127.5" height="31"/>
+                                <rect key="frame" x="143.5" y="137" width="127.5" height="51"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Choose Images"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Choose Images">
+                                <buttonConfiguration key="configuration" style="filled" imagePlacement="top" title="Choose Images" subtitle="">
+                                    <imageReference key="image" image="photo.badge.plus" catalog="system" symbolScale="large"/>
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                     <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1394,6 +1395,7 @@
     <resources>
         <image name="homekit" catalog="system" width="128" height="104"/>
         <image name="kingfisher-10.jpg" width="250" height="250"/>
+        <image name="photo.badge.plus" catalog="system" width="128" height="97"/>
         <image name="photo.badge.plus.fill" catalog="system" width="128" height="97"/>
         <image name="photo.fill" catalog="system" width="128" height="93"/>
         <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>

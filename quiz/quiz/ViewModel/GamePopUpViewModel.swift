@@ -17,6 +17,7 @@ class GamePopUpViewModel {
     var rates = [0,1,2,3,4,5]
     var rate = 0
     var callbackShowAlert: CallBack<(alertTitle: String, description: String)>?
+  
     var callbackRateQuiz: VoidCallBack?
     
      func getDropDownActions(completion: @escaping (Int) -> Void) -> [UIAction] {
@@ -69,6 +70,7 @@ class GamePopUpViewModel {
 
             case .failure(let error):
                 print(error)
+                self.callbackShowAlert?(("Rate Failed",error.localizedDescription))
             }
         }
     }

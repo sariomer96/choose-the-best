@@ -108,7 +108,7 @@ extension QuizListVC : UITableViewDelegate,UITableViewDataSource {
         }else{
             cell.starView.rating = 0.0
         }
-        cell.quizImageView.kf.setImage(with: URL(string:viewModel.quizList[indexPath.row].image!),placeholder: UIImage(named: "add"))
+        cell.quizImageView.kf.setImage(with: URL(string:viewModel.quizList[indexPath.row].image!),placeholder: UIImage(named: "loader"))
      
         return cell
         

@@ -77,6 +77,10 @@ class GameVideoViewModel:BaseGameViewModel, GameVideoModelProtocol{
   
     }
     
+    
+    func setVideo(videoView:YTPlayerView) {
+        
+    }
     func setVideo(videoView:YTPlayerView,matchIndex:Int,rowIndex:Int) {
         
         loadIndicator(isPlaying: true)

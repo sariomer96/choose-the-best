@@ -91,7 +91,7 @@ class HomeVC: BaseViewController {
         
         viewModel.callbackFailRequest = { [weak self] error in
             guard let self = self else { return }
-            self.alert(title: "Error" , message: error.localizedDescription)
+            self.alert(title: "Please check your connection!" , message: error.localizedDescription)
         }
             
     }
@@ -170,9 +170,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
         self.presentGameStartViewController(quiz: quiz )
         
     }
-
-  
-    
+ 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == topRateTableView {
@@ -186,8 +184,9 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource {
             }else{
                 cell.startViews.rating = 0.0
             }
+           
             let url = viewModel.currentQuizList[indexPath.row].image
-                cell.topImageView.kf.setImage(with: URL(string: url!)) 
+                cell.topImageView.kf.setImage(with: URL(string: url!), placeholder: UIImage(named: "loader"))
              
             return cell
         }

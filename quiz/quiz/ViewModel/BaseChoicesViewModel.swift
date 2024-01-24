@@ -36,7 +36,7 @@ class BaseChoicesViewModel {
                 self.callbackPublishQuiz?(quiz)
  
              case .failure(let error):
-                 print(error)
+        
                 
                 self.callbackFail?(error)
  

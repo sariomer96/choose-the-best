@@ -21,6 +21,7 @@ class VideoChoicesVC: BaseViewController {
         super.viewDidLoad()
         attachTableView.delegate = self
         attachTableView.dataSource = self
+        attachTableView.allowsSelection = false
         
         videoChoicesViewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
