@@ -8,6 +8,25 @@
 import UIKit
 import Kingfisher
 
+extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexValue = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+
+        if hexValue.hasPrefix("#") {
+            hexValue.remove(at: hexValue.startIndex)
+        }
+
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexValue).scanHexInt64(&rgbValue)
+
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+}
+
 class GameVC: BaseViewController {
      
     @IBOutlet weak var roundNameLabel: UILabel!
@@ -24,10 +43,12 @@ class GameVC: BaseViewController {
         super.viewDidLoad()
         
         leftImageView.layer.borderWidth = 2
-        leftImageView.layer.borderColor = UIColor.cyan.cgColor
+        let blueColor = UIColor(hex: "#0A97F0")
+        let redColor = UIColor(hex: "#EE4327")
+        leftImageView.layer.borderColor = blueColor.cgColor
         
         rightImageView.layer.borderWidth = 2
-        rightImageView.layer.borderColor = UIColor.green.cgColor
+        rightImageView.layer.borderColor = redColor.cgColor
       
      
         initVM()
@@ -92,8 +113,9 @@ class GameVC: BaseViewController {
             
             vc.gamePopUpViewModel.quiz = gameViewModel.quiz
             vc.gamePopUpViewModel.attachment = attachment
-          
-            self.navigationController?.pushViewController(vc, animated: false)
+            
+            
+           self.navigationController?.pushViewController(vc, animated: false)
      
         }
         

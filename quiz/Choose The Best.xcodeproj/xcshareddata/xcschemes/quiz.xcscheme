@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "17B12DD52AF8075A00CB513A"
-               BuildableName = "quiz.app"
-               BlueprintName = "quiz"
-               ReferencedContainer = "container:quiz.xcodeproj">
+               BuildableName = "Choose The Best.app"
+               BlueprintName = "Choose The Best"
+               ReferencedContainer = "container:Choose The Best.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "17B12DD52AF8075A00CB513A"
-            BuildableName = "quiz.app"
-            BlueprintName = "quiz"
-            ReferencedContainer = "container:quiz.xcodeproj">
+            BuildableName = "Choose The Best.app"
+            BlueprintName = "Choose The Best"
+            ReferencedContainer = "container:Choose The Best.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "17B12DD52AF8075A00CB513A"
-            BuildableName = "quiz.app"
-            BlueprintName = "quiz"
-            ReferencedContainer = "container:quiz.xcodeproj">
+            BuildableName = "Choose The Best.app"
+            BlueprintName = "Choose The Best"
+            ReferencedContainer = "container:Choose The Best.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

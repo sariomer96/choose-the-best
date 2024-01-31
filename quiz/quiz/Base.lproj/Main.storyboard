@@ -14,7 +14,7 @@
         <!--Quiz ListVC-->
         <scene sceneID="Xms-9M-HSz">
             <objects>
-                <viewController storyboardIdentifier="QuizListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xXq-0J-IhG" customClass="QuizListVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xXq-0J-IhG" customClass="QuizListVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wU1-R6-71Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                                 <color key="sectionIndexBackgroundColor" systemColor="linkColor"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuizListTableViewCell" id="BFm-HK-EAT" customClass="QuizListTableViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuizListTableViewCell" id="BFm-HK-EAT" customClass="QuizListTableViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BFm-HK-EAT" id="Sbl-69-9LC">
@@ -143,7 +143,7 @@
         <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,7 +153,7 @@
                                 <color key="backgroundColor" red="0.36078431372549019" green="0.32941176470588235" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.98039215686274506" green="0.94117647058823528" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TopRatedViewCell" rowHeight="90" id="T17-Ot-sDG" customClass="TopRatedViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TopRatedViewCell" rowHeight="90" id="T17-Ot-sDG" customClass="TopRatedViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="406" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T17-Ot-sDG" id="Yzb-Nt-QiZ">
@@ -252,7 +252,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CategoryViewCell" id="9v1-5g-Zum" customClass="CategoryViewCell" customModule="quiz" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CategoryViewCell" id="9v1-5g-Zum" customClass="CategoryViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-5" width="115" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -344,7 +344,7 @@
         <!--Game StartVC-->
         <scene sceneID="upV-Ib-ckb">
             <objects>
-                <viewController storyboardIdentifier="GameStartVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UZf-IL-CKm" customClass="GameStartVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameStartVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UZf-IL-CKm" customClass="GameStartVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6mW-99-1na">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +368,7 @@
                                 <color key="separatorColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameStartTableViewCell" rowHeight="125" id="wb0-30-iKz" customClass="GameStartTableViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameStartTableViewCell" rowHeight="125" id="wb0-30-iKz" customClass="GameStartTableViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wb0-30-iKz" id="8Ao-1c-NKO">
@@ -397,7 +397,7 @@
                                                     <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-7A-whU" customClass="ProgressBar" customModule="quiz" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fN-7A-whU" customClass="ProgressBar" customModule="Choose_The_Best" customModuleProvider="target">
                                                     <rect key="frame" x="288" y="37.5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="OgQ-6P-KvZ"/>
@@ -485,7 +485,7 @@
         <!--Game Start TourVC-->
         <scene sceneID="ZFi-ow-1qb">
             <objects>
-                <viewController storyboardIdentifier="GameStartTourVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YCd-33-doI" customClass="GameStartTourVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameStartTourVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YCd-33-doI" customClass="GameStartTourVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NPG-6G-Wtm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -572,7 +572,7 @@
         <!--GameVC-->
         <scene sceneID="Ov4-MF-pwO">
             <objects>
-                <viewController storyboardIdentifier="GameVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SaW-Jj-nZl" customClass="GameVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SaW-Jj-nZl" customClass="GameVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Zk-Jo-nqE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -667,7 +667,7 @@
         <!--Game Pop UpVC-->
         <scene sceneID="PGd-tq-nd0">
             <objects>
-                <viewController storyboardIdentifier="GamePopUpVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nrr-rb-t5c" customClass="GamePopUpVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GamePopUpVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nrr-rb-t5c" customClass="GamePopUpVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iib-nL-lwz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -766,7 +766,7 @@
         <!--Game VideoVC-->
         <scene sceneID="oIR-lY-lNs">
             <objects>
-                <viewController storyboardIdentifier="GameVideoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jWn-pW-CiM" customClass="GameVideoVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameVideoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jWn-pW-CiM" customClass="GameVideoVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GQF-fx-hVc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -885,7 +885,7 @@
         <!--Create QuizVC-->
         <scene sceneID="xjS-p7-fgr">
             <objects>
-                <viewController storyboardIdentifier="CreateQuizVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yg9-lF-IT4" customClass="CreateQuizVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateQuizVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yg9-lF-IT4" customClass="CreateQuizVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l3d-sh-A0h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -947,7 +947,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="fuD-Lw-8T6">
-                                <rect key="frame" x="16" y="206" width="382" height="197.5"/>
+                                <rect key="frame" x="16" y="206.5" width="384.5" height="200"/>
                                 <color key="tintColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="GPi-CP-J93"/>
@@ -1061,7 +1061,7 @@
         <!--Image ChoicesVC-->
         <scene sceneID="7rp-dJ-eDk">
             <objects>
-                <viewController storyboardIdentifier="ImageChoicesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="epE-jD-Lg0" customClass="ImageChoicesVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageChoicesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="epE-jD-Lg0" customClass="ImageChoicesVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pAw-XY-gHc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1076,7 +1076,7 @@
                                 <rect key="frame" x="0.0" y="200" width="414" height="530"/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagePickerTableViewCell" rowHeight="125" id="xoO-AF-ldC" customClass="ImagePickerTableViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagePickerTableViewCell" rowHeight="125" id="xoO-AF-ldC" customClass="ImagePickerTableViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xoO-AF-ldC" id="1RW-QJ-dov">
@@ -1185,7 +1185,7 @@
         <!--Video ChoicesVC-->
         <scene sceneID="pe2-Tx-68l">
             <objects>
-                <viewController storyboardIdentifier="VideoChoicesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F6F-Rs-nKM" customClass="VideoChoicesVC" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoChoicesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F6F-Rs-nKM" customClass="VideoChoicesVC" customModule="Choose_The_Best" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pdU-n8-N09">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1221,7 +1221,7 @@
                                 <rect key="frame" x="0.0" y="311.5" width="414" height="490"/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoChoicesCell" id="3ba-MM-B3V" customClass="VideoChoicesTableViewCell" customModule="quiz" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="VideoChoicesCell" id="3ba-MM-B3V" customClass="VideoChoicesTableViewCell" customModule="Choose_The_Best" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3ba-MM-B3V" id="uTR-bQ-DG1">
@@ -1371,25 +1371,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pWt-Mf-ubg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3356.521739130435" y="-322.09821428571428"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="Wu0-oa-4yL">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GSa-Dl-5rJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="9dy-ge-trH"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GbP-mN-Lty">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nrr-rb-t5c" kind="relationship" relationship="rootViewController" id="OOb-vV-x9d"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k2n-vU-vNq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3120" y="581"/>
         </scene>
     </scenes>
     <resources>

@@ -15,6 +15,8 @@ class GamePopUpVC: BaseViewController {
     @IBOutlet weak var testTitleLabel: UILabel!
     @IBOutlet weak var rate: UIButton!
     let gamePopUpViewModel = GamePopUpViewModel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,6 +41,13 @@ class GamePopUpVC: BaseViewController {
        
         show()
         setAttachment()
+         
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     func rateQuiz() {
         gamePopUpViewModel.rateQuiz()

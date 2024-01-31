@@ -25,6 +25,17 @@ class QuizListVC: BaseViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         
+        viewModel.quizListDelegate?.getQuizList(completion: { result in
+            DispatchQueue.main.async{
+         
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                
+                self.tableView.reloadData()
+                
+            }
+            
+        })
         viewModel.callbackReloadQuizTableView = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -51,17 +62,17 @@ class QuizListVC: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         
-        viewModel.quizListDelegate?.getQuizList(completion: { result in
-            DispatchQueue.main.async{
-         
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-                
-                self.tableView.reloadData()
-                
-            }
-            
-        })
+//        viewModel.quizListDelegate?.getQuizList(completion: { result in
+//            DispatchQueue.main.async{
+//         
+//                self.activityIndicator.stopAnimating()
+//                self.activityIndicator.isHidden = true
+//                
+//                self.tableView.reloadData()
+//                
+//            }
+//            
+//        })
         
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

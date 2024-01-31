@@ -37,7 +37,6 @@
 		17B12DE32AF8075C00CB513A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B12DE22AF8075C00CB513A /* Assets.xcassets */; };
 		17B12DE62AF8075C00CB513A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B12DE42AF8075C00CB513A /* LaunchScreen.storyboard */; };
 		17B12DEE2AFA98D900CB513A /* CreateQuizVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DED2AFA98D900CB513A /* CreateQuizVC.swift */; };
-		17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */; };
 		17B12DF62AFCD88600CB513A /* QuizListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF52AFCD88600CB513A /* QuizListVC.swift */; };
 		17B12DF82AFCD8AE00CB513A /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF72AFCD8AE00CB513A /* GameVC.swift */; };
 		17B12DFA2AFCD8E000CB513A /* GameStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B12DF92AFCD8E000CB513A /* GameStartVC.swift */; };
@@ -82,7 +81,7 @@
 		179B77A12B15323200FB317A /* ImagePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerTableViewCell.swift; sourceTree = "<group>"; };
 		179B77A32B1B166500FB317A /* GameStartTourViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartTourViewModel.swift; sourceTree = "<group>"; };
 		179B77A52B2080E200FB317A /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		17B12DD62AF8075A00CB513A /* quiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17B12DD62AF8075A00CB513A /* Choose The Best.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Choose The Best.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B12DD92AF8075A00CB513A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B12DDB2AF8075A00CB513A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		17B12DDD2AF8075A00CB513A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 		17B12DE52AF8075C00CB513A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17B12DE72AF8075C00CB513A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17B12DED2AFA98D900CB513A /* CreateQuizVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateQuizVC.swift; sourceTree = "<group>"; };
-		17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublishingVC.swift; sourceTree = "<group>"; };
 		17B12DF52AFCD88600CB513A /* QuizListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListVC.swift; sourceTree = "<group>"; };
 		17B12DF72AFCD8AE00CB513A /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
 		17B12DF92AFCD8E000CB513A /* GameStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartVC.swift; sourceTree = "<group>"; };
@@ -154,7 +152,7 @@
 		17B12DD72AF8075A00CB513A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				17B12DD62AF8075A00CB513A /* quiz.app */,
+				17B12DD62AF8075A00CB513A /* Choose The Best.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,7 +180,6 @@
 		17B12DFB2AFCD91B00CB513A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				17B12DF12AFAA9EF00CB513A /* CreatePublishingVC.swift */,
 				175A8F002B4F4F5A00072010 /* GamePopUpVC.swift */,
 				17B12DDD2AF8075A00CB513A /* HomeVC.swift */,
 				17B12DF72AFCD8AE00CB513A /* GameVC.swift */,
@@ -241,9 +238,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		17B12DD52AF8075A00CB513A /* quiz */ = {
+		17B12DD52AF8075A00CB513A /* Choose The Best */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 17B12DEA2AF8075C00CB513A /* Build configuration list for PBXNativeTarget "quiz" */;
+			buildConfigurationList = 17B12DEA2AF8075C00CB513A /* Build configuration list for PBXNativeTarget "Choose The Best" */;
 			buildPhases = (
 				17B12DD22AF8075A00CB513A /* Sources */,
 				17B12DD32AF8075A00CB513A /* Frameworks */,
@@ -253,7 +250,7 @@
 			);
 			dependencies = (
 			);
-			name = quiz;
+			name = "Choose The Best";
 			packageProductDependencies = (
 				17B12E102AFCDCAC00CB513A /* Alamofire */,
 				172ED89A2B02470B00CD02F4 /* Kingfisher */,
@@ -261,7 +258,7 @@
 				17DC48482B32FD7800AC20E8 /* Cosmos */,
 			);
 			productName = quiz;
-			productReference = 17B12DD62AF8075A00CB513A /* quiz.app */;
+			productReference = 17B12DD62AF8075A00CB513A /* Choose The Best.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,7 +276,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 17B12DD12AF8075A00CB513A /* Build configuration list for PBXProject "quiz" */;
+			buildConfigurationList = 17B12DD12AF8075A00CB513A /* Build configuration list for PBXProject "Choose The Best" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -299,7 +296,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				17B12DD52AF8075A00CB513A /* quiz */,
+				17B12DD52AF8075A00CB513A /* Choose The Best */,
 			);
 		};
 /* End PBXProject section */
@@ -348,7 +345,6 @@
 				17B12E132AFECEF800CB513A /* Quiz.swift in Sources */,
 				17C644462B48508500D67969 /* ProgressController.swift in Sources */,
 				178EC76E2B55262100DC201B /* BaseGameViewModel.swift in Sources */,
-				17B12DF22AFAA9EF00CB513A /* CreatePublishingVC.swift in Sources */,
 				179B77A62B2080E200FB317A /* ProgressBar.swift in Sources */,
 				17B12E0C2AFCDA8500CB513A /* GameViewModel.swift in Sources */,
 				17B12E0A2AFCDA5800CB513A /* GameStartViewModel.swift in Sources */,
@@ -441,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -495,7 +491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -566,7 +562,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		17B12DD12AF8075A00CB513A /* Build configuration list for PBXProject "quiz" */ = {
+		17B12DD12AF8075A00CB513A /* Build configuration list for PBXProject "Choose The Best" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17B12DE82AF8075C00CB513A /* Debug */,
@@ -575,7 +571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		17B12DEA2AF8075C00CB513A /* Build configuration list for PBXNativeTarget "quiz" */ = {
+		17B12DEA2AF8075C00CB513A /* Build configuration list for PBXNativeTarget "Choose The Best" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17B12DEB2AF8075C00CB513A /* Debug */,

@@ -51,7 +51,6 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
     // match quiz
     
     var randomChooseAttachList = [Attachment]()
-  
    
  
     enum ImageSide {
@@ -74,6 +73,9 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
     }
     func setImages(index:Int) {
          
+        if matchedList.count == 0 || matchedList.count <= index{
+            return
+        }
          let quiz = matchedAttachs[index]
           
         guard let quiz0 = quiz[0].image , let quiz1 = quiz[1].image else{return}
@@ -82,6 +84,9 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
     }
     func setTitle(index:Int) {
            
+        if matchedList.count == 0 || matchedList.count <= index{
+            return
+        }
         guard let leftTitle = matchedAttachs[index][0].title,
               let rightTitle = matchedAttachs[index][1].title else {return}
         
