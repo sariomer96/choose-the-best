@@ -15,10 +15,13 @@ class VideoChoicesVC: BaseViewController {
     @IBOutlet weak var videoTitleLabel: UITextField!
     @IBOutlet weak var youtubeURLTitle: UITextField!
  
+    @IBOutlet weak var publishButton: UIButton!
+    @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
     var videoChoicesViewModel = VideoChoicesViewModel()
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loaderIndicator.isHidden = true
         attachTableView.delegate = self
         attachTableView.dataSource = self
         attachTableView.allowsSelection = false
@@ -26,6 +29,9 @@ class VideoChoicesVC: BaseViewController {
         videoChoicesViewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
             self.alert(title: "Upload Failed!", message: error.localizedDescription)
+            self.loaderIndicator.isHidden = true
+            self.loaderIndicator.stopAnimating()
+            self.publishButton.isEnabled = true
             
         }
         videoChoicesViewModel.callbackAlert = {[weak self] errorMessage in
@@ -36,7 +42,9 @@ class VideoChoicesVC: BaseViewController {
         videoChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
             guard let self = self else { return }
             self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
-                       
+                self.loaderIndicator.isHidden = true
+                self.loaderIndicator.stopAnimating()
+                self.publishButton.isEnabled = true
                 self.presentGameStartViewController(quiz: quiz)
             }
         }
@@ -70,7 +78,9 @@ class VideoChoicesVC: BaseViewController {
     }
     @IBAction func nextClick(_ sender: Any) {
         if videoChoicesViewModel.thumbNails.count > 1 {
-            
+            publishButton.isEnabled = false
+            loaderIndicator.isHidden = false
+            loaderIndicator.startAnimating()
             videoChoicesViewModel.addAttachmentsOnNextClick { [self] result in
                
                 

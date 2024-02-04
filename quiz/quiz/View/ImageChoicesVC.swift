@@ -10,8 +10,14 @@ import UIKit
 
 class ImageChoicesVC: BaseViewController {
      
-
+    enum loadState {
+        case loading
+        case load
+        
+    }
+    @IBOutlet weak var publishButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pickerButton: UIButton!
     lazy var imageChoicesViewModel = ImageChoicesViewModel()
     
@@ -29,7 +35,29 @@ class ImageChoicesVC: BaseViewController {
         tableView.allowsSelection = false
     }
     
+    func setLoader(state:loadState) {
+        switch state {
+            
+        case .loading:
+            DispatchQueue.main.async {
+                self.loaderIndicator.isHidden = false
+                self.loaderIndicator.startAnimating()
+            }
+           
+       
+        case .load:
+            
+            DispatchQueue.main.async{
+                self.loaderIndicator.isHidden = true
+                self.loaderIndicator.stopAnimating()
+            }
+  
+          
+        }
+    }
+    
     func initVM() {
+        loaderIndicator.isHidden = true
         imageChoicesViewModel.callbackReloadTableView = { [weak self] in
             guard let self = self else { return }
            
@@ -37,6 +65,8 @@ class ImageChoicesVC: BaseViewController {
                               duration: 0.35,
                               options: .transitionCrossDissolve,
                               animations: { self.tableView.reloadData() })
+            self.setLoader(state: .load)
+            
         }
         imageChoicesViewModel.callbackAttachRemoveFail = { [weak self] alertStr in
             guard let self = self else { return}
@@ -51,16 +81,23 @@ class ImageChoicesVC: BaseViewController {
         imageChoicesViewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
             self.alert(title: "Upload Failed!", message: error.localizedDescription)
+            self.setLoader(state: .load)
             
         }
         imageChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
             guard let self = self else { return }
+            self.setLoader(state: .load)
             self.alert(title: "Success!", message: UploadSuccess.success.rawValue) { _ in
             
- 
+            
                 self.clearArrays()
                 self.presentGameStartViewController(quiz: quiz)
             }
+        }
+        imageChoicesViewModel.callbackStartLoader = {[weak self] in
+            guard let self = self else {return}
+            self.setLoader(state: .loading)
+            print("loading")
         }
     }
     func clearArrays() {
@@ -72,8 +109,8 @@ class ImageChoicesVC: BaseViewController {
     @IBAction func nextClick(_ sender: Any) {
          
         if imageChoicesViewModel.imageArray.count > 1 {
-             
-                imageChoicesViewModel.updateAttachment() { [weak self] result in
+            setLoader(state: .loading)
+                 imageChoicesViewModel.updateAttachment() { [weak self] result in
                     guard let self = self else {return}
                       print("olustu attach")
                     if result == true {

@@ -14,8 +14,8 @@
             filePath = "quiz/View/GameVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "didEndTextChange(text:index:)"
             landmarkType = "7">
             <Locations>
@@ -189,8 +189,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -252,8 +252,8 @@
             filePath = "quiz/ViewModel/ImageChoicesViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "editTitle(index:title:)"
             landmarkType = "7">
             <Locations>
@@ -345,8 +345,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "initVM()"
             landmarkType = "7">
             <Locations>
@@ -757,8 +757,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "removeAttachment(index:)"
             landmarkType = "7">
             <Locations>

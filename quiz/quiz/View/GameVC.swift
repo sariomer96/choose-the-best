@@ -42,6 +42,16 @@ class GameVC: BaseViewController {
         
         super.viewDidLoad()
         
+        roundNameLabel.layer.masksToBounds = true
+        roundLabel.layer.masksToBounds = true
+        roundNameLabel.layer.cornerRadius = 10
+        roundLabel.layer.cornerRadius = 1
+        
+        leftTitleLabel.layer.masksToBounds = true
+        rightTitleLabel.layer.masksToBounds = true
+        
+        leftTitleLabel.layer.cornerRadius = 1
+        rightTitleLabel.layer.cornerRadius = 1
         leftImageView.layer.borderWidth = 2
         let blueColor = UIColor(hex: "#0A97F0")
         let redColor = UIColor(hex: "#EE4327")

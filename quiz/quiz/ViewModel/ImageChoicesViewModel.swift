@@ -20,13 +20,15 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
   
     var createdAttachmentList = [Attachment]()
     var callbackReloadTableView: VoidCallBack?
+    var callbackStartLoader: VoidCallBack?
     var callbackImageUploadFail:CallBack<String>?
     var callbackAttachRemoveFail:CallBack<String>?
 
-    var attachmentRequestList = [AttachmentRequestObject]()
+   // var attachmentRequestList = [AttachmentRequestObject]()
     var total = 0
     
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
+        self.callbackStartLoader?()
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) {  result in
             
             switch result {
@@ -92,7 +94,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
          for (index, result) in results.enumerated() {
             result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
                 if let image = object as? UIImage {
-                      
+                   
                     self.addAttachment(title: String(self.num), videoUrl: "", image: image, score: 0) {
                         result in
                   
