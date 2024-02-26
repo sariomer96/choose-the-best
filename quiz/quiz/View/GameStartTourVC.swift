@@ -68,7 +68,7 @@ class GameStartTourVC: BaseViewController {
             
              dropdownButton.menu = UIMenu(children : action)
              dropdownButton.showsMenuAsPrimaryAction = true
-             dropdownButton.changesSelectionAsPrimaryAction = true
+           //  dropdownButton.changesSelectionAsPrimaryAction = true
         }
     }
   

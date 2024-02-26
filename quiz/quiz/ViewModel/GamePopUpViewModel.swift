@@ -58,7 +58,7 @@ class GamePopUpViewModel {
             dropDownButton.menu = UIMenu(children : action)
      
             dropDownButton.showsMenuAsPrimaryAction = true
-            dropDownButton.changesSelectionAsPrimaryAction = true
+     //       dropDownButton.changesSelectionAsPrimaryAction = true
         }
     }
     

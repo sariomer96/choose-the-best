@@ -91,7 +91,7 @@ extension Endpoint: EndPointProtocol {
     }
     
     var baseURL: String {
-         "http://choosethebest.xyz/"
+         "https://www.choosethebest.xyz/"
         
     }
     

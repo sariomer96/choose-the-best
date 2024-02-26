@@ -18,6 +18,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     var attachNameList = [String]()
     var imageArray = [UIImage]()
   
+    var callbackAttachmentUpdateSuccess:VoidCallBack?
+    var callbackAttachmentUpdateFail:CallBack<String>?
     var createdAttachmentList = [Attachment]()
     var callbackReloadTableView: VoidCallBack?
     var callbackStartLoader: VoidCallBack?
@@ -30,9 +32,9 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
         self.callbackStartLoader?()
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) {  result in
-            
+            print("i result")
             switch result {
-                
+           
             case .success(let attachment):
                 
                 guard let attachment = attachment.id else {return}
@@ -48,19 +50,22 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
         }
     }
    
-    func updateAttachment(completion: @escaping (Bool)->Void) {
+    func updateAttachment() {
         
-    
-        print(attachNameList)
+       
         WebService.shared.updateAttachment(titles: attachNameList, ids: self.attachmentIds) {
             result in
-           
-              
-           
-             completion(result)
-         
+                switch result {
+                     
+                case .success(_):
+                    self.callbackAttachmentUpdateSuccess?()
+                 
+                case .failure(let error):
+                    self.callbackAttachmentUpdateFail?(error.localizedDescription)
+                      
+                  }
           
-        }
+            }
     
     }
     
@@ -97,7 +102,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                    
                     self.addAttachment(title: String(self.num), videoUrl: "", image: image, score: 0) {
                         result in
-                  
+                                print("result")
                         switch result {
                             
                         case true:

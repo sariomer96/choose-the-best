@@ -74,7 +74,7 @@ class CreateQuizVC: BaseViewController {
  
             categorySelectButton.menu = UIMenu(children : action)
             categorySelectButton.showsMenuAsPrimaryAction = true
-            categorySelectButton.changesSelectionAsPrimaryAction = true
+          //  categorySelectButton.changesSelectionAsPrimaryAction = true
         }
     }
     func recognizer(imageView:UIImageView) {

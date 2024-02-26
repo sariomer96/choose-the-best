@@ -16,7 +16,7 @@ class WebService {
     var currentTopRatedQuestionPageCount = 0
 
     private init(){}
-    func request(endpoint:Endpoint,completion: @escaping (Bool) -> Void){
+    func request(endpoint:Endpoint,completion: @escaping  (Result<Bool,Error>) -> Void){
         let method =   endpoint.method
        let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
    
@@ -25,15 +25,12 @@ class WebService {
            AF.request(url,method: alamofireMethod, parameters: params,encoding: JSONEncoding.default).response { response in
                 switch response.result {
                 case .success(let data):
-                    do { 
-                        completion(true)
-                         
-                    }catch{
-                        print("DECODE ERROR \(error.localizedDescription) \(response.response?.statusCode)")
-                    }
+              
+                        completion(.success((data != nil)))
+                          
                     
                 case .failure(let fail):
-                    completion(false)
+                    completion(.failure(fail))
                 }
                 
             }
@@ -115,12 +112,12 @@ class WebService {
                  
              case .success(let success):
                  do{
-           
+                     print(T.self)
                      let object = try JSONDecoder().decode(T.self, from: success!)
                      
                      completion(.success(object))
                  }catch{
-                      print("error json decode")
+                     print("error  \(error.localizedDescription)")
                  }
              case .failure(let fail):
                  completion(.failure(fail))
@@ -147,7 +144,7 @@ class WebService {
         upload(endpoint: endpoint, completion: completion)
         
     }
-    func updateAttachment(titles:[String],ids:[Int],completion: @escaping (Bool) -> Void) {
+    func updateAttachment(titles:[String],ids:[Int],completion: @escaping (Result<Bool,Error>) -> Void) {
         let endpoint = Endpoint.updateAttachment(titles: titles, ids: ids)
         
         

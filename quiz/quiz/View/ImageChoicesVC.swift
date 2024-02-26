@@ -68,6 +68,17 @@ class ImageChoicesVC: BaseViewController {
             self.setLoader(state: .load)
             
         }
+        imageChoicesViewModel.callbackAttachmentUpdateFail = { [weak self] fail in
+            guard let self = self else {return}
+            self.alert(title: fail, message: "Attachment update failed")
+        }
+        imageChoicesViewModel.callbackAttachmentUpdateSuccess = { [weak self]  in
+            guard let self = self else {return}
+              print("successcalback")
+            imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!,
+          categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image,
+          attachment_ids: imageChoicesViewModel.attachmentIds)
+        }
         imageChoicesViewModel.callbackAttachRemoveFail = { [weak self] alertStr in
             guard let self = self else { return}
             
@@ -110,17 +121,7 @@ class ImageChoicesVC: BaseViewController {
          
         if imageChoicesViewModel.imageArray.count > 1 {
             setLoader(state: .loading)
-                 imageChoicesViewModel.updateAttachment() { [weak self] result in
-                    guard let self = self else {return}
-                      print("olustu attach")
-                    if result == true {
-                        print("ids \(imageChoicesViewModel.attachmentIds)")
-                        imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image, attachment_ids: imageChoicesViewModel.attachmentIds)
-     
-                    }
-               
- 
-                }
+                 imageChoicesViewModel.updateAttachment()
               
        }else {
             alert(title: "Fail", message: "need 2 attachments")

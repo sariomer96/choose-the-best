@@ -42,19 +42,41 @@ class GameVC: BaseViewController {
         
         super.viewDidLoad()
         
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        
+        let redColor =  UIColor(hex: "#FF5050")
+        let blueColor = UIColor(hex: "0066FF")
+        let black = UIColor(hex: "121211")
+        gradientLayer.colors = [redColor.cgColor, black.cgColor,  blueColor.cgColor]
+        gradientLayer.locations = [0, 0.1, 0.81]
+
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+      //  view.layer.addSublayer(gradientLayer)
+        
+  
         roundNameLabel.layer.masksToBounds = true
         roundLabel.layer.masksToBounds = true
         roundNameLabel.layer.cornerRadius = 10
         roundLabel.layer.cornerRadius = 1
         
-        leftTitleLabel.layer.masksToBounds = true
-        rightTitleLabel.layer.masksToBounds = true
+       // leftTitleLabel.layer.masksToBounds = true
+    //    rightTitleLabel.layer.masksToBounds = true
+        leftImageView.layer.masksToBounds = true
+        rightImageView.layer.masksToBounds = true
         
         leftTitleLabel.layer.cornerRadius = 1
         rightTitleLabel.layer.cornerRadius = 1
-        leftImageView.layer.borderWidth = 2
-        let blueColor = UIColor(hex: "#0A97F0")
-        let redColor = UIColor(hex: "#EE4327")
+        
+        
+       leftImageView.layer.borderWidth = 2
+        leftImageView.layer.cornerRadius = 5
+        rightImageView.layer.cornerRadius = 5
+
         leftImageView.layer.borderColor = blueColor.cgColor
         
         rightImageView.layer.borderWidth = 2
