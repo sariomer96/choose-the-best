@@ -1178,5 +1178,179 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7D27B770-BED7-49E1-BE15-FCFED59E1680"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "quiz/ViewModel/BaseGameViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "setRoundName(index:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7D27B770-BED7-49E1-BE15-FCFED59E1680 - dc87892f05538c60"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "74">
+               </Location>
+               <Location
+                  uuid = "7D27B770-BED7-49E1-BE15-FCFED59E1680 - dc87892f05538c60"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "81">
+               </Location>
+               <Location
+                  uuid = "7D27B770-BED7-49E1-BE15-FCFED59E1680 - dc87892f05538c03"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2B50A4B-194A-49B1-823D-304F8B5D3651"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "quiz/ViewModel/BaseGameViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "setRoundName(index:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A2B50A4B-194A-49B1-823D-304F8B5D3651 - dc87892f05538c60"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "74">
+               </Location>
+               <Location
+                  uuid = "A2B50A4B-194A-49B1-823D-304F8B5D3651 - dc87892f05538c60"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "81">
+               </Location>
+               <Location
+                  uuid = "A2B50A4B-194A-49B1-823D-304F8B5D3651 - dc87892f05538c03"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.BaseGameViewModel.setRoundName(index: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/BaseGameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C396FE5-A3BC-441B-BC8F-E1EED59A8D0B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "quiz/ViewModel/GameViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "getNextTour(winImageSide:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2C396FE5-A3BC-441B-BC8F-E1EED59A8D0B - 42dc079a6eee4a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.GameViewModel.getNextTour(winImageSide: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/GameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "888">
+               </Location>
+               <Location
+                  uuid = "2C396FE5-A3BC-441B-BC8F-E1EED59A8D0B - 42dc079a6eee4a8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Choose_The_Best.GameViewModel.getNextTour(winImageSide: Swift.Int) -&gt; ()"
+                  moduleName = "Choose The Best"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/omer/Desktop/quiz-ios/quiz/quiz/ViewModel/GameViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "899">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

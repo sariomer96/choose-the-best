@@ -154,14 +154,16 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
         playableCount = playableCount!/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount!)
-        self.setRoundName( index: matchedAttachs.count-1)
+        print(matchedAttachs.count)
+        let result = Int(log2(Double(matchedAttachs.count)))
+        self.setRoundName( index: result)
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
         setImages(index: startIndex)
         setTitle(index: startIndex)
         winAttachs.removeAll()
         
     }
-     
+ 
    
     @objc func imageClickedRight() {
        
@@ -203,8 +205,8 @@ final class GameViewModel: BaseGameViewModel,GameViewModelProtocol{
      func startQuiz() {
         
         matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)
-     
-         self.setRoundName(index: matchedAttachs.count-1)
+         let result = Int(log2(Double(matchedAttachs.count)))
+         self.setRoundName(index: result)
         setRound(roundIndex: 1, tourCount: matchedAttachs.count)
          
         setImages(index: startIndex)

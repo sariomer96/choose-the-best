@@ -350,20 +350,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QUIZ TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU2-uH-XeN">
-                                <rect key="frame" x="143.5" y="159" width="127" height="30"/>
+                                <rect key="frame" x="143.5" y="92" width="127" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="quZ-iv-k9F">
-                                <rect key="frame" x="87" y="204" width="240" height="175.5"/>
+                                <rect key="frame" x="87" y="137" width="240" height="175.5"/>
                                 <color key="tintColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="178" id="yH6-yx-o6d"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="125" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GeK-tQ-t6x">
-                                <rect key="frame" x="0.0" y="481" width="414" height="381"/>
+                                <rect key="frame" x="0.0" y="406" width="414" height="456"/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.1843137255" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -440,15 +440,15 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fla-cL-cgb">
-                                <rect key="frame" x="162" y="423" width="90" height="28.5"/>
+                                <rect key="frame" x="162" y="356" width="90" height="28.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="mdc-pH-WBU"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="PLAY">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="startClick:" destination="UZf-IL-CKm" eventType="touchUpInside" id="f7j-pW-87d"/>
@@ -460,11 +460,11 @@
                         <constraints>
                             <constraint firstItem="GeK-tQ-t6x" firstAttribute="trailing" secondItem="rJ3-bQ-2WA" secondAttribute="trailing" id="6Dn-qx-aek"/>
                             <constraint firstItem="rJ3-bQ-2WA" firstAttribute="trailing" secondItem="quZ-iv-k9F" secondAttribute="trailing" constant="87" id="6c2-ws-PMG"/>
-                            <constraint firstItem="quZ-iv-k9F" firstAttribute="top" secondItem="rJ3-bQ-2WA" secondAttribute="top" constant="155" id="74R-Tn-V0K"/>
-                            <constraint firstItem="zU2-uH-XeN" firstAttribute="top" secondItem="rJ3-bQ-2WA" secondAttribute="top" constant="111" id="9bG-g0-Cfi"/>
+                            <constraint firstItem="quZ-iv-k9F" firstAttribute="top" secondItem="rJ3-bQ-2WA" secondAttribute="top" constant="88" id="74R-Tn-V0K"/>
+                            <constraint firstItem="zU2-uH-XeN" firstAttribute="top" secondItem="rJ3-bQ-2WA" secondAttribute="top" constant="44" id="9bG-g0-Cfi"/>
                             <constraint firstItem="rJ3-bQ-2WA" firstAttribute="bottom" secondItem="GeK-tQ-t6x" secondAttribute="bottom" id="9zA-OC-fhK"/>
                             <constraint firstItem="quZ-iv-k9F" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" constant="87" id="Ekd-VL-xKi"/>
-                            <constraint firstItem="GeK-tQ-t6x" firstAttribute="top" secondItem="Fla-cL-cgb" secondAttribute="bottom" constant="29.5" id="Lbp-uv-3g8"/>
+                            <constraint firstItem="GeK-tQ-t6x" firstAttribute="top" secondItem="Fla-cL-cgb" secondAttribute="bottom" constant="21.5" id="Lbp-uv-3g8"/>
                             <constraint firstItem="Fla-cL-cgb" firstAttribute="top" secondItem="quZ-iv-k9F" secondAttribute="bottom" constant="42" id="TKM-mL-EVJ"/>
                             <constraint firstItem="Fla-cL-cgb" firstAttribute="centerX" secondItem="6mW-99-1na" secondAttribute="centerX" id="axy-Fe-VDO"/>
                             <constraint firstItem="GeK-tQ-t6x" firstAttribute="leading" secondItem="rJ3-bQ-2WA" secondAttribute="leading" id="j8K-IP-nri"/>
@@ -498,8 +498,8 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yXA-7b-bjN">
                                 <rect key="frame" x="87" y="500" width="240" height="35"/>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <menu key="menu" id="5Cn-X0-kna">
                                     <children>
                                         <command title="Item 1" menuElementState="on" id="Ad1-GF-UGI"/>
@@ -507,8 +507,7 @@
                                     </children>
                                 </menu>
                                 <buttonConfiguration key="configuration" style="tinted" title="Button">
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwO-b5-og6">
@@ -525,8 +524,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="START">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="startClick:" destination="YCd-33-doI" eventType="touchUpInside" id="NZ4-99-Y9O"/>
@@ -701,7 +700,7 @@
                                             </label>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-kn-kQO">
                                                 <rect key="frame" x="80" y="300.5" width="140" height="30"/>
-                                                <color key="backgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="9CF-Pt-DrG"/>
                                                     <constraint firstAttribute="width" constant="140" id="nCD-gH-AuF"/>
@@ -725,7 +724,7 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Statistics">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                     <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="baseBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="playAgainClick:" destination="nrr-rb-t5c" eventType="touchUpInside" id="dlP-AF-52v"/>
@@ -804,8 +803,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="topChooseClick:" destination="jWn-pW-CiM" eventType="touchUpInside" id="Uc3-EH-IxO"/>
@@ -819,8 +818,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="CHOOSE">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="bottomChooseClick:" destination="jWn-pW-CiM" eventType="touchUpInside" id="aGn-KC-M3G"/>
@@ -927,9 +926,8 @@
                                     <constraint firstAttribute="height" constant="45" id="tPk-yG-QKX"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Image">
+                                <buttonConfiguration key="configuration" style="filled">
                                     <imageReference key="image" image="photo.on.rectangle.angled" catalog="system" symbolScale="large"/>
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="0.0"/>
                                     <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
@@ -944,9 +942,8 @@
                                     <constraint firstAttribute="height" constant="45" id="vrw-45-XqI"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Video">
+                                <buttonConfiguration key="configuration" style="filled">
                                     <imageReference key="image" image="video.fill.badge.plus" catalog="system" symbolScale="large"/>
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -1143,8 +1140,8 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="nextClick:" destination="epE-jD-Lg0" eventType="touchUpInside" id="6l2-z8-y3K"/>
@@ -1155,17 +1152,11 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Choose Images"/>
-                                <buttonConfiguration key="configuration" style="filled" imagePlacement="top" subtitle="">
+                                <buttonConfiguration key="configuration" style="filled" imagePlacement="top" title="Choose Images" subtitle="">
                                     <imageReference key="image" image="photo.badge.plus" catalog="system" symbolScale="large"/>
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Choose Images">
-                                            <attributes>
-                                                <font key="NSFont" metaFont="menu" size="14"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="titleFontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="pickerClick:" destination="epE-jD-Lg0" eventType="touchUpInside" id="2M2-h7-HgP"/>
@@ -1243,8 +1234,8 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="nextClick:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="0aa-nu-Din"/>
@@ -1297,8 +1288,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Video ">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="12"/>
-                                    <color key="baseForegroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="baseBackgroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseForegroundColor" red="0.98039215690000003" green="0.94117647059999998" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="AddVideoClick:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="6Ki-Jl-vyQ"/>
