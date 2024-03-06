@@ -21,11 +21,11 @@ class GamePopUpVC: BaseViewController {
         super.viewDidLoad()
 
         showRateDropDown()
-        gamePopUpViewModel.callbackShowAlert = { [weak self] alertTitle in
-            guard let self = self else { return }
-            alert(title: alertTitle.alertTitle, message: alertTitle.description)
-            rate.isUserInteractionEnabled = false
-        }
+//        gamePopUpViewModel.callbackShowAlert = { [weak self] alertTitle in
+//            guard let self = self else { return }
+//            alert(title: alertTitle.alertTitle, message: alertTitle.description)
+//            rate.isUserInteractionEnabled = false
+//        }
         
         gamePopUpViewModel.callbackRateQuiz = { [weak self]  in
             guard let self = self else {return }
@@ -34,12 +34,10 @@ class GamePopUpVC: BaseViewController {
        
         // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(_ animated: Bool) {
-        configView()
-    }
+    
     override func viewDidAppear(_ animated: Bool) {
        
-        show()
+      //  show()
         setAttachment()
          
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -75,23 +73,15 @@ class GamePopUpVC: BaseViewController {
     }
    
  
-    func configView(){
-    
-        self.popUpView.alpha = 0
-        self.popUpView.layer.cornerRadius = 10
-    }
-    
-    func appear(sender: UIViewController){
-        sender.present(self,animated: true) {
-          self.show()
-        }
-    }
-    
-    private func show() {
-        UIView.animate(withDuration: 1, delay: 0.7){
-            self.popUpView.alpha = 1
-        }
-    }
+  
+//
+//    func appear(sender: UIViewController){
+//        sender.present(self,animated: true) {
+//          self.show()
+//        }
+//    }
+//    
+ 
     
 //    func hide() {
 //        UIView.animate(withDuration: 1, delay: 0.0, options: .curveEaseOut){

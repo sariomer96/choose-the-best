@@ -46,14 +46,16 @@ class GameVC: BaseViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         
-        let redColor =  UIColor(hex: "#FF5050")
-        let blueColor = UIColor(hex: "0066FF")
-        let black = UIColor(hex: "121211")
-        gradientLayer.colors = [redColor.cgColor, black.cgColor,  blueColor.cgColor]
-        gradientLayer.locations = [0, 0.1, 0.81]
+        let redColor =  UIColor(hex: "#FF5050", alpha: 0.85)
+        let blueColor = UIColor(hex: "0066FF", alpha: 0.85)
+       
+        
+        gradientLayer.colors = [redColor.cgColor, blueColor.cgColor]
+        gradientLayer.locations = [0.0 ,1]
 
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+         
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)
       //  view.layer.addSublayer(gradientLayer)
@@ -69,8 +71,8 @@ class GameVC: BaseViewController {
         leftImageView.layer.masksToBounds = true
         rightImageView.layer.masksToBounds = true
         
-        leftTitleLabel.layer.cornerRadius = 1
-        rightTitleLabel.layer.cornerRadius = 1
+//        leftTitleLabel.layer.cornerRadius = 1
+//        rightTitleLabel.layer.cornerRadius = 1
         
         
        leftImageView.layer.borderWidth = 2
@@ -161,8 +163,8 @@ class GameVC: BaseViewController {
         }
         gameViewModel.callbackDisableUIElements = { [weak self] in
             guard let self = self else {return}
-            leftTitleLabel.isHidden = true
-            rightTitleLabel.isHidden = true
+//            leftTitleLabel.isHidden = true
+//            rightTitleLabel.isHidden = true
             roundLabel.isHidden = true
         }
  

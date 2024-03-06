@@ -111,7 +111,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                                 self.callbackReloadTableView?()
                                 print(self.imageArray.count)
                         case false:
-                            self.callbackImageUploadFail?("Image load failed")
+                            self.callbackImageUploadFail?(error?.localizedDescription ?? "image upload failed")
                              
                             break
                         }

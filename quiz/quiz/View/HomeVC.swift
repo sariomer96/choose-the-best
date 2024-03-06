@@ -7,7 +7,7 @@
 
 import UIKit
 import Kingfisher
-import Alamofire
+ 
 
 
 class HomeVC: BaseViewController {
@@ -20,8 +20,9 @@ class HomeVC: BaseViewController {
    
     let viewModel = HomeViewModel()
  
-    override func viewDidAppear(_ animated: Bool) {
-       
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getRecentlyQuiz()
+        print("appear")
       
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -31,10 +32,12 @@ class HomeVC: BaseViewController {
             viewModel.setQuizList(quizList: viewModel.topQuizList)
             viewModel.quizType = .topQuiz
             topRateTableView.setContentOffset(CGPointZero, animated:true)
+           // topRateTableView.reloadData()
           case 1:
             viewModel.setQuizList(quizList: viewModel.recentlyList)
             viewModel.quizType = .recentlyQuiz
             topRateTableView.setContentOffset(CGPointZero, animated:true)
+            topRateTableView.reloadData()
           
          default:
             viewModel.setQuizList(quizList: viewModel.topQuizList)
@@ -66,7 +69,7 @@ class HomeVC: BaseViewController {
             }
         }
         
-        viewModel.getRecentlyQuiz()
+       
         viewModel.getCategories { [self]
             result in
             
