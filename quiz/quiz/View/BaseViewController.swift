@@ -9,30 +9,34 @@ import Foundation
 import UIKit
 class BaseViewController: UIViewController {
     
-    func showAlert(_ title: String, _  message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default) { _ in
-             
-        }
-        alert.addAction(ok)
-        self.present(alert,animated: true)
-    }
+//    func showAlert(_ title: String, _  message: String) {
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        let ok = UIAlertAction(title: "OK", style: .default) { _ in
+//            print("vvvaaas")
+//        }
+//        alert.addAction(ok)
+//        self.present(alert,animated: true)
+//    }
     
     func presentGameStartViewController(quiz: QuizResponse) {
         let viewController = GameStartViewControllerBuilder.build(quiz: quiz)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    
+   
+    func refresh() {
+        
+    }
     func alert(title:String,message:String) {
         
          
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default) { _ in
-             
+            self.refresh()
         }
+      
         alert.addAction(ok)
+ 
         self.present(alert,animated: true)
         
     }
@@ -40,6 +44,7 @@ class BaseViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default) {_ in
+         
             completion(true)
         }
         alert.addAction(ok)

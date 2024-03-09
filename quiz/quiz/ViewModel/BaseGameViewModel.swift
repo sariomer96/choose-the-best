@@ -35,7 +35,7 @@ class BaseGameViewModel : BaseViewModel {
     func setAttachmentScore(attachID:Int) {
         
         WebService.shared.setAttachmentScores(attachID: attachID) {
-            result in
+            result, statusCode in
         }
     }
     

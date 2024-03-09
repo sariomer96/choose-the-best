@@ -98,7 +98,7 @@ class GameVC: BaseViewController {
         gameViewModel.callbackShowAlert = { [weak self] alertInfo in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.showAlert(alertInfo.alertTitle, alertInfo.description)
+                self.alert(title: alertInfo.alertTitle, message: alertInfo.description)
             }
         }
         gameViewModel.callbackSetTitle = { [weak self] titles in

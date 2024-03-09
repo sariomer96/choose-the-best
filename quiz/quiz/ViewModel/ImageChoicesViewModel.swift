@@ -25,14 +25,13 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
     var callbackStartLoader: VoidCallBack?
     var callbackImageUploadFail:CallBack<String>?
     var callbackAttachRemoveFail:CallBack<String>?
-
-   // var attachmentRequestList = [AttachmentRequestObject]()
+ 
     var total = 0
     
     func addAttachment(title:String,videoUrl:String,image:UIImage,score:Int,completion :@escaping (Bool) -> Void) {
         self.callbackStartLoader?()
         WebService.shared.createAttachment(title: title, videoUrl: videoUrl, image: image) {  result in
-            print("i result")
+           
             switch result {
            
             case .success(let attachment):
@@ -77,7 +76,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
 
     func removeAttachment(index:Int, attachmentID:Int) {
     
-        WebService.shared.deleteAttachment(attachmentID: attachmentID) { result in
+        WebService.shared.deleteAttachment(attachmentID: attachmentID) { result, statusCode in
             switch result {
             case .success(let result):
                 self.imageArray.remove(at: index)
@@ -102,7 +101,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                    
                     self.addAttachment(title: String(self.num), videoUrl: "", image: image, score: 0) {
                         result in
-                                print("result")
+                              
                         switch result {
                             
                         case true:

@@ -25,6 +25,7 @@ class HomeVC: BaseViewController {
  
       
     }
+    
     @IBAction func segmentedControlAction(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex{
           case 0:
@@ -72,14 +73,24 @@ class HomeVC: BaseViewController {
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
         
-        viewModel.getTopRateQuiz { result in
-            
-            DispatchQueue.main.async {
-                self.viewModel.setQuizList(quizList: self.viewModel.topQuizList)
-                self.topRateTableView.reloadData()
-            }
-        }
+        refreshView()
+//
+//        viewModel.getTopRateQuiz { result in
+//            
+//            DispatchQueue.main.async {
+//                self.viewModel.setQuizList(quizList: self.viewModel.topQuizList)
+//                self.topRateTableView.reloadData()
+//            }
+//        }
         
+        viewModel.callbackStatusCode = { [weak self] status in
+            guard let self = self else { return }
+            
+            if status == 500 {
+                self.alert(title: "500", message: "Server Error Please Try Again ")
+            }
+            
+        }
         viewModel.callbackReloadRecentlyTableView = { [weak self] in
             guard let self = self else { return }
             
@@ -92,6 +103,43 @@ class HomeVC: BaseViewController {
             }
         }
        
+//        viewModel.getCategories { [self]
+//            result in
+//            
+//        if let result = result {
+//          
+//            DispatchQueue.main.async {
+//                
+//                self.activityIndicator.stopAnimating()
+//                self.activityIndicator.isHidden = true
+//                self.categoryCollectionView.reloadData()
+//            }
+//           
+//        }
+//     }
+  
+        viewModel.callbackReloadTopRatedTableView = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.topRateTableView.reloadData()
+            }
+        }
+        
+        viewModel.callbackFailRequest = { [weak self] error in
+            guard let self = self else { return }
+            self.alert(title: "Please check your connection!" , message: error.localizedDescription)
+        }
+        
+        
+            
+    }
+    override func refresh() {
+   
+        refreshView()
+    }
+    func refreshView() {
+        
+        isFirstRequest = false
         viewModel.getCategories { [self]
             result in
             
@@ -106,22 +154,20 @@ class HomeVC: BaseViewController {
            
         }
      }
-  
-        viewModel.callbackReloadTopRatedTableView = { [weak self] in
-            guard let self = self else { return }
+        
+        viewModel.getTopRateQuiz { result in
+            
             DispatchQueue.main.async {
+                self.viewModel.setQuizList(quizList: self.viewModel.topQuizList)
                 self.topRateTableView.reloadData()
             }
         }
-        
-        viewModel.callbackFailRequest = { [weak self] error in
-            guard let self = self else { return }
-            self.alert(title: "Please check your connection!" , message: error.localizedDescription)
-        }
-            
-    }
- 
+  
+ }
 }
+
+
+
 
 extension HomeVC : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

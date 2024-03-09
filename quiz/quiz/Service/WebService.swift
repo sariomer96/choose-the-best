@@ -36,7 +36,17 @@ class WebService {
             }
         }
     }
-    func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>) ->Void) {
+    
+  
+
+    
+    enum RequestError: Error {
+        case noData
+        case decodingError
+      
+    }
+    
+    func request<T: Codable>(endpoint:Endpoint,completion:@escaping (Result<T,Error>, Int?) ->Void) {
          
         let method =   endpoint.method
        let  alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
@@ -53,14 +63,16 @@ class WebService {
                         
                         let result = try JSONDecoder().decode(T.self, from: data)
                
-                        completion(.success(result))
+                        completion(.success(result),response.response?.statusCode)
                          
                     }catch{
+                         
+                        completion(.failure(RequestError.noData), response.response?.statusCode )
                         print("DECODE ERROR \(error.localizedDescription) \(response.response?.statusCode)")
                     }
                     
                 case .failure(let fail):
-                    completion(.failure(fail))
+                    completion(.failure(fail),response.response?.statusCode)
                 }
                 
             }
@@ -151,46 +163,46 @@ class WebService {
         request(endpoint: endpoint, completion: completion)
         
     }
-    func deleteAttachment(attachmentID:Int, completion: @escaping (Result<(Attachment),Error>) -> Void){
+    func deleteAttachment(attachmentID:Int, completion: @escaping (Result<Attachment,Error>, Int?) -> Void){
         let endpoint = Endpoint.deleteAttachment(attachmentID: attachmentID)
         
         request(endpoint: endpoint, completion: completion)
     }
-    func rateQuiz(quizID:Int,rateScore:Int, completion: @escaping (Result<ApiResponse,Error>) ->Void)  {
+    func rateQuiz(quizID:Int,rateScore:Int, completion: @escaping (Result<ApiResponse,Error>, Int?) ->Void)  {
         let endpoint = Endpoint.rateQuiz(quizID: quizID, rateScore: rateScore)
            request(endpoint: endpoint, completion: completion)
     }
     
-    func getTopRate(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+    func getTopRate(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>, Int?) ->Void) {
         let endpoint = Endpoint.getTopRated(page: page, count: count)
            request(endpoint: endpoint, completion: completion)
     }
-    func getRecentlyQuiz(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+    func getRecentlyQuiz(page:Int,count:Int,completion:@escaping (Result<ApiResponse,Error>, Int?) ->Void) {
         let endpoint = Endpoint.getRecently(page: page, count: count)
            request(endpoint: endpoint, completion: completion)
     }
     
-    func getCategories(completion:@escaping (Result<CategoryResponse,Error>) ->Void) {
+    func getCategories(completion:@escaping (Result<CategoryResponse,Error>, Int?) ->Void) {
         let endpoint = Endpoint.getCategories
            request(endpoint: endpoint, completion: completion)
     }
     
-    func getQuiz(quizID:Int,completion:@escaping (Result<QuizResponse,Error>) ->Void) {
+    func getQuiz(quizID:Int,completion:@escaping (Result<QuizResponse,Error>, Int?) ->Void) {
       let endpoint = Endpoint.getQuiz(quizID: quizID)
          
        request(endpoint: endpoint, completion: completion)
     }
-    func getQuizList(pageSize:Int,page:Int,categoryID:Int,completion:@escaping (Result<ApiResponse,Error>) ->Void) {
+    func getQuizList(pageSize:Int,page:Int,categoryID:Int,completion:@escaping (Result<ApiResponse,Error>, Int?) ->Void) {
         let endpoint = Endpoint.getQuizList(categoryID: categoryID, page: page, count: pageSize)
         
          request(endpoint: endpoint, completion: completion)
     }
-    func setAttachmentScores(attachID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void ) {
+    func setAttachmentScores(attachID:Int,completion: @escaping (Result<ApiResponse,Error>, Int?) ->Void ) {
         let endpoint = Endpoint.setAttachmentScore(attachID: attachID)
            
          request(endpoint: endpoint, completion: completion)
     }
-    func searchQuizs(searchText:String,categoryID:Int,completion: @escaping (Result<ApiResponse,Error>) ->Void) {
+    func searchQuizs(searchText:String,categoryID:Int,completion: @escaping (Result<ApiResponse,Error>, Int?) ->Void) {
         let endpoint = Endpoint.searchQuiz(searchText: searchText, categoryID: categoryID)
            
          request(endpoint: endpoint, completion: completion)

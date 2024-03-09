@@ -34,7 +34,7 @@ class CreateQuizViewModel:NSObject {
     }
     func getCategory(completion: @escaping (Bool) -> Void) {
         
-        WebService.shared.getCategories { result in
+        WebService.shared.getCategories { result, statusCode in
             switch result {
             case .success(let success):
                 self.categoryList = success.results

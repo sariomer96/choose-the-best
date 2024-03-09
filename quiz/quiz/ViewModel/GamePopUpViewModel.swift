@@ -63,7 +63,7 @@ class GamePopUpViewModel {
     }
     
     func rateQuiz() {
-        WebService.shared.rateQuiz(quizID: self.quiz?.id ?? 1, rateScore: rate) { result in
+        WebService.shared.rateQuiz(quizID: self.quiz?.id ?? 1, rateScore: rate) { result, statusCode in
             switch result {
             case .success(_): // let response
                 self.callbackShowAlert?(("Alert", "Rate success"))

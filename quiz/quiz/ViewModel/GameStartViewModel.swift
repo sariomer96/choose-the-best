@@ -10,7 +10,7 @@ class GameStartViewModel {
     func getQuizResponse(completion: @escaping (Bool) -> Void) {
          
         WebService.shared.getQuiz(quizID: quiz?.id ?? 0) {
-            result in
+            result, statusCode in
             
             switch result {
                 

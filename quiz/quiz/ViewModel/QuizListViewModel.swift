@@ -58,7 +58,7 @@ class QuizListViewModel : QuizListProtocol {
  
         
          
-        webService.getQuizList(pageSize: currentSizeCount, page: currentQuizPageCount, categoryID: categoryId) { result in
+        webService.getQuizList(pageSize: currentSizeCount, page: currentQuizPageCount, categoryID: categoryId) { result,statusCode  in
             switch result {
             case .success(let list):
                 
@@ -86,7 +86,7 @@ class QuizListViewModel : QuizListProtocol {
     
     func search(searchText:String,completion: @escaping (Bool)->Void) {
         
-        webService.searchQuizs(searchText: searchText, categoryID: categoryID ?? 0) { result in
+        webService.searchQuizs(searchText: searchText, categoryID: categoryID ?? 0) { result, statusCode in
             switch result {
                 
             case .success(let quizList):

@@ -15,6 +15,7 @@ enum QuizType {
 class HomeViewModel {
     var callbackReloadTopRatedTableView: VoidCallBack?
     var callbackReloadRecentlyTableView: VoidCallBack?
+    var callbackStatusCode:CallBack<Int>?
     var quizType:QuizType = .topQuiz
     var categoryList:  [Category]?
     var recentlyList = [QuizResponse]()
@@ -35,14 +36,15 @@ class HomeViewModel {
      
     func getCategories(completion: @escaping (String?) -> Void) {
      
-        webService.getCategories { result in
+        webService.getCategories { result,statusCode  in
             switch result {
                 
             case .success(let category):
+                print(statusCode)
                 self.categoryList = category.results
                 completion("trigger")
             case .failure(let error):
-            
+                print("fail \(statusCode)")
                 self.callbackFailRequest?(error)
             }
         }
@@ -57,13 +59,17 @@ class HomeViewModel {
  
     func getRecentlyQuiz() {
         guard isStillExistRecentlyQuest else { return }
-        webService.getRecentlyQuiz(page: currentRecentlyQuestPageCount, count: currentSizeCount){ result in
+        webService.getRecentlyQuiz(page: currentRecentlyQuestPageCount, count: currentSizeCount){ result, statusCode in
             switch result {
             case .success(let apiResponse):
+                print(statusCode)
+                self.callbackStatusCode?(statusCode ?? 0)
                 self.onRecentlyRequestSuccess(response: apiResponse)
                 self.callbackReloadRecentlyTableView?()
                
             case .failure(let error):
+                print("fail \(statusCode)")
+                self.callbackStatusCode?(statusCode ?? 0)
                 self.callbackFailRequest?(error)
             }
         }
@@ -81,16 +87,19 @@ class HomeViewModel {
     
     func getTopRateQuiz(completion: @escaping (String?) -> Void){
         
-        webService.getTopRate(page: currentTopRateQuestPageCount, count: currentSizeCount) { result in
+        webService.getTopRate(page: currentTopRateQuestPageCount, count: currentSizeCount) { result, statusCode in
             switch result {
-              
+                 
             case .success(let apiResponse):
                 guard let quiz = apiResponse.results else{return}
-                
+                print(statusCode)
+                self.callbackStatusCode?(statusCode ?? 0)
                 self.onTopRateRequestSuccess(apiResponse: apiResponse, quiz: quiz)
-          
+           
                 completion("trigger")
             case .failure(let error):
+                print("fail \(statusCode)")
+                self.callbackStatusCode?(statusCode ?? 0)
                 self.callbackFailRequest?(error)
             }
         }
