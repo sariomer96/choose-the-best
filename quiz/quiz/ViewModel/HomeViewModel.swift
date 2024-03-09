@@ -61,7 +61,7 @@ class HomeViewModel {
             switch result {
             case .success(let apiResponse):
                 self.onRecentlyRequestSuccess(response: apiResponse)
-              // self.callbackReloadTopRatedTableView?()
+                self.callbackReloadRecentlyTableView?()
                
             case .failure(let error):
                 self.callbackFailRequest?(error)

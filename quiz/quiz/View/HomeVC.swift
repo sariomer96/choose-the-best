@@ -17,12 +17,12 @@ class HomeVC: BaseViewController {
    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-   
+   var isFirstRequest = false
     let viewModel = HomeViewModel()
  
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.getRecentlyQuiz()
-        print("appear")
+     //   viewModel.getRecentlyQuiz()
+ 
       
     }
     @IBAction func segmentedControlAction(_ sender: Any) {
@@ -34,10 +34,21 @@ class HomeVC: BaseViewController {
             topRateTableView.setContentOffset(CGPointZero, animated:true)
            // topRateTableView.reloadData()
           case 1:
-            viewModel.setQuizList(quizList: viewModel.recentlyList)
-            viewModel.quizType = .recentlyQuiz
-            topRateTableView.setContentOffset(CGPointZero, animated:true)
-            topRateTableView.reloadData()
+            
+            if isFirstRequest == false {
+                viewModel.getRecentlyQuiz()
+                isFirstRequest = true
+            }else {
+                viewModel.setQuizList(quizList: viewModel.recentlyList)
+                viewModel.quizType = .recentlyQuiz
+                topRateTableView.setContentOffset(CGPointZero, animated:true)
+                DispatchQueue.main.async {
+                    self.topRateTableView.reloadData()
+                }
+            }
+            
+
+          //  topRateTableView.reloadData()
           
          default:
             viewModel.setQuizList(quizList: viewModel.topQuizList)
@@ -56,7 +67,7 @@ class HomeVC: BaseViewController {
         categoryCollectionView.delegate = self
         topRateTableView.delegate = self
         topRateTableView.dataSource = self
- 
+        
         
         self.activityIndicator.startAnimating()
         self.activityIndicator.isHidden = false
@@ -69,6 +80,17 @@ class HomeVC: BaseViewController {
             }
         }
         
+        viewModel.callbackReloadRecentlyTableView = { [weak self] in
+            guard let self = self else { return }
+            
+            
+            viewModel.setQuizList(quizList: viewModel.recentlyList)
+            viewModel.quizType = .recentlyQuiz
+            topRateTableView.setContentOffset(CGPointZero, animated:true)
+            DispatchQueue.main.async {
+                self.topRateTableView.reloadData()
+            }
+        }
        
         viewModel.getCategories { [self]
             result in
