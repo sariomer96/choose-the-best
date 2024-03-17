@@ -8,7 +8,7 @@
 import Foundation
 
 final class GameStartViewControllerBuilder {
-    class func build(quiz:QuizResponse) -> GameStartVC {
+    class func build(quiz: QuizResponse) -> GameStartVC {
         let viewController =  GameStartVC.instantiateFromStoryboard()
         viewController.gameStartViewModel.setQuiz(quiz: quiz)
         return viewController

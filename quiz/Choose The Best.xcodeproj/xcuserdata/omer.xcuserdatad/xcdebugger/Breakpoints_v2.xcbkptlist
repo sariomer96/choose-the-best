@@ -62,8 +62,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "didEndTextChange(text:index:)"
             landmarkType = "7">
             <Locations>
@@ -281,8 +281,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "initVM()"
             landmarkType = "7">
             <Locations>
@@ -693,8 +693,8 @@
             filePath = "quiz/View/ImageChoicesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "removeAttachment(index:)"
             landmarkType = "7">
             <Locations>

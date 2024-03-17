@@ -52,7 +52,7 @@ final class VideoChoicesVC: BaseViewController {
         videoChoicesViewModel.url = youtubeURLTitleTextField.text!
         let baseURL = videoChoicesViewModel.url.replacingOccurrences(of: " ", with: "")
         let title = videoTitleTextField.text!
-        
+
         if baseURL.isEmpty == true || title.isEmpty == true {
             alert(title: "Empty Fields", message: "Please fill the fields")
             return
@@ -79,75 +79,73 @@ final class VideoChoicesVC: BaseViewController {
             loaderIndicator.isHidden = false
             loaderIndicator.startAnimating()
             videoChoicesViewModel.addAttachmentsOnNextClick { [self] _ in
-               
-                
+
             if videoChoicesViewModel.thumbNails.count > 1 {
-                videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!,
+                videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!,
+                                                  image: CreateQuizFields.shared.quizHeaderImage!,
                     categoryID: videoChoicesViewModel.categoryId,
                     isVisible: true,
                     isImage: false,
                     attachmentIds: videoChoicesViewModel.attachmentIds)
-            }else{
+            } else {
                 alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
             }
         }
-          
+
     }
-      
-     
+
     }
-    
+
     func clearArrays() {
         self.videoChoicesViewModel.attachmentIds.removeAll()
-      //  WebService.shared.attachmentIdList.removeAll()
         self.videoChoicesViewModel.thumbNails.removeAll()
         self.videoChoicesViewModel.titleArray.removeAll()
     }
 }
 
-extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
+extension VideoChoicesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videoChoicesViewModel.thumbNails.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as? VideoChoicesTableViewCell
-        
+
         guard let cell = cell else { return VideoChoicesTableViewCell() }
         cell.videoTitleLabel.text = videoChoicesViewModel.titleArray[indexPath.row]
         cell.videoThumbnailImage.image = videoChoicesViewModel.thumbNails[indexPath.row]
-        
+
         return cell
     }
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
-            contextualAction,view,bool in
-            
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+
             self.removeAttachment(index: indexPath.row)
-            
+
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
-    func removeAttachment(index:Int) {
+
+    func removeAttachment(index: Int) {
         let title = self.videoChoicesViewModel.titleArray[index]
-        let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?", preferredStyle: .alert)
-        
+        let alert = UIAlertController(title: "Delete", message: "\(title) do you want to delete?",
+                                      preferredStyle: .alert)
+
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-        let yes = UIAlertAction(title: "Delete", style: .destructive) {
-            action in
+        let yes = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.videoChoicesViewModel.removeAttachment(index: index)
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }
-            
+
         }
-        
+
         alert.addAction(cancel)
         alert.addAction(yes)
-        self.present(alert,animated: true)
-        
+        self.present(alert, animated: true)
+
     }
-    
+
 }
