@@ -42,7 +42,7 @@ enum Endpoint {
     case getRecently(page:Int,count:Int)
     case getQuizList(categoryID:Int,page:Int,count:Int)
     case getCategories
-    case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,is_image:Bool, attachment_ids:[Int])
+    case createQuiz(title:String,image:Data,categoryID: Int, isVisible: Bool,isImage:Bool, attachmentIds:[Int])
     case createAttachment(title:String,videoUrl:String,imageData:Data)
     case rateQuiz(quizID:Int,rateScore:Int)
     case getQuiz(quizID:Int)
@@ -56,13 +56,13 @@ enum Endpoint {
 extension Endpoint: EndPointProtocol {
     
     var parameters: [String : Any]? {
-        if case .createQuiz(let title, let image, let categoryID, let isVisible, let is_image, let attachment_ids) = self {
+        if case .createQuiz(let title, let image, let categoryID, let isVisible, let isImage, let attachmentIds) = self {
             return [   "title":title,
-                       "attachment_ids":attachment_ids,
+                       "attachment_ids":attachmentIds,
                        "image": image,
                        "category_id":categoryID,
                        "is_visible":isVisible,
-                       "is_image":is_image
+                       "is_image":isImage
                   ]
         }
         else if case .rateQuiz(let quizID, let rateScore) = self {
@@ -156,7 +156,7 @@ extension Endpoint: EndPointProtocol {
             
         case .getCategories: break
             
-        case .createQuiz(title: let title, image: let image, categoryID: let categoryID, isVisible: let isVisible, is_image: let is_image, attachment_ids: let attachment_ids):
+        case .createQuiz(title: let title, image: let image, categoryID: let categoryID, isVisible: let isVisible, isImage: let isImage, attachmentIds: let attachmentIds):
             return ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"]
         case .createAttachment:
             return ["Content-Type": "multipart/form-data; boundary=\(UUID().uuidString)"]
@@ -193,7 +193,7 @@ extension Endpoint: EndPointProtocol {
         }
          
         guard let url = url else {return}
-  
+ 
         completion(parameters,url,header)
     }
     

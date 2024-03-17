@@ -9,13 +9,13 @@ import UIKit
 import YouTubeiOSPlayerHelper
 import Kingfisher
 
-class GameVideoVC: BaseViewController {
+final class GameVideoVC: BaseViewController {
  
     
     @IBOutlet weak var roundNameLabel: UILabel!
     @IBOutlet weak var roundLabel: UILabel!
-    @IBOutlet weak var bottomAttachmentTitle: UILabel!
-    @IBOutlet weak var topAttachmentTitle: UILabel!
+    @IBOutlet weak var bottomAttachmentTitleLabel: UILabel!
+    @IBOutlet weak var topAttachmentTitleLabel: UILabel!
   
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -45,11 +45,10 @@ class GameVideoVC: BaseViewController {
             switch result.1 {
                 
             case .top:
-                topAttachmentTitle.text = result.0
+                topAttachmentTitleLabel.text = result.0
             case .bottom:
-                bottomAttachmentTitle.text = result.0
-            default :
-                break
+                bottomAttachmentTitleLabel.text = result.0
+            
             }
       
         }
@@ -90,19 +89,19 @@ class GameVideoVC: BaseViewController {
         viewModel.setVideo(videoView: topVideoView, matchIndex: 0, rowIndex: 0)
         viewModel.setVideo(videoView: bottomVideoView, matchIndex: 0, rowIndex: 1)
         
-        topAttachmentTitle.text = viewModel.matchedAttachs[0][0].title
-        bottomAttachmentTitle.text = viewModel.matchedAttachs[0][1].title
+        topAttachmentTitleLabel.text = viewModel.matchedAttachs[0][0].title
+        bottomAttachmentTitleLabel.text = viewModel.matchedAttachs[0][1].title
     }
-    @IBAction func bottomChooseClick(_ sender: Any) {
+    @IBAction func bottomChooseClick() {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 1) {
-            attachment in
+            _ in
    
         }
     }
     
-    @IBAction func topChooseClick(_ sender: Any) {
+    @IBAction func topChooseClick() {
         viewModel.chooseClick(bottomVideoView: bottomVideoView, topVideoView: topVideoView, rowIndex: 0) {
-            attachment in
+            _ in
             
  
         }

@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class CreateQuizFields {
-    
+final class CreateQuizFields {
+
     static let shared = CreateQuizFields()
-    
-    var quizTitle:String?
-    var quizHeaderImage:UIImage?
-    var attachments : [Attachment]?
-     
+
+    var quizTitle: String?
+    var quizHeaderImage: UIImage?
+    var attachments: [Attachment]?
+
  }

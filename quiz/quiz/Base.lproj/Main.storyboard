@@ -131,7 +131,7 @@
                     <navigationItem key="navigationItem" id="HpJ-J6-W8N"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Pcp-m3-IiF" id="Am4-Lb-fMU"/>
-                        <outlet property="categoryName" destination="4U4-4e-axW" id="3f9-Br-lHX"/>
+                        <outlet property="categoryNameLabel" destination="4U4-4e-axW" id="3f9-Br-lHX"/>
                         <outlet property="searchBar" destination="ed8-qS-nSa" id="5Fz-P2-d8V"/>
                         <outlet property="tableView" destination="J2l-nL-tMK" id="GY7-ZS-WqO"/>
                     </connections>
@@ -451,7 +451,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="startClick:" destination="UZf-IL-CKm" eventType="touchUpInside" id="f7j-pW-87d"/>
+                                    <action selector="startClicked:" destination="UZf-IL-CKm" eventType="touchUpInside" id="f7j-pW-87d"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -554,7 +554,7 @@
                     <navigationItem key="navigationItem" id="jOz-fh-0gU"/>
                     <connections>
                         <outlet property="dropdownButton" destination="yXA-7b-bjN" id="zgU-NT-Wtv"/>
-                        <outlet property="quizImage" destination="wwO-b5-og6" id="ZcW-Pe-IhQ"/>
+                        <outlet property="quizImageView" destination="wwO-b5-og6" id="ZcW-Pe-IhQ"/>
                         <outlet property="quizTitleLabel" destination="MRt-UR-ZuV" id="fzC-II-fMo"/>
                     </connections>
                 </viewController>
@@ -709,7 +709,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="playAgainClick:" destination="nrr-rb-t5c" eventType="touchUpInside" id="dlP-AF-52v"/>
+                                    <action selector="playAgainClicked:" destination="nrr-rb-t5c" eventType="touchUpInside" id="dlP-AF-52v"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -729,8 +729,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="ume-YD-bks"/>
                     <connections>
-                        <outlet property="quizImage" destination="4Eb-hg-W6Y" id="PMt-WX-7fq"/>
-                        <outlet property="rate" destination="tRl-kn-kQO" id="hCL-XF-ZKr"/>
+                        <outlet property="quizImageView" destination="4Eb-hg-W6Y" id="PMt-WX-7fq"/>
+                        <outlet property="rateButton" destination="tRl-kn-kQO" id="hCL-XF-ZKr"/>
                         <outlet property="testTitleLabel" destination="MvO-UV-V8a" id="XLM-fN-yXZ"/>
                     </connections>
                 </viewController>
@@ -848,11 +848,11 @@
                     <navigationItem key="navigationItem" id="GGf-ay-1Ar"/>
                     <connections>
                         <outlet property="activityIndicator" destination="fTP-Cb-AQs" id="Yku-bL-foB"/>
-                        <outlet property="bottomAttachmentTitle" destination="ZUi-D8-Dgv" id="7JE-3D-3OS"/>
+                        <outlet property="bottomAttachmentTitleLabel" destination="ZUi-D8-Dgv" id="7JE-3D-3OS"/>
                         <outlet property="bottomVideoView" destination="keq-QD-xJ2" id="qgp-yd-9y8"/>
                         <outlet property="roundLabel" destination="GPy-Bt-dnC" id="4Mb-iT-p3B"/>
                         <outlet property="roundNameLabel" destination="x9I-TL-i77" id="sQC-BG-ATH"/>
-                        <outlet property="topAttachmentTitle" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
+                        <outlet property="topAttachmentTitleLabel" destination="sle-yQ-Zsp" id="aSc-aN-TTV"/>
                         <outlet property="topVideoView" destination="lUl-mc-pfs" id="5IB-hi-BLm"/>
                     </connections>
                 </viewController>
@@ -1128,7 +1128,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="nextClick:" destination="epE-jD-Lg0" eventType="touchUpInside" id="6l2-z8-y3K"/>
+                                    <action selector="nextClicked:" destination="epE-jD-Lg0" eventType="touchUpInside" id="6l2-z8-y3K"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKT-2w-lGS">
@@ -1146,7 +1146,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="pickerClick:" destination="epE-jD-Lg0" eventType="touchUpInside" id="2M2-h7-HgP"/>
+                                    <action selector="pickerClicked:" destination="epE-jD-Lg0" eventType="touchUpInside" id="2M2-h7-HgP"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1UP-of-qJ8">
@@ -1224,7 +1224,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="nextClick:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="0aa-nu-Din"/>
+                                    <action selector="nextClicked:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="0aa-nu-Din"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="125" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Vqf-te-zUW">
@@ -1278,7 +1278,7 @@
                                     <color key="baseBackgroundColor" red="0.36078431370000003" green="0.3294117647" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="AddVideoClick:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="6Ki-Jl-vyQ"/>
+                                    <action selector="addVideoClicked:" destination="F6F-Rs-nKM" eventType="touchUpInside" id="6Ki-Jl-vyQ"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W4K-lK-vtY">
@@ -1320,8 +1320,8 @@
                         <outlet property="attachTableView" destination="Vqf-te-zUW" id="s7Q-ga-2Jd"/>
                         <outlet property="loaderIndicator" destination="dEP-r4-IhM" id="BqT-KJ-dIV"/>
                         <outlet property="publishButton" destination="w0m-Kd-yTF" id="5WK-nd-ktc"/>
-                        <outlet property="videoTitleLabel" destination="W4K-lK-vtY" id="eIg-am-gme"/>
-                        <outlet property="youtubeURLTitle" destination="yyU-GP-hbM" id="YST-KR-tkX"/>
+                        <outlet property="videoTitleTextField" destination="W4K-lK-vtY" id="eIg-am-gme"/>
+                        <outlet property="youtubeURLTitleTextField" destination="yyU-GP-hbM" id="YST-KR-tkX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h41-KQ-ZgU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1342,7 +1342,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="75V-5A-abw" kind="relationship" relationship="viewControllers" id="rMr-si-I7v"/>
-                        <segue destination="Ow8-XL-7GE" kind="relationship" relationship="viewControllers" id="Yzn-mx-VXA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYl-LR-ijZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

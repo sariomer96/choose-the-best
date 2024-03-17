@@ -8,9 +8,9 @@ import PhotosUI
 import UIKit
 
 
-class ImageChoicesVC: BaseViewController {
+final class ImageChoicesVC: BaseViewController {
      
-    enum loadState {
+    enum LoadState {
         case loading
         case load
         
@@ -35,7 +35,7 @@ class ImageChoicesVC: BaseViewController {
         tableView.allowsSelection = false
     }
     
-    func setLoader(state:loadState) {
+    func setLoader(state:LoadState) {
         switch state {
             
         case .loading:
@@ -74,10 +74,10 @@ class ImageChoicesVC: BaseViewController {
         }
         imageChoicesViewModel.callbackAttachmentUpdateSuccess = { [weak self]  in
             guard let self = self else {return}
-              print("successcalback")
+        
             imageChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!,
-          categoryID: imageChoicesViewModel.categoryId, isVisible: true,is_image: imageChoicesViewModel.is_image,
-          attachment_ids: imageChoicesViewModel.attachmentIds)
+                                              categoryID: imageChoicesViewModel.categoryId, isVisible: true,isImage: imageChoicesViewModel.isImage,
+                                              attachmentIds: imageChoicesViewModel.attachmentIds)
         }
         imageChoicesViewModel.callbackAttachRemoveFail = { [weak self] alertStr in
             guard let self = self else { return}
@@ -108,16 +108,16 @@ class ImageChoicesVC: BaseViewController {
         imageChoicesViewModel.callbackStartLoader = {[weak self] in
             guard let self = self else {return}
             self.setLoader(state: .loading)
-            print("loading")
+       
         }
     }
     func clearArrays() {
         self.imageChoicesViewModel.imageArray.removeAll()
         self.imageChoicesViewModel.attachmentIds.removeAll()
         self.imageChoicesViewModel.attachNameList.removeAll()
-       // WebService.shared.attachmentIdList.removeAll()
+ 
     }
-    @IBAction func nextClick(_ sender: Any) {
+    @IBAction func nextClicked() {
          
         if imageChoicesViewModel.imageArray.count > 1 {
             setLoader(state: .loading)
@@ -129,7 +129,7 @@ class ImageChoicesVC: BaseViewController {
         }
        
     }
-    @IBAction func pickerClick(_ sender: Any) {
+    @IBAction func pickerClicked() {
         var config = PHPickerConfiguration()
         
         config.selectionLimit = 128
@@ -158,7 +158,9 @@ extension ImageChoicesVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ImagePickerTableViewCell") as! ImagePickerTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ImagePickerTableViewCell") as? ImagePickerTableViewCell
+        
+        guard let cell = cell else { return ImagePickerTableViewCell() }
         cell.delegate = self
         cell.attachImageView.image = imageChoicesViewModel.imageArray[indexPath.row]
         cell.nameTextField.text =   imageChoicesViewModel.attachNameList[indexPath.row]

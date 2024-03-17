@@ -9,10 +9,10 @@ import UIKit
 import Kingfisher
 
 
-class GameStartTourVC: BaseViewController {
+final class GameStartTourVC: BaseViewController {
 
     @IBOutlet weak var dropdownButton: UIButton!
-    @IBOutlet weak var quizImage: UIImageView!
+    @IBOutlet weak var quizImageView: UIImageView!
     @IBOutlet weak var quizTitleLabel: UILabel!
 
     let viewModel = GameStartTourViewModel()
@@ -25,7 +25,7 @@ class GameStartTourVC: BaseViewController {
     }
   
     override func viewWillAppear(_ animated: Bool) {
-        quizImage.kf.setImage(with: URL(string: (viewModel.quiz?.image)!))
+        quizImageView.kf.setImage(with: URL(string: (viewModel.quiz?.image)!))
         quizTitleLabel.text = viewModel.quiz?.title
     }
     
@@ -68,7 +68,7 @@ class GameStartTourVC: BaseViewController {
             
              dropdownButton.menu = UIMenu(children : action)
              dropdownButton.showsMenuAsPrimaryAction = true
-           //  dropdownButton.changesSelectionAsPrimaryAction = true
+            
         }
     }
   

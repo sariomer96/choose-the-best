@@ -6,7 +6,7 @@
 //
 
 import Foundation
- 
+
 struct CategoryResponse: Codable {
     let count: Int?
     let next: String?

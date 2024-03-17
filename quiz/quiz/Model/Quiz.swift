@@ -6,7 +6,7 @@
 //
 
 import Foundation
- 
+
 struct ApiResponse: Codable {
     let count: Int?
     let next: String?
@@ -15,42 +15,82 @@ struct ApiResponse: Codable {
 }
 
 struct QuizResponse: Codable {
-   
-    let id:Int
+
+    let id: Int
     let title: String?
     let image: String?
     let attachments: [Attachment]
     let category: Category
-    let created_at: String?
-    let is_visible : Bool?
-    let is_image : Bool?
-    let average_rate: Double?
+    let createdAt: String?
+    let isVisible: Bool?
+    let isImage: Bool?
+    let averageRate: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case image
+        case attachments
+        case category
+        case createdAt = "created_at"
+        case isVisible = "is_visible"
+        case isImage = "is_image"
+        case averageRate = "average_rate"
+
+    }
 
 }
 
- 
-struct Attachment: Codable{
-    
-    let id:Int?
+struct Attachment: Codable {
+
+    let id: Int?
     let title: String?
     let url: String?
-    let image : String?
+    let image: String?
     let score: Int?
-    let created_at: String?
-    let updated_at: String?
+    let createdAt: String?
+    let updatedAt: String?
+
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case url
+        case image
+        case score
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+
 }
 
-struct QuizRate :Codable{
+struct QuizRate: Codable {
     let id: Int
-    let created_at, updated_at: String
+    let createdAt, updatedAt: String
     let quiz: QuizResponse
-    let rate_score: Int
+    let rateScore: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case quiz
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case rateScore = "rate_score"
+    }
+
 }
- 
 
 struct Category: Codable {
     let id: Int?
     let name: String?
-    let created_at: String?
-    let updated_at: String?
+    let createdAt: String?
+    let updatedAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+
 }

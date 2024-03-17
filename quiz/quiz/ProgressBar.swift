@@ -9,7 +9,7 @@ import Foundation
 
 import UIKit
 
-class ProgressBar:UIView {
+final class ProgressBar:UIView {
     private var backgroundLayer : CAShapeLayer!
     private var foregroundLayer: CAShapeLayer!
     private var textLayer : CATextLayer!

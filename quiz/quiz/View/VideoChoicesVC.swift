@@ -9,35 +9,34 @@ import UIKit
 import Kingfisher
 import YouTubeiOSPlayerHelper
 
-class VideoChoicesVC: BaseViewController {
+final class VideoChoicesVC: BaseViewController {
 
     @IBOutlet weak var attachTableView: UITableView!
-    @IBOutlet weak var videoTitleLabel: UITextField!
-    @IBOutlet weak var youtubeURLTitle: UITextField!
- 
+    @IBOutlet weak var videoTitleTextField: UITextField!
+    @IBOutlet weak var youtubeURLTitleTextField: UITextField!
     @IBOutlet weak var publishButton: UIButton!
     @IBOutlet weak var loaderIndicator: UIActivityIndicatorView!
     var videoChoicesViewModel = VideoChoicesViewModel()
-   
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loaderIndicator.isHidden = true
         attachTableView.delegate = self
         attachTableView.dataSource = self
         attachTableView.allowsSelection = false
-        
+
         videoChoicesViewModel.callbackFail = {[weak self] error in
             guard let self = self else { return }
             self.alert(title: "Upload Failed!", message: error.localizedDescription)
             self.loaderIndicator.isHidden = true
             self.loaderIndicator.stopAnimating()
             self.publishButton.isEnabled = true
-            
+
         }
         videoChoicesViewModel.callbackAlert = {[weak self] errorMessage in
             guard let self = self else { return }
             self.alert(title: "Error!", message: errorMessage)
-            
+
         }
         videoChoicesViewModel.callbackPublishQuiz = { [weak self] quiz in
             guard let self = self else { return }
@@ -49,26 +48,24 @@ class VideoChoicesVC: BaseViewController {
             }
         }
     }
-    
-    @IBAction func AddVideoClick(_ sender: Any) {
-        videoChoicesViewModel.url = youtubeURLTitle.text!
+    @IBAction func addVideoClicked(_ sender: Any) {
+        videoChoicesViewModel.url = youtubeURLTitleTextField.text!
         let baseURL = videoChoicesViewModel.url.replacingOccurrences(of: " ", with: "")
-        let title = videoTitleLabel.text!
+        let title = videoTitleTextField.text!
         
         if baseURL.isEmpty == true || title.isEmpty == true {
             alert(title: "Empty Fields", message: "Please fill the fields")
             return
         }
-      
-        
-        videoChoicesViewModel.loadThumbNail(url: baseURL, title: title, baseURL: baseURL) { done in
-            self.youtubeURLTitle.text = ""
-            self.videoTitleLabel.text = ""
+
+        videoChoicesViewModel.loadThumbNail(url: baseURL, title: title, baseURL: baseURL) { _ in
+            self.youtubeURLTitleTextField.text = ""
+            self.videoTitleTextField.text = ""
             DispatchQueue.main.async {
                 self.attachTableView.reloadData()
             }
         }
-        
+
     }
     override func viewDidAppear(_ animated: Bool) {
         clearArrays()
@@ -76,22 +73,26 @@ class VideoChoicesVC: BaseViewController {
             self.attachTableView.reloadData()
         }
     }
-    @IBAction func nextClick(_ sender: Any) {
+    @IBAction func nextClicked(_ sender: Any) {
         if videoChoicesViewModel.thumbNails.count > 1 {
             publishButton.isEnabled = false
             loaderIndicator.isHidden = false
             loaderIndicator.startAnimating()
-            videoChoicesViewModel.addAttachmentsOnNextClick { [self] result in
+            videoChoicesViewModel.addAttachmentsOnNextClick { [self] _ in
                
                 
-                if videoChoicesViewModel.thumbNails.count > 1 {
-                    videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!, categoryID: videoChoicesViewModel.categoryId, isVisible: true,is_image: false, attachment_ids: videoChoicesViewModel.attachmentIds)
-                }else{
-                    alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
-                } 
+            if videoChoicesViewModel.thumbNails.count > 1 {
+                videoChoicesViewModel.publishQuiz(title: CreateQuizFields.shared.quizTitle!, image:CreateQuizFields.shared.quizHeaderImage!,
+                    categoryID: videoChoicesViewModel.categoryId,
+                    isVisible: true,
+                    isImage: false,
+                    attachmentIds: videoChoicesViewModel.attachmentIds)
+            }else{
+                alert(title: "Attachment fail", message: "Minimum attachment is 2 ")
             }
-          
         }
+          
+    }
       
      
     }
@@ -111,8 +112,9 @@ extension VideoChoicesVC:UITableViewDataSource,UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as! VideoChoicesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoChoicesCell") as? VideoChoicesTableViewCell
         
+        guard let cell = cell else { return VideoChoicesTableViewCell() }
         cell.videoTitleLabel.text = videoChoicesViewModel.titleArray[indexPath.row]
         cell.videoThumbnailImage.image = videoChoicesViewModel.thumbNails[indexPath.row]
         

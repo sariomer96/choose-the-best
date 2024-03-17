@@ -27,8 +27,8 @@ extension UIColor {
     }
 }
 
-class GameVC: BaseViewController {
-     
+final class GameVC: BaseViewController {
+
     @IBOutlet weak var roundNameLabel: UILabel!
     @IBOutlet weak var winLabel: UILabel!
     @IBOutlet weak var rightImageView: UIImageView!
@@ -39,61 +39,37 @@ class GameVC: BaseViewController {
     lazy var gameViewModel = GameViewModel()
     // MARK: Life Cycles Method
     override func viewDidLoad() {
-        
+
         super.viewDidLoad()
-        
-//        
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = view.bounds
-        
-        let redColor =  UIColor(hex: "#FF5050", alpha: 0.85)
-        let blueColor = UIColor(hex: "0066FF", alpha: 0.85)
-//       
-//        
-//        gradientLayer.colors = [redColor.cgColor, blueColor.cgColor]
-//        gradientLayer.locations = [0.0 ,1]
-//
-//        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-         
-        
-     //   self.view.layer.insertSublayer(gradientLayer, at: 0)
-      //  view.layer.addSublayer(gradientLayer)
-        
-  
+
+        let red =  UIColor(hex: "#FF5050", alpha: 0.85)
+        let blue = UIColor(hex: "0066FF", alpha: 0.85)
+
         roundNameLabel.layer.masksToBounds = true
         roundLabel.layer.masksToBounds = true
         roundNameLabel.layer.cornerRadius = 10
         roundLabel.layer.cornerRadius = 1
-        
-       // leftTitleLabel.layer.masksToBounds = true
-    //    rightTitleLabel.layer.masksToBounds = true
+
         leftImageView.layer.masksToBounds = true
         rightImageView.layer.masksToBounds = true
-        
-//        leftTitleLabel.layer.cornerRadius = 1
-//        rightTitleLabel.layer.cornerRadius = 1
-        
-        
+
        leftImageView.layer.borderWidth = 2
         leftImageView.layer.cornerRadius = 5
         rightImageView.layer.cornerRadius = 5
 
-        leftImageView.layer.borderColor = blueColor.cgColor
-        
+        leftImageView.layer.borderColor = blue.cgColor
         rightImageView.layer.borderWidth = 2
-        rightImageView.layer.borderColor = redColor.cgColor
-      
-     
+        rightImageView.layer.borderColor = red.cgColor
+
         initVM()
     }
-    
-    func fadeInOrOut(alpha:Double, imageView:UIImageView) {
+
+    func fadeInOrOut(alpha: Double, imageView: UIImageView) {
         UIView.animate(withDuration: 1.1, animations: {
             imageView.alpha = alpha
         })
     }
-    
+
     func initVM() {
         gameViewModel.callbackShowAlert = { [weak self] alertInfo in
             guard let self = self else { return }
@@ -102,7 +78,7 @@ class GameVC: BaseViewController {
             }
         }
         gameViewModel.callbackSetTitle = { [weak self] titles in
-            
+
             self?.leftTitleLabel.text = titles.0
             self?.rightTitleLabel.text = titles.1
         }
@@ -111,7 +87,7 @@ class GameVC: BaseViewController {
             leftImageView.kf.setImage(with: URL(string: image.0) ) { _ in
                 self.fadeInOrOut(alpha: 1.0, imageView: self.leftImageView)
             }
-            
+
             rightImageView.kf.setImage(with: URL(string: image.1) ) { _ in
                 self.fadeInOrOut(alpha: 1.0, imageView: self.rightImageView)
             }
@@ -119,72 +95,68 @@ class GameVC: BaseViewController {
         gameViewModel.callbackRoundName = { [weak self] name in
             guard let self = self else { return }
             roundNameLabel.text = name
-            
+
         }
-        
+
         gameViewModel.callBackSetSideImage = { [weak self] sideResult in
             guard let self = self else { return }
-            
+
             switch sideResult.1 {
             case 0:
                 setImageAlpha(alpha: sideResult.0, imageView: leftImageView)
             case 1:
                 setImageAlpha(alpha: sideResult.0, imageView: rightImageView)
-                
+
             default:
                 break
             }
         }
         gameViewModel.callbackWin = { [weak self] attachment in
             guard let self = self else {return}
-    
-             
+
               setImageInteraction(value: false)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      
-            let vc = storyboard.instantiateViewController(withIdentifier: "GamePopUpVC") as? GamePopUpVC
-            guard let vc = vc else{return}
-            
-            vc.gamePopUpViewModel.quiz = gameViewModel.quiz
-            vc.gamePopUpViewModel.attachment = attachment
-            
-            
-           self.navigationController?.pushViewController(vc, animated: false)
-     
+
+            let viewC = storyboard.instantiateViewController(withIdentifier: "GamePopUpVC") as? GamePopUpVC
+            guard let viewC = viewC else { return }
+
+            viewC.gamePopUpViewModel.quiz = gameViewModel.quiz
+            viewC.gamePopUpViewModel.attachment = attachment
+
+           self.navigationController?.pushViewController(viewC, animated: false)
+
         }
-        
-        func setImageInteraction(value : Bool) {
+
+        func setImageInteraction(value: Bool) {
             leftImageView.isUserInteractionEnabled = value
             rightImageView.isUserInteractionEnabled = value
         }
-        gameViewModel.callbackShowPopUp = { [weak self] result in
+        gameViewModel.callbackShowPopUp = { [weak self] _ in
             guard let self = self else {return}
-            
+
         }
         gameViewModel.callbackDisableUIElements = { [weak self] in
             guard let self = self else {return}
-//            leftTitleLabel.isHidden = true
-//            rightTitleLabel.isHidden = true
+
             roundLabel.isHidden = true
         }
- 
-        
-        func setWinImage(winImageView:UIImageView) {
+
+        func setWinImage(winImageView: UIImageView) {
             winImageView.alpha = 1
             winImageView.translatesAutoresizingMaskIntoConstraints = false
-         
+
             NSLayoutConstraint.activate([
                 winImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                 winImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
             ])
         }
-        
+
         gameViewModel.callbackSetRoundLabel = { [weak self] text in
             guard let self = self else {return}
             roundLabel.text = text
         }
-        
-        func setImageAlpha(alpha:Double,imageView:UIImageView) {
+
+        func setImageAlpha(alpha: Double, imageView: UIImageView) {
             UIView.animate(withDuration: 1.1, animations: {
                 imageView.alpha = alpha
             })
@@ -194,16 +166,15 @@ class GameVC: BaseViewController {
             roundLabel.text = ""
         }
         override func viewDidAppear(_ animated: Bool) {
-            
+
             gameViewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
-           
+
             startQuiz()
-             
+
         }
-       
+
         func startQuiz() {
             gameViewModel.startQuiz()
         }
-  
-        
+
     }

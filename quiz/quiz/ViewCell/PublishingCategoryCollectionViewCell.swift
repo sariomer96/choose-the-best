@@ -8,6 +8,6 @@
 import UIKit
 
 class PublishingCategoryCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var categoryLabel: UILabel!
  }
