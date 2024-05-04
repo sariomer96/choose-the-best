@@ -35,7 +35,7 @@ final class QuizListViewModel: QuizListProtocol {
 
            guard isStillExistQuiz else { return }
               currentQuizPageCount += 1
-           self.getQuizList() { _ in
+           self.getQuizList { _ in
              self.callbackReloadQuizTableView?()
           }
 

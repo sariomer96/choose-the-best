@@ -39,8 +39,8 @@ final class VideoChoicesViewModel: BaseChoicesViewModel {
                 guard let id = attach.id else {return}
                 self.attachmentIds.append(id)
                 completion(true)
-            case .failure(_):
-                print("fail")
+            case .failure(let fail):
+                print(fail.localizedDescription)
             }
         }
     }
@@ -59,9 +59,9 @@ final class VideoChoicesViewModel: BaseChoicesViewModel {
         }
     }
     func loadThumbNail(url: String, title: String, baseURL: String, completion: @escaping (Bool) -> Void) {
-        WebService.shared.loadYoutubeThumbnail(url: url, title: title) { boolResult, uiimage, result  in
+        WebService.shared.loadYoutubeThumbnail(url: url, title: title) { success, uiimage, result  in
 
-            if boolResult == true {
+            if success == true {
                 self.thumbNails.append(uiimage!)
                 self.titleArray.append(title)
                 self.videoUrlList.append(result)

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol GameViewModelProtocol {
     var callbackShowAlert: CallBack<(alertTitle: String, description: String )>? { get set }
@@ -15,7 +14,7 @@ protocol GameViewModelProtocol {
     var callbackWin: CallBack<Attachment>? { get set }
     var callbackShowPopUp: CallBack<(String, String)>? { get set }
     var callbackDisableUIElements: VoidCallBack? {get set}
-
+    
     var callbackImageMoveCenter: CallBack<Int>? {get set}
 }
 
@@ -43,20 +42,11 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
        case leftImage
        case rightImage
     }
+
     func setPlayableCount(count: Int) {
           playableCount  = count
     }
-    func imageTap(imageViewLeft: UIImageView, imageViewRight: UIImageView) {
 
-     let tapGestureLeft = UITapGestureRecognizer(target: self, action: #selector(imageClickedLeft))
-     let tapGestureRight = UITapGestureRecognizer(target: self, action: #selector(imageClickedRight))
-
-       imageViewLeft.addGestureRecognizer(tapGestureLeft)
-       imageViewLeft.isUserInteractionEnabled = true
-
-       imageViewRight.addGestureRecognizer(tapGestureRight)
-       imageViewRight.isUserInteractionEnabled = true
-    }
     func setImages(index: Int) {
 
         if matchedList.count == 0 || matchedList.count <= index {
@@ -68,6 +58,7 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
         callbackSetImageURL?((quiz0, quiz1))
 
     }
+
     func setTitle(index: Int) {
 
         if matchedList.count == 0 || matchedList.count <= index {
@@ -79,32 +70,10 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
         callbackSetTitle?((leftTitle, rightTitle))
     }
 
-    @objc func imageClickedLeft() {
-
-        let id =   getAttachmentID(side: 0)
-        setAttachmentScore(attachID: id)
-        self.fadeInOrOut(alpha: 0.0, side: 0)
-        self.fadeInOrOut(alpha: 0.0, side: 1)
-
-        winAttachs.append(matchedAttachs[startIndex][0])
-
-        startIndex += 1
-        roundIndex += 1
-
-        if startIndex < matchedAttachs.count {
-            setImages(index: startIndex)
-            setTitle(index: startIndex)
-        }
-        if winAttachs.count  == matchedAttachs.count {
-
-            getNextTour(winImageSide: 0)
-            return
-        }
-        setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
-    }
     func setPopUpView(imageUrl: String, title: String) {
         callbackShowPopUp?((imageUrl, title))
      }
+
     func winState(winImageSide: Int) -> Bool {
         if winAttachs.count == 1 {
 
@@ -122,23 +91,20 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
         return false
     }
     func imageMoveToCenter(winImageSide: Int) {
-
         callbackImageMoveCenter?(winImageSide)
-
     }
-    func getNextTour(winImageSide: Int) {
 
-       var finish =   winState(winImageSide: winImageSide)
+    func checkGameOver(winImageSide: Int) -> Bool {
+        let gameOverState =   winState(winImageSide: winImageSide)
 
-        if finish == true {
-            disableLabels()
-            return
-        }
+        return gameOverState
+    }
+    func configureNextTour(winImageSide: Int) {
 
         playableCount = playableCount!/2
         resetIndexes()
         matchedAttachs = matchQuiz(attachment: winAttachs, playableCount: playableCount!)
-        print(matchedAttachs.count)
+
         let result = Int(log2(Double(matchedAttachs.count)))
         self.setRoundName( index: result)
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
@@ -148,15 +114,14 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
 
     }
 
-    @objc func imageClickedRight() {
-
-        let id =   getAttachmentID(side: 1)
+    func tappedImage(side: Int) {
+        let id =   getAttachmentID(side: side) 
         setAttachmentScore(attachID: id)
 
         self.fadeInOrOut(alpha: 0.0, side: 0)
         self.fadeInOrOut(alpha: 0.0, side: 1)
 
-        winAttachs.append(matchedAttachs[startIndex][1])
+        winAttachs.append(matchedAttachs[startIndex][side])
 
         startIndex += 1
         roundIndex += 1
@@ -166,26 +131,27 @@ final class GameViewModel: BaseGameViewModel, GameViewModelProtocol {
             setTitle(index: startIndex)
         }
         if winAttachs.count  == matchedAttachs.count {
-
-            getNextTour(winImageSide: 1)
+            let isFinish =  checkGameOver(winImageSide: side)
+            if isFinish == true {
+                disableLabels()
+                return
+            }else {
+                configureNextTour(winImageSide: side)
+            }
             return
         }
         setRound(roundIndex: roundIndex, tourCount: matchedAttachs.count)
     }
 
     func fadeInOrOut(alpha: Double, side: Int) {
-
           callBackSetSideImage?((alpha, side))
-
     }
 
     func disableLabels() {
-
         callbackDisableUIElements?()
-
     }
 
-     func startQuiz() {
+    func startQuiz() {
 
         matchedAttachs =  matchQuiz(attachment: quiz!.attachments, playableCount: playableCount!)
          let result = Int(log2(Double(matchedAttachs.count)))

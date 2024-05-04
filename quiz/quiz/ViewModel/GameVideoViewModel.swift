@@ -91,7 +91,7 @@ final class GameVideoViewModel: BaseGameViewModel, GameVideoModelProtocol {
     }
     func getNextTour(bottomPlayer: YTPlayerView, topPlayer: YTPlayerView, completion: @escaping  (Attachment) -> Void) {
 
-       var finish =   winState()
+       var finish =  winState()
 
         if finish == true {
 

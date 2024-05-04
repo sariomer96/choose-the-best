@@ -167,14 +167,31 @@ final class GameVC: BaseViewController {
         }
         override func viewDidAppear(_ animated: Bool) {
 
-            gameViewModel.imageTap(imageViewLeft: leftImageView, imageViewRight: rightImageView)
-
+            setImageTapRecognizer()
             startQuiz()
 
         }
 
-        func startQuiz() {
-            gameViewModel.startQuiz()
-        }
-
+    func startQuiz() {
+        gameViewModel.startQuiz()
     }
+
+    func setImageTapRecognizer() {
+
+     let tapGestureLeft = UITapGestureRecognizer(target: self, action: #selector(leftTapped))
+     let tapGestureRight = UITapGestureRecognizer(target: self, action: #selector(rightTapped))
+
+       leftImageView.addGestureRecognizer(tapGestureLeft)
+       leftImageView.isUserInteractionEnabled = true
+
+       rightImageView.addGestureRecognizer(tapGestureRight)
+       rightImageView.isUserInteractionEnabled = true
+    }
+    @objc func leftTapped() {
+        gameViewModel.tappedImage(side: 0)
+    }
+    @objc func rightTapped() {
+        gameViewModel.tappedImage(side: 1)
+    }
+
+}

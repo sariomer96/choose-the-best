@@ -67,7 +67,6 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
 
     func editTitle(index: Int, title: String?) {
         guard let title = title, attachNameList.count > index else { return }
-
         attachNameList[index] = title
     }
 
@@ -80,8 +79,8 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                 self.attachNameList.remove(at: index)
                 self.attachmentIds.remove(at: index)
                 self.callbackReloadTableView?()
-            case .failure(let fail):
 
+            case .failure(let fail):
                 self.callbackAttachRemoveFail?(fail.localizedDescription)
             }
         }
@@ -108,7 +107,6 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
                         case false:
                             self.callbackImageUploadFail?(error?.localizedDescription ?? "image upload failed")
 
-                            break
                         }
 
                     }
@@ -117,6 +115,7 @@ final class ImageChoicesViewModel: BaseChoicesViewModel {
             }
         }
     }
+
     func setImage(image: UIImage) {
 
         self.imageArray.append(image)

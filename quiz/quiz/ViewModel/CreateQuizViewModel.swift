@@ -45,7 +45,7 @@ final class CreateQuizViewModel: NSObject {
             }
         }
 }
-
+ 
     func getDropDownActions() -> [UIAction] {
         var categoryActionMap: [UIAction: Int] = [:]
          action.removeAll()

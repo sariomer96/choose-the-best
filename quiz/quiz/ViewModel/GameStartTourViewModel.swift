@@ -33,6 +33,7 @@ final class GameStartTourViewModel {
         }
         return rounds[0]
     }
+
     func getDropDownActions(attachmentCount: Int, completion: @escaping (Int) -> Void) -> [UIAction] {
 
         let optionClosure = { [self] (action: UIAction) in
@@ -47,10 +48,8 @@ final class GameStartTourViewModel {
         let index =  rounds.firstIndex(of: round!)
 
         for index in stride(from: 0, to: index!+1, by: 1) {
-
             action.append(UIAction(title: roundsKey[index], state: .on, handler: optionClosure))
         }
-
         return action
     }
 
